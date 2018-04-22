@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Input;
 
 class LoginController extends Controller
 {
@@ -35,5 +37,21 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function postLogin(Request $request)
+    {
+        $email=Input::get('email');
+        $password=Input::get('password');
+        $credentials=[
+            'email'=>$email,
+            'password'=>$password
+        ];
+        return $credentials;
+        if(Auth::attempt($credentials))
+        {
+            return Auth::user();
+        }
+        return response('Wrong username or password', 302)->header('Content-Type', 'text/plain');
     }
 }
