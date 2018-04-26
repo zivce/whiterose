@@ -2,6 +2,6 @@
 
 @section('content')
 
-<div id="home"></div>
+<div id="lender"></div>
 
 @endsection
