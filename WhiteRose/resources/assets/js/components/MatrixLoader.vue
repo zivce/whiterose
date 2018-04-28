@@ -59,7 +59,7 @@ export default {
           
           this.ctx.fillText(txt,index*this.font_size,drop * this.font_size);
           
-          if(this.drops[index]  > this.height && Math.random() > 0.975)
+          if(this.drops[index]  > this.height)
             this.drops[index] = 0;
           else 
             this.drops[index]++;

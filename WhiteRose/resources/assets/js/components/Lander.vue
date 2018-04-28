@@ -26,6 +26,9 @@ import logger from "../utils/groupLogger";
 export default {
   mounted() {
     logger(["Component Lander mounted", "Happy Hacking"], "Lander.vue");
+    setTimeout(()=> {
+
+    },1000);
   },
   data() {
     return {

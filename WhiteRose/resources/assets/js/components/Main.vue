@@ -1,7 +1,11 @@
 <template>
     <div id="main">
-      <matrix v-if="isVisibleMatrix"></matrix>
-      <router-view v-if="!isVisibleMatrix"></router-view>
+      <transition name="fade">
+        <matrix v-if="isVisibleMatrix"></matrix>
+      </transition>
+      <transition name="fade">
+        <router-view v-if="!isVisibleMatrix"></router-view>
+      </transition>
     </div>
 </template>
 
@@ -19,7 +23,7 @@ export default {
 
     this.timer = setTimeout(() => {
       this.isVisibleMatrix = false;
-    }, 3000);
+    }, 4000);
   },
   destroyed() {
     clearTimeout(timer);
@@ -35,4 +39,11 @@ export default {
 
 
 <style scoped>
+/* da se pomeri na dole kad predje na sledecu komponentu  */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.4s;
+  }
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 </style>
