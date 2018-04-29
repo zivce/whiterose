@@ -1,22 +1,71 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
 window.Vue = require('vue');
 
 /**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+ * Imports block 
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+import BootstrapVue from 'bootstrap-vue'
 
-const app = new Vue({
-    el: '#app'
-});
+import routes from './routes/routes';
+
+import VueRouter from 'vue-router';
+
+import logger from './utils/groupLogger';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+
+
+/**
+ * imports end
+ */
+
+
+
+
+Vue.use(VueRouter);
+
+Vue.use(BootstrapVue);
+
+
+const router = new VueRouter({
+    routes
+})
+
+const lander = new Vue({
+
+    el: '#lander',
+    router,
+    created(){
+
+        
+    },
+    mounted(){
+        
+        logger(["App mounted","Welcome"],"App.js")
+
+        //ASSERTION
+        //HERE GOES ROUTE CHECKIFLOGGEDIN OR SESHSTATUS..
+        
+        let seshStatus = true;
+        //or false.. 
+
+
+        logger(["user first time here",seshStatus],"App.js");
+        
+        if(seshStatus)
+        {
+            //Vue routing
+            router.push({path:'/lander'})
+        }
+        else
+        {
+            //Laravel routing
+            window.location.href = "/mainapp";
+        }
+    }
+
+
+})
