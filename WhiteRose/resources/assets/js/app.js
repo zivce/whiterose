@@ -43,9 +43,6 @@ const lander = new Vue({
         
     },
     mounted(){
-        
-        logger(["App mounted","Welcome"],"App.js")
-
         //ASSERTION
         //HERE GOES ROUTE CHECKIFLOGGEDIN OR SESHSTATUS..
         
@@ -62,8 +59,12 @@ const lander = new Vue({
         }
         else
         {
-            //Laravel routing
-            window.location.href = "/mainapp";
+            //Saceka matrix loader
+            window.setTimeout(()=>{
+                //Laravel routing
+                window.location.href = "/home";
+            },4000);
+
         }
     }
 

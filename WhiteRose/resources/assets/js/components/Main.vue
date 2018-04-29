@@ -26,7 +26,7 @@ export default {
     }, 4000);
   },
   destroyed() {
-    clearTimeout(timer);
+    clearTimeout(this.timer);
   },
   data() {
     return {
@@ -40,10 +40,12 @@ export default {
 
 <style scoped>
 /* da se pomeri na dole kad predje na sledecu komponentu  */
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.4s;
-  }
-.fade-enter, .fade-leave-to {
+}
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 </style>
