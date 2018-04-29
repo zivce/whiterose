@@ -1,8 +1,8 @@
 <template>
     <div id="main">
-      <transition name="fade">
+      <!-- <transition name="fade">
         <matrix v-if="isVisibleMatrix"></matrix>
-      </transition>
+      </transition> -->
       <transition name="fade">
         <router-view v-if="!isVisibleMatrix"></router-view>
       </transition>
@@ -21,9 +21,12 @@ export default {
   mounted() {
     logger(["Component Main mounted", "happy hacking"], "Main.vue");
 
+    //CHANGE LATER FOR LOADER TO 4000
+    let delay = 4;
+
     this.timer = setTimeout(() => {
       this.isVisibleMatrix = false;
-    }, 4000);
+    }, delay);
   },
   destroyed() {
     clearTimeout(this.timer);

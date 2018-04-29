@@ -9,7 +9,7 @@
       </b-button>
 
 
-      <b-button size="lg" variant="outline-primary" href="/user" id="usr">
+      <b-button size="lg" variant="outline-primary" href="/client" id="usr">
         User?
       </b-button>
 

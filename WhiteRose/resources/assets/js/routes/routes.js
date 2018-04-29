@@ -10,7 +10,7 @@ let routes = [
             component : require('../components/Lander.vue'),
         }
         ],
-        component: require('../components/Main.vue')
+        component: require('../components/MainLander.vue')
     }
 ]
 
