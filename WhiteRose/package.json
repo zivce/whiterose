@@ -32,6 +32,8 @@
         "vue-router": "^3.0.1"
     },
     "dependencies": {
-        "bootstrap-vue": "^2.0.0-rc.9"
+        "bootstrap-vue": "^2.0.0-rc.9",
+        "vee-validate": "^2.0.8",
+        "vue-snotify": "^3.0.4"
     }
 }

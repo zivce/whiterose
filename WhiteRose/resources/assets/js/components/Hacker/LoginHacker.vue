@@ -1,7 +1,7 @@
 <template>
-    <div id="main">
+    <div id="lander_hacker_login_main">
         <h1>
-            Welcome to the dark side.
+            Login here:
         </h1>
 
     </div>

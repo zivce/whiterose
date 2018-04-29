@@ -1,0 +1,82 @@
+
+/*FORM CSS */ 
+.fform {
+
+    line-height: 2;
+    // position: absolute;
+    // left: 40%;
+    // top: 30%;
+    background-color: rgba(227, 228, 222, 0.5);
+    padding-bottom: 0.5em;
+    text-align: center;
+    width: 22em;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 1.5em;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.24);
+    font-size: 1rem;
+  }
+  .actionbtn
+  {
+    width:100%;
+  }
+  .btn{
+    border-radius: 0%;
+  }
+  
+  .fform_input input {
+    font-weight: 500;
+    border:0;
+    background-color: transparent !important;
+    width:95%;  
+    text-align: center;
+    cursor: pointer;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .fform_input input::placeholder {
+    color: rgba(0, 8, 53, 0.603);
+
+  }
+  
+  
+  .fform_input input:focus {
+    cursor: text;
+    width:100%;
+    outline:none !important;
+    border-bottom: 1px solid rgba(0, 8, 53, 0.603);
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus
+  input:-webkit-autofill, 
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: rgb(8, 1, 22);
+    transition: background-color 5000s ease-in-out 0s;
+  }
+  
+  /* app  input css */
+.fform_input label {
+  font-size: 15px;
+  font-weight: 700;
+  padding-right: 0.5rem;
+  margin: auto;
+}
+
+
+.incorrect_input {
+  float: left;
+  width: 100%;
+  color: red;
+  font-size: 10px;
+  font-weight: 700;
+}

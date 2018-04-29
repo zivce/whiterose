@@ -1,11 +1,15 @@
 <template>
-    <div id="main">
+    <div id="lander_before_main">
       <!-- <transition name="fade">
         <matrix v-if="isVisibleMatrix"></matrix>
       </transition> -->
+
+
       <transition name="fade">
         <router-view v-if="!isVisibleMatrix"></router-view>
       </transition>
+      <vue-snotify/>
+
     </div>
 </template>
 

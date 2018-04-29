@@ -4,15 +4,22 @@
       <h1>
         Follow the white rabbit.
       </h1>
-      <b-button size="lg" href="/hacker" variant="outline-danger" id="hck">
-        Hacker?
-      </b-button>
+      
+      <router-link to="hacker">
+      
+        <b-button size="lg"  variant="outline-danger" id="hck">
+          Hacker?
+        </b-button>
+      
+      </router-link>
+ 
+      <router-link to="client">
 
+        <b-button size="lg" variant="outline-primary" href="/client" id="usr">
+          User?
+        </b-button>
 
-      <b-button size="lg" variant="outline-primary" href="/client" id="usr">
-        User?
-      </b-button>
-
+      </router-link>
     </main>
 
     

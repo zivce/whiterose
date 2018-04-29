@@ -1,5 +1,5 @@
 <template>
-  <canvas id='m' class="row">
+  <canvas id='mat' class="row">
   </canvas>
 </template>
 
@@ -8,7 +8,7 @@ import logger from "../utils/groupLogger";
 
 export default {
   mounted() {
-    this.m = document.getElementById("m");
+    this.m = document.getElementById("mat");
     this.ctx = this.m.getContext("2d");
 
     this.m.width = this.width;
@@ -19,6 +19,7 @@ export default {
     this.drops = new Array(this.columns).join(1).split("");
 
     this.int = setInterval(this.draw, 30);
+
   },
   data() {
     return {
@@ -32,7 +33,7 @@ export default {
       ),
       columns: undefined,
       drops: [],
-      font_size: 9
+      font_size: 10
     };
   },
   destroyed() {
@@ -50,7 +51,11 @@ export default {
 
         this.ctx.fillText(txt, index * this.font_size, drop * this.font_size);
 
-        if (this.drops[index] > this.height) this.drops[index] = 0;
+        if (this.drops[index] > this.height) 
+        {
+          this.drops[index] = 0;
+          clearInterval(this.int);
+        }
         else this.drops[index]++;
       });
     }

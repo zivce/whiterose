@@ -3,11 +3,19 @@ let routes = [
     {
         name:'main',
         path: '/',
-        meta:{redirectIfLoggedIn:true},
+        redirect: 'lander',
         children: [
         {
-            path:'/lander',
+            path:'lander',
             component : require('../components/Lander.vue'),
+        },
+        {
+            path:'client',
+            component : require('../components/Client/MainClient.vue'),
+        },
+        {
+            path:'hacker',
+            component : require('../components/Hacker/MainHacker.vue'),
         }
         ],
         component: require('../components/MainLander.vue')
