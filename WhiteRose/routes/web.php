@@ -19,4 +19,6 @@ Auth::routes();
 
 //Route::get('login','Auth\LoginController@getLogin')->name('login');
 Route::post('login','Auth\LoginController@postLogin')->name('login');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@home')->name('home');
+Route::get('/client', 'HomeController@client')->name('client');
+Route::get('/hacker', 'HomeController@hacker')->name('hacker');
