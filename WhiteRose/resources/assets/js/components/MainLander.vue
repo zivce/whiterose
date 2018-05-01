@@ -8,6 +8,7 @@
       <transition name="fade">
         <router-view v-if="!isVisibleMatrix"></router-view>
       </transition>
+      
       <vue-snotify/>
 
     </div>
@@ -27,7 +28,6 @@ export default {
 
     //CHANGE LATER FOR LOADER TO 4000
     let delay = 4;
-    
 
     this.timer = setTimeout(() => {
       this.isVisibleMatrix = false;

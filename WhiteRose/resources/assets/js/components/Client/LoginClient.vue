@@ -69,12 +69,9 @@
 import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 
-
 export default {
- 
-  mounted() {
-
-  },computed: {
+  mounted() {},
+  computed: {
     errorEmail() {
       return this.errors.has("email");
     },
@@ -82,85 +79,73 @@ export default {
       return this.errors.has("password");
     }
   },
-  destroyed() {
-  },
+  destroyed() {},
   data() {
     return {
-      
-      submitHandler (){
-          axios
-            .post("/userLogin", {
-              email: this.inputs.email.value,
-              pw: this.inputs.pw.value
-            })
-            .then(function(response) {
-              
-              let user_exists =  
-                response.data !== "User does not exist";
-              
-              
-              let email_not_verified = 
-                response.data === "Please verify your account";
-              
-              if (email_not_verified) 
-              {
+      submitHandler() {
+        axios
+          .post("/userLogin", {
+            email: this.inputs.email.value,
+            pw: this.inputs.pw.value
+          })
+          .then(function(response) {
+            let user_exists = response.data !== "User does not exist";
 
-                this.$snotify.info("Verify your email.", "Verification", {
-                  position: SnotifyPosition.centerTop,
-                  backdrop: 0.5
-                });
+            let email_not_verified =
+              response.data === "Please verify your account";
 
-                return; 
-              }
-              else if (user_exists) {
-                
-                //after login go to home and header should change
-                
-                axios.get("/home").then(()=>{
-
-                  window.setTimeout (() => {
-                    window.location.href = "/";
-                  },5) 
-
-                  return;
-                
-                });
-              }
-              else {
-                //does not exist
-                this.$snotify.error("User does not exist!", "Error!", {
-                  position: SnotifyPosition.centerTop,
-                  backdrop: 0.5
-                });
-              }
-            })
-            .catch(function(error) {
-              vm.$snotify.error("Not logged in!", "Error!", {
+            if (email_not_verified) {
+              this.$snotify.info("Verify your email.", "Verification", {
                 position: SnotifyPosition.centerTop,
                 backdrop: 0.5
               });
+
+              return;
+            } else if (user_exists) {
+              //after login go to home and header should change
+
+              axios.get("/home").then(() => {
+                window.setTimeout(() => {
+                  window.location.href = "/";
+                }, 5);
+
+                return;
+              });
+            } else {
+              //does not exist
+              this.$snotify.error("User does not exist!", "Error!", {
+                position: SnotifyPosition.centerTop,
+                backdrop: 0.5
+              });
+            }
+          })
+          .catch(function(error) {
+            vm.$snotify.error("Not logged in!", "Error!", {
+              position: SnotifyPosition.centerTop,
+              backdrop: 0.5
             });
+          });
       },
       inputs: {
-          email: {
-            type: "email",
-            id: "email",
-            label: "e-mail address",
-            value: "",
-            validation: {
-              required: true
-            }
-          },
-          pw: {
-            type: "password",
-            id: "password",
-            label: "password",
-            value: "",
-            validation: {
-              required: true
-            }
+        email: {
+          type: "email",
+          id: "email",
+          label: "e-mail address",
+          value: "",
+          validation: {
+            required: true
+          }
+        },
+        pw: {
+          type: "password",
+          id: "password",
+          label: "password",
+          value: "",
+          validation: {
+            required: true
           }
         }
+      }
     };
   }
 };
@@ -168,7 +153,6 @@ export default {
 
 
 <style scoped>
-
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
 }

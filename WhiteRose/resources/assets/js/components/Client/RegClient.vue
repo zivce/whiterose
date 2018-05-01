@@ -11,23 +11,21 @@
 import logger from "../../utils/groupLogger";
 
 export default {
- 
   mounted() {
-     logger(["Component LoginClient mounted", "happy hacking"], "LoginClient.vue");
-
+    logger(
+      ["Component LoginClient mounted", "happy hacking"],
+      "LoginClient.vue"
+    );
   },
-  destroyed() {
-  },
+  destroyed() {},
   data() {
-    return {
-    };
+    return {};
   }
 };
 </script>
 
 
 <style scoped>
-
 /* da se pomeri na dole kad predje na sledecu komponentu  */
 .fade-enter-active,
 .fade-leave-active {

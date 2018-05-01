@@ -19,7 +19,6 @@ export default {
     this.drops = new Array(this.columns).join(1).split("");
 
     this.int = setInterval(this.draw, 30);
-
   },
   data() {
     return {
@@ -51,12 +50,10 @@ export default {
 
         this.ctx.fillText(txt, index * this.font_size, drop * this.font_size);
 
-        if (this.drops[index] > this.height) 
-        {
+        if (this.drops[index] > this.height) {
           this.drops[index] = 0;
           clearInterval(this.int);
-        }
-        else this.drops[index]++;
+        } else this.drops[index]++;
       });
     }
   }

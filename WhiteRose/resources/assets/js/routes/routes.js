@@ -1,9 +1,9 @@
-
+import VueRouter from 'vue-router';
 let routes = [
     {
         name:'lander',
-        path: '/lander',
-        redirect: 'lander/lander',
+        path: '/',
+        redirect:'lander',
         children: [
         {
             path:'lander',
@@ -19,7 +19,14 @@ let routes = [
         }
         ],
         component: require('../components/MainLander.vue')
+    },
+    {
+        path:'*',
+        redirect:'/lander'
     }
 ]
 
-export default routes;
+
+export default new VueRouter({
+    routes
+});

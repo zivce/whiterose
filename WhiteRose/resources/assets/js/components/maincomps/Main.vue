@@ -6,6 +6,8 @@
 
       <router-view>
       </router-view>
+      
+      <vue-snotify/>
 
       
   </div>
@@ -16,17 +18,14 @@
 import logger from "../../utils/groupLogger";
 
 export default {
-  mounted(){
-    logger(["hellow"],"Main.vue");
+  mounted() {
+    logger(["hellow"], "Main.vue");
   },
-  data(){
-    return {
-      
-    }
+  data() {
+    return {};
   }
-}
+};
 </script>
 
 <style scoped>
-
 </style>

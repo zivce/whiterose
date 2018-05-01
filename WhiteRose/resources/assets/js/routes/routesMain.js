@@ -1,12 +1,12 @@
-
+import VueRouter from 'vue-router';
 let routes = [
     {
         name:'main',
-        path: '/main',
+        path: '/',
         children: [
         {
             path:'/user',
-            component : require('../components/maincomps/User.vue'),
+            component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
                 //load user comps here
                 //Post job
@@ -27,7 +27,7 @@ let routes = [
                 //SkillsTest
                 //Superior Application
             ],
-            component : require('../components/maincomps/Pentester.vue'),
+            component : require('../components/maincomps/MainChildren/Pentester.vue'),
         },
         {
             path:'moderator',
@@ -37,7 +37,7 @@ let routes = [
                 //AllJobs
 
             ],
-            component : require('../components/maincomps/Moderator.vue'),
+            component : require('../components/maincomps/MainChildren/Moderator.vue'),
         },
         {
             path:'admin',
@@ -46,13 +46,19 @@ let routes = [
                 //PostViewer 
                 //MessageReplierLander
             ],
-            component : require('../components/maincomps/Admin.vue'),
+            component : require('../components/maincomps/MainChildren/Admin.vue'),
         }
         
 
         ],
         component: require('../components/maincomps/Main.vue')
+    },
+    {
+        path:'*',
+        redirect:'/'
     }
 ]
 
-export default routes;
+export default new VueRouter({
+    routes
+});

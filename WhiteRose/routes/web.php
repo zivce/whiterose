@@ -11,14 +11,16 @@
 |
 */
 
+$loggedIn = true;
 
-Route::get('/main',function(){
-    return view('home');
-});
-
-Route::get('/lander', function () {
-    return view('lender');
-});
+if($loggedIn)
+    Route::get('/',function(){
+        return view('home');
+    });
+else
+    Route::get('/', function () {
+        return view('lender');
+    });
 
 Auth::routes();
 

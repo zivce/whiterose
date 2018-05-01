@@ -35,40 +35,36 @@
 
 
 <script>
-
-import LoginHacker from './LoginHacker.vue';
-import RegHacker from './RegHacker.vue';
+import LoginHacker from "./LoginHacker.vue";
+import RegHacker from "./RegHacker.vue";
 import { SnotifyPosition } from "vue-snotify";
 
 export default {
-  components:{
-    RegHacker,LoginHacker
+  components: {
+    RegHacker,
+    LoginHacker
   },
-  mounted() {
-  },
-  methods : {
-    loginTrue(){
-
+  mounted() {},
+  methods: {
+    loginTrue() {
       this.login = true;
       this.reg = false;
     },
-    regTrue(){
-
+    regTrue() {
       this.$snotify.info("Verify your email.", "Verification", {
         position: SnotifyPosition.leftBottom,
         backdrop: 0.5
       });
-      
+
       this.reg = true;
       this.login = false;
     }
   },
-  destroyed() {
-  },
+  destroyed() {},
   data() {
     return {
-      login:false,
-      reg:true
+      login: false,
+      reg: true
     };
   }
 };
@@ -76,47 +72,43 @@ export default {
 
 
 <style scoped>
-
-#log{
+#log {
 }
 
-#btns
-{
-
+#btns {
   width: fit-content;
   margin: auto;
-
 }
 
 #wrapper * {
   margin-bottom: 10px;
 }
 
-#wrapper{
+#wrapper {
   width: 100%;
-  height:100%;
+  height: 100%;
   background-color: rgba(24, 23, 23, 0.81);
   box-shadow: 1px 1px inset;
 }
 
-h1{
-  color:#e7e7e7ef;
+h1 {
+  color: #e7e7e7ef;
   width: fit-content;
   margin: auto;
 }
 
-#lander_hacker_main{
-  background-color:transparent;
+#lander_hacker_main {
+  background-color: transparent;
   height: 100vh;
 }
 
-.matrx{
-    width: 101vw;
-    height: 100vh;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index : 0;
+.matrx {
+  width: 101vw;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
 }
 /* da se pomeri na dole kad predje na sledecu komponentu  */
 .fade-enter-active,
