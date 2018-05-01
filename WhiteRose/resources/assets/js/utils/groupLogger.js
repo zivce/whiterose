@@ -1,4 +1,4 @@
-export default function(messagesToLog = ["hello!"], whereAreYou)
+export default function(messagesToLog = ["hello!"], whereAreYou = "Main")
 {
 
     console.group(`emitted from ${whereAreYou}`);

@@ -35,11 +35,10 @@ Vue.use(VeeValidate);
  */
 
 let router = new VueRouter({
-        // mode:'history'
+        // mode:'history',
         routes
     })
-    
-    
+
 let lander_exists = document.getElementById("lander") ? true : false;
 
 if(lander_exists)

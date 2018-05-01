@@ -27,6 +27,7 @@ export default {
 
     //CHANGE LATER FOR LOADER TO 4000
     let delay = 4;
+    
 
     this.timer = setTimeout(() => {
       this.isVisibleMatrix = false;

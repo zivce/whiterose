@@ -15,7 +15,7 @@
  
       <router-link to="client">
 
-        <b-button size="lg" variant="outline-primary" href="/client" id="usr">
+        <b-button size="lg" variant="outline-primary" href="client" id="usr">
           User?
         </b-button>
 
@@ -34,6 +34,8 @@ export default {
   },
   data() {
     return {
+      isVisibleMatrix: true,
+
       visible: true
     };
   }

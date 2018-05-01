@@ -15,7 +15,7 @@ export default {
     this.m.height = this.height;
 
     this.columns = Math.floor(this.m.width / this.font_size);
-    this.columns += 20;
+    this.columns += 30;
     this.drops = new Array(this.columns).join(1).split("");
 
     this.int = setInterval(this.draw, 30);

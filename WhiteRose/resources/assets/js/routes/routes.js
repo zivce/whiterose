@@ -1,9 +1,9 @@
 
 let routes = [
     {
-        name:'main',
-        path: '/',
-        redirect: 'lander',
+        name:'lander',
+        path: '/lander',
+        redirect: 'lander/lander',
         children: [
         {
             path:'lander',

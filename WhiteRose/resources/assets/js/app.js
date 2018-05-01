@@ -1,3 +1,3 @@
 require('./appLander');
-// require('./appMain');
+require('./appMain');
 
