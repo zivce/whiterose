@@ -1,7 +1,14 @@
 <template>
-  <h1>
-      Welcome to the main vue. :..:
-  </h1>
+  <div>
+      <h1>
+          Welcome to the main vue. :..:
+      </h1>
+
+      <router-view>
+      </router-view>
+
+      
+  </div>
 
 </template>
 

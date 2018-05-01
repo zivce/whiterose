@@ -5,7 +5,7 @@ let routes = [
         path: '/main',
         children: [
         {
-            path:'user',
+            path:'/user',
             component : require('../components/maincomps/User.vue'),
             children:[
                 //load user comps here

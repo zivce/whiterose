@@ -42,7 +42,7 @@ Vue.use(BootstrapVue);
  */
 
 let router = new VueRouter({
-    // mode:'history',
+    mode:'history',
     routes
 })
 
@@ -53,7 +53,6 @@ const home = new Vue({
     el: '#home',
     router,
     created(){
-
         
     },
     mounted(){

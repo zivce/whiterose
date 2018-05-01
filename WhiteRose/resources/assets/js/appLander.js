@@ -35,7 +35,7 @@ Vue.use(VeeValidate);
  */
 
 let router = new VueRouter({
-        // mode:'history',
+        mode:'history',
         routes
     })
 

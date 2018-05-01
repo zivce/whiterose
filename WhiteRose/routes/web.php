@@ -12,11 +12,11 @@
 */
 
 
-Route::get('/#/main',function(){
+Route::get('/main',function(){
     return view('home');
 });
 
-Route::get('/', function () {
+Route::get('/lander', function () {
     return view('lender');
 });
 
