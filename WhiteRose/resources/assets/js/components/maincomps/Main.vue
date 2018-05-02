@@ -1,12 +1,18 @@
 <template>
-  <div>
-      <h1>
-          Welcome to the main vue. :..:
+  <div id="main_vue">
+      <h1  class="row">
+          Header here.
       </h1>
 
-      <router-view>
-      </router-view>
+      <transition name="fade" mode="out-in" >
+        <router-view>
+        </router-view>
+      </transition>
       
+
+      <h1 id="footer" class="row">
+        Footer here.
+      </h1>
       <vue-snotify/>
 
       
@@ -28,4 +34,15 @@ export default {
 </script>
 
 <style scoped>
+
+#footer
+{
+  position: absolute;
+  bottom: 0;
+}
+
+#main_vue{
+  min-height: 100vh;
+}
+
 </style>

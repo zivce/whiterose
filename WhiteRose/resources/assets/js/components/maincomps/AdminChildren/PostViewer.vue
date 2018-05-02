@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <h1>Hello pentester</h1>
+  <div class="row">
+      <h1>Post viewer here.</h1>
   </div>
   
 
@@ -8,13 +8,10 @@
 
 <script>
 import logger from "../../../utils/groupLogger";
-import welcomeToastr from "../../toastr/welcometoastr";
 
 export default {
-  mixins: [welcomeToastr],
   mounted() {
-    logger(["hello", "pentester mounted"], "Pentester.vue");
-    this.welcomeNotify("Pentester");
+    logger(["hello", "postviewer mounted"], "AdminChild/PostViewer.vue");
   },
   data() {
     return {};
