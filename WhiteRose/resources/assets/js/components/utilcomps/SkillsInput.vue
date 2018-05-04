@@ -2,7 +2,7 @@
 <template>
     <div  class="fform_input">
     
-    <label :for="skill.id">{{skill.label}}</label>
+    <label v-if="firstSkill" :for="skill.id">{{skill.label}}</label>
 
     <input  
     :placeholder="skill.label"
@@ -18,7 +18,7 @@
     :name="skill.id"/>
     
     <span v-if="errors.has(skill.id)" class="incorrect_input">
-        Skills required!
+        Skill required!
     </span>
     
     </div>
@@ -34,8 +34,11 @@ export default {
     }
   },
   computed: {
+    firstSkill(){
+      return this.skill.id === "skills";
+    },
     errSkills() {
-      return this.errors.has("skills");
+      return this.errors.has(this.skill.id);
     }
   },
   data() {

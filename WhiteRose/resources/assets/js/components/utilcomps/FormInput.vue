@@ -11,7 +11,7 @@
     :id="prop.id" 
     v-model="prop.value" 
     :required="prop.validation.required"
-    :v-validate="vval"
+    v-validate="vval"
     :name="prop.id"/>
     
     <span v-if="errors.has(prop.id)" class="incorrect_input">
@@ -28,10 +28,6 @@ export default {
     prop: {
       type: Object,
       twoWay: true
-    },
-    vval: {
-        type:Object,
-        required:false
     }
   },
   computed: {
@@ -39,10 +35,24 @@ export default {
         return this.errors.has(this.prop.id)
     }
   },
+  created(){
+    //adds specific validation
+    if(this.prop.id === "email")
+      this.vval["email"] = true;
+    
+    
+    //UNCOMMENT AFTER DEV
+    // if(this.prop.id === "password")
+    //   this.vval["regex"] = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
+    
+    },
+  mounted(){
+    
+  },
   data() {
     return {
-        id_upper : _.capitalize(this.prop.id)
-
+      vval:{required:true},
+      id_upper : _.capitalize(this.prop.id)
     };
   }
 };
