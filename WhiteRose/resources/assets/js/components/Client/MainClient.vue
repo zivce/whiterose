@@ -22,12 +22,16 @@
 
         <div class="row col-md-4 offset-md-4">
 
-          <login-client v-if="login">
-          </login-client> 
-
+        <transition name="flip" mode="out-in">
+                <login-client v-if="login">
+                </login-client> 
+        </transition>
+        
+        <transition name="flip" mode="out-in">
           <reg-client v-if="reg">
           </reg-client>
-
+        </transition>
+  
         </div>
         
       </div>
@@ -89,7 +93,7 @@ export default {
 #wrapper {
   width: 100%;
   height: 100%;
-  background-color: rgba(24, 23, 23, 0.81);
+  background-color: transparent;
   box-shadow: 1px 1px inset;
 }
 
@@ -112,13 +116,5 @@ h1 {
   top: 0;
   z-index: 0;
 }
-/* da se pomeri na dole kad predje na sledecu komponentu  */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.4s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
+
 </style>

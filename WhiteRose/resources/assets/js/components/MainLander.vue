@@ -5,7 +5,7 @@
       </transition> -->
 
 
-      <transition name="fade">
+      <transition name="flip" mode="out-in">
         <router-view v-if="!isVisibleMatrix"></router-view>
       </transition>
       
@@ -47,13 +47,5 @@ export default {
 
 
 <style scoped>
-/* da se pomeri na dole kad predje na sledecu komponentu  */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.4s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
+
 </style>

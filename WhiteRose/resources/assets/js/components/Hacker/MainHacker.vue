@@ -80,10 +80,14 @@ export default {
   margin: auto;
 }
 
+
+#wrapper * {
+  margin-bottom: 10px;
+}
 #wrapper {
   width: 100%;
   height: 100%;
-  background-color: rgba(24, 23, 23, 0.81);
+  background-color: transparent;
   box-shadow: 1px 1px inset;
 }
 
@@ -105,14 +109,5 @@ h1 {
   left: 0;
   top: 0;
   z-index: 0;
-}
-/* da se pomeri na dole kad predje na sledecu komponentu  */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.4s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

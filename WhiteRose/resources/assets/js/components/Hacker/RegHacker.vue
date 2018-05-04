@@ -12,7 +12,7 @@
               <skills-input v-for="num in skillsPresent" :skill.sync="regForm.inputs.skills[num]" :key="num">
               </skills-input>
 
-              <b-btn @click="addSkillsInput()">+</b-btn>
+              <b-button class="btn btn-info btn-secondary" @click="addSkillsInput()">+</b-button>
 
             </b-tab>
 
@@ -68,7 +68,7 @@
                 </div>
 
 
-            <b-button class="fixbtn btn btn-info btn-secondary actionbtn" @click="regForm.submitHandler()">
+            <b-button class="btn btn-info btn-secondary" @click="regForm.submitHandler()">
               Register!
             </b-button>
           </b-tab>

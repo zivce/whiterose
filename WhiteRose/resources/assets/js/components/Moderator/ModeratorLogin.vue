@@ -33,12 +33,13 @@ export default {
   },
   destroyed() {},
   data() {
+    let vm = this;
     return {
       submitHandler() {
         axios
           .post("/modlogin", {
-            email: this.inputs.email.value,
-            pw: this.inputs.pw.value
+            email: vm.inputs.email.value,
+            pw: vm.inputs.pw.value
           })
           .then(function(response) {
             let user_exists = response.data !== "User does not exist";
@@ -65,7 +66,7 @@ export default {
               });
             } else {
               //does not exist
-              this.$snotify.error("User does not exist!", "Error!", {
+              vm.$snotify.error("User does not exist!", "Error!", {
                 position: SnotifyPosition.centerTop,
                 backdrop: 0.5
               });
@@ -108,13 +109,5 @@ export default {
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
 }
-/* da se pomeri na dole kad predje na sledecu komponentu  */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.4s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
+
 </style>
