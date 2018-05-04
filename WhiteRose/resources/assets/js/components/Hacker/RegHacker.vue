@@ -12,7 +12,9 @@
               <skills-input v-for="num in skillsPresent" :skill.sync="regForm.inputs.skills[num]" :key="num">
               </skills-input>
 
-              <b-button class="btn btn-info btn-secondary" @click="addSkillsInput()">+</b-button>
+              <b-button class="btn btn-info actionbtn btn-secondary" @click="addSkillsInput()">
+                <icon name="plus"> </icon>
+              </b-button>
 
             </b-tab>
 
@@ -68,7 +70,7 @@
                 </div>
 
 
-            <b-button class="btn btn-info btn-secondary" @click="regForm.submitHandler()">
+            <b-button class="btn btn-info btn-secondary actionbtn" @click="regForm.submitHandler()">
               Register!
             </b-button>
           </b-tab>
@@ -85,8 +87,12 @@ import bTab from "bootstrap-vue/es/components/tabs/tab";
 import SkillsInput from "../utilcomps/SkillsInput.vue";
 import FormInput from "../utilcomps/FormInput.vue";
 
+import Icon from 'vue-awesome/components/Icon';
+import 'vue-awesome/icons/plus'
+
 export default {
   components: {
+    Icon,
     "b-tabs": bTabs,
     "b-tab": bTab,
     FormInput,
@@ -135,7 +141,6 @@ export default {
           vm.regForm.inputs.skills.forEach((skill) => {
             vm.skills.push(skill.value);
           })
-          console.log(vm.skills);
           
           let registerInfo = {
               email: vm.regForm.inputs.email.value,

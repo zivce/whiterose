@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>Hello user</h1>
+      <h1>Hello tools</h1>
   </div>
 
 </template>
@@ -13,7 +13,7 @@ export default {
   mixins: [welcomeToastr],
   mounted() {
     logger(["hellow", "user mounted"], "User.vue");
-    this.welcomeNotify("User");
+    // this.welcomeNotify("User");
   },
   data() {
     return {};

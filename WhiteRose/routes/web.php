@@ -11,7 +11,7 @@
 |
 */
 
-$loggedIn = false;
+$loggedIn = true;
 
 if($loggedIn)
     Route::get('/',function(){
