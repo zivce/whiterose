@@ -35,15 +35,15 @@
 import logger from "../../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import welcomeToastr from "../../toastr/welcometoastr";
-import AdminInfo from '../AdminChildren/AdminParts/AdminInfo.vue';
+import AdminInfo from "../AdminChildren/AdminParts/AdminInfo.vue";
 
 export default {
-  components:{
+  components: {
     AdminInfo
   },
   mixins: [welcomeToastr],
-  methods:{
-    hideShowInfo(){
+  methods: {
+    hideShowInfo() {
       this.isVisibleAdminInfo = !this.isVisibleAdminInfo;
     }
   },
@@ -52,7 +52,7 @@ export default {
   },
   data() {
     return {
-      isVisibleAdminInfo:true
+      isVisibleAdminInfo: true
     };
   }
 };

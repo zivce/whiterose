@@ -34,15 +34,12 @@ export default {
 </script>
 
 <style scoped>
-
-#footer
-{
+#footer {
   position: absolute;
   bottom: 0;
 }
 
-#main_vue{
+#main_vue {
   min-height: 100vh;
 }
-
 </style>

@@ -53,10 +53,10 @@ export default {
       this.reg = false;
     },
     regTrue() {
-      this.$snotify.info("Verify your email.", "Verification", {
-        position: SnotifyPosition.leftBottom,
-        backdrop: 0.5
-      });
+      // this.$snotify.info("Verify your email.", "Verification", {
+      //   position: SnotifyPosition.leftBottom,
+      //   backdrop: 0.5
+      // });
 
       this.reg = true;
       this.login = false;

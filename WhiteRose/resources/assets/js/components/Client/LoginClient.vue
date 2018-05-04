@@ -84,7 +84,7 @@ export default {
     return {
       submitHandler() {
         axios
-          .post("/userLogin", {
+          .post("/clientlogin", {
             email: this.inputs.email.value,
             pw: this.inputs.pw.value
           })
