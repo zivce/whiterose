@@ -5,7 +5,7 @@
         </matrix> -->
       <div id="wrapper">
 
-          <h1 class="col-md-4 offset-md-4">
+          <h1 class="col-md-4 offset-md-4 headers">
               Welcome client.
           </h1>
 
