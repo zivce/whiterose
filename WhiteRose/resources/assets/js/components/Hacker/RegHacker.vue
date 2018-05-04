@@ -8,12 +8,7 @@
 
               <skills-input :skill.sync="regForm.inputs.skills[0]">
               </skills-input>
-
-              <skills-input v-for="num in skillsPresent" :skill.sync="regForm.inputs.skills[num]" :key="num">
-              </skills-input>
-
-              <b-btn @click="addSkillsInput()">+</b-btn>
-
+            
             </b-tab>
 
             <b-tab title="Info 1"  class="my-tab">
@@ -30,7 +25,7 @@
 
 
             <b-tab title="Info" class="my-tab">
-              <form-input :prop.sync="regForm.inputs.email" >
+              <form-input :prop.sync="regForm.inputs.email" :vval="regForm.inputs.vvalidation">
               </form-input>
               
               
@@ -38,34 +33,8 @@
               </form-input>
             
 
-              <!-- <form-input :prop.sync="regForm.inputs.pwagain" :compare.sync="regForm.inputs.pw">
-              </form-input> moze sa event bus.. 
-              da se emituje pw.. -->
-              
-
-                <div  class="fform_input">
-                
-                  <label :for="regForm.inputs.pwagain.id">{{regForm.inputs.pwagain.label}}</label>
-
-                  <input  
-                  autocomplete="on"
-
-                  :placeholder="regForm.inputs.pwagain.label"
-                  :class="{'has-error':errorPwAgain}"
-                  :type="regForm.inputs.pwagain.type" 
-                  :id="regForm.inputs.pwagain.id" 
-                  v-model="regForm.inputs.pwagain.value" 
-                  :required="regForm.inputs.pwagain.validation.required"
-                  v-validate="{
-                    rules:{
-                    required:true,is:regForm.inputs.pw.value,
-                    }}"
-                  :name="regForm.inputs.pwagain.id"/>
-                  <span v-if="errors.has(regForm.inputs.pwagain.id)" class="incorrect_input">
-                    Not the same password!
-                  </span>
-                
-                </div>
+              <form-input :prop.sync="regForm.inputs.pwagain" :vval="regForm.vvalidation_pw_again">
+              </form-input>
 
 
             <b-button class="fixbtn btn btn-info btn-secondary actionbtn" @click="regForm.submitHandler()">
@@ -94,61 +63,46 @@ export default {
   },
   mounted() {},
   computed: {
-    fillSkills () {
-      
+    pwAgain(){
+      return this.regForm.inputs.pw.value    
+    },
 
+    errSkills() {
+      return this.errors.has(this.regForm.inputs.skills.id);
+    },
+    errName() {
+      return this.errors.has("firstname");
+    },
+    errLastName() {
+      return this.errors.has("lastname");
+    },
+    errorEmail() {
+      return this.errors.has("email");
+    },
+    errorPw() {
+      return this.errors.has("password");
     },
     errorPwAgain() {
-      return this.errors.has("same password");
+      return this.errors.has("sameaspw");
     }
   },
-  methods: {
-    addSkillsInput(){
-      this.skillsPresent++;
-
-      this.regForm.inputs.skills.push(
-        {
-          type: "text",
-          id: "skills" + this.skillsPresent,
-          label: `your skill number ${this.skillsPresent + 1}`,
-          pholder: "insert one skill here",
-          value: "",
-          validation: {
-            required: true
-          }
-        }
-      )
-    }
-  },
+  methods: {},
   destroyed() {},
-  
   data() {
     let vm = this;
 
     return {
-      skills : [],
       skillsPresent: 0,
       regForm: {
         submitHandler() {
-
-              
-          vm.regForm.inputs.skills.forEach((skill) => {
-            vm.skills.push(skill.value);
-          })
-          console.log(vm.skills);
-          
-          let registerInfo = {
+          axios
+            .post("/hackerreg", {
               email: vm.regForm.inputs.email.value,
               password: vm.regForm.inputs.pw.value,
               sameaspw: vm.regForm.inputs.pwagain.value,
               firstname: vm.regForm.inputs.firstname.value,
-              lastname: vm.regForm.inputs.lastname.value,
-              username : vm.regForm.inputs.username.value,
-              skills : vm.skills
-            };
-
-          axios
-            .post("/hackerreg", registerInfo )
+              lastname: vm.regForm.inputs.lastname.value
+            })
             .then(function(response) {
               if (response.data === "This mail already exist") {
                 vm.$snotify.error("User exists!", "Error!", {
@@ -188,12 +142,9 @@ export default {
             label: "e-mail address",
             value: "",
             vvalidation: {
-            
-            rules:{
-                required:true,
-                email:true
-            }
-            },
+              rules:{
+                required:true,email:true
+            }},
             validation: {
               required: true
             }
@@ -208,7 +159,6 @@ export default {
               rules:{
                 required:true
             }},
-
             validation: {
               required: true
             }

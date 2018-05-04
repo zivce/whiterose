@@ -1,8 +1,60 @@
 <template>
     <form class="fform">
-        <form-input :prop.sync="inputs.email"/>
+      
 
-        <form-input :prop.sync="inputs.pw"/> 
+        <div class="fform_input">
+        
+          <label :for="inputs.email.id">{{inputs.email.label}}</label>
+
+
+          <input 
+          autocomplete="on"
+          :placeholder="inputs.email.label"
+          :class="{'has-error':errorEmail}"
+          :type="inputs.email.type" 
+          :id="inputs.email.id" 
+          v-model="inputs.email.value" 
+          :required="inputs.email.validation.required"
+          v-validate="{required:true,email:true}"
+          :name="inputs.email.id"
+          />
+        
+        
+          <span v-if="errors.has('email')" class="incorrect_input">
+            Invalid email!
+          </span>
+        
+        </div>
+
+        <!-- PASSWORD INPUT  -->
+        
+        <div class="fform_input">
+        
+          <label :for="inputs.pw.id">{{inputs.pw.label}}</label>
+
+          <input   
+          autocomplete="on"
+
+          :placeholder="inputs.pw.label"
+          :class="{'has-error':errorPw}"
+          :type="inputs.pw.type" 
+          :id="inputs.pw.id" 
+          v-model="inputs.pw.value" 
+          :required="inputs.pw.validation.required"
+          v-validate="{
+            rules:{
+            required:true
+            }
+          }"
+
+          :name="inputs.pw.id"/>
+
+          <span v-if="errors.has('password')" class="incorrect_input">
+            Put sample of Blood type A 
+          </span>
+       
+        </div>
+
 
         <b-button class="btn btn-info btn-secondary actionbtn" @click.once="submitHandler()">
           Log In!
@@ -16,15 +68,16 @@
 <script>
 import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
-import FormInput from "../utilcomps/FormInput.vue";
 
 export default {
   mounted() {},
-  components:{
-    FormInput
-  },
   computed: {
-  
+    errorEmail() {
+      return this.errors.has("email");
+    },
+    errorPw() {
+      return this.errors.has("password");
+    }
   },
   destroyed() {},
   data() {
