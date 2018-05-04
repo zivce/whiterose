@@ -1,108 +1,10 @@
 <template>
-         <form class="fform">
-
-            <!-- firstname reg form -->
-          <div  class="fform_input">
-            <label :for="regForm.inputs.firstname.id">{{regForm.inputs.firstname.label}}</label>
-
-            <input  
-            autocomplete="on"
-
-            :class="{'has-error':errName}"
-            :type="regForm.inputs.firstname.type" 
-            :id="regForm.inputs.firstname.id" 
-            :placeholder="regForm.inputs.firstname.label"
-            v-model="regForm.inputs.firstname.value" 
-            :required="regForm.inputs.firstname.validation.required"
-            v-validate="{
-              rules:{
-                required:true
-              }}"
-            :name="regForm.inputs.firstname.id"/>
-            <span v-if="errors.has('firstname')" class="incorrect_input">
-              Name required!
-            </span>
-          
-          </div>
-
-          <div class="fform_input">
-            <label :for="regForm.inputs.lastname.id">{{regForm.inputs.lastname.label}}</label>
-
-            <input  
-            autocomplete="on"
-
-            :placeholder="regForm.inputs.lastname.label"
-            :class="{'has-error':errLastName}"
-            :type="regForm.inputs.lastname.type" 
-            :id="regForm.inputs.lastname.id" 
-            v-model="regForm.inputs.lastname.value" 
-            :required="regForm.inputs.lastname.validation.required"
-            v-validate="{
-              rules:{
-                required:true
-              }}"
-            :name="regForm.inputs.lastname.id"/>
-            <span v-if="errors.has('lastname')" class="incorrect_input">
-              Last name required!
-            </span>
-          
-          </div>
-          
-
-        <!-- EMAIL INPUT -->
+        <form class="fform">
+          <form-input :prop.sync="regForm.inputs.firstname"/>
+          <form-input :prop.sync="regForm.inputs.lastname"/>
+          <form-input :prop.sync="regForm.inputs.email"/>
+          <form-input :prop.sync="regForm.inputs.pw"/>
         
-        <div class="fform_input">
-        
-          <label :for="regForm.inputs.email.id">{{regForm.inputs.email.label}}</label>
-
-
-          <input 
-          autocomplete="on"
-          :placeholder="regForm.inputs.email.label"
-          :class="{'has-error':errorEmail}"
-          :type="regForm.inputs.email.type" 
-          :id="regForm.inputs.email.id" 
-          v-model="regForm.inputs.email.value" 
-          :required="regForm.inputs.email.validation.required"
-          v-validate="{required:true,email:true}"
-          :name="regForm.inputs.email.id"
-          />
-        
-        
-          <span v-if="errors.has('email')" class="incorrect_input">
-            Invalid email!
-          </span>
-        
-        </div>
-        
-        <!-- PASSWORD INPUT  -->
-        
-        <div class="fform_input">
-        
-          <label :for="regForm.inputs.pw.id">{{regForm.inputs.pw.label}}</label>
-
-          <input   
-          autocomplete="on"
-
-          :placeholder="regForm.inputs.pw.label"
-          :class="{'has-error':errorPw}"
-          :type="regForm.inputs.pw.type" 
-          :id="regForm.inputs.pw.id" 
-          v-model="regForm.inputs.pw.value" 
-          :required="regForm.inputs.pw.validation.required"
-          v-validate="{
-            rules:{
-            required:true
-            }}"
-
-          :name="regForm.inputs.pw.id"/>
-
-          <span v-if="errors.has('password')" class="incorrect_input">
-            turn verification for deployment.
-          </span>
-       
-        </div>
-
         <!-- SAME PW AGAIN  -->
 
         <div  class="fform_input">
@@ -138,6 +40,8 @@
 <script>
 import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
+import FormInput from "../utilcomps/FormInput.vue";
+
 
 export default {
   mounted() {
@@ -147,19 +51,11 @@ export default {
     );
   },
   destroyed() {},
+  components:{
+    FormInput
+  },
   computed: {
-    errName() {
-      return this.errors.has("firstname");
-    },
-    errLastName() {
-      return this.errors.has("lastname");
-    },
-    errorEmail() {
-      return this.errors.has("email");
-    },
-    errorPw() {
-      return this.errors.has("password");
-    },
+    
     errorPwAgain() {
       return this.errors.has("sameaspw");
     }
