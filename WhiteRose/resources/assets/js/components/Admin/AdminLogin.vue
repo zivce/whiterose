@@ -1,4 +1,10 @@
 <template>
+    <div>
+
+    <h1 class="row justify-content-center align-items-center headers">
+        Welcome admin.
+    </h1>
+
     <form class="fform">
         <form-input :prop.sync="inputs.email"/>
 
@@ -10,6 +16,8 @@
 
 
     </form>
+
+    </div>    
 </template>
 
 
@@ -28,12 +36,13 @@ export default {
   },
   destroyed() {},
   data() {
+    let vm = this;
     return {
       submitHandler() {
         axios
-          .post("/clientlogin", {
-            email: this.inputs.email.value,
-            pw: this.inputs.pw.value
+          .post("/adminlogin", {
+            email: vm.inputs.email.value,
+            pw: vm.inputs.pw.value
           })
           .then(function(response) {
             let user_exists = response.data !== "User does not exist";
@@ -42,7 +51,7 @@ export default {
               response.data === "Please verify your account";
 
             if (email_not_verified) {
-              this.$snotify.info("Verify your email.", "Verification", {
+              vm.$snotify.info("Verify your email.", "Verification", {
                 position: SnotifyPosition.centerTop,
                 backdrop: 0.5
               });
@@ -60,7 +69,7 @@ export default {
               });
             } else {
               //does not exist
-              this.$snotify.error("User does not exist!", "Error!", {
+              vm.$snotify.error("User does not exist!", "Error!", {
                 position: SnotifyPosition.centerTop,
                 backdrop: 0.5
               });
@@ -103,13 +112,5 @@ export default {
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
 }
-/* da se pomeri na dole kad predje na sledecu komponentu  */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.4s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
+
 </style>

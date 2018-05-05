@@ -1,6 +1,13 @@
 <template>
   <div>
+      
       <h1>Hello user</h1>
+      
+      <router-view>
+
+      </router-view>
+
+
   </div>
 
 </template>

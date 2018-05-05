@@ -5,18 +5,19 @@
     <!-- komponenta? -->
     <!-- collapsible -->
     
+    <b-button @click="hideShowInfo">
+      <icon name="info" ></icon>
+    </b-button>
+
     <transition  name="fade">
       <admin-info v-if="isVisibleAdminInfo" >
       </admin-info>
     </transition>
 
-    <b-btn @click="hideShowInfo">
-      Toggle info section
-    </b-btn>
 
     <!-- control panel -->
 
-      <b-nav class="row">
+      <b-nav class="d-flex justify-content-center"  pills>
         <b-nav-item to="/admin/messagereplier">MessageReplier</b-nav-item>
         <b-nav-item to="/admin/postviewer">PostViewer</b-nav-item>
       </b-nav>
@@ -35,15 +36,20 @@
 import logger from "../../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import welcomeToastr from "../../toastr/welcometoastr";
-import AdminInfo from '../AdminChildren/AdminParts/AdminInfo.vue';
+import AdminInfo from "../AdminChildren/AdminParts/AdminInfo.vue";
+
+import Icon from 'vue-awesome/components/Icon';
+import 'vue-awesome/icons/info'
+
 
 export default {
-  components:{
+  components: {
+    Icon,
     AdminInfo
   },
   mixins: [welcomeToastr],
-  methods:{
-    hideShowInfo(){
+  methods: {
+    hideShowInfo() {
       this.isVisibleAdminInfo = !this.isVisibleAdminInfo;
     }
   },
@@ -52,7 +58,7 @@ export default {
   },
   data() {
     return {
-      isVisibleAdminInfo:true
+      isVisibleAdminInfo: false
     };
   }
 };

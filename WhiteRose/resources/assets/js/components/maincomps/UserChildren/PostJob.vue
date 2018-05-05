@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>Hello user</h1>
+      <h1>Post job</h1>
   </div>
 
 </template>

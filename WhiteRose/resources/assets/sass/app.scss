@@ -12,6 +12,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+@import "trans";
 @import "lander";
 @import "./form.scss";
 @import './snotify.scss';
@@ -24,3 +25,4 @@
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
+

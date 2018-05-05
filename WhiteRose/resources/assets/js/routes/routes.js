@@ -16,6 +16,14 @@ let routes = [
         {
             path:'hacker',
             component : require('../components/Hacker/MainHacker.vue'),
+        },
+        {
+            path:'admin',
+            component : require('../components/Admin/AdminLogin.vue'),
+        },
+        {
+            path:'mod',
+            component : require('../components/Moderator/ModeratorLogin.vue'),
         }
         ],
         component: require('../components/MainLander.vue')

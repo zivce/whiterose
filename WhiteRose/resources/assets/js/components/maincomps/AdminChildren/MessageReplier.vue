@@ -11,7 +11,10 @@ import logger from "../../../utils/groupLogger";
 
 export default {
   mounted() {
-    logger(["hello", "message replier mounted"], "AdminChild/MessageReplier.vue");
+    logger(
+      ["hello", "message replier mounted"],
+      "AdminChild/MessageReplier.vue"
+    );
   },
   data() {
     return {};
