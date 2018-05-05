@@ -34,7 +34,7 @@ export default {
     }
   },
   computed: {
-    firstSkill(){
+    firstSkill() {
       return this.skill.id === "skills";
     },
     errSkills() {

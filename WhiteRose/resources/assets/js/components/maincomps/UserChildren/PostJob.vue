@@ -13,7 +13,6 @@ export default {
   mixins: [welcomeToastr],
   mounted() {
     logger(["hellow", "user mounted"], "User.vue");
-    this.welcomeNotify("User");
   },
   data() {
     return {};

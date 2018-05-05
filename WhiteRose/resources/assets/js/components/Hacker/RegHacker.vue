@@ -87,8 +87,8 @@ import bTab from "bootstrap-vue/es/components/tabs/tab";
 import SkillsInput from "../utilcomps/SkillsInput.vue";
 import FormInput from "../utilcomps/FormInput.vue";
 
-import Icon from 'vue-awesome/components/Icon';
-import 'vue-awesome/icons/plus'
+import Icon from "vue-awesome/components/Icon";
+import "vue-awesome/icons/plus";
 
 export default {
   components: {
@@ -100,60 +100,53 @@ export default {
   },
   mounted() {},
   computed: {
-    fillSkills () {
-      
-
-    },
+    fillSkills() {},
     errorPwAgain() {
       return this.errors.has("same password");
     }
   },
   methods: {
-    addSkillsInput(){
+    addSkillsInput() {
       this.skillsPresent++;
 
-      this.regForm.inputs.skills.push(
-        {
-          type: "text",
-          id: "skills" + this.skillsPresent,
-          label: `your skill number ${this.skillsPresent + 1}`,
-          pholder: "insert one skill here",
-          value: "",
-          validation: {
-            required: true
-          }
+      this.regForm.inputs.skills.push({
+        type: "text",
+        id: "skills" + this.skillsPresent,
+        label: `your skill number ${this.skillsPresent + 1}`,
+        pholder: "insert one skill here",
+        value: "",
+        validation: {
+          required: true
         }
-      )
+      });
     }
   },
   destroyed() {},
-  
+
   data() {
     let vm = this;
 
     return {
-      skills : [],
+      skills: [],
       skillsPresent: 0,
       regForm: {
         submitHandler() {
-
-              
-          vm.regForm.inputs.skills.forEach((skill) => {
+          vm.regForm.inputs.skills.forEach(skill => {
             vm.skills.push(skill.value);
-          })
-          
+          });
+
           let registerInfo = {
-              email: vm.regForm.inputs.email.value,
-              password: vm.regForm.inputs.pw.value,
-              sameaspw: vm.regForm.inputs.pwagain.value,
-              firstname: vm.regForm.inputs.firstname.value,
-              lastname: vm.regForm.inputs.lastname.value,
-              username : vm.regForm.inputs.username.value,
-              skills : vm.skills
-            };
+            email: vm.regForm.inputs.email.value,
+            password: vm.regForm.inputs.pw.value,
+            sameaspw: vm.regForm.inputs.pwagain.value,
+            firstname: vm.regForm.inputs.firstname.value,
+            lastname: vm.regForm.inputs.lastname.value,
+            username: vm.regForm.inputs.username.value,
+            skills: vm.skills
+          };
 
           axios
-            .post("/hackerreg", registerInfo )
+            .post("/hackerreg", registerInfo)
             .then(function(response) {
               if (response.data === "This mail already exist") {
                 vm.$snotify.error("User exists!", "Error!", {
@@ -181,10 +174,11 @@ export default {
             });
         },
         vvalidation_pw_again: {
-          rules:{
-            required:true
-            ,is:this.pwAgain
-        }},
+          rules: {
+            required: true,
+            is: this.pwAgain
+          }
+        },
         inputs: {
           email: {
             type: "text",
@@ -193,11 +187,10 @@ export default {
             label: "e-mail address",
             value: "",
             vvalidation: {
-            
-            rules:{
-                required:true,
-                email:true
-            }
+              rules: {
+                required: true,
+                email: true
+              }
             },
             validation: {
               required: true
@@ -208,11 +201,12 @@ export default {
             pholder: "your password here.",
             id: "password",
             label: "password",
-            value: "", 
+            value: "",
             vvalidation: {
-              rules:{
-                required:true
-            }},
+              rules: {
+                required: true
+              }
+            },
 
             validation: {
               required: true
@@ -224,7 +218,7 @@ export default {
             pholder: "repeat password here",
             value: "",
             label: "repeat password",
-            
+
             validation: {
               required: true
             }
@@ -235,12 +229,13 @@ export default {
             pholder: "your firstname here.",
             label: "Name",
             value: "",
-            
+
             vvalidation: {
-              rules:{
-                required:true
-            }},
-            
+              rules: {
+                required: true
+              }
+            },
+
             validation: {
               required: true
             }
@@ -252,9 +247,10 @@ export default {
             pholder: "your username here.",
             value: "",
             vvalidation: {
-              rules:{
-                required:true
-            }},
+              rules: {
+                required: true
+              }
+            },
             validation: {
               required: true
             }
@@ -266,10 +262,11 @@ export default {
               label: "Skills",
               pholder: "insert one skill here",
               value: "",
-            vvalidation: {
-              rules:{
-                required:true
-            }},
+              vvalidation: {
+                rules: {
+                  required: true
+                }
+              },
               validation: {
                 required: true
               }
@@ -280,9 +277,10 @@ export default {
             id: "lastname",
             label: "Last Name",
             vvalidation: {
-              rules:{
-                required:true
-            }},
+              rules: {
+                required: true
+              }
+            },
             pholder: "your last name here.",
             value: "",
             validation: {

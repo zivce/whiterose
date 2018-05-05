@@ -16,13 +16,4 @@
 @import "lander";
 @import "./form.scss";
 @import './snotify.scss';
-
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.25s ease-out;
-}
-
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-}
-
+@import './global.scss';

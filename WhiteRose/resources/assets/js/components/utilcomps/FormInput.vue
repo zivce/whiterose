@@ -32,27 +32,22 @@ export default {
   },
   computed: {
     errHandler() {
-        return this.errors.has(this.prop.id)
+      return this.errors.has(this.prop.id);
     }
   },
-  created(){
+  created() {
     //adds specific validation
-    if(this.prop.id === "email")
-      this.vval["email"] = true;
-    
-    
+    if (this.prop.id === "email") this.vval["email"] = true;
+
     //UNCOMMENT AFTER DEV
     // if(this.prop.id === "password")
     //   this.vval["regex"] = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
-    
-    },
-  mounted(){
-    
   },
+  mounted() {},
   data() {
     return {
-      vval:{required:true},
-      id_upper : _.capitalize(this.prop.id)
+      vval: { required: true },
+      id_upper: _.capitalize(this.prop.id)
     };
   }
 };
