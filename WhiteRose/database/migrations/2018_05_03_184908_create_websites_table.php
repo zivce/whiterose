@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobsTable extends Migration
+class CreateWebsitesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('websites', function (Blueprint $table) {
             $table->increments('id');
-            $table->longText('description');
-            $table->string('domain');
-            $table->string('startingPrice');
-            $table->string('title');
-            $table->string('pentester_username')->nillable();
-            $table->integer('client_id');
+            $table->string('siteName');
+            $table->string('confirmationCode');
+            $table->integer('confirmed')->default(0);
             $table->timestamps();
+       
         });
     }
 
@@ -32,6 +30,6 @@ class CreateJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('websites');
     }
 }

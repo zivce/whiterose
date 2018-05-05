@@ -19,6 +19,7 @@ class CreateClientsTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('lastname');
+            $table->integer('tokens')->default(0);
             $table->string('confirmation_code')->nullable();
             $table->boolean('confirmed')->default(0);
             $table->timestamps();

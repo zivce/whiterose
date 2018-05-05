@@ -16,4 +16,9 @@ class Client extends Model
     {
         return $this->hasMany('App\Job');
     }
+
+    public function websites()
+    {
+        return $this->hasMany('App\Website');
+    }
 }
