@@ -17,3 +17,6 @@
 @import "./form.scss";
 @import './snotify.scss';
 @import './global.scss';
+body{
+  background-color: $body-bg !important;
+}

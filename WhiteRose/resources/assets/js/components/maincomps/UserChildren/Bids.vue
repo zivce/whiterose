@@ -9,12 +9,12 @@
       :options='options'
       >
     
-    <a  slot="details" 
+    <a  slot="preview" 
         slot-scope="props"
         class="cursorable"
         @click="showDetails(props)"
         >
-        view details
+        <icon id="eye_ico" name="eye"></icon>
       </a>
 
       
@@ -37,16 +37,18 @@
 
 <script>
 import logger from "../../../utils/groupLogger";
+import Icon from "vue-awesome/components/Icon";
 
 import welcomeToastr from "../../toastr/welcometoastr";
 
 import hardcodepentst from "./hardcodepntst";
 import PentesterBid from "./UserParts/PentesterBid.vue";
 import eventBus from "../../../utils/eventBus";
+import "vue-awesome/icons/eye";
 
 export default {
   components: {
-    PentesterBid
+    PentesterBid,Icon
   },
   mixins: [welcomeToastr],
   created() {
@@ -69,7 +71,6 @@ export default {
   mounted() {
     eventBus.$on("isVisiblePentesterBid", val => {
       this.isVisibleBid = val;
-      console.log(this.isVisibleBid)
   });
   },
   methods: {
@@ -85,7 +86,7 @@ export default {
         },
       details: {},
       isVisibleBid: false,
-      columns: ["pentester", "rating", "details"],
+      columns: ["pentester", "rating", "preview"],
       table_data: hardcodepentst,
       options: {
         filterByColumn: true,
@@ -102,6 +103,18 @@ export default {
 </script>
 
 <style scoped>
+
+
+#eye_ico{
+  color:var(--cyan);
+  vertical-align: middle;
+}
+
+#eye_ico:hover{
+  color: #000619d4;
+  vertical-align: middle;
+}
+
 .cursorable{
   cursor:pointer;
   cursor: hand;

@@ -5,6 +5,16 @@
     :columns='columns'
     :options='options'
     >
+
+    
+    <a  slot="download" 
+        slot-scope="props"
+        :href="props.row.uri"
+    >
+      <icon name="download"></icon>
+    </a>
+
+
     </v-client-table>
 
   </div>
@@ -16,7 +26,13 @@ import logger from "../../../utils/groupLogger";
 import welcomeToastr from "../../toastr/welcometoastr";
 import hardcode from "./hardcode";
 
+import Icon from "vue-awesome/components/Icon";
+import "vue-awesome/icons/download";
+
 export default {
+  components:{
+    Icon
+  },
   mixins: [welcomeToastr],
   created() {
     //  axios
@@ -45,7 +61,7 @@ export default {
       columnsClasses: {
           date: "cursorable"
         },
-      columns: ["date", "scan", "show"],
+      columns: ["date", "scan", "download"],
       table_data: hardcode,
       options: {
         datepickerOptions: {
