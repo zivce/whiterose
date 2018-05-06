@@ -45,8 +45,10 @@ Route::get('test1',function(){
 });
 
 Route::get('/',function(){
+    Auth::guard('client')->logout();
     if(Auth::guard('client')->check()||Auth::guard('pentester')->check())
     return view('home');
+
     return view('lender');
 });
 
@@ -86,7 +88,8 @@ Route::post('bid','PentesterConroller@binOnJob')->name('bid');
 Route::get('viewbidsclient','ClientController@viewMyBiddedJobs')->name('viewbidsclient');
 Route::get('viewbidspentester','PentesterController@viewMyBids')->name('viewbidspentester');
 
-
+//Client loging register
+Route::post('/clientreg','ClientController@register')->name('clientreg');
 
 Route::group(['prefix' => 'client'], function () {
   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +16,11 @@ use App\Pentester;
 
 
 
+
+
 class ClientController extends Controller
 {
+    public $passwordResetEmail;
     //verifing domain
     public function addNewWebsite(Request $request)
     {
@@ -118,5 +122,48 @@ class ClientController extends Controller
         return $returnBids;
    }
 
+   public function login(Request $request)
+   {
+       $email=$request->email;
+       $password=$request->password;
+       if(Auth::guard('client')->attempt(['email'=>$email,'password'=>$password]))
+       return Auth::guard('client')->user();
+       return 'Wrong username or password';
+   }
 
+   public function register(Request $request)
+   {
+    $request->validate([
+        'email'    =>'required',
+        'password' =>'required',
+        'sameaspw'=>'required'
+    ]);
+
+    if(Client::where('email', '=', $request->email)->count()>0) {
+        return 'This mail already exist';
+        }
+    if (!strcmp($request->password, $request->sameaspw )) {
+        $client= new Client;
+        $client->token=0;
+        //$client->username=$request->username;
+        $client->name=$request->firstname;
+        $client->lastname=$request->lastname;
+        $client->email = $request->email;
+        $client->password = Hash::make($request->password);
+        $client->remember_token=str_random(100);
+        
+        $client->confirmation_code=str_random(30);
+        $this->passwordResetEmail=$request->email;
+      
+        $confirmation_code=$client->confirmation_code;
+        $client->save();
+        Mail::send('verify',['confirmation_code'=>$confirmation_code], function($message){
+            
+            $message->to($this->passwordResetEmail);
+            $message->subject('Verify your email');
+        
+        });
+     
+     }
+    }
 }
