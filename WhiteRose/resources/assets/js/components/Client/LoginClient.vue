@@ -50,9 +50,9 @@ export default {
               //after login go to home and header should change
 
               axios.get("/home").then(() => {
-                window.setTimeout(() => {
-                  window.location.href = "/";
-                }, 5);
+                // window.setTimeout(() => {
+                //   window.location.href = "/";
+                // }, 5);
 
                 return;
               });
