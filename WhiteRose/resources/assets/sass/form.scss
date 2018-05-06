@@ -48,6 +48,7 @@
 
 
   .fform_input_job input {
+    box-shadow: 0px 0px 2px #949494;
     padding: 1%;
     font-weight: 500;
     border:0;
@@ -60,6 +61,8 @@
   }
   
   .fform_input_job input:focus {
+    box-shadow: 0px 0px 2px #949494;
+
     cursor: text;
     width:100%;
     outline:none !important;

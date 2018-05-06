@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <transition name="flip" mode="out-in">
+  <div class="comp_container">
     
+    <h2 class="h2s">Preview your bids.</h2>
+
+    <transition name="flip" mode="out-in">
       <v-client-table
       v-if="!isVisibleBid"
       :data='table_data'

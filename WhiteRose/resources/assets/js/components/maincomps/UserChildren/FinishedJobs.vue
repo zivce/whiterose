@@ -1,18 +1,17 @@
 <template>
   <div class="comp_container">
-    
-    <h2 class="h2s">Preview your jobs.</h2>
+    <h2 class="h2s">Preview started jobs.</h2>
 
     <transition name="flip" mode="out-in">
     
       <v-client-table
       v-if="!isVisibleBid"
-      :data='my_jobs'
+      :data='started_jobs'
       :columns='columns'
       :options='options'
       >
     
-    <a  slot="preview" 
+    <a  slot="more info" 
         slot-scope="props"
         class="cursorable"
         @click="showDetails(props)"
@@ -26,11 +25,11 @@
     </transition>
     <transition name="flip" mode="out-in">
     
-      <more-info
+      <started-more-info
       :det.sync="details"
       v-if="isVisibleBid">
 
-      </more-info>
+      </started-more-info>
 
     </transition>
 
@@ -44,23 +43,21 @@ import Icon from "vue-awesome/components/Icon";
 
 import welcomeToastr from "../../toastr/welcometoastr";
 
-//TODO: hardcode pentest izbaci
-
-import hardcodemyjobs from "./hardcodemyjobs";
-import MoreInfo from "./UserParts/JobsMoreInfo.vue";
+import hardcodepentst from "./hardcodestartedjobs";
+import StartedMoreInfo from "./UserParts/StartedJobInfo.vue";
 import eventBus from "../../../utils/eventBus";
 import "vue-awesome/icons/eye";
 
 export default {
   components: {
-    MoreInfo,
+    StartedMoreInfo,
     Icon
   },
   mixins: [welcomeToastr],
   created() {
-
-    //TODO: napuni my_jobs
-    //TODO: izbrisi hardcode dodelu
+//TODO: napuni finished_jobs
+//TODO: skini hardcode
+//TODO: izbrisi import gore
 
     //  axios
     //   .get("allbids")
@@ -80,10 +77,9 @@ export default {
   },
   computed: {},
   mounted() {
-    eventBus.$on("isVisibleMoreInfo", val => {
+    eventBus.$on("isVisibleStartedInfo", val => {
       this.isVisibleBid = val;
     });
-
   },
   computed: {},
   methods: {
@@ -96,15 +92,15 @@ export default {
     return {
       details: {},
       isVisibleBid: false,
-      columns: ["title", "startingPrice", "preview"],
-      my_jobs: hardcodemyjobs,
+      columns: ["pentester","title", "price", "more info"],
+      finished_jobs: hardcodepentst,
       options: {
         columnsClasses: {
-          rating: "cursorable"
+          price: "cursorable"
         },
         filterByColumn: true,
-        filterable: ["title", "startingPrice"],
-        sortable: ["pricing"],
+        filterable: ["title", "price"],
+        sortable: ["price"],
         pagination: {
           dropdown: true,
           nav: "scroll"

@@ -19,7 +19,6 @@ let routes = [
                     children:[
                         {
                             path:'/udp-nmap',
-                            
                             component: require('../components/maincomps/UserChildren/FewTools/NmapUDP.vue')
                         }
                     ],
@@ -40,7 +39,17 @@ let routes = [
                     path:'bids',
                     component: require('../components/maincomps/UserChildren/Bids.vue')
 
-                }
+                },
+                {
+                    path:'finishedjobs',
+                    component: require('../components/maincomps/UserChildren/FinishedJobs.vue')
+
+                },
+                {
+                    path:'startedjobs',
+                    component: require('../components/maincomps/UserChildren/StartedJobs.vue')
+
+                },
             ]
         },
         {
