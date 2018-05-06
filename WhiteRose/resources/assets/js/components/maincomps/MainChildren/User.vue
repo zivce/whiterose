@@ -13,12 +13,15 @@
 
     <!-- control panel -->
 
-      <b-nav class="d-flex justify-content-center"  pills>
+      <b-nav class="d-flex justify-content-center user_nav"  pills>
         <b-nav-item to="/user/postjob">Post Job</b-nav-item>
         <b-nav-item to="/user/tools">Tools</b-nav-item>
         <b-nav-item to="/user/scans">Scans</b-nav-item>
         <b-nav-item to="/user/myjobs">My Jobs</b-nav-item>
         <b-nav-item to="/user/bids">Bids</b-nav-item>
+        <b-nav-item to="/user/startedjobs">Started Jobs</b-nav-item>
+        <b-nav-item to="/user/finishedjobs">Finished Jobs</b-nav-item>
+
       </b-nav>
       
       <!-- <transition name="fade"> -->
@@ -43,7 +46,6 @@ export default {
   mixins: [welcomeToastr],
   mounted() {
     logger(["hellow", "user mounted"], "User.vue");
-    //HACK:
     // this.welcomeNotify("User");
   },
   components: {
@@ -64,6 +66,9 @@ export default {
 </script>
 
 <style scoped>
+.user_nav{
+  margin-bottom:20px;
+}
 #user_comps {
   min-height: 90vh;
 }

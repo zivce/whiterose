@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div class="comp_container">
+    
+    <h2 class="h2s">Preview your scans.</h2>
+
     <v-client-table
     :data='table_data'
     :columns='columns'

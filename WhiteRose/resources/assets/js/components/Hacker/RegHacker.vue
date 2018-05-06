@@ -156,9 +156,9 @@ export default {
 
                 return;
               } else if (response.status === 200) {
-                window.setTimeout(() => {
-                  window.location.href = "/";
-                });
+                // window.setTimeout(() => {
+                //   window.location.href = "/";
+                // });
                 return;
               }
             })
@@ -168,9 +168,9 @@ export default {
                 backdrop: 0.5
               });
 
-              window.setTimeout(() => {
-                window.location.reload();
-              }, 1500);
+              // window.setTimeout(() => {
+              //   window.location.reload();
+              // }, 1500);
             });
         },
         vvalidation_pw_again: {

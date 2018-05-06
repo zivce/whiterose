@@ -1,6 +1,8 @@
 <template>
   <div id="job_poster" class="comp_container">
     <h2 class="h2s">Post your new job.</h2>
+
+
     <div class="group_input_title group_input_title_first">
         
       <h3 class="h3s">
@@ -86,16 +88,41 @@
       </job-form-input>
     </div>
 
+    
+    <div class="group_input_title group_input_title_first">
+        
+      <h3 class="h3s">
+        Select your scan. <span>(optional)</span>
+      </h3>
+
+      <b-form-select  
+        v-model="selected_scan"
+        :options="scans"         
+        name="selectscan"
+        >
+
+        <template slot="first">
+          <option :value ="null" 
+          disabled>
+            Please select your scan
+          </option>
+        </template>
+      
+      </b-form-select>
+    </div>
+
     <div class="group_input_title">
       <h3 class="h3s">
-        Insert scan <span>(optional)</span>
+        Insert document. <span>(optional)</span>
       </h3>
 
       <b-form-file accept=".pdf" v-model="scan_pdf" placeholder="Choose file">
 
       </b-form-file>
     </div>
-  
+
+    
+
     <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
       Submit  <icon name="handshake" id="hands_icon" scale="2"></icon>
     </b-button>
@@ -114,8 +141,8 @@ import welcomeToastr from "../../toastr/welcometoastr";
 import JobFormInput from "../../utilcomps/JobPosterInput.vue";
 export default {
   created() {
-    //povuci sve verifikovane sajtove...
-    //napuni options
+    //TODO: povuci sve verifikovane sajtove...
+    //TODO: napuni options
   },
   computed: {
     errDesc() {
@@ -146,9 +173,9 @@ export default {
 
       this.$validator.validateAll().then(form_ok => {
         if (form_ok && vm.all_fields_ok) {
-          alert("ok");
           axios
             .post("/postjob", {
+              selected_scan : this.selected_scan,
               selected_site: this.selected_site,
               title: this.titleinput.value,
               desc: this.descinput.value,
@@ -163,8 +190,6 @@ export default {
             });
         }
         else {
-          console.log("reset");
-
           //reset
           vm.all_fields_ok = true
         }
@@ -177,6 +202,12 @@ export default {
       validator: this.$validator,
       scan_pdf: null,
       selected_site: "",
+      selected_scan:"",
+      scans: [
+        { value: "scan1", text: "Scan1-Date1" },
+        { value: "scan2", text: "Scan2-Date2" },
+        { value: "scan3", text: "Scan3-Date3" }
+      ],
       options: [
         { value: "www.gooogle.com", text: "Google" },
         { value: "www.facebook.com", text: "Face" },
@@ -219,6 +250,7 @@ export default {
   margin-top: 3%;
 }
 textarea {
+  box-shadow: 0px 0px 2px #949494;
   text-align: center;
   outline: none !important;
   border-bottom: 1px solid rgba(0, 8, 53, 0.603);
