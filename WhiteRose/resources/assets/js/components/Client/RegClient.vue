@@ -65,6 +65,7 @@ export default {
       regForm: {
         submitHandler() {
           axios
+
             .post("/clientreg", {
               email: vm.regForm.inputs.email.value,
               password: vm.regForm.inputs.pw.value,

@@ -37,19 +37,40 @@
     padding-right: 0;
   }
   
+  .fform_input input:focus {
+    cursor: text;
+    width:100%;
+    outline:none !important;
+    border:none;
+    border-bottom: 1px solid rgba(0, 8, 53, 0.603);
+  }
+
+
+  .fform_input_job input {
+    font-weight: 500;
+    border:0;
+    background-color: transparent !important;
+    width:100%;  
+    text-align: center;
+    cursor: pointer;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .fform_input_job input:focus {
+    cursor: text;
+    width:100%;
+    outline:none !important;
+    border:none;
+    border-bottom: 1px solid rgba(0, 8, 53, 0.603);
+  }
+
   .fform_input input::placeholder {
     color: rgba(0, 8, 53, 0.603);
 
   }
   
   
-  .fform_input input:focus {
-    cursor: text;
-    width:100%;
-    outline:none !important;
-    border-bottom: 1px solid rgba(0, 8, 53, 0.603);
-  }
-
   input:-webkit-autofill,
   input:-webkit-autofill:hover, 
   input:-webkit-autofill:focus
@@ -80,3 +101,4 @@
   font-size: 10px;
   font-weight: 700;
 }
+

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="user_comps">
       
       <b-button @click="hideShowInfo">
         <icon name="info" ></icon>
@@ -14,7 +14,7 @@
     <!-- control panel -->
 
       <b-nav class="d-flex justify-content-center"  pills>
-        <b-nav-item to="/user/postjob"></b-nav-item>
+        <b-nav-item to="/user/postjob">Post Job</b-nav-item>
         <b-nav-item to="/user/tools">Tools</b-nav-item>
         <b-nav-item to="/user/scans">Scans</b-nav-item>
         <b-nav-item to="/user/myjobs">My Jobs</b-nav-item>
@@ -43,6 +43,7 @@ export default {
   mixins: [welcomeToastr],
   mounted() {
     logger(["hellow", "user mounted"], "User.vue");
+    //HACK:
     // this.welcomeNotify("User");
   },
   components: {
@@ -63,4 +64,7 @@ export default {
 </script>
 
 <style scoped>
+#user_comps {
+  min-height: 90vh;
+}
 </style>

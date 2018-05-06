@@ -18,5 +18,13 @@
 @import './snotify.scss';
 @import './global.scss';
 body{
-  background-color: $body-bg !important;
+//   background : $body-gradient;
+//   background: $body-gradient-webkit;
+  background: $body-bg !important;
+}
+
+
+.cursorable{
+  cursor:pointer;
+  cursor: hand;
 }

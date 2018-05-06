@@ -24,7 +24,7 @@
     <transition name="flip" mode="out-in">
     
       <pentester-bid 
-      :details="details"
+      :det.sync="details"
       v-if="isVisibleBid">
 
       </pentester-bid>
@@ -48,7 +48,8 @@ import "vue-awesome/icons/eye";
 
 export default {
   components: {
-    PentesterBid,Icon
+    PentesterBid,
+    Icon
   },
   mixins: [welcomeToastr],
   created() {
@@ -68,30 +69,46 @@ export default {
     //     //error snotify here.
     //   });
   },
+  computed: {},
   mounted() {
     eventBus.$on("isVisiblePentesterBid", val => {
       this.isVisibleBid = val;
-  });
+      console.log(this.details);
+
+      //change the accepted
+      if (this.details.accepted) {
+        this.table_data.forEach(elem => {
+          let job_got_accepted = elem.show.info === this.details.info;
+
+          if (job_got_accepted) {
+            //dodaj da je postao accepted u bazu nekako
+
+            elem.show.accepted = true;
+          }
+        });
+      }
+    });
   },
+  computed: {},
   methods: {
     showDetails(props) {
-      this.details = props.row.show;
+      this.details = props.row;
       this.isVisibleBid = true;
     }
   },
   data() {
     return {
-      columnsClasses: {
-          details: "cursorable"
-        },
       details: {},
       isVisibleBid: false,
       columns: ["pentester", "rating", "preview"],
       table_data: hardcodepentst,
       options: {
+        columnsClasses: {
+          rating: "cursorable"
+        },
         filterByColumn: true,
         filterable: ["pentester", "rating"],
-        sortable: ["pentester"],
+        sortable: ["rating"],
         pagination: {
           dropdown: true,
           nav: "scroll"
@@ -103,20 +120,13 @@ export default {
 </script>
 
 <style scoped>
-
-
-#eye_ico{
-  color:var(--cyan);
+#eye_ico {
+  color: var(--cyan);
   vertical-align: middle;
 }
 
-#eye_ico:hover{
+#eye_ico:hover {
   color: #000619d4;
   vertical-align: middle;
-}
-
-.cursorable{
-  cursor:pointer;
-  cursor: hand;
 }
 </style>

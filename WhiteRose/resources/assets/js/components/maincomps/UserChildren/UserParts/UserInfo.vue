@@ -1,7 +1,7 @@
 <template>
   
 
-    <div class="row" id="info_admin">
+    <div  id="info_admin">
     
       <h1>Details</h1>
       <p>

@@ -30,7 +30,7 @@ import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/download";
 
 export default {
-  components:{
+  components: {
     Icon
   },
   mixins: [welcomeToastr],
@@ -57,19 +57,17 @@ export default {
   },
   data() {
     return {
-      sortIcon:"fa fa-caret",
-      columnsClasses: {
-          date: "cursorable"
-        },
+      sortIcon: "fa fa-caret",
+
       columns: ["date", "scan", "download"],
       table_data: hardcode,
       options: {
-        datepickerOptions: {
-          linkedCalendars: true
+        columnsClasses: {
+          date: "cursorable"
         },
         dateColumns: ["date"],
         sortable: ["date"],
-        filterable:["scan"],
+        filterable: ["scan"],
         pagination: {
           dropdown: true,
           nav: "scroll"
@@ -83,8 +81,7 @@ export default {
 </script>
 
 <style scoped>
-.cursorable
-{
+.cursorable {
   cursor: pointer;
 }
 </style>
