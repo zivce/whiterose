@@ -45,7 +45,7 @@ Route::get('test1',function(){
 });
 
 Route::get('/',function(){
-    Auth::guard('client')->logout();
+    
     if(Auth::guard('client')->check()||Auth::guard('pentester')->check())
     return view('home');
 
@@ -90,6 +90,16 @@ Route::get('viewbidspentester','PentesterController@viewMyBids')->name('viewbids
 
 //Client loging register
 Route::post('/clientreg','ClientController@register')->name('clientreg');
+Route::get('/confirmed/{token}','ClientController@verifyAccount')->name('confirmed');
+Route::post('/clientlogin','ClientController@login')->name('clientlogin');
+Route::get('clientlogout','ClientController@logout')->name('logout');
+
+//Pentester loging register
+Route::post('/hackerreg','PentesterController@register')->name('hackerreg');
+Route::get('/confirmed/{token}','PentesterController@verifyAccount')->name('confirmed');
+Route::post('/hackerlogin','PentesterController@login')->name('hackerlogin');
+
+
 
 Route::group(['prefix' => 'client'], function () {
   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');

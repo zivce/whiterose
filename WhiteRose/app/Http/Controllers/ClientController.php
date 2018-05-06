@@ -12,6 +12,8 @@ use App\Client;
 use Illuminate\Support\Facades\Redirect;
 use App\Job;
 use App\Pentester;
+use Illuminate\Support\Facades\Hash;
+
 
 
 
@@ -122,14 +124,7 @@ class ClientController extends Controller
         return $returnBids;
    }
 
-   public function login(Request $request)
-   {
-       $email=$request->email;
-       $password=$request->password;
-       if(Auth::guard('client')->attempt(['email'=>$email,'password'=>$password]))
-       return Auth::guard('client')->user();
-       return 'Wrong username or password';
-   }
+
 
    public function register(Request $request)
    {
@@ -144,7 +139,7 @@ class ClientController extends Controller
         }
     if (!strcmp($request->password, $request->sameaspw )) {
         $client= new Client;
-        $client->token=0;
+        $client->tokens=0;
         //$client->username=$request->username;
         $client->name=$request->firstname;
         $client->lastname=$request->lastname;
@@ -156,14 +151,72 @@ class ClientController extends Controller
         $this->passwordResetEmail=$request->email;
       
         $confirmation_code=$client->confirmation_code;
-        $client->save();
+       
         Mail::send('verify',['confirmation_code'=>$confirmation_code], function($message){
             
             $message->to($this->passwordResetEmail);
             $message->subject('Verify your email');
         
         });
+        $client->save();
      
      }
+    }
+
+    public function verifyAccount($token)
+    {
+        $client=Client::where('confirmation_code',$token)->first();
+        if(!$client)
+        {
+            return "User does not exist";
+        }
+        $client->confirmed=1;
+        $client->confirmation_code=null;
+        $client->save();
+        return redirect('home');
+    }
+
+    public function login(Request $request)
+    {
+
+        $email=$request->email;
+        $password=$request->pw;
+        $client=Client::where('email',$email)->first();
+        if($client)
+        {
+        if($client->confirmed==0)
+        {
+            return 'Please verify your account';
+        }
+        
+        if(Auth::guard('client')->attempt(['email'=>$email,'password'=>$password]))
+        {
+           
+            $client=Auth::guard('client')->user();
+            $toReturn=['client',$client];
+            
+            return $toReturn;
+            
+        }
+        else
+        {
+           
+            return 'Wrong username or password';
+                  
+        }
+       }
+      return 'User does not exist';
+    }
+
+    public function logout()
+    {
+        if(Auth::guard('client')->check())
+        {
+            Auth::guard('client')->logout();
+            return view('lender');
+        }
+        return 'NIJe';
+        
+        
     }
 }
