@@ -25,7 +25,6 @@
 <script>
 import eventBus from "../../utils/eventBus";
 
-
 export default {
   props: {
     prop: {
@@ -44,14 +43,11 @@ export default {
     }
   },
   mounted() {
-    
-    eventBus.$on("validateAllFields",()=>{
-      
-      this.$validator.validateAll()
-        .then((res)=>{
-          eventBus.$emit("field_ok",res);
-        })
-    })
+    eventBus.$on("validateAllFields", () => {
+      this.$validator.validateAll().then(res => {
+        eventBus.$emit("field_ok", res);
+      });
+    });
   },
   data() {
     return {

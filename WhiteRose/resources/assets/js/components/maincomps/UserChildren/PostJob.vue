@@ -96,7 +96,7 @@
       </b-form-file>
     </div>
   
-    <b-button class="btn btn-info btn-secondary actionbtn" @click.once="submitHandler()">
+    <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
       Submit  <icon name="handshake" id="hands_icon" scale="2"></icon>
     </b-button>
   </div>
@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import eventBus from '../../../utils/eventBus';
+import eventBus from "../../../utils/eventBus";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/handshake";
@@ -121,23 +121,22 @@ export default {
     errDesc() {
       return this.errors.has(this.descinput.id);
     },
-    errSite(){
+    errSite() {
       return this.errors.has("selectsite");
     }
   },
   components: {
-    JobFormInput,Icon
+    JobFormInput,
+    Icon
   },
   mixins: [welcomeToastr],
   mounted() {
-    
     //ako je makar jedan field false
     //pukne ne ulazi u submitovanje forme.
 
-    eventBus.$on("field_ok",(val)=>{
+    eventBus.$on("field_ok", val => {
       this.all_fields_ok &= val;
-    })
-
+    });
   },
   methods: {
     submitHandler() {
@@ -147,6 +146,7 @@ export default {
 
       this.$validator.validateAll().then(form_ok => {
         if (form_ok && vm.all_fields_ok) {
+          alert("ok");
           axios
             .post("/postjob", {
               selected_site: this.selected_site,
@@ -162,13 +162,19 @@ export default {
               });
             });
         }
+        else {
+          console.log("reset");
+
+          //reset
+          vm.all_fields_ok = true
+        }
       });
     }
   },
   data() {
     return {
-      all_fields_ok : true,
-      validator : this.$validator,
+      all_fields_ok: true,
+      validator: this.$validator,
       scan_pdf: null,
       selected_site: "",
       options: [
@@ -201,8 +207,7 @@ export default {
 </script>
 
 <style scoped>
-#hands_icon
-{
+#hands_icon {
   vertical-align: middle;
 }
 #job_poster {

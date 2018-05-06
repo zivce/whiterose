@@ -1,6 +1,23 @@
 <template>
-  <div>
-      <h1>Hello tools</h1>
+  <div  class="comp_container">
+      <h2 class="h2s" >Select tool from sidebar.</h2>
+      
+      <div class="row" id="toolContainer">
+        
+        <b-nav vertical pills class="col-md-4">
+          <b-nav-item to="/udp-nmap">
+            UDP Nmap  
+          </b-nav-item>  
+        </b-nav>
+
+        <div class="col-md-7 offset-md-1">
+          <router-view>
+
+          </router-view>
+        </div>
+
+
+      </div>
   </div>
 
 </template>
@@ -11,9 +28,7 @@ import welcomeToastr from "../../toastr/welcometoastr";
 
 export default {
   mixins: [welcomeToastr],
-  mounted() {
-    logger(["hellow", "user mounted"], "User.vue");
-  },
+  mounted() {},
   data() {
     return {};
   }
@@ -21,4 +36,7 @@ export default {
 </script>
 
 <style scoped>
+#toolContainer {
+  margin-top: 4%;
+}
 </style>
