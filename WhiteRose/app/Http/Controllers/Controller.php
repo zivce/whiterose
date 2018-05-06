@@ -24,4 +24,6 @@ class Controller extends BaseController
     {
         return Job::all();
     }
+
+    
 }

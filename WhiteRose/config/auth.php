@@ -36,6 +36,16 @@ return [
     */
 
     'guards' => [
+        'pentester' => [
+            'driver' => 'session',
+            'provider' => 'pentesters',
+        ],
+
+        'client' => [
+            'driver' => 'session',
+            'provider' => 'clients',
+        ],
+
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -65,6 +75,16 @@ return [
     */
 
     'providers' => [
+        'pentesters' => [
+            'driver' => 'eloquent',
+            'model' => App\Pentester::class,
+        ],
+
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Client::class,
+        ],
+
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
@@ -92,6 +112,18 @@ return [
     */
 
     'passwords' => [
+        'pentesters' => [
+            'provider' => 'pentesters',
+            'table' => 'pentester_password_resets',
+            'expire' => 60,
+        ],
+
+        'clients' => [
+            'provider' => 'clients',
+            'table' => 'client_password_resets',
+            'expire' => 60,
+        ],
+
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',

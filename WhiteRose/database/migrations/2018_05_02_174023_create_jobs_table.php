@@ -17,7 +17,8 @@ class CreateJobsTable extends Migration
             $table->increments('id');
             $table->longText('description');
             $table->string('domain');
-            $table->string('startingPrice');
+            $table->integer('maximum_price');
+            $table->integer('current_bid');
             $table->string('title');
             $table->string('pentester_username')->nillable();
             $table->integer('client_id');

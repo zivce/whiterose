@@ -1,5 +1,10 @@
 <?php
 
+// use Symfony\Component\Routing\Route;
+use App\Client;
+use Illuminate\Support\Facades\Auth;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +16,10 @@
 |
 */
 
-$loggedIn = true;
+
+$loggedIn = false;
+
+
 
 if($loggedIn)
     Route::get('/',function(){
@@ -22,8 +30,25 @@ else
         return view('lender');
     });
 
+
+Route::get('/lander',function(){
+    return view('lender');
+});
 Auth::routes();
 
+Route::get('test1',function(){
+    $email='nikola1';
+    $password='zivce';
+    if(Auth::guard('client')->attempt(['email'=>$email,'password'=>$password]))
+        return 'OK';
+ 
+});
+
+Route::get('/',function(){
+    if(Auth::guard('client')->check()||Auth::guard('pentester')->check())
+    return view('home');
+    return view('lender');
+});
 
 Route::post('login','Auth\LoginController@postLogin')->name('login');
 
@@ -52,5 +77,41 @@ Route::post('returnalljobs','Controller@allJobs')->name('returnalljobs');
 
 //Return posted jobs to client
 Route::post('returnmyjobs','ClientController@myJobs')->name('returnmyjobs');
+Route::post('returnmyjob','ClientController@myJob')->name('returnmyjob');//undonde
+
+//Biding on job
+Route::post('bid','PentesterConroller@binOnJob')->name('bid');
+
+//View my bids
+Route::get('viewbidsclient','ClientController@viewMyBiddedJobs')->name('viewbidsclient');
+Route::get('viewbidspentester','PentesterController@viewMyBids')->name('viewbidspentester');
 
 
+
+Route::group(['prefix' => 'client'], function () {
+  Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
+  Route::post('/login', 'ClientAuth\LoginController@login');
+  Route::post('/logout', 'ClientAuth\LoginController@logout')->name('logout');
+
+  Route::get('/register', 'ClientAuth\RegisterController@showRegistrationForm')->name('register');
+  Route::post('/register', 'ClientAuth\RegisterController@register');
+
+  Route::post('/password/email', 'ClientAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+  Route::post('/password/reset', 'ClientAuth\ResetPasswordController@reset')->name('password.email');
+  Route::get('/password/reset', 'ClientAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+  Route::get('/password/reset/{token}', 'ClientAuth\ResetPasswordController@showResetForm');
+});
+
+Route::group(['prefix' => 'pentester'], function () {
+  Route::get('/login', 'PentesterAuth\LoginController@showLoginForm')->name('login');
+  Route::post('/login', 'PentesterAuth\LoginController@login');
+  Route::post('/logout', 'PentesterAuth\LoginController@logout')->name('logout');
+
+  Route::get('/register', 'PentesterAuth\RegisterController@showRegistrationForm')->name('register');
+  Route::post('/register', 'PentesterAuth\RegisterController@register');
+
+  Route::post('/password/email', 'PentesterAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+  Route::post('/password/reset', 'PentesterAuth\ResetPasswordController@reset')->name('password.email');
+  Route::get('/password/reset', 'PentesterAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+  Route::get('/password/reset/{token}', 'PentesterAuth\ResetPasswordController@showResetForm');
+});
