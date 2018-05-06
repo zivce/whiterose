@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -15,13 +14,15 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email');
-            $table->string('username');
+            $table->string('name');
+            $table->string('email')->unique();
             $table->string('password');
+            $table->string('username');
             $table->string('lastname');
-            $table->integer('tokens')->default(0);
+            $table->integer('tokens');
             $table->string('confirmation_code')->nullable();
-            $table->boolean('confirmed')->default(0);
+            $table->integer('confirmed')->default(0);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::drop('clients');
     }
 }

@@ -10,6 +10,8 @@ use App\Website;
 use App\Client;
 use Illuminate\Support\Facades\Redirect;
 use App\Job;
+use App\Pentester;
+
 
 
 
@@ -88,6 +90,32 @@ class ClientController extends Controller
    public function myJobs()
    {
        return Job::where('id',Auth::user()->id)->get();
+   }
+   public function myJob()
+   {
+       
+   }
+   public function viewMyBiddedJobs(Request $request)
+   {
+
+       $clientID=$request->clientID;
+       $jobID=$request->jobID;
+
+
+       $returnBids=array();
+       $bids=Bids::where('job_id',$jobID)
+                    ->where('client_id',$clientID)
+                    ->get();
+        foreach($bids as $bid)
+        {
+            array_push($returnBids,[
+                'amount'=>$bid->amount,
+                'pentester_username'=>Pentester::where('id',$bid->pentester_id)->username,
+                'pentester_email'=>Pentester::where('id',$bid->pentester_id)->email,
+                'pentester_rating'=>Pentester::where('id',$bid->pentester_id)->rating
+            ]);
+        }
+        return $returnBids;
    }
 
 
