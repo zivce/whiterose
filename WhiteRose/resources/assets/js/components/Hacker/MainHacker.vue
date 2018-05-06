@@ -80,7 +80,6 @@ export default {
   margin: auto;
 }
 
-
 #wrapper * {
   margin-bottom: 10px;
 }

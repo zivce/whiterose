@@ -28,12 +28,10 @@ import FormInput from "../utilcomps/FormInput.vue";
 
 export default {
   mounted() {},
-  components:{
+  components: {
     FormInput
   },
-  computed: {
-  
-  },
+  computed: {},
   destroyed() {},
   data() {
     let vm = this;
@@ -112,5 +110,4 @@ export default {
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
 }
-
 </style>

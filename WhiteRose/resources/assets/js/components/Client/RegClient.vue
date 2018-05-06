@@ -42,7 +42,6 @@ import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
 
-
 export default {
   mounted() {
     logger(
@@ -51,11 +50,10 @@ export default {
     );
   },
   destroyed() {},
-  components:{
+  components: {
     FormInput
   },
   computed: {
-    
     errorPwAgain() {
       return this.errors.has("sameaspw");
     }
@@ -67,6 +65,7 @@ export default {
       regForm: {
         submitHandler() {
           axios
+
             .post("/clientreg", {
               email: vm.regForm.inputs.email.value,
               password: vm.regForm.inputs.pw.value,

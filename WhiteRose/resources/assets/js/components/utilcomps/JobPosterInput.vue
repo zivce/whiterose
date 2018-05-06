@@ -1,8 +1,7 @@
 
 <template>
-    <div  class="fform_input">
+    <div  class="fform_input_job">
     
-    <label :for="prop.id">{{prop.label}}</label>
 
     <input  
     :placeholder="prop.label"
@@ -10,8 +9,9 @@
     :type="prop.type" 
     :id="prop.id" 
     v-model="prop.value" 
-    :required="prop.validation.required"
+    required="true"
     v-validate="vval"
+    :maxlength="10"
     :name="prop.id"/>
     
     <span v-if="errors.has(prop.id)" class="incorrect_input">
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import eventBus from "../../utils/eventBus";
+
 export default {
   props: {
     prop: {
@@ -36,14 +38,17 @@ export default {
     }
   },
   created() {
-    //adds specific validation
-    if (this.prop.id === "email") this.vval["email"] = true;
-
-    //UNCOMMENT AFTER DEV
-    // if(this.prop.id === "password")
-    //   this.vval["regex"] = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
+    if (this.prop.id === "scan") {
+      this.vval = {};
+    }
   },
-  mounted() {},
+  mounted() {
+    eventBus.$on("validateAllFields", () => {
+      this.$validator.validateAll().then(res => {
+        eventBus.$emit("field_ok", res);
+      });
+    });
+  },
   data() {
     return {
       vval: { required: true },
@@ -57,13 +62,5 @@ export default {
 <style scoped>
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
-}
-
-.incorrect_input {
-  float: left;
-  width: 100%;
-  color: red;
-  font-size: 10px;
-  font-weight: 700;
 }
 </style>

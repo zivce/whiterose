@@ -38,9 +38,8 @@ import { SnotifyPosition } from "vue-snotify";
 import welcomeToastr from "../../toastr/welcometoastr";
 import AdminInfo from "../AdminChildren/AdminParts/AdminInfo.vue";
 
-import Icon from 'vue-awesome/components/Icon';
-import 'vue-awesome/icons/info'
-
+import Icon from "vue-awesome/components/Icon";
+import "vue-awesome/icons/info";
 
 export default {
   components: {

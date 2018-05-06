@@ -12,6 +12,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.moment = require('moment');
+
 
 /**
  * Imports block 
@@ -33,10 +35,15 @@ import landerRouter from './routes/routes';
 import mainRouter from './routes/routesMain';
 
 
+import {ClientTable,Event} from 'vue-tables-2';
+
+
+
 /**
   * What Vue should globally use.
   */
 
+Vue.use(ClientTable);
 Vue.use(Snotify);
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);

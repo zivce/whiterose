@@ -16,13 +16,15 @@
 @import "lander";
 @import "./form.scss";
 @import './snotify.scss';
-
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.25s ease-out;
+@import './global.scss';
+body{
+//   background : $body-gradient;
+//   background: $body-gradient-webkit;
+  background: $body-bg !important;
 }
 
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-}
 
+.cursorable{
+  cursor:pointer;
+  cursor: hand;
+}

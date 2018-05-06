@@ -20,58 +20,60 @@ import FormInput from "../utilcomps/FormInput.vue";
 
 export default {
   mounted() {},
-  components:{
+  components: {
     FormInput
   },
-  computed: {
-  
-  },
+  computed: {},
   destroyed() {},
   data() {
     return {
       submitHandler() {
-        axios
-          .post("/hackerlogin", {
-            email: this.inputs.email.value,
-            pw: this.inputs.pw.value
-          })
-          .then(function(response) {
-            let user_exists = response.data !== "User does not exist";
+        this.$validator.validateAll().then(form_ok => {
+          if (form_ok) {
+            axios
+              .post("/hackerlogin", {
+                email: this.inputs.email.value,
+                pw: this.inputs.pw.value
+              })
+              .then(function(response) {
+                let user_exists = response.data !== "User does not exist";
 
-            let email_not_verified =
-              response.data === "Please verify your account";
+                let email_not_verified =
+                  response.data === "Please verify your account";
 
-            if (email_not_verified) {
-              this.$snotify.info("Verify your email.", "Verification", {
-                position: SnotifyPosition.centerTop,
-                backdrop: 0.5
+                if (email_not_verified) {
+                  this.$snotify.info("Verify your email.", "Verification", {
+                    position: SnotifyPosition.centerTop,
+                    backdrop: 0.5
+                  });
+
+                  return;
+                } else if (user_exists) {
+                  //after login go to home and header should change
+
+                  axios.get("/home").then(() => {
+                    window.setTimeout(() => {
+                      window.location.href = "/";
+                    }, 5);
+
+                    return;
+                  });
+                } else {
+                  //does not exist
+                  this.$snotify.error("User does not exist!", "Error!", {
+                    position: SnotifyPosition.centerTop,
+                    backdrop: 0.5
+                  });
+                }
+              })
+              .catch(function(error) {
+                vm.$snotify.error("Not logged in!", "Error!", {
+                  position: SnotifyPosition.centerTop,
+                  backdrop: 0.5
+                });
               });
-
-              return;
-            } else if (user_exists) {
-              //after login go to home and header should change
-
-              axios.get("/home").then(() => {
-                window.setTimeout(() => {
-                  window.location.href = "/";
-                }, 5);
-
-                return;
-              });
-            } else {
-              //does not exist
-              this.$snotify.error("User does not exist!", "Error!", {
-                position: SnotifyPosition.centerTop,
-                backdrop: 0.5
-              });
-            }
-          })
-          .catch(function(error) {
-            vm.$snotify.error("Not logged in!", "Error!", {
-              position: SnotifyPosition.centerTop,
-              backdrop: 0.5
-            });
-          });
+          }
+        });
       },
       inputs: {
         email: {

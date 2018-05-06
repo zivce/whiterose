@@ -20,12 +20,10 @@ import FormInput from "../utilcomps/FormInput.vue";
 
 export default {
   mounted() {},
-  components:{
+  components: {
     FormInput
   },
-  computed: {
-  
-  },
+  computed: {},
   destroyed() {},
   data() {
     return {
