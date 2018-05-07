@@ -100,7 +100,8 @@ Route::get('/confirmed/{token}','PentesterController@verifyAccount')->name('conf
 Route::post('/hackerlogin','PentesterController@login')->name('hackerlogin');
 Route::get('hackerlogout','PentesterController@logout')->name('logout');
 
-
+//Scan
+Route::get('scan','ClientController@scan')->name('scan');
 
 
 Route::group(['prefix' => 'client'], function () {

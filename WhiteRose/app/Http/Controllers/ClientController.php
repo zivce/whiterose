@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Job;
 use App\Pentester;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
+use App\Scan;
 
 
 
@@ -226,5 +228,40 @@ class ClientController extends Controller
         return 'NIJe';
         
         
+    }
+
+    public function scan(Request $request)
+    {
+        $scanN=$request->scan;
+      
+        $command = $request->cmd;
+        // $command="sudo"." ".$command ." "."2>&1";
+        // $output=shell_exec($command);
+        $output=shell_exec('ping google.com');
+        $scanN='ping';
+        $outputToRet=$output;
+       if(Auth::guard('client')->user())
+       {
+          
+           $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
+           Storage::makeDirectory($dirName);
+           $date=Carbon::now();
+           $date=str_replace(' ','_',$date);
+           $date=str_replace(':','_',$date);
+           
+           $pdfOut=json_encode($output);
+           $pdfOut=str_replace('\n','<br>',$pdfOut);
+           $saveFileName=$dirName.'/'.$scanN.'_'.$date.'.pdf';
+            
+           Storage::put($saveFileName,$pdfOut);
+           $scan=new Scan;
+           $scan->client_id=Auth::guard('client')->user()->id;
+           $scan->path=Storage::url($saveFileName);
+           $scan->scanName=$scanN;
+           $scan->save();
+          
+     }
+
+     return $outputToRet;
     }
 }
