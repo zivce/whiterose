@@ -17,7 +17,7 @@ class CreateStartedJobsTable extends Migration
             $table->increments('id');
             $table->integer('pentester_id');
             $table->integer('job_id')->nullable();
-            $table->integer('price');
+            $table->integer('amount');
             $table->timestamps();
         });
     }

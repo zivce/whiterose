@@ -15,7 +15,7 @@ class CreateWebsitesTable extends Migration
     {
         Schema::create('websites', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('siteName');
+            $table->string('domain');
             $table->string('confirmationCode');
             $table->integer('confirmed')->default(0);
             $table->timestamps();

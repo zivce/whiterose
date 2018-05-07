@@ -18,10 +18,10 @@ class CreateJobsTable extends Migration
             $table->longText('description');
             $table->string('domain');
             $table->integer('maximum_price');
-            $table->integer('current_bid');
             $table->string('title');
-            $table->string('pentester_username')->nillable();
+            $table->string('pentester_username')->nullable();
             $table->integer('client_id');
+            $table->integer('inprogress')->default(0);
             $table->timestamps();
         });
     }

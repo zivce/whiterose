@@ -27,7 +27,7 @@ Route::get('/',function(){
     return view('lender');
 });
 
-Route::post('login','Auth\LoginController@postLogin')->name('login');
+
 
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/client', 'HomeController@client')->name('client');
@@ -84,7 +84,10 @@ Route::get('/download/{dir}/{fileName}','ClientController@downloadScan')->name('
 //Upload CV
 Route::post('uploadCv','PentesterController@uploadCV')->name('uploadCv');
 Route::post('postCv','PentesterController@postCV')->name('postCv');
+Route::post('postdeails','PentesterController@postPentesterDetails')->name('postdeails');
 
+//Accepting the bid/starting the job
+Route::post('accept','ClientController@acceptTheBid')->name('accept');
 
 // Route::group(['prefix' => 'client'], function () {
 //   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');

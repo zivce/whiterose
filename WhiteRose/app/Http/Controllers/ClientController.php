@@ -17,6 +17,8 @@ use App\Pentester;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use App\Scan;
+use App\Bid;
+use App\Started_job;
 
 
 
@@ -227,7 +229,7 @@ class ClientController extends Controller
             Auth::guard('client')->logout();
             return view('lender');
         }
-        return 'NIJe';
+      
         
         
     }
@@ -235,10 +237,13 @@ class ClientController extends Controller
     public function scan(Request $request)
     {
         $scanN=$request->scan;
-      
+        $domain=$request->domain;
+        if(!Website::where('domain',$domain)->count>0)
+            return "Website is not confirmed!";
         $command = $request->cmd;
-        // $command="sudo"." ".$command ." "."2>&1";
-        // $output=shell_exec($command);
+        $execute=$command.' '.$domain;
+        // $execute="sudo"." ".$execute ." "."2>&1";
+        // $output=shell_exec($execute);
         $output=shell_exec('ping google.com');
         $scanN='ping';
         $outputToRet=$output;
@@ -275,5 +280,24 @@ class ClientController extends Controller
         $pdf=\App::make('dompdf.wrapper');
         $pdf->loadHTML($outputPDF);
         return $pdf->download($fileName);
+    }
+
+    public function acceptTheBid(Request $request)
+    {
+        $bidID=$request->bidID;
+        $bid=Bid::where('id',$bidID)->first();
+        $bid->accepted=1;
+        $bid->save();
+
+        $started_job=new Started_job;
+        $started_job->job_id=$bid->job_id;
+        $started_job->pentester_id=$bid->pentester_id;
+        $started_job->amount=$bid->amount;
+        $started_job->save();
+
+        $job=$bid->job;
+        $job->inprogress=1;
+        $job->save();
+        
     }
 }

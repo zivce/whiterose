@@ -18,6 +18,7 @@ class CreateCVsTable extends Migration
             $table->text('biography');
             $table->text('skills');
             $table->text('education');
+            $table->integer('pentester_id');
             $table->string('image_path');
             $table->string('file_path')->nullable();
             $table->timestamps();
