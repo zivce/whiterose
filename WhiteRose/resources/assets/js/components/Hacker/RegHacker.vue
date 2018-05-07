@@ -86,6 +86,8 @@ import bTabs from "bootstrap-vue/es/components/tabs/tabs";
 import bTab from "bootstrap-vue/es/components/tabs/tab";
 import SkillsInput from "../utilcomps/SkillsInput.vue";
 import FormInput from "../utilcomps/FormInput.vue";
+import { SnotifyPosition } from "vue-snotify";
+import eventBus from "../../utils/eventBus";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/plus";
@@ -98,7 +100,11 @@ export default {
     FormInput,
     SkillsInput
   },
-  mounted() {},
+  mounted() {
+    eventBus.$on("field_ok", val => {
+      this.inputs[val.id].ok = val.field_ok;
+    });
+  },
   computed: {
     fillSkills() {},
     errorPwAgain() {
@@ -125,12 +131,15 @@ export default {
 
   data() {
     let vm = this;
-
     return {
       skills: [],
       skillsPresent: 0,
+
+      all_fields_ok: false,
+      
       regForm: {
         submitHandler() {
+
           vm.regForm.inputs.skills.forEach(skill => {
             vm.skills.push(skill.value);
           });
@@ -181,6 +190,7 @@ export default {
         },
         inputs: {
           email: {
+            ok: false,
             type: "text",
             id: "email",
             pholder: "your email here.",
@@ -197,6 +207,7 @@ export default {
             }
           },
           pw: {
+            ok: false,
             type: "password",
             pholder: "your password here.",
             id: "password",
@@ -213,6 +224,8 @@ export default {
             }
           },
           pwagain: {
+            ok: false,
+
             type: "password",
             id: "same password",
             pholder: "repeat password here",
@@ -224,6 +237,8 @@ export default {
             }
           },
           firstname: {
+            ok: false,
+
             type: "text",
             id: "firstname",
             pholder: "your firstname here.",
@@ -241,6 +256,8 @@ export default {
             }
           },
           username: {
+            ok: false,
+
             type: "text",
             id: "username",
             label: "Username",
@@ -257,6 +274,7 @@ export default {
           },
           skills: [
             {
+              ok: false,
               type: "text",
               id: "skills",
               label: "Skills",
@@ -273,6 +291,8 @@ export default {
             }
           ],
           lastname: {
+            ok: false,
+
             type: "text",
             id: "lastname",
             label: "Last Name",

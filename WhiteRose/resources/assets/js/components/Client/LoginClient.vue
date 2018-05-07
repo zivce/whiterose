@@ -2,9 +2,9 @@
     <form class="fform">
         <form-input :prop.sync="inputs.email"/>
 
-        <form-input :prop.sync="inputs.pw"/> 
+        <form-input :prop.sync="inputs.password"/> 
 
-        <b-button class="btn btn-info btn-secondary actionbtn" @click.once="submitHandler()">
+        <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
           Log In!
         </b-button>
 
@@ -17,21 +17,41 @@
 import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
+import eventBus from "../../utils/eventBus";
+import errorToastr from '../toastr/FormErrorToaster';
+import checkFields from '../../utils/checkAllFields';
+
 
 export default {
-  mounted() {},
+  mounted() {
+    eventBus.$on("field_ok", val => {
+      this.inputs[val.id].ok = val.field_ok;
+    });
+  },
   components: {
     FormInput
   },
+  mixins : [errorToastr,checkFields],
   computed: {},
   destroyed() {},
   data() {
     return {
+      all_fields_ok: false,
+      
       submitHandler() {
+        let vm = this;
+        
+        this.checkAllFields();
+        
+        if (!vm.all_fields_ok) {
+          this.errorNotify();
+          return;
+        }
+
         axios
           .post("/clientlogin", {
             email: this.inputs.email.value,
-            pw: this.inputs.pw.value
+            pw: this.inputs.password.value
           })
           .then(function(response) {
             let user_exists = response.data !== "User does not exist";
@@ -40,7 +60,7 @@ export default {
               response.data === "Please verify your account";
 
             if (email_not_verified) {
-              this.$snotify.info("Verify your email.", "Verification", {
+              vm.$snotify.info("Verify your email.", "Verification", {
                 position: SnotifyPosition.centerTop,
                 backdrop: 0.5
               });
@@ -58,7 +78,7 @@ export default {
               });
             } else {
               //does not exist
-              this.$snotify.error("User does not exist!", "Error!", {
+              vm.$snotify.error("User does not exist!", "Error!", {
                 position: SnotifyPosition.centerTop,
                 backdrop: 0.5
               });
@@ -73,6 +93,7 @@ export default {
       },
       inputs: {
         email: {
+          ok: false,
           type: "email",
           id: "email",
           label: "e-mail address",
@@ -81,7 +102,8 @@ export default {
             required: true
           }
         },
-        pw: {
+        password: {
+          ok: false,
           type: "password",
           id: "password",
           label: "password",

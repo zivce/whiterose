@@ -58,10 +58,8 @@ export default {
   },
   mixins: [welcomeToastr],
   created() {
-
     //TODO: napuni my_jobs
     //TODO: izbrisi hardcode dodelu
-
     //  axios
     //   .get("allbids")
     //   .then(response => {
@@ -83,7 +81,6 @@ export default {
     eventBus.$on("isVisibleMoreInfo", val => {
       this.isVisibleBid = val;
     });
-
   },
   computed: {},
   methods: {

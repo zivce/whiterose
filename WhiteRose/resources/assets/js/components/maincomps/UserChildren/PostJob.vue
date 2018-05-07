@@ -175,7 +175,7 @@ export default {
         if (form_ok && vm.all_fields_ok) {
           axios
             .post("/postjob", {
-              selected_scan : this.selected_scan,
+              selected_scan: this.selected_scan,
               selected_site: this.selected_site,
               title: this.titleinput.value,
               desc: this.descinput.value,
@@ -188,10 +188,9 @@ export default {
                 backdrop: 0.5
               });
             });
-        }
-        else {
+        } else {
           //reset
-          vm.all_fields_ok = true
+          vm.all_fields_ok = true;
         }
       });
     }
@@ -202,7 +201,7 @@ export default {
       validator: this.$validator,
       scan_pdf: null,
       selected_site: "",
-      selected_scan:"",
+      selected_scan: "",
       scans: [
         { value: "scan1", text: "Scan1-Date1" },
         { value: "scan2", text: "Scan2-Date2" },

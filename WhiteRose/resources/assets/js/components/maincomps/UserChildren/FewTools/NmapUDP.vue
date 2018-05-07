@@ -133,65 +133,60 @@ f -->
 
 <script>
 import bFormCheckboxGroup from "bootstrap-vue/es/components/form-checkbox/form-checkbox-group";
-import eventBus from '../../../../utils/eventBus';
+import eventBus from "../../../../utils/eventBus";
 
-//IMPORT TABS 
-import NmapCommon from './NmapUDPTabs/NmapCommon.vue';
-import NmapRange from './NmapUDPTabs/NmapRange.vue';
-import NmapList from './NmapUDPTabs/NmapList.vue';
+//IMPORT TABS
+import NmapCommon from "./NmapUDPTabs/NmapCommon.vue";
+import NmapRange from "./NmapUDPTabs/NmapRange.vue";
+import NmapList from "./NmapUDPTabs/NmapList.vue";
 
 export default {
- 
   components: {
-    bFormCheckboxGroup,NmapCommon,NmapRange,NmapList
+    bFormCheckboxGroup,
+    NmapCommon,
+    NmapRange,
+    NmapList
   },
-  created(){
-      //TODO: do ajax call here to get verified sites
+  created() {
+    //TODO: do ajax call here to get verified sites
   },
-  mounted(){
-      //listeneri za komponente
+  mounted() {
+    //listeneri za komponente
 
-      eventBus.$on("portOk",
-      (value)=>{
-        this.isPortListOk = value;
-      })
-      
+    eventBus.$on("portOk", value => {
+      this.isPortListOk = value;
+    });
 
-      eventBus.$on("minPort",
-      (value)=>{
-        this.rangeMin = value;
-      })
-      
-      eventBus.$on("maxPort",
-      (value)=>{
-        this.rangeMax = value;
-      })
-      
+    eventBus.$on("minPort", value => {
+      this.rangeMin = value;
+    });
 
+    eventBus.$on("maxPort", value => {
+      this.rangeMax = value;
+    });
   },
   computed: {
     errIp() {
       return this.errors.has("ip");
     },
     errSite() {
-        return this.errors.has("selectsite");
+      return this.errors.has("selectsite");
     }
-    
   },
   data() {
     return {
-    //sites heres
-    selected_site:null,
-    sites:[
+      //sites heres
+      selected_site: null,
+      sites: [
         { value: "www.gooogle.com", text: "Google" },
         { value: "www.facebook.com", text: "Face" },
         { value: "www.gooogle.com", text: "Google" }
       ],
 
-    //data for what is active
-    is_range_active : true,
-    is_common_active : false,
-    is_list_active : false,
+      //data for what is active
+      is_range_active: true,
+      is_common_active: false,
+      is_list_active: false,
 
       //data from checkboxes
       detectServiceVersion: true,
@@ -227,28 +222,28 @@ export default {
     };
   },
   methods: {
-    commonActive(){
-        this.is_common_active = true;
-        this.isCommonChecked = true ; 
+    commonActive() {
+      this.is_common_active = true;
+      this.isCommonChecked = true;
 
-        this.is_range_active = false;
-        this.is_list_active = false;
+      this.is_range_active = false;
+      this.is_list_active = false;
     },
-    rangeActive(){
-        this.is_range_active = true;
-        this.isRangeChecked = true;
+    rangeActive() {
+      this.is_range_active = true;
+      this.isRangeChecked = true;
 
-        this.is_common_active = false;
-        this.is_list_active = false;
+      this.is_common_active = false;
+      this.is_list_active = false;
     },
-    listActive(){
-        this.is_list_active = true;
-        this.isListChecked = true;
+    listActive() {
+      this.is_list_active = true;
+      this.isListChecked = true;
 
-        this.is_range_active = false;
-        this.is_common_active = false;
+      this.is_range_active = false;
+      this.is_common_active = false;
     },
-    
+
     buildCmd() {
       let resultCmd = "nmap -sU ";
 
@@ -281,50 +276,50 @@ export default {
       return this.buildCmd();
     },
     getData() {
-        console.log("clicked")
-        this.$validator.validateAll().then(result => {
-          if (result && this.isAllowedToScanURL) {
-            this.selectedTab();
+      console.log("clicked");
+      this.$validator.validateAll().then(result => {
+        if (result && this.isAllowedToScanURL) {
+          this.selectedTab();
 
-            if (!this.isPortListOk) return;
+          if (!this.isPortListOk) return;
 
-            this.cmd = this.buildCmd();
+          this.cmd = this.buildCmd();
 
-            this.error = "";
-            this.isVisLoader = true;
-            const vm = this;
+          this.error = "";
+          this.isVisLoader = true;
+          const vm = this;
 
-            //hide for new scan..
-            vm.isVisible = false;
+          //hide for new scan..
+          vm.isVisible = false;
 
-            axios
-              .post("/scanning", {
-                url: this.url,
-                cmd: this.cmd,
-                scan: this.route_to_scan_name()
-              })
-              .then(function(response) {
-                vm.lines = response.data.split(/\r\n|\r|\n/).length;
+          axios
+            .post("/scanning", {
+              url: this.url,
+              cmd: this.cmd,
+              scan: this.route_to_scan_name()
+            })
+            .then(function(response) {
+              vm.lines = response.data.split(/\r\n|\r|\n/).length;
 
-                vm.currentLog = response.data;
-                vm.isVisible = true;
-                vm.isVisLoader = false;
-              })
-              .catch(function(error) {});
-          } else {
-            this.isVisLoader = false;
-          }
-        });
+              vm.currentLog = response.data;
+              vm.isVisible = true;
+              vm.isVisLoader = false;
+            })
+            .catch(function(error) {});
+        } else {
+          this.isVisLoader = false;
+        }
+      });
     }
   }
 };
 </script>
 
 <style scoped>
-#optionsContainer{
-    height : fit-content;
-    width: fit-content;
-    margin: 20px auto;
+#optionsContainer {
+  height: fit-content;
+  width: fit-content;
+  margin: 20px auto;
 }
 #scanOptions {
   text-align: center;
@@ -362,8 +357,6 @@ export default {
   margin-bottom: 5%;
   margin: 20px auto;
 }
-
-
 
 #contList {
   margin: auto;

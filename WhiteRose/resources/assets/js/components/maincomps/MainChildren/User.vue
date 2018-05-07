@@ -66,8 +66,8 @@ export default {
 </script>
 
 <style scoped>
-.user_nav{
-  margin-bottom:20px;
+.user_nav {
+  margin-bottom: 20px;
 }
 #user_comps {
   min-height: 90vh;

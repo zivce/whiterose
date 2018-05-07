@@ -16,7 +16,7 @@
 
 <body>
 
-    <div id="home" class="container-fluid">
+    <div id="home" class="container-fluid" :role="role">
         <router-view></router-view>
     </div>
     <script src="{{ asset('js/app.js') }}"> </script>

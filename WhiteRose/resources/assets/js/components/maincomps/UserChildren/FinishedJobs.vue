@@ -55,10 +55,9 @@ export default {
   },
   mixins: [welcomeToastr],
   created() {
-//TODO: napuni finished_jobs
-//TODO: skini hardcode
-//TODO: izbrisi import gore
-
+    //TODO: napuni finished_jobs
+    //TODO: skini hardcode
+    //TODO: izbrisi import gore
     //  axios
     //   .get("allbids")
     //   .then(response => {
@@ -92,7 +91,7 @@ export default {
     return {
       details: {},
       isVisibleBid: false,
-      columns: ["pentester","title", "price", "more info"],
+      columns: ["pentester", "title", "price", "more info"],
       finished_jobs: hardcodepentst,
       options: {
         columnsClasses: {

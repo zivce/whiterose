@@ -55,10 +55,9 @@ export default {
   },
   mixins: [welcomeToastr],
   created() {
-//TODO: napuni started_jobs
-//TODO: skini hardcode
-//TODO: izbrisi import gore
-
+    //TODO: napuni started_jobs
+    //TODO: skini hardcode
+    //TODO: izbrisi import gore
     //  axios
     //   .get("allbids")
     //   .then(response => {

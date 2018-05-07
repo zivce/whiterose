@@ -1,6 +1,7 @@
 <template>
         <form class="fform">
           <form-input :prop.sync="regForm.inputs.firstname"/>
+          <form-input :prop.sync="regForm.inputs.username"/>
           <form-input :prop.sync="regForm.inputs.lastname"/>
           <form-input :prop.sync="regForm.inputs.email"/>
           <form-input :prop.sync="regForm.inputs.pw"/>
@@ -41,6 +42,7 @@
 import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
+import eventBus from "../../utils/eventBus";
 
 export default {
   mounted() {
@@ -58,14 +60,18 @@ export default {
       return this.errors.has("sameaspw");
     }
   },
+  mounted() {
+  
+  },
   data() {
-    let vm = this;
-
     return {
+      all_fields_ok: false,
       regForm: {
         submitHandler() {
-          axios
+          let vm = this;
 
+
+          axios
             .post("/clientreg", {
               email: vm.regForm.inputs.email.value,
               password: vm.regForm.inputs.pw.value,
@@ -101,6 +107,7 @@ export default {
         },
         inputs: {
           email: {
+            ok: false,
             type: "text",
             id: "email",
             label: "e-mail address",
@@ -110,8 +117,9 @@ export default {
             }
           },
           pw: {
+            ok: false,
             type: "password",
-            id: "password",
+            id: "pw",
             label: "password",
             value: "",
             validation: {
@@ -119,8 +127,9 @@ export default {
             }
           },
           pwagain: {
+            ok: false,
             type: "password",
-            id: "sameaspw",
+            id: "pwagain",
             value: "",
             label: "repeat password",
             validation: {
@@ -128,6 +137,7 @@ export default {
             }
           },
           firstname: {
+            ok: false,
             type: "text",
             id: "firstname",
             label: "Name",
@@ -136,7 +146,18 @@ export default {
               required: true
             }
           },
+          username: {
+            ok: false,
+            type: "text",
+            id: "username",
+            label: "Username",
+            value: "",
+            validation: {
+              required: true
+            }
+          },
           lastname: {
+            ok: false,
             type: "text",
             id: "lastname",
             label: "Last Name",

@@ -23,7 +23,18 @@
 </template>
 
 <script>
+import eventBus from "../../utils/eventBus";
+
 export default {
+  mounted() {
+    // console.log(this.$validator)   ;
+    // eventBus.$on("validateAllFields", () => {
+    //   console.log(this.$validator);
+    //   this.$validator.validateAll().then(res => {
+    //     eventBus.$emit("field_ok", res);
+    //   });
+    // });
+  },
   props: {
     prop: {
       type: Object,
@@ -32,6 +43,13 @@ export default {
   },
   computed: {
     errHandler() {
+      let emitInfo = 
+      {        
+        id: this.prop.id,
+        field_ok: !this.errors.has(this.prop.id)
+      }
+      eventBus.$emit("field_ok", emitInfo);
+
       return this.errors.has(this.prop.id);
     }
   },
@@ -47,7 +65,7 @@ export default {
   data() {
     return {
       vval: { required: true },
-      id_upper: _.capitalize(this.prop.id)
+      id_upper: _.capitalize(this.prop.label)
     };
   }
 };

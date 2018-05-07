@@ -88,11 +88,11 @@ if(home_exists)
 {
     
     const home = new Vue({
-
+        props:[role],
         el: '#home',
         router: mainRouter,
         created(){
-            
+            console.log(this.role);
         },
         mounted(){
             
