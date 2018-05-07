@@ -17,18 +17,18 @@ use Illuminate\Support\Facades\Auth;
 */
 
 
-$loggedIn = false;
+// $loggedIn = false;
 
 
 
-if($loggedIn)
-    Route::get('/',function(){
-        return view('home');
-    });
-else
-    Route::get('/', function () {
-        return view('lender');
-    });
+// if($loggedIn)
+//     Route::get('/',function(){
+//         return view('home');
+//     });
+// else
+//     Route::get('/', function () {
+//         return view('lender');
+//     });
 
 
 Route::get('/lander',function(){

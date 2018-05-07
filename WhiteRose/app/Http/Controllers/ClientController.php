@@ -192,10 +192,10 @@ class ClientController extends Controller
         $client=Client::where('email',$email)->first();
         if($client)
         {
-        if($client->confirmed==0)
-        {
-            return 'Please verify your account';
-        }
+        // if($client->confirmed==0)
+        // {
+        //     return 'Please verify your account';
+        // }
         
         if(Auth::guard('client')->attempt(['email'=>$email,'password'=>$password]))
         {
