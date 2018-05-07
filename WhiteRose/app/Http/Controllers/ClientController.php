@@ -91,12 +91,13 @@ class ClientController extends Controller
     //posting job
     public function postJob(Request $request)
     {
+        
         $job=new Job;
-        $job->startingPrice=$request->price;
-        $job->domain=$request->domain;
+        $job->maximum_price=$request->price;
+        $job->domain=$request->selected_site;
         $job->title=$request->title;
-        $job->client_id=$request->clientID;
-        $job->description=$request->description;
+        $job->client_id=Auth::guard('client')->user()->id;
+        $job->description=$request->desc;
         $job->save();
 
 
@@ -123,7 +124,7 @@ class ClientController extends Controller
 
 
        $returnBids=array();
-       $bids=Bids::where('job_id',$jobID)
+       $bids=Bid::where('job_id',$jobID)
                     ->where('client_id',$clientID)
                     ->get();
         foreach($bids as $bid)
