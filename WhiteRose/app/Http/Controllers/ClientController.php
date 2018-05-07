@@ -106,7 +106,7 @@ class ClientController extends Controller
 
    public function myJobs()
    {
-       return Job::where('client_id',Auth::user()->id)->get();
+       return Job::where('client_id',Auth::guard('client')->user()->id)->get();
    }
    public function myJob(Request $request)
    {

@@ -53,7 +53,7 @@ Route::post('postjob','ClientController@postJob')->name('postjob');
 Route::post('returnalljobs','Controller@allJobs')->name('returnalljobs');
 
 //Return posted jobs to client
-Route::post('returnmyjobs','ClientController@myJobs')->name('returnmyjobs');
+Route::get('returnmyjobs','ClientController@myJobs')->name('returnmyjobs');
 Route::post('returnmyjob','ClientController@myJob')->name('returnmyjob');//undonde
 
 //Biding on job
