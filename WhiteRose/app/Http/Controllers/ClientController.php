@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Hash;
 
 
 
+
 class ClientController extends Controller
 {
     public $passwordResetEmail;
@@ -73,9 +74,12 @@ class ClientController extends Controller
             'amount' =>  $price,
             'currency' => 'usd',
             'description' => 'Buying'.$amount.'tokens'.'Price is'.$price.'$',
-            'source' => 'tok_KPte7942xySKBKyrBu11yEpf',
+            'source' => $request->token,
         ]);
-       (Client::where('id',$request->id)->first()->tokens=$amount)->save();
+        $client=Client::where('id',$request->id)->first();
+        $client->tokens=$amount;
+        $client->save();
+               
     }
 
     //posting job
@@ -95,12 +99,16 @@ class ClientController extends Controller
 
    public function myJobs()
    {
-       return Job::where('id',Auth::user()->id)->get();
+       return Job::where('client_id',Auth::user()->id)->get();
    }
-   public function myJob()
+   public function myJob(Request $request)
    {
-       
+       return Job::where('client_id',Auth::user()->id)
+                    ->where('title',$request->title)
+                    ->get();
    }
+
+   
    public function viewMyBiddedJobs(Request $request)
    {
 

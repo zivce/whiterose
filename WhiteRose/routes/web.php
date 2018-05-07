@@ -85,19 +85,21 @@ Route::post('returnmyjob','ClientController@myJob')->name('returnmyjob');//undon
 Route::post('bid','PentesterConroller@binOnJob')->name('bid');
 
 //View my bids
-Route::get('viewbidsclient','ClientController@viewMyBiddedJobs')->name('viewbidsclient');
+Route::post('viewbidsclient','ClientController@viewMyBiddedJobs')->name('viewbidsclient');
 Route::get('viewbidspentester','PentesterController@viewMyBids')->name('viewbidspentester');
 
 //Client loging register
-Route::post('/clientreg','ClientController@register')->name('clientreg');
+Route::post('clientreg','ClientController@register')->name('clientreg');
 Route::get('/confirmed/{token}','ClientController@verifyAccount')->name('confirmed');
 Route::post('/clientlogin','ClientController@login')->name('clientlogin');
 Route::get('clientlogout','ClientController@logout')->name('logout');
 
 //Pentester loging register
-Route::post('/hackerreg','PentesterController@register')->name('hackerreg');
+Route::post('hackerreg','PentesterController@register')->name('hackerreg');
 Route::get('/confirmed/{token}','PentesterController@verifyAccount')->name('confirmed');
 Route::post('/hackerlogin','PentesterController@login')->name('hackerlogin');
+Route::get('hackerlogout','PentesterController@logout')->name('logout');
+
 
 
 

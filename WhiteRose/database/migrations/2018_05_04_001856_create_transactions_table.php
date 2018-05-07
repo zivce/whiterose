@@ -18,7 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('client_id');
             $table->integer('pentester_id');
             $table->integer('amount');
-            $table->string('domain_name');
+            $table->integer('job_id');
             $table->timestamps();
         });
     }

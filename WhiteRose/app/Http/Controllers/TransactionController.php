@@ -11,24 +11,29 @@ class TransactionController extends Controller
     //
     public function transferTokens(Request $request)
     {
-        $clientID=$request->clientID;
-        $pentesterID=$request->pentesterID;
-        $domainName=$request->domainName;
-     
-        $transaction=Transaction::where('client_id',$clientID)
-                    ->where('pentester_id',$pentesterID)
-                    ->where('domain_name',$domainName)
-                    ->get();
-        
+       $bidID=$request->bidID;
+       $bid=Bid::where('id',$bidID)->first();
+       $client=Client::where('id',$bid->client_id)->first();
+       $pentester=Pentester::where('id',$bid->pentester_id)->first();
 
-        $amount=$transaction->amount;
-        $pentester=Pentester::where('id',1)->first();
-        $pentester->tokens=$pentester->tokens+$amount;
-        $pentester->save();
+       $client->tokens=$client->tokens-$bid->amount;
+       $client->reservedTokens=$client->reservedTokens-$bid->amount;
+
+       $pentester->tokens=$pentester->tokens+$bid->amount;
+
+       $transaction=new Transaction;
+       $transaction->client_id=$bid->client_id;
+       $transaction->pentester_id=$bid->pentester_id;
+       $transaction->amount=$bid->amount;
+       $transaction->job_id=$bid->job_id;
+
+       $client->save();
+       $pentester->save();
+       $transaction->save();
+      
        
-        $transaction=Transaction::where('cliend_id',$clientID)
-                    ->where('pentester_id',$pentesterID)
-                    ->where('domain_name',$domainName)
-                    ->delete();
+
+       
+
     }
 }

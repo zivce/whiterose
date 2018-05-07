@@ -19,6 +19,7 @@ class CreateBidsTable extends Migration
             $table->integer('job_id');
             $table->integer('client_id');
             $table->integer('pentester_id');
+            $table->integer('accepted');
             $table->timestamps();
         });
     }
