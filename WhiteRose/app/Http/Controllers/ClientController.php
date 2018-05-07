@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\File;
+use PDF;
+use Dompdf\Adapter\PDFLib;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -263,5 +265,15 @@ class ClientController extends Controller
      }
 
      return $outputToRet;
+    }
+
+    public function downloadScan($dir,$fileName)
+    {
+        $absolutePath='app/'.$dir.'/'.$fileName;
+        $path=storage_path($absolutePath);
+        $outputPDF=File::get($path);
+        $pdf=\App::make('dompdf.wrapper');
+        $pdf->loadHTML($outputPDF);
+        return $pdf->download($fileName);
     }
 }

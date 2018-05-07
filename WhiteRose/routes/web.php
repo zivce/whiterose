@@ -101,7 +101,10 @@ Route::post('/hackerlogin','PentesterController@login')->name('hackerlogin');
 Route::get('hackerlogout','PentesterController@logout')->name('logout');
 
 //Scan
-Route::get('scan','ClientController@scan')->name('scan');
+Route::post('scan','ClientController@scan')->name('scan');
+
+//Download scan
+Route::get('/download/{dir}/{fileName}','ClientController@downloadScan')->name('DownloadScan');
 
 
 Route::group(['prefix' => 'client'], function () {
