@@ -18,7 +18,8 @@ class CreateCVsTable extends Migration
             $table->text('biography');
             $table->text('skills');
             $table->text('education');
-            $table->string('imagePath');
+            $table->string('image_path');
+            $table->string('file_path')->nullable();
             $table->timestamps();
         });
     }

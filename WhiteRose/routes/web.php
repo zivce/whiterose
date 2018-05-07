@@ -16,33 +16,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-
-// $loggedIn = false;
-
-
-
-// if($loggedIn)
-//     Route::get('/',function(){
-//         return view('home');
-//     });
-// else
-//     Route::get('/', function () {
-//         return view('lender');
-//     });
-
-
-Route::get('/lander',function(){
-    return view('lender');
-});
 Auth::routes();
 
-Route::get('test1',function(){
-    $email='nikola1';
-    $password='zivce';
-    if(Auth::guard('client')->attempt(['email'=>$email,'password'=>$password]))
-        return 'OK';
- 
-});
 
 Route::get('/',function(){
     
@@ -86,7 +61,7 @@ Route::post('bid','PentesterConroller@binOnJob')->name('bid');
 
 //View my bids
 Route::post('viewbidsclient','ClientController@viewMyBiddedJobs')->name('viewbidsclient');
-Route::get('viewbidspentester','PentesterController@viewMyBids')->name('viewbidspentester');
+Route::post('viewbidspentester','PentesterController@viewMyBids')->name('viewbidspentester');
 
 //Client loging register
 Route::post('clientreg','ClientController@register')->name('clientreg');
@@ -106,31 +81,35 @@ Route::post('scan','ClientController@scan')->name('scan');
 //Download scan
 Route::get('/download/{dir}/{fileName}','ClientController@downloadScan')->name('DownloadScan');
 
+//Upload CV
+Route::post('uploadCv','PentesterController@uploadCV')->name('uploadCv');
+Route::post('postCv','PentesterController@postCV')->name('postCv');
 
-Route::group(['prefix' => 'client'], function () {
-  Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
-  Route::post('/login', 'ClientAuth\LoginController@login');
-  Route::post('/logout', 'ClientAuth\LoginController@logout')->name('logout');
 
-  Route::get('/register', 'ClientAuth\RegisterController@showRegistrationForm')->name('register');
-  Route::post('/register', 'ClientAuth\RegisterController@register');
+// Route::group(['prefix' => 'client'], function () {
+//   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
+//   Route::post('/login', 'ClientAuth\LoginController@login');
+//   Route::post('/logout', 'ClientAuth\LoginController@logout')->name('logout');
 
-  Route::post('/password/email', 'ClientAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'ClientAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'ClientAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-  Route::get('/password/reset/{token}', 'ClientAuth\ResetPasswordController@showResetForm');
-});
+//   Route::get('/register', 'ClientAuth\RegisterController@showRegistrationForm')->name('register');
+//   Route::post('/register', 'ClientAuth\RegisterController@register');
 
-Route::group(['prefix' => 'pentester'], function () {
-  Route::get('/login', 'PentesterAuth\LoginController@showLoginForm')->name('login');
-  Route::post('/login', 'PentesterAuth\LoginController@login');
-  Route::post('/logout', 'PentesterAuth\LoginController@logout')->name('logout');
+//   Route::post('/password/email', 'ClientAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+//   Route::post('/password/reset', 'ClientAuth\ResetPasswordController@reset')->name('password.email');
+//   Route::get('/password/reset', 'ClientAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+//   Route::get('/password/reset/{token}', 'ClientAuth\ResetPasswordController@showResetForm');
+// });
 
-  Route::get('/register', 'PentesterAuth\RegisterController@showRegistrationForm')->name('register');
-  Route::post('/register', 'PentesterAuth\RegisterController@register');
+// Route::group(['prefix' => 'pentester'], function () {
+//   Route::get('/login', 'PentesterAuth\LoginController@showLoginForm')->name('login');
+//   Route::post('/login', 'PentesterAuth\LoginController@login');
+//   Route::post('/logout', 'PentesterAuth\LoginController@logout')->name('logout');
 
-  Route::post('/password/email', 'PentesterAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'PentesterAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'PentesterAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-  Route::get('/password/reset/{token}', 'PentesterAuth\ResetPasswordController@showResetForm');
-});
+//   Route::get('/register', 'PentesterAuth\RegisterController@showRegistrationForm')->name('register');
+//   Route::post('/register', 'PentesterAuth\RegisterController@register');
+
+//   Route::post('/password/email', 'PentesterAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+//   Route::post('/password/reset', 'PentesterAuth\ResetPasswordController@reset')->name('password.email');
+//   Route::get('/password/reset', 'PentesterAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+//   Route::get('/password/reset/{token}', 'PentesterAuth\ResetPasswordController@showResetForm');
+// });
