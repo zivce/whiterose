@@ -36,7 +36,7 @@
               </form-input>
               
               
-              <form-input :prop.sync="regForm.inputs.pw" >
+              <form-input :prop.sync="regForm.inputs.password" >
               </form-input>
             
 
@@ -60,7 +60,7 @@
                   :required="regForm.inputs.pwagain.validation.required"
                   v-validate="{
                     rules:{
-                    required:true,is:regForm.inputs.pw.value,
+                    required:true,is:regForm.inputs.password.value,
                     }}"
                   :name="regForm.inputs.pwagain.id"/>
                   <span v-if="errors.has(regForm.inputs.pwagain.id)" class="incorrect_input">
@@ -89,10 +89,14 @@ import FormInput from "../utilcomps/FormInput.vue";
 import { SnotifyPosition } from "vue-snotify";
 import eventBus from "../../utils/eventBus";
 
+import errorToastr from '../toastr/FormErrorToaster';
+import checkFields from '../../utils/checkAllFields';
+
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/plus";
 
 export default {
+  mixins : [errorToastr,checkFields],
   components: {
     Icon,
     "b-tabs": bTabs,
@@ -101,8 +105,8 @@ export default {
     SkillsInput
   },
   mounted() {
-    eventBus.$on("field_ok", val => {
-      this.inputs[val.id].ok = val.field_ok;
+     eventBus.$on("field_ok", val => {
+      this.regForm.inputs[val.id].ok = val.field_ok;
     });
   },
   computed: {
@@ -131,6 +135,8 @@ export default {
 
   data() {
     let vm = this;
+    console.log(vm);
+    
     return {
       skills: [],
       skillsPresent: 0,
@@ -140,13 +146,19 @@ export default {
       regForm: {
         submitHandler() {
 
+        this.checkAllFields();
+        
+        if (!vm.all_fields_ok) {
+          this.errorNotify();
+          return;
+        }
           vm.regForm.inputs.skills.forEach(skill => {
             vm.skills.push(skill.value);
           });
 
           let registerInfo = {
             email: vm.regForm.inputs.email.value,
-            password: vm.regForm.inputs.pw.value,
+            password: vm.regForm.inputs.password.value,
             sameaspw: vm.regForm.inputs.pwagain.value,
             firstname: vm.regForm.inputs.firstname.value,
             lastname: vm.regForm.inputs.lastname.value,
@@ -206,7 +218,7 @@ export default {
               required: true
             }
           },
-          pw: {
+          password: {
             ok: false,
             type: "password",
             pholder: "your password here.",
@@ -275,6 +287,7 @@ export default {
           skills: [
             {
               ok: false,
+
               type: "text",
               id: "skills",
               label: "Skills",

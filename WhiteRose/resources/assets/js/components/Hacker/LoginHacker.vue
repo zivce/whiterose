@@ -1,7 +1,6 @@
 <template>
     <form class="fform">
         <form-input :prop.sync="inputs.email"/>
-
         <form-input :prop.sync="inputs.password"/> 
 
         <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
@@ -23,7 +22,7 @@ import checkFields from '../../utils/checkAllFields';
 
 export default {
   mounted() {
-    eventBus.$on("field_ok", val => {
+     eventBus.$on("field_ok", val => {
       this.inputs[val.id].ok = val.field_ok;
     });
   },
@@ -40,19 +39,19 @@ export default {
       
 
       submitHandler() {
-        let vm = this;
         
         this.checkAllFields();
-        debugger;
+        
         if (!vm.all_fields_ok) {
           this.errorNotify();
           return;
         }
 
+
         axios
           .post("/hackerlogin", {
             email: this.inputs.email.value,
-            pw: this.inputs.pw.value
+            pw: this.inputs.password.value
           })
           .then(function(response) {
             let user_exists = response.data !== "User does not exist";

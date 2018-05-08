@@ -1,7 +1,6 @@
 <template>
     <form class="fform">
         <form-input :prop.sync="inputs.email"/>
-
         <form-input :prop.sync="inputs.password"/> 
 
         <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
