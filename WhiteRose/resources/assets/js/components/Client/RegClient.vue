@@ -44,17 +44,20 @@ import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
 
 
-import eventBus from "../../utils/eventBus";
+import eventBusRegC from "../../utils/eventBusRegC";
 import errorToastr from '../toastr/FormErrorToaster';
 import checkFields from '../../utils/checkAllFields';
 
 
 export default {
   mounted() {
-    eventBus.$on("field_ok", val => {
+    eventBusRegC.$on("field_ok", val => {
       let id = val.id;
-      debugger;
-      this.inputs.id.ok = val.field_ok;
+        
+      if(typeof this.inputs[id] === "undefined")
+        return;
+      this.inputs[id].ok = val.field_ok;
+
     });
    
   },
@@ -64,6 +67,12 @@ export default {
   },
   computed: {
     errorPwAgain() {
+  
+      if(this.inputs.pwagain.value === "")
+        this.inputs.pwagain.ok = false;
+      else
+        this.inputs.pwagain.ok = !this.errors.has("pwagain");
+
       return this.errors.has("pwagain");
     }
   },
@@ -121,6 +130,7 @@ export default {
         },
         inputs: {
           email: {
+            reg_c:true,
             ok: false,
             type: "text",
             id: "email",
@@ -131,6 +141,8 @@ export default {
             }
           },
           pw: {
+            reg_c:true,
+
             ok: false,
             type: "password",
             id: "pw",
@@ -141,6 +153,8 @@ export default {
             }
           },
           pwagain: {
+            reg_c:true,
+
             ok: false,
             type: "password",
             id: "pwagain",
@@ -151,6 +165,8 @@ export default {
             }
           },
           firstname: {
+            reg_c:true,
+
             ok: false,
             type: "text",
             id: "firstname",
@@ -161,6 +177,8 @@ export default {
             }
           },
           username: {
+            reg_c:true,
+
             ok: false,
             type: "text",
             id: "username",
@@ -171,6 +189,8 @@ export default {
             }
           },
           lastname: {
+            reg_c:true,
+
             ok: false,
             type: "text",
             id: "lastname",
