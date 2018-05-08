@@ -2,12 +2,12 @@
   <div class="comp_container">
     
     <h2 class="h2s">Preview your jobs.</h2>
-
+    <p> {{ jobs.domain }} </p>
     <transition name="flip" mode="out-in">
     
       <v-client-table
       v-if="!isVisibleBid"
-      :data='my_jobs'
+      :data='jobs'
       :columns='columns'
       :options='options'
       >
@@ -62,21 +62,26 @@ export default {
     //TODO: napuni my_jobs
     //TODO: izbrisi hardcode dodelu
 
-    //  axios
-    //   .get("allbids")
-    //   .then(response => {
-    //     //this adapts response for show in vue tables 2
-    //     response.data.data.forEach(scan_info => {
-    //       this.table_data.push({
-    //         pentester: bid_info.username,
-    //         rating: bid_info.rating,
-    //         bid_info
-    //       });
-    //     });
-    //   })
-    //   .catch(err => {
-    //     //error snotify here.
-    //   });
+     axios
+      .get("returnmyjobs")
+      .then(response => {
+        console.log(response.data[0]);
+        // this adapts response for show in vue tables 2
+        this.jobs[0] = response.data[0];
+        response.data.forEach(job_info => {
+          //ovde sam hardkodirao da bi se uklopilo u tabelu
+          //treba ovo sto je zakomentarisano pa da promenis tabelu
+          this.jobs.push({
+            title: job_info.title,
+            startingPrice: job_info.maximum_price,
+            description: job_info.description,
+            //job_info
+          });
+        });
+      })
+      .catch(err => {
+        //error snotify here.
+      });
   },
   computed: {},
   mounted() {
@@ -109,7 +114,8 @@ export default {
           dropdown: true,
           nav: "scroll"
         }
-      }
+      },
+      jobs:[]
     };
   }
 };
