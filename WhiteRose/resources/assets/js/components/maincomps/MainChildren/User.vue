@@ -35,18 +35,14 @@
 </template>
 
 <script>
-import logger from "../../../utils/groupLogger";
-import welcomeToastr from "../../toastr/welcometoastr";
 import UserInfo from "../UserChildren/UserParts/UserInfo.vue";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/info";
 
 export default {
-  mixins: [welcomeToastr],
+  mixins: [],
   mounted() {
-    logger(["hellow", "user mounted"], "User.vue");
-    // this.welcomeNotify("User");
   },
   components: {
     Icon,

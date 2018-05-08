@@ -1,6 +1,6 @@
 <template>
   <div class="comp_container">
-    <h2 class="h2s">Preview started jobs.</h2>
+    <h2 class="h2s">Preview finished jobs.</h2>
 
     <transition name="flip" mode="out-in">
     

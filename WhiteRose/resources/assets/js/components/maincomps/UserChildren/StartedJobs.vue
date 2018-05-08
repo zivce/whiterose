@@ -76,24 +76,6 @@ export default {
       .catch(err => {
         //error snotify here.
       });
-    //TODO: napuni started_jobs
-    //TODO: skini hardcode
-    //TODO: izbrisi import gore
-    //  axios
-    //   .get("allbids")
-    //   .then(response => {
-    //     //this adapts response for show in vue tables 2
-    //     response.data.data.forEach(scan_info => {
-    //       this.table_data.push({
-    //         pentester: bid_info.username,
-    //         rating: bid_info.rating,
-    //         bid_info
-    //       });
-    //     });
-    //   })
-    //   .catch(err => {
-    //     //error snotify here.
-    //   });
   },
   computed: {},
   mounted() {

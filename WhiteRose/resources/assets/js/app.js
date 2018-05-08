@@ -29,6 +29,8 @@ import mainRouter from './routes/routesMain';
 import {ClientTable,Event} from 'vue-tables-2';
 import Axios from 'axios';
 import errorToaster from './components/toastr/FormErrorToaster';
+import logg from './utils/groupLogger';
+import successToastr from './components/toastr/welcometoastr';
 
 import checkFields from './utils/checkAllFields';
 
@@ -36,8 +38,10 @@ import checkFields from './utils/checkAllFields';
  * Mixins
  */
 
+Vue.mixin(logg);
 Vue.mixin(errorToaster);
 Vue.mixin(checkFields);
+Vue.mixin(successToastr);
 
 /**
   * What Vue should globally use.
@@ -90,14 +94,15 @@ if(home_exists)
         created(){
 
             let user = localStorage.getItem("r");
+            
             console.log(user);
             
             user = JSON.parse(user);
 
-            console.log(user);
+            console.log(user[0]);
 
             //bind user to instance
-            this.user = user;
+            this.user_role = "pentst";
 
 
             // localStorage.clear();
@@ -108,13 +113,23 @@ if(home_exists)
     })
     
     mainRouter.beforeEach((to,from,next) => {
+        
         if(to.path === "/")
         {   
-            debugger;
-            if(home.user[0] === "client")
+            
+            //TODO: dodaj rute razlicite u zavisnosti od role.
+            
+            //TODO: dodatno moze da se proverava i pre nego sto udje na neku rutu
+
+            if(home.user_role === "client")
             {
                 next({path:"/user"});
             }
+            if(home.user_role === "pentst")
+            {
+                next({path:"/pentester"})
+            }
+
         }
         else
         {

@@ -40,7 +40,6 @@
 
 <script>
 import logger from "../../utils/groupLogger";
-import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
 
 import eventBusRegC from "../../utils/eventBusRegC";
@@ -92,29 +91,25 @@ export default {
             lastname: vm.inputs.lastname.value
           })
           .then(function(response) {
+            debugger;
             if (response.data === "This mail already exist") {
-              vm.$snotify.error("User exists!", "Error!", {
-                position: SnotifyPosition.centerTop,
-                backdrop: 0.5
-              });
-
+              vm.errorToast("User exists.","Error!");
               return;
             } else if (response.status === 200) {
-              // window.setTimeout(() => {
-              //   window.location.href = "/";
-              // });
+                
+                vm.notifySuccess("Proceed to login.","Success");
+                
+                vm.$router.push({
+                  path:"client"
+                });
               return;
             }
           })
           .catch(response => {
-            vm.$snotify.error("An error has occured.", "Error", {
-              position: SnotifyPosition.centerTop,
-              backdrop: 0.5
-            });
-
-            // window.setTimeout(() => {
-            //   window.location.reload();
-            // }, 1500);
+            vm.errorToast("Error happened.","Error!");
+            window.setTimeout(() => {
+              window.location.reload();
+            }, 1500);
           });
       },
       inputs: {

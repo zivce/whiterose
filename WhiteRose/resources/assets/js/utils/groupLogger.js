@@ -1,10 +1,16 @@
-export default function(messagesToLog = ["hello!"], whereAreYou = "Main")
-{
-
-    console.group(`emitted from ${whereAreYou}`);
-        messagesToLog.forEach((msg)=>{
+var logg = {
+    methods: {
+      logger(g,...messages){
+        
+        console.group(`emitted from ${g}`);
+        
+        messages.forEach((msg)=>{
             console.log(`${msg}`);
         })        
     
-    console.groupEnd();
-} 
+        console.groupEnd();
+        }
+    }
+  }
+  
+export default logg;

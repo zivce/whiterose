@@ -9,15 +9,15 @@ var checkFields = {
             continue;
           }
 
-            if (!object_entry.ok) {
-              this.all_fields_ok = false;
-              break;
-            }
-            else
-            {
-              this.all_fields_ok = true;
-            }
-          
+          if (!object_entry.ok) {
+            this.all_fields_ok = false;
+            break;
+          }
+          else
+          {
+            this.all_fields_ok = true;
+          }
+        
           }
       }
     }

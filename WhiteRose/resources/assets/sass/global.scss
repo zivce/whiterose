@@ -4,7 +4,7 @@
   }
 
 
-  .h3s{
+.h3s{
     font-weight: $h3-weight;
     font-size: $h3-size;
   }
@@ -16,4 +16,9 @@
   margin: 0 auto;
   box-shadow: 3px 3px 7px 2px #e2e2e2;
 
+}
+
+.preview_from_table_container
+{
+  margin: 10% auto 10px auto !important;
 }
