@@ -1,7 +1,12 @@
 <template>
   <div id="main_vue">
       <h1  class="row">
-          Header here.
+        <router-link 
+        to="/home"
+        >
+          Home
+        </router-link>
+           Header here.
       </h1>
 
       <home v-if="home">

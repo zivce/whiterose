@@ -103,7 +103,19 @@ if(home_exists)
 
             //bind user to instance
             this.user_role = "pentst";
-
+            console.log(this);
+            let on_root_path = this.$router.app.$route.fullPath === "/";
+            
+            if(on_root_path)
+            {
+                //TODO: for each role
+                if(this.user_role === "pentst")
+                {
+                    this.$router.push({
+                        path:'/pentester'
+                    })
+                }
+            }
 
             // localStorage.clear();
 

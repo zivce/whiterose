@@ -139,6 +139,7 @@ import "vue-awesome/icons/handshake";
 
 import welcomeToastr from "../../toastr/welcometoastr";
 import JobFormInput from "../../utilcomps/JobPosterInput.vue";
+
 export default {
   created() {
     //TODO: povuci sve verifikovane sajtove...
@@ -183,10 +184,7 @@ export default {
             })
             .then(function(response) {})
             .catch(function(error) {
-              vm.$snotify.error("Error happened", "Error!", {
-                position: SnotifyPosition.centerTop,
-                backdrop: 0.5
-              });
+              vm.errorToast("An error happened.","Error!")
             });
         } else {
           //reset

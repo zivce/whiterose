@@ -1,6 +1,11 @@
 import VueRouter from 'vue-router';
 let routes = [
     {
+        path:'/home',
+        component: require('../components/maincomps/Home.vue')
+        
+    },
+    {
         name:'main',
         path: '/',
         children: [

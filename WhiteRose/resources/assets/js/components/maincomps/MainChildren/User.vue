@@ -55,7 +55,7 @@ export default {
   },
   data() {
     return {
-      isVisibleUserInfo: true
+      isVisibleUserInfo: false
     };
   }
 };
