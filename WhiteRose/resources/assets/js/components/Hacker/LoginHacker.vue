@@ -17,36 +17,31 @@ import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
 import eventBus from "../../utils/eventBus";
-import errorToastr from '../toastr/FormErrorToaster';
-import checkFields from '../../utils/checkAllFields';
 
 export default {
   mounted() {
-     eventBus.$on("field_ok", val => {
+    eventBus.$on("field_ok", val => {
       this.inputs[val.id].ok = val.field_ok;
     });
   },
   components: {
     FormInput
   },
-  mixins : [errorToastr,checkFields],
+  mixins: [],
   computed: {},
   destroyed() {},
   data() {
     let vm = this;
     return {
       all_fields_ok: false,
-      
 
       submitHandler() {
-        
         this.checkAllFields();
-        
+
         if (!vm.all_fields_ok) {
           this.errorNotify();
           return;
         }
-
 
         axios
           .post("/hackerlogin", {
@@ -67,15 +62,7 @@ export default {
 
               return;
             } else if (user_exists) {
-              //after login go to home and header should change
-
-              axios.get("/home").then(() => {
-                // window.setTimeout(() => {
-                //   window.location.href = "/";
-                // }, 5);
-
-                return;
-              });
+              window.location.reload();
             } else {
               //does not exist
               this.$snotify.error("User does not exist!", "Error!", {
@@ -93,7 +80,7 @@ export default {
       },
       inputs: {
         email: {
-          ok:false,
+          ok: false,
           type: "email",
           id: "email",
           label: "e-mail address",
@@ -103,7 +90,7 @@ export default {
           }
         },
         password: {
-          ok:false,
+          ok: false,
           type: "password",
           id: "password",
           label: "password",

@@ -43,23 +43,18 @@ import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
 
-
 import eventBusRegC from "../../utils/eventBusRegC";
-import errorToastr from '../toastr/FormErrorToaster';
-import checkFields from '../../utils/checkAllFields';
-
+import errorToastr from "../toastr/FormErrorToaster";
+import checkFields from "../../utils/checkAllFields";
 
 export default {
   mounted() {
     eventBusRegC.$on("field_ok", val => {
       let id = val.id;
-        
-      if(typeof this.inputs[id] === "undefined")
-        return;
-      this.inputs[id].ok = val.field_ok;
 
+      if (typeof this.inputs[id] === "undefined") return;
+      this.inputs[id].ok = val.field_ok;
     });
-   
   },
   destroyed() {},
   components: {
@@ -67,141 +62,134 @@ export default {
   },
   computed: {
     errorPwAgain() {
-  
-      if(this.inputs.pwagain.value === "")
-        this.inputs.pwagain.ok = false;
-      else
-        this.inputs.pwagain.ok = !this.errors.has("pwagain");
+      if (this.inputs.pwagain.value === "") this.inputs.pwagain.ok = false;
+      else this.inputs.pwagain.ok = !this.errors.has("pwagain");
 
       return this.errors.has("pwagain");
     }
   },
-  mounted() {
-  
-  },
-  mixins : [errorToastr,checkFields],
+  mounted() {},
+  mixins: [errorToastr, checkFields],
   data() {
     return {
       all_fields_ok: false,
-        submitHandler() {
-          let vm = this;
+      submitHandler() {
+        let vm = this;
 
-          
-          this.checkAllFields();
-          
-          if (!vm.all_fields_ok) {
-            this.errorNotify();
-            return;
-          }
+        this.checkAllFields();
 
+        if (!vm.all_fields_ok) {
+          this.errorNotify();
+          return;
+        }
 
-          axios
-            .post("/clientreg", {
-              email: vm.inputs.email.value,
-              password: vm.inputs.pw.value,
-              sameaspw: vm.inputs.pwagain.value,
-              firstname: vm.inputs.firstname.value,
-              lastname: vm.inputs.lastname.value
-            })
-            .then(function(response) {
-              if (response.data === "This mail already exist") {
-                vm.$snotify.error("User exists!", "Error!", {
-                  position: SnotifyPosition.centerTop,
-                  backdrop: 0.5
-                });
-
-                return;
-              } else if (response.status === 200) {
-                // window.setTimeout(() => {
-                //   window.location.href = "/";
-                // });
-                return;
-              }
-            })
-            .catch(response => {
-              vm.$snotify.error("An error has occured.", "Error", {
+        axios
+          .post("/clientreg", {
+            email: vm.inputs.email.value,
+            password: vm.inputs.pw.value,
+            sameaspw: vm.inputs.pwagain.value,
+            firstname: vm.inputs.firstname.value,
+            lastname: vm.inputs.lastname.value
+          })
+          .then(function(response) {
+            if (response.data === "This mail already exist") {
+              vm.$snotify.error("User exists!", "Error!", {
                 position: SnotifyPosition.centerTop,
                 backdrop: 0.5
               });
 
+              return;
+            } else if (response.status === 200) {
               // window.setTimeout(() => {
-              //   window.location.reload();
-              // }, 1500);
+              //   window.location.href = "/";
+              // });
+              return;
+            }
+          })
+          .catch(response => {
+            vm.$snotify.error("An error has occured.", "Error", {
+              position: SnotifyPosition.centerTop,
+              backdrop: 0.5
             });
+
+            // window.setTimeout(() => {
+            //   window.location.reload();
+            // }, 1500);
+          });
+      },
+      inputs: {
+        email: {
+          reg_c: true,
+          ok: false,
+          type: "text",
+          id: "email",
+          label: "e-mail address",
+          value: "",
+          validation: {
+            required: true
+          }
         },
-        inputs: {
-          email: {
-            reg_c:true,
-            ok: false,
-            type: "text",
-            id: "email",
-            label: "e-mail address",
-            value: "",
-            validation: {
-              required: true
-            }
-          },
-          pw: {
-            reg_c:true,
+        pw: {
+          reg_c: true,
 
-            ok: false,
-            type: "password",
-            id: "pw",
-            label: "password",
-            value: "",
-            validation: {
-              required: true
-            }
-          },
-          pwagain: {
-            reg_c:true,
+          ok: false,
+          type: "password",
+          id: "pw",
+          label: "password",
+          value: "",
+          validation: {
+            required: true
+          }
+        },
+        pwagain: {
+          reg_c: true,
 
-            ok: false,
-            type: "password",
-            id: "pwagain",
-            value: "",
-            label: "repeat password",
-            validation: {
-              required: true
-            }
-          },
-          firstname: {
-            reg_c:true,
+          ok: false,
+          type: "password",
+          id: "pwagain",
+          value: "",
+          label: "repeat password",
+          validation: {
+            required: true
+          }
+        },
+        firstname: {
+          reg_c: true,
 
-            ok: false,
-            type: "text",
-            id: "firstname",
-            label: "Name",
-            value: "",
-            validation: {
-              required: true
-            }
-          },
-          username: {
-            reg_c:true,
+          ok: false,
+          type: "text",
+          id: "firstname",
+          label: "Name",
+          value: "",
+          validation: {
+            required: true
+          }
+        },
+        username: {
+          reg_c: true,
 
-            ok: false,
-            type: "text",
-            id: "username",
-            label: "Username",
-            value: "",
-            validation: {
-              required: true
-            }
-          },
-          lastname: {
-            reg_c:true,
+          ok: false,
+          type: "text",
+          id: "username",
+          label: "Username",
+          value: "",
+          validation: {
+            required: true
+          }
+        },
+        lastname: {
+          reg_c: true,
 
-            ok: false,
-            type: "text",
-            id: "lastname",
-            label: "Last Name",
-            value: "",
-            validation: {
-              required: true
-            }
+          ok: false,
+          type: "text",
+          id: "lastname",
+          label: "Last Name",
+          value: "",
+          validation: {
+            required: true
           }
         }
+      }
     };
   }
 };

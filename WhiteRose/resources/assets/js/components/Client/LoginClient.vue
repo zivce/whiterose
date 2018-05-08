@@ -17,17 +17,13 @@ import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
 import eventBus1 from "../../utils/eventBus1";
-import errorToastr from '../toastr/FormErrorToaster';
-import checkFields from '../../utils/checkAllFields';
-
 
 export default {
   mounted() {
     eventBus1.$on("field_ok", val => {
       let id = val.id;
-      
-      if(typeof this.inputs[id] === "undefined")
-        return;
+
+      if (typeof this.inputs[id] === "undefined") return;
 
       this.inputs[id].ok = val.field_ok;
     });
@@ -35,18 +31,18 @@ export default {
   components: {
     FormInput
   },
-  mixins : [errorToastr,checkFields],
+  mixins: [],
   computed: {},
   destroyed() {},
   data() {
     return {
       all_fields_ok: false,
-      
+
       submitHandler() {
         let vm = this;
-        
+
         this.checkAllFields();
-        
+
         if (!vm.all_fields_ok) {
           this.errorNotify();
           return;
@@ -59,7 +55,7 @@ export default {
           })
           .then(function(response) {
             let user_exists = response.data !== "User does not exist";
-
+            let wrong_info = response.data === "Wrong username or password";
             let email_not_verified =
               response.data === "Please verify your account";
 
@@ -71,33 +67,35 @@ export default {
 
               return;
             } else if (user_exists) {
-              //after login go to home and header should change
+              if (wrong_info) {
+                this.errorToast("Wrong info.", "Error!");
+              } else {
+                let data_store = JSON.stringify(response.data);
+                window.localStorage.setItem("r", data_store);
 
-              axios.get("/home").then(() => {
-                // window.setTimeout(() => {
-                //   window.location.href = "/";
-                // }, 5);
-
-                return;
-              });
+                window.location.reload();
+              }
             } else {
               //does not exist
-              vm.$snotify.error("User does not exist!", "Error!", {
-                position: SnotifyPosition.centerTop,
-                backdrop: 0.5
-              });
+              this.errorToast("User does not exist!", "Error!");
+
+              // vm.$snotify.error("User does not exist!", "Error!", {
+              //   position: SnotifyPosition.centerTop,
+              //   backdrop: 0.5
+              // });
             }
           })
           .catch(function(error) {
-            vm.$snotify.error("Not logged in!", "Error!", {
-              position: SnotifyPosition.centerTop,
-              backdrop: 0.5
-            });
+            this.errorToast("An error has occured!", "Error!");
+
+            window.setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           });
       },
       inputs: {
         email: {
-          login_c:true,
+          login_c: true,
           ok: false,
           type: "email",
           id: "email",
@@ -108,7 +106,7 @@ export default {
           }
         },
         password: {
-          login_c:true,
+          login_c: true,
           ok: false,
           type: "password",
           id: "password",

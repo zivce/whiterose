@@ -38,7 +38,7 @@ export default {
   },
   mixins: [welcomeToastr],
   created() {
-     axios
+    axios
       .get("allscans")
       .then(response => {
         //this adapts response for show in vue tables 2

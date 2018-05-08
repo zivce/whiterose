@@ -61,7 +61,7 @@ export default {
     //TODO: napuni my_jobs
     //TODO: izbrisi hardcode dodelu
 
-     axios
+    axios
       .get("returnmyjobs")
       .then(response => {
         console.log(response.data[0]);
@@ -73,7 +73,7 @@ export default {
           this.jobs.push({
             title: job_info.title,
             startingPrice: job_info.maximum_price,
-            description: job_info.description,
+            description: job_info.description
             //job_info
           });
         });
@@ -113,7 +113,7 @@ export default {
           nav: "scroll"
         }
       },
-      jobs:[]
+      jobs: []
     };
   }
 };

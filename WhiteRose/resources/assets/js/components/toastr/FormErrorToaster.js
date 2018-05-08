@@ -8,6 +8,14 @@ var errorToaster = {
             backdrop: 0.5
           });
           
+      },
+      errorToast(info,err)
+      {
+        this.$snotify.error(info, err, {
+          position: SnotifyPosition.centerTop,
+          backdrop: 0.5
+        });
+        
       }
     }
   }

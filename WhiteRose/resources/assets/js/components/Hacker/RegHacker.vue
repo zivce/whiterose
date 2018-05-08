@@ -6,10 +6,10 @@
 
             <b-tab title="Skills">
 
-              <skills-input :skill.sync="regForm.inputs.skills[0]">
+              <skills-input :skill.sync="inputs.skills[0]">
               </skills-input>
 
-              <skills-input v-for="num in skillsPresent" :skill.sync="regForm.inputs.skills[num]" :key="num">
+              <skills-input v-for="num in skillsPresent" :skill.sync="inputs.skills[num]" :key="num">
               </skills-input>
 
               <b-button class="btn btn-info actionbtn btn-secondary" @click="addSkillsInput()">
@@ -19,58 +19,58 @@
             </b-tab>
 
             <b-tab title="Info 1"  class="my-tab">
-                <form-input :prop.sync="regForm.inputs.username" >
+                <form-input :prop.sync="inputs.username" >
                 </form-input>
 
-                <form-input :prop.sync="regForm.inputs.firstname" >
+                <form-input :prop.sync="inputs.firstname" >
                 </form-input>
 
 
-                <form-input :prop.sync="regForm.inputs.lastname" >
+                <form-input :prop.sync="inputs.lastname" >
                 </form-input>
             </b-tab>
 
 
             <b-tab title="Info" class="my-tab">
-              <form-input :prop.sync="regForm.inputs.email" >
+              <form-input :prop.sync="inputs.email" >
               </form-input>
               
               
-              <form-input :prop.sync="regForm.inputs.password" >
+              <form-input :prop.sync="inputs.password" >
               </form-input>
             
 
-              <!-- <form-input :prop.sync="regForm.inputs.pwagain" :compare.sync="regForm.inputs.pw">
+              <!-- <form-input :prop.sync="inputs.pwagain" :compare.sync="inputs.pw">
               </form-input> moze sa event bus.. 
               da se emituje pw.. -->
               
 
                 <div  class="fform_input">
                 
-                  <label :for="regForm.inputs.pwagain.id">{{regForm.inputs.pwagain.label}}</label>
+                  <label :for="inputs.pwagain.id">{{inputs.pwagain.label}}</label>
 
                   <input  
                   autocomplete="on"
 
-                  :placeholder="regForm.inputs.pwagain.label"
+                  :placeholder="inputs.pwagain.label"
                   :class="{'has-error':errorPwAgain}"
-                  :type="regForm.inputs.pwagain.type" 
-                  :id="regForm.inputs.pwagain.id" 
-                  v-model="regForm.inputs.pwagain.value" 
-                  :required="regForm.inputs.pwagain.validation.required"
+                  :type="inputs.pwagain.type" 
+                  :id="inputs.pwagain.id" 
+                  v-model="inputs.pwagain.value" 
+                  :required="inputs.pwagain.validation.required"
                   v-validate="{
                     rules:{
-                    required:true,is:regForm.inputs.password.value,
+                    required:true,is:inputs.password.value,
                     }}"
-                  :name="regForm.inputs.pwagain.id"/>
-                  <span v-if="errors.has(regForm.inputs.pwagain.id)" class="incorrect_input">
+                  :name="inputs.pwagain.id"/>
+                  <span v-if="errors.has(inputs.pwagain.id)" class="incorrect_input">
                     Not the same password!
                   </span>
                 
                 </div>
 
 
-            <b-button class="btn btn-info btn-secondary actionbtn" @click="regForm.submitHandler()">
+            <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
               Register!
             </b-button>
           </b-tab>
@@ -81,7 +81,6 @@
 
 
 <script>
-
 //TODO: verifikacija forme
 
 import logger from "../../utils/groupLogger";
@@ -92,15 +91,11 @@ import FormInput from "../utilcomps/FormInput.vue";
 import { SnotifyPosition } from "vue-snotify";
 import eventBus from "../../utils/eventBus";
 
-import errorToastr1 from '../toastr/FormErrorToaster';
-import checkFields2 from '../../utils/checkAllFields';
-
-
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/plus";
 
 export default {
-  mixins : [errorToastr1,checkFields2],
+  mixins: [],
   components: {
     Icon,
     "b-tabs": bTabs,
@@ -108,26 +103,27 @@ export default {
     FormInput,
     SkillsInput
   },
-  mounted() {
-    
-  },
+  mounted() {},
   computed: {
     fillSkills() {
-      if(this.skillsPresent >= 9)
-        this.skillsPresent = 9;
+      if (this.skillsPresent >= 9) this.skillsPresent = 9;
     },
     errorPwAgain() {
+      let no_error_on_pwagain = !this.errors.has("same password");
+
+      this.inputs.pwagain.ok = no_error_on_pwagain;
+      
       return this.errors.has("same password");
+    
     }
   },
   methods: {
-     
+    
     addSkillsInput() {
       this.skillsPresent++;
-      if(this.skillsPresent === 9)
-        return;
+      if (this.skillsPresent === 9) return;
 
-      this.regForm.inputs.skills.push({
+      this.inputs.skills.push({
         type: "text",
         id: "skills" + this.skillsPresent,
         label: `your skill number ${this.skillsPresent + 1}`,
@@ -142,36 +138,33 @@ export default {
   destroyed() {},
 
   data() {
+    
+    let vm = this;
 
     return {
       skills: [],
       skillsPresent: 0,
 
       all_fields_ok: false,
-      regForm: {
         submitHandler() {
-        
-      let vm = this;
-        console.log(vm);
-        debugger;
-        this.checkAllFields();
+          debugger;
+          vm.checkAllFields();
 
-        
-        if (!vm.all_fields_ok) {
-          this.errorNotify();
-          return;
-        }
-          vm.regForm.inputs.skills.forEach(skill => {
+          if (!vm.all_fields_ok) {
+            vm.errorNotify();
+            return;
+          }
+          vm.inputs.skills.forEach(skill => {
             vm.skills.push(skill.value);
           });
 
           let registerInfo = {
-            email: vm.regForm.inputs.email.value,
-            password: vm.regForm.inputs.password.value,
-            sameaspw: vm.regForm.inputs.pwagain.value,
-            firstname: vm.regForm.inputs.firstname.value,
-            lastname: vm.regForm.inputs.lastname.value,
-            username: vm.regForm.inputs.username.value,
+            email: vm.inputs.email.value,
+            password: vm.inputs.password.value,
+            sameaspw: vm.inputs.pwagain.value,
+            firstname: vm.inputs.firstname.value,
+            lastname: vm.inputs.lastname.value,
+            username: vm.inputs.username.value,
             skills: vm.skills
           };
 
@@ -327,7 +320,6 @@ export default {
               required: true
             }
           }
-        }
       }
     };
   }

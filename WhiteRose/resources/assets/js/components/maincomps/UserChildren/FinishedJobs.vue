@@ -55,11 +55,11 @@ export default {
   },
   mixins: [welcomeToastr],
   created() {
-//TODO: napuni finished_jobs
-//TODO: skini hardcode
-//TODO: izbrisi import gore
+    //TODO: napuni finished_jobs
+    //TODO: skini hardcode
+    //TODO: izbrisi import gore
 
-     axios
+    axios
       .get("finishedJobs")
       .then(response => {
         console.log(response.data[0]);
@@ -69,7 +69,7 @@ export default {
           //ovde sam hardkodirao da bi se uklopilo u tabelu
           //treba ovo sto je zakomentarisano pa da promenis tabelu
           this.jobs.push({
-              job_info
+            job_info
           });
         });
       })
@@ -108,7 +108,7 @@ export default {
           nav: "scroll"
         }
       },
-      jobs:[]
+      jobs: []
     };
   }
 };

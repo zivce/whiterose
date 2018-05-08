@@ -4,8 +4,12 @@ var checkFields = {
         for (let entry in this.inputs) {
           let object_entry = this.inputs[entry];
 
+          if(entry === "skills")
+          {
+            continue;
+          }
+
             if (!object_entry.ok) {
-              console.log("object entry",object_entry)
               this.all_fields_ok = false;
               break;
             }

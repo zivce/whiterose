@@ -124,7 +124,10 @@ let routes = [
         redirect:'/'
     }
 ]
-
-export default new VueRouter({
+const router = new VueRouter({
     routes
-});
+})
+
+
+
+export default router;

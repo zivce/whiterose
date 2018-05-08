@@ -28,8 +28,16 @@ import mainRouter from './routes/routesMain';
 
 import {ClientTable,Event} from 'vue-tables-2';
 import Axios from 'axios';
+import errorToaster from './components/toastr/FormErrorToaster';
 
+import checkFields from './utils/checkAllFields';
 
+/**
+ * Mixins
+ */
+
+Vue.mixin(errorToaster);
+Vue.mixin(checkFields);
 
 /**
   * What Vue should globally use.
@@ -56,11 +64,8 @@ if(lander_exists)
         el: '#lander',
         router:  landerRouter,
         created(){
-
-            
         },
         mounted(){
-            
         }
     })
 }
@@ -80,14 +85,40 @@ if(home_exists)
 {
     
     const home = new Vue({
-        props:[role], 
         el: '#home',
         router: mainRouter,
         created(){
-            console.log(this.role);
+
+            let user = localStorage.getItem("r");
+            console.log(user);
+            
+            user = JSON.parse(user);
+
+            console.log(user);
+
+            //bind user to instance
+            this.user = user;
+
+
+            // localStorage.clear();
+
         },
         mounted(){
-            
+        }
+    })
+    
+    mainRouter.beforeEach((to,from,next) => {
+        if(to.path === "/")
+        {   
+            debugger;
+            if(home.user[0] === "client")
+            {
+                next({path:"/user"});
+            }
+        }
+        else
+        {
+            next();
         }
     })
 }

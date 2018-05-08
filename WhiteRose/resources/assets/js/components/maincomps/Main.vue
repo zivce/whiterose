@@ -31,11 +31,7 @@ export default {
   components: {
     Home
   },
-  mounted() {
-    if (this.$route.path === "/") {
-    } else {
-    }
-  },
+  mounted() {},
   computed: {
     home() {}
   },
