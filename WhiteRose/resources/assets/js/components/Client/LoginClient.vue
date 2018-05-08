@@ -16,15 +16,20 @@
 import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
-import eventBus from "../../utils/eventBus";
+import eventBus1 from "../../utils/eventBus1";
 import errorToastr from '../toastr/FormErrorToaster';
 import checkFields from '../../utils/checkAllFields';
 
 
 export default {
   mounted() {
-    eventBus.$on("field_ok", val => {
-      this.inputs[val.id].ok = val.field_ok;
+    eventBus1.$on("field_ok", val => {
+      let id = val.id;
+      
+      if(typeof this.inputs[id] === "undefined")
+        return;
+
+      this.inputs[id].ok = val.field_ok;
     });
   },
   components: {
@@ -92,6 +97,7 @@ export default {
       },
       inputs: {
         email: {
+          login_c:true,
           ok: false,
           type: "email",
           id: "email",
@@ -102,6 +108,7 @@ export default {
           }
         },
         password: {
+          login_c:true,
           ok: false,
           type: "password",
           id: "password",

@@ -106,6 +106,9 @@ export default {
   },
   mounted() {
      eventBus.$on("field_ok", val => {
+
+       console.log("field", this.regForm.inputs[val.id]);
+       console.log("ok ", this.regForm.inputs[val.id].ok);
       this.regForm.inputs[val.id].ok = val.field_ok;
     });
   },
@@ -116,6 +119,7 @@ export default {
     }
   },
   methods: {
+
     addSkillsInput() {
       this.skillsPresent++;
 
@@ -135,17 +139,16 @@ export default {
 
   data() {
     let vm = this;
-    console.log(vm);
-    
+
     return {
       skills: [],
       skillsPresent: 0,
 
       all_fields_ok: false,
-      
       regForm: {
         submitHandler() {
 
+        console.log(vm);
         this.checkAllFields();
         
         if (!vm.all_fields_ok) {

@@ -24,6 +24,7 @@
 
 <script>
 import eventBus from "../../utils/eventBus";
+import eventBus1 from '../../utils/eventBus1';
 
 export default {
   mounted() {
@@ -43,12 +44,20 @@ export default {
   },
   computed: {
     errHandler() {
+      
       let emitInfo = 
       {        
         id: this.prop.id,
         field_ok: !this.errors.has(this.prop.id)
       }
-      eventBus.$emit("field_ok", emitInfo);
+
+      console.log(emitInfo);
+      console.log(this.prop);
+      
+      if(this.prop.login_c)
+        eventBus1.$emit("field_ok",emitInfo);
+
+      // eventBus.$emit("field_ok", emitInfo);
 
       return this.errors.has(this.prop.id);
     }
@@ -61,7 +70,8 @@ export default {
     // if(this.prop.id === "password")
     //   this.vval["regex"] = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
   },
-  mounted() {},
+  mounted() {
+  },
   data() {
     return {
       vval: { required: true },

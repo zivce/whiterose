@@ -1,37 +1,37 @@
 <template>
         <form class="fform">
-          <form-input :prop.sync="regForm.inputs.firstname"/>
-          <form-input :prop.sync="regForm.inputs.username"/>
-          <form-input :prop.sync="regForm.inputs.lastname"/>
-          <form-input :prop.sync="regForm.inputs.email"/>
-          <form-input :prop.sync="regForm.inputs.pw"/>
+          <form-input :prop.sync="inputs.firstname"/>
+          <form-input :prop.sync="inputs.username"/>
+          <form-input :prop.sync="inputs.lastname"/>
+          <form-input :prop.sync="inputs.email"/>
+          <form-input :prop.sync="inputs.pw"/>
         
         <!-- SAME PW AGAIN  -->
 
         <div  class="fform_input">
         
-          <label :for="regForm.inputs.pwagain.id">{{regForm.inputs.pwagain.label}}</label>
+          <label :for="inputs.pwagain.id">{{inputs.pwagain.label}}</label>
 
           <input  
           autocomplete="on"
 
-          :placeholder="regForm.inputs.pwagain.label"
+          :placeholder="inputs.pwagain.label"
           :class="{'has-error':errorPwAgain}"
-          :type="regForm.inputs.pwagain.type" 
-          :id="regForm.inputs.pwagain.id" 
-          v-model="regForm.inputs.pwagain.value" 
-          :required="regForm.inputs.pwagain.validation.required"
+          :type="inputs.pwagain.type" 
+          :id="inputs.pwagain.id" 
+          v-model="inputs.pwagain.value" 
+          :required="inputs.pwagain.validation.required"
            v-validate="{
              rules:{
-             required:true,is:regForm.inputs.pw.value,
+             required:true,is:inputs.pw.value,
             }}"
-          :name="regForm.inputs.pwagain.id"/>
-          <span v-if="errors.has('sameaspw')" class="incorrect_input">
+          :name="inputs.pwagain.id"/>
+          <span v-if="errors.has('pwagain')" class="incorrect_input">
             Not the same password!
           </span>
         
         </div>
-        <b-button class="fixbtn btn btn-info btn-secondary actionbtn" @click="regForm.submitHandler()">
+        <b-button class="fixbtn btn btn-info btn-secondary actionbtn" @click="submitHandler()">
           Register!
         </b-button>
          </form>
@@ -42,14 +42,21 @@
 import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
+
+
 import eventBus from "../../utils/eventBus";
+import errorToastr from '../toastr/FormErrorToaster';
+import checkFields from '../../utils/checkAllFields';
+
 
 export default {
   mounted() {
-    logger(
-      ["Component LoginClient mounted", "happy hacking"],
-      "LoginClient.vue"
-    );
+    eventBus.$on("field_ok", val => {
+      let id = val.id;
+      debugger;
+      this.inputs.id.ok = val.field_ok;
+    });
+   
   },
   destroyed() {},
   components: {
@@ -57,27 +64,34 @@ export default {
   },
   computed: {
     errorPwAgain() {
-      return this.errors.has("sameaspw");
+      return this.errors.has("pwagain");
     }
   },
   mounted() {
   
   },
+  mixins : [errorToastr,checkFields],
   data() {
     return {
       all_fields_ok: false,
-      regForm: {
         submitHandler() {
           let vm = this;
+          debugger;
+          this.checkAllFields();
+          
+          if (!vm.all_fields_ok) {
+            this.errorNotify();
+            return;
+          }
 
 
           axios
             .post("/clientreg", {
-              email: vm.regForm.inputs.email.value,
-              password: vm.regForm.inputs.pw.value,
-              sameaspw: vm.regForm.inputs.pwagain.value,
-              firstname: vm.regForm.inputs.firstname.value,
-              lastname: vm.regForm.inputs.lastname.value
+              email: vm.inputs.email.value,
+              password: vm.inputs.pw.value,
+              sameaspw: vm.inputs.pwagain.value,
+              firstname: vm.inputs.firstname.value,
+              lastname: vm.inputs.lastname.value
             })
             .then(function(response) {
               if (response.data === "This mail already exist") {
@@ -167,7 +181,6 @@ export default {
             }
           }
         }
-      }
     };
   }
 };
