@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\File;
+use PDF;
+use Dompdf\Adapter\PDFLib;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Redirect;
 use App\Job;
 use App\Pentester;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Carbon;
+use App\Scan;
+use App\Bid;
+use App\Started_job;
 
 
 
@@ -85,12 +91,13 @@ class ClientController extends Controller
     //posting job
     public function postJob(Request $request)
     {
+        
         $job=new Job;
-        $job->startingPrice=$request->price;
-        $job->domain=$request->domain;
+        $job->maximum_price=$request->price;
+        $job->domain=$request->selected_site;
         $job->title=$request->title;
-        $job->client_id=$request->clientID;
-        $job->description=$request->description;
+        $job->client_id=Auth::guard('client')->user()->id;
+        $job->description=$request->desc;
         $job->save();
 
 
@@ -99,7 +106,7 @@ class ClientController extends Controller
 
    public function myJobs()
    {
-       return Job::where('client_id',Auth::user()->id)->get();
+       return Job::where('client_id',Auth::guard('client')->user()->id)->get();
    }
    public function myJob(Request $request)
    {
@@ -117,7 +124,7 @@ class ClientController extends Controller
 
 
        $returnBids=array();
-       $bids=Bids::where('job_id',$jobID)
+       $bids=Bid::where('job_id',$jobID)
                     ->where('client_id',$clientID)
                     ->get();
         foreach($bids as $bid)
@@ -192,10 +199,10 @@ class ClientController extends Controller
         $client=Client::where('email',$email)->first();
         if($client)
         {
-        if($client->confirmed==0)
-        {
-            return 'Please verify your account';
-        }
+        // if($client->confirmed==0)
+        // {
+        //     return 'Please verify your account';
+        // }
         
         if(Auth::guard('client')->attempt(['email'=>$email,'password'=>$password]))
         {
@@ -223,8 +230,75 @@ class ClientController extends Controller
             Auth::guard('client')->logout();
             return view('lender');
         }
-        return 'NIJe';
+      
         
+        
+    }
+
+    public function scan(Request $request)
+    {
+        $scanN=$request->scan;
+        $domain=$request->domain;
+        if(!Website::where('domain',$domain)->count>0)
+            return "Website is not confirmed!";
+        $command = $request->cmd;
+        $execute=$command.' '.$domain;
+        // $execute="sudo"." ".$execute ." "."2>&1";
+        // $output=shell_exec($execute);
+        $output=shell_exec('ping google.com');
+        $scanN='ping';
+        $outputToRet=$output;
+       if(Auth::guard('client')->user())
+       {
+          
+           $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
+           Storage::makeDirectory($dirName);
+           $date=Carbon::now();
+           $date=str_replace(' ','_',$date);
+           $date=str_replace(':','_',$date);
+           
+           $pdfOut=json_encode($output);
+           $pdfOut=str_replace('\n','<br>',$pdfOut);
+           $saveFileName=$dirName.'/'.$scanN.'_'.$date.'.pdf';
+            
+           Storage::put($saveFileName,$pdfOut);
+           $scan=new Scan;
+           $scan->client_id=Auth::guard('client')->user()->id;
+           $scan->path=Storage::url($saveFileName);
+           $scan->scanName=$scanN;
+           $scan->save();
+          
+     }
+
+     return $outputToRet;
+    }
+
+    public function downloadScan($dir,$fileName)
+    {
+        $absolutePath='app/'.$dir.'/'.$fileName;
+        $path=storage_path($absolutePath);
+        $outputPDF=File::get($path);
+        $pdf=\App::make('dompdf.wrapper');
+        $pdf->loadHTML($outputPDF);
+        return $pdf->download($fileName);
+    }
+
+    public function acceptTheBid(Request $request)
+    {
+        $bidID=$request->bidID;
+        $bid=Bid::where('id',$bidID)->first();
+        $bid->accepted=1;
+        $bid->save();
+
+        $started_job=new Started_job;
+        $started_job->job_id=$bid->job_id;
+        $started_job->pentester_id=$bid->pentester_id;
+        $started_job->amount=$bid->amount;
+        $started_job->save();
+
+        $job=$bid->job;
+        $job->inprogress=1;
+        $job->save();
         
     }
 }

@@ -55,6 +55,27 @@ export default {
   },
   mixins: [welcomeToastr],
   created() {
+//TODO: napuni started_jobs
+//TODO: skini hardcode
+//TODO: izbrisi import gore
+
+     axios
+      .get("startedJobs")
+      .then(response => {
+        console.log(response.data[0]);
+        // this adapts response for show in vue tables 2
+        this.jobs[0] = response.data[0];
+        response.data.forEach(job_info => {
+          //ovde sam hardkodirao da bi se uklopilo u tabelu
+          //treba ovo sto je zakomentarisano pa da promenis tabelu
+          this.jobs.push({
+              job_info
+          });
+        });
+      })
+      .catch(err => {
+        //error snotify here.
+      });
     //TODO: napuni started_jobs
     //TODO: skini hardcode
     //TODO: izbrisi import gore
@@ -103,7 +124,8 @@ export default {
         pagination: {
           dropdown: true,
           nav: "scroll"
-        }
+        },
+        jobs:[]
       }
     };
   }

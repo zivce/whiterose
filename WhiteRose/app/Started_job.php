@@ -10,11 +10,11 @@ class Started_job extends Model
 
     public function job()
     {
-       return $this->hasOne('App\Job');
+       return $this->belongsTo('App\Job');
     }
 
     public function pentester()
     {
-       return $this->hasOne('App\Pentester');
+       return $this->belongsTo('App\Pentester');
     }
 }

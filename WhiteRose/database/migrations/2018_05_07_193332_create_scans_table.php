@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWebsitesTable extends Migration
+class CreateScansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateWebsitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('websites', function (Blueprint $table) {
+        Schema::create('scans', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('domain');
-            $table->string('confirmationCode');
-            $table->integer('confirmed')->default(0);
+            $table->string('scanName');
+            $table->integer('client_id');
+            $table->string('path');
             $table->timestamps();
-       
         });
     }
 
@@ -30,6 +29,6 @@ class CreateWebsitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('websites');
+        Schema::dropIfExists('scans');
     }
 }

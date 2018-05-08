@@ -85,7 +85,8 @@ export default {
       all_fields_ok: false,
         submitHandler() {
           let vm = this;
-          debugger;
+
+          
           this.checkAllFields();
           
           if (!vm.all_fields_ok) {

@@ -1,12 +1,4 @@
-//SVE U JEDAN FAJL RUTERI SE MESAJU!!!
-//UBACI OBA RUTERA OVDE 
 
-//DINAMICKI RUTIRAJ 
-// U WEB PHP SE RAZRESAVA KOJI CE RUTER DA SE KORISTI
-// OBA RUTERA KRECU RUTIRANJE OD / PA NA MAIN ILI LANDER 
-
-// require('./appLander');
-// require('./appMain');
 
 require('./bootstrap');
 
@@ -88,7 +80,7 @@ if(home_exists)
 {
     
     const home = new Vue({
-        props:[role],
+        props:[role], 
         el: '#home',
         router: mainRouter,
         created(){

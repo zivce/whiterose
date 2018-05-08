@@ -36,13 +36,6 @@ Route::get('/lander',function(){
 });
 Auth::routes();
 
-Route::get('test1',function(){
-    $email='nikola1';
-    $password='zivce';
-    if(Auth::guard('client')->attempt(['email'=>$email,'password'=>$password]))
-        return 'OK';
- 
-});
 
 Route::get('/',function(){
     
@@ -52,7 +45,7 @@ Route::get('/',function(){
     return view('lender');
 });
 
-Route::post('login','Auth\LoginController@postLogin')->name('login');
+
 
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/client', 'HomeController@client')->name('client');
@@ -76,9 +69,11 @@ Route::post('postjob','ClientController@postJob')->name('postjob');
 
 //Returnng all jobs to clients or pentester
 Route::post('returnalljobs','Controller@allJobs')->name('returnalljobs');
+Route::post('startedJobs','Controller@startedJobs')->name('startedJobs');
+Route::post('finishedJobs','Controller@finishedJobs')->name('finishedJobs');
 
 //Return posted jobs to client
-Route::post('returnmyjobs','ClientController@myJobs')->name('returnmyjobs');
+Route::get('returnmyjobs','ClientController@myJobs')->name('returnmyjobs');
 Route::post('returnmyjob','ClientController@myJob')->name('returnmyjob');//undonde
 
 //Biding on job
@@ -86,7 +81,7 @@ Route::post('bid','PentesterConroller@binOnJob')->name('bid');
 
 //View my bids
 Route::post('viewbidsclient','ClientController@viewMyBiddedJobs')->name('viewbidsclient');
-Route::get('viewbidspentester','PentesterController@viewMyBids')->name('viewbidspentester');
+Route::post('viewbidspentester','PentesterController@viewMyBids')->name('viewbidspentester');
 
 //Client loging register
 Route::post('clientreg','ClientController@register')->name('clientreg');
@@ -100,33 +95,44 @@ Route::get('/confirmed/{token}','PentesterController@verifyAccount')->name('conf
 Route::post('/hackerlogin','PentesterController@login')->name('hackerlogin');
 Route::get('hackerlogout','PentesterController@logout')->name('logout');
 
+//Scan
+Route::post('scan','ClientController@scan')->name('scan');
 
+//Download scan
+Route::get('/download/{dir}/{fileName}','ClientController@downloadScan')->name('DownloadScan');
 
+//Upload CV
+Route::post('uploadCv','PentesterController@uploadCV')->name('uploadCv');
+Route::post('postCv','PentesterController@postCV')->name('postCv');
+Route::post('postdeails','PentesterController@postPentesterDetails')->name('postdeails');
 
-Route::group(['prefix' => 'client'], function () {
-  Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
-  Route::post('/login', 'ClientAuth\LoginController@login');
-  Route::post('/logout', 'ClientAuth\LoginController@logout')->name('logout');
+//Accepting the bid/starting the job
+Route::post('accept','ClientController@acceptTheBid')->name('accept');
 
-  Route::get('/register', 'ClientAuth\RegisterController@showRegistrationForm')->name('register');
-  Route::post('/register', 'ClientAuth\RegisterController@register');
+// Route::group(['prefix' => 'client'], function () {
+//   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
+//   Route::post('/login', 'ClientAuth\LoginController@login');
+//   Route::post('/logout', 'ClientAuth\LoginController@logout')->name('logout');
 
-  Route::post('/password/email', 'ClientAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'ClientAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'ClientAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-  Route::get('/password/reset/{token}', 'ClientAuth\ResetPasswordController@showResetForm');
-});
+//   Route::get('/register', 'ClientAuth\RegisterController@showRegistrationForm')->name('register');
+//   Route::post('/register', 'ClientAuth\RegisterController@register');
 
-Route::group(['prefix' => 'pentester'], function () {
-  Route::get('/login', 'PentesterAuth\LoginController@showLoginForm')->name('login');
-  Route::post('/login', 'PentesterAuth\LoginController@login');
-  Route::post('/logout', 'PentesterAuth\LoginController@logout')->name('logout');
+//   Route::post('/password/email', 'ClientAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+//   Route::post('/password/reset', 'ClientAuth\ResetPasswordController@reset')->name('password.email');
+//   Route::get('/password/reset', 'ClientAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+//   Route::get('/password/reset/{token}', 'ClientAuth\ResetPasswordController@showResetForm');
+// });
 
-  Route::get('/register', 'PentesterAuth\RegisterController@showRegistrationForm')->name('register');
-  Route::post('/register', 'PentesterAuth\RegisterController@register');
+// Route::group(['prefix' => 'pentester'], function () {
+//   Route::get('/login', 'PentesterAuth\LoginController@showLoginForm')->name('login');
+//   Route::post('/login', 'PentesterAuth\LoginController@login');
+//   Route::post('/logout', 'PentesterAuth\LoginController@logout')->name('logout');
 
-  Route::post('/password/email', 'PentesterAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'PentesterAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'PentesterAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-  Route::get('/password/reset/{token}', 'PentesterAuth\ResetPasswordController@showResetForm');
-});
+//   Route::get('/register', 'PentesterAuth\RegisterController@showRegistrationForm')->name('register');
+//   Route::post('/register', 'PentesterAuth\RegisterController@register');
+
+//   Route::post('/password/email', 'PentesterAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+//   Route::post('/password/reset', 'PentesterAuth\ResetPasswordController@reset')->name('password.email');
+//   Route::get('/password/reset', 'PentesterAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+//   Route::get('/password/reset/{token}', 'PentesterAuth\ResetPasswordController@showResetForm');
+// });

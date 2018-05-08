@@ -16,13 +16,18 @@ class Controller extends BaseController
     public function returnTokens(Request $request)
     {
         if($request->role==='pentester')
-            return Pentester::where('id',$request->id)->get()->tokens;
-        return  Client::where('id',$request->id)->get()->tokens;
+            return Pentester::where('id',$request->id)
+                              ->get()
+                              ->tokens;
+        return  Client::where('id',$request->id)
+                        ->get()
+                        ->tokens;
     }
 
     public function allJobs()
     {
-        return Job::all();
+        return Job::all()
+                    ->sortBy('created_at');
     }
 
     

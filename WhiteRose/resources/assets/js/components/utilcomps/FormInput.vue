@@ -24,13 +24,11 @@
 
 <script>
 import eventBus from "../../utils/eventBus";
-import eventBus1 from '../../utils/eventBus1';
-import eventBusRegC from "../../utils/eventBusRegC";
 
 export default {
   mounted() {
 
-    console.log(this.$validator)   ;
+    //console.log(this.$validator)   ;
     // eventBus.$on("validateAllFields", () => {
     //   console.log(this.$validator);
     //   this.$validator.validateAll().then(res => {

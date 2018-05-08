@@ -16,12 +16,12 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
             $table->longText('description');
-            $table->string('domain');
+            $table->string('domain')->nullable();
             $table->integer('maximum_price');
-            $table->integer('current_bid');
             $table->string('title');
-            $table->string('pentester_username')->nillable();
+            $table->string('pentester_username')->nullable();
             $table->integer('client_id');
+            $table->integer('inprogress')->default(0);
             $table->timestamps();
         });
     }

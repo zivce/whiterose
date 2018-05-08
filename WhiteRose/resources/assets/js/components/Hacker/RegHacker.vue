@@ -81,6 +81,9 @@
 
 
 <script>
+
+//TODO: verifikacija forme
+
 import logger from "../../utils/groupLogger";
 import bTabs from "bootstrap-vue/es/components/tabs/tabs";
 import bTab from "bootstrap-vue/es/components/tabs/tab";
@@ -89,14 +92,15 @@ import FormInput from "../utilcomps/FormInput.vue";
 import { SnotifyPosition } from "vue-snotify";
 import eventBus from "../../utils/eventBus";
 
-import errorToastr from '../toastr/FormErrorToaster';
-import checkFields from '../../utils/checkAllFields';
+import errorToastr1 from '../toastr/FormErrorToaster';
+import checkFields2 from '../../utils/checkAllFields';
+
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/plus";
 
 export default {
-  mixins : [errorToastr,checkFields],
+  mixins : [errorToastr1,checkFields2],
   components: {
     Icon,
     "b-tabs": bTabs,
@@ -105,23 +109,23 @@ export default {
     SkillsInput
   },
   mounted() {
-     eventBus.$on("field_ok", val => {
-
-       console.log("field", this.regForm.inputs[val.id]);
-       console.log("ok ", this.regForm.inputs[val.id].ok);
-      this.regForm.inputs[val.id].ok = val.field_ok;
-    });
+    
   },
   computed: {
-    fillSkills() {},
+    fillSkills() {
+      if(this.skillsPresent >= 9)
+        this.skillsPresent = 9;
+    },
     errorPwAgain() {
       return this.errors.has("same password");
     }
   },
   methods: {
-
+     
     addSkillsInput() {
       this.skillsPresent++;
+      if(this.skillsPresent === 9)
+        return;
 
       this.regForm.inputs.skills.push({
         type: "text",
@@ -138,7 +142,6 @@ export default {
   destroyed() {},
 
   data() {
-    let vm = this;
 
     return {
       skills: [],
@@ -147,9 +150,12 @@ export default {
       all_fields_ok: false,
       regForm: {
         submitHandler() {
-
+        
+      let vm = this;
         console.log(vm);
+        debugger;
         this.checkAllFields();
+
         
         if (!vm.all_fields_ok) {
           this.errorNotify();
@@ -289,8 +295,6 @@ export default {
           },
           skills: [
             {
-              ok: false,
-
               type: "text",
               id: "skills",
               label: "Skills",
