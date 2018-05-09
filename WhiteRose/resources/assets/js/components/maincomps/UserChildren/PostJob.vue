@@ -54,7 +54,7 @@
         Insert description.
       </h3>
       
-      <textarea  
+      <textarea  class="textarea_everyone"
       :placeholder="descinput.label"
       :class="{'has-error':errDesc}"
       :type="descinput.type"
@@ -245,16 +245,6 @@ export default {
 }
 .group_input_title_first {
   margin-top: 3%;
-}
-textarea {
-  box-shadow: 0px 0px 2px #949494;
-  text-align: center;
-  outline: none !important;
-  border-bottom: 1px solid rgba(0, 8, 53, 0.603);
-  background-color: transparent;
-  border: 0px;
-  width: 100%;
-  min-height: 80px;
 }
 
 .has-error {

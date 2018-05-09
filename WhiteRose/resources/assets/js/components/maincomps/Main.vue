@@ -57,7 +57,7 @@ export default {
   },
   data() {
     return {
-      username: this.$parent.user[1].email
+      username: this.$parent.user.email
     };
   }
 };
