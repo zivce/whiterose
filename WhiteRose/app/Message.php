@@ -8,15 +8,10 @@ class Message extends Model
 {
     //
 
-    public function client()
+    public function discusion()
     {
-        return $this->hasOne('App\Client');
+        return $this->belongsTo('App\Discusion');
 
     }
 
-    public function pentester()
-    {
-        return $this->hasOne('App\Pentester');
-
-    }
 }

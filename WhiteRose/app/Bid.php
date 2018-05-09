@@ -6,8 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bid extends Model
 {
-    public function client()
+    
+    public function pentester()
     {
-       return $this->belongsTo('App\Job');
+       return $this->belongsTo('App\Pentester');
+    }
+
+    public function job()
+    {
+       return $this->belongsTo('App\job');
     }
 }

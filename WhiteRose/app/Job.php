@@ -17,8 +17,19 @@ class Job extends Model
        return $this->hasOne('App\Job_history');
     }
 
-    public function startedJob()
+    public function pentesters()
     {
-       return $this->hasOne('App\Started_job');
+       return $this->belongsToMany('App\Pentester','pentesters_jobs')
+                    ->withPivot('amount','started','finished')
+                    ->withTimestamps();
+    }
+
+    public function bids()
+    {
+       return $this->hasMany('App\Bid');
+    }
+    public function discusion()
+    {
+       return $this->hasOne('App\Discusion');
     }
 }

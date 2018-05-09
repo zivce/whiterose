@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
 use App\Scan;
 use App\Bid;
 use App\Started_job;
+use App\Discusion;
 
 
 
@@ -98,6 +99,13 @@ class ClientController extends Controller
         $job->title=$request->title;
         $job->client_id=Auth::guard('client')->user()->id;
         $job->description=$request->desc;
+        $document=$request->document;
+
+        $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
+        Storage::makeDirectory($dirName);
+        $fileName=$dirName.'/'.Carbon::now()->toDateTimeString().$document->getClientOriginalExtension();
+        Storage::put($fileName,$document);
+        $job->file_path=Storage::url($fileName);
         $job->save();
 
 
@@ -108,6 +116,7 @@ class ClientController extends Controller
    {
        return Job::where('client_id',Auth::guard('client')->user()->id)->get();
    }
+
    public function myJob(Request $request)
    {
        return Job::where('client_id',Auth::user()->id)
@@ -208,7 +217,15 @@ class ClientController extends Controller
         {
            
             $client=Auth::guard('client')->user();
-            $toReturn=['client',$client];
+            $toReturn=['role'=>'client',
+                        'id'=>$client->id,
+                        'name'=>$client->name,
+                        'email'=>$client->email,
+                        'username'=>$client->username,
+                        'lastname'=>$client->lastname,
+                        'tokens'=>$client->tokens,
+
+            ];
             
             return $toReturn;
             
@@ -290,15 +307,19 @@ class ClientController extends Controller
         $bid->accepted=1;
         $bid->save();
 
-        $started_job=new Started_job;
-        $started_job->job_id=$bid->job_id;
-        $started_job->pentester_id=$bid->pentester_id;
-        $started_job->amount=$bid->amount;
-        $started_job->save();
+        $job=$bid->job();
+        $pentester=$bid->pentester();
 
-        $job=$bid->job;
+        $job->pentesters()->attach($pentester,['amount'=>$bid->amount,'started'=>1]);
+
         $job->inprogress=1;
+
+        $discusion=new Discusion;
+        $discusion->client_id=$bid->client_id;
+        $discusion->penester_id=$bid->pentester_id;
+        $discusion->job_id=$bid->job_id;
         $job->save();
+        $discusion->save();
         
     }
 }

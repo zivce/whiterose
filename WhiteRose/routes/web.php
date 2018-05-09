@@ -89,6 +89,10 @@ Route::post('postdeails','PentesterController@postPentesterDetails')->name('post
 //Accepting the bid/starting the job
 Route::post('accept','ClientController@acceptTheBid')->name('accept');
 
+//Message communication
+Route::post('postMesaages','DiscusionController@postMessage');
+Route::get('getMessages','DiscusionController@getMessages')->name('getMessages');
+
 // Route::group(['prefix' => 'client'], function () {
 //   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
 //   Route::post('/login', 'ClientAuth\LoginController@login');

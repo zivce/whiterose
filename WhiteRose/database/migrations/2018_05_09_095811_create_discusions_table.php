@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBidsTable extends Migration
+class CreateDiscusionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateBidsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bids', function (Blueprint $table) {
+        Schema::create('discusions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('amount');
             $table->integer('job_id');
             $table->integer('pentester_id');
-            $table->integer('accepted')->default(0);
+            $table->integer('client_id');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateBidsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bids');
+        Schema::dropIfExists('discusions');
     }
 }
