@@ -100,19 +100,28 @@ if(home_exists)
             user = JSON.parse(user);
 
             console.log(user[0]);
+            
+            this.user = user;
 
             //bind user to instance
-            this.user_role = "pentst";
-            console.log(this);
             let on_root_path = this.$router.app.$route.fullPath === "/";
-            
+            console.log(this.user);
+            this.role = this.user[0];
+
+
             if(on_root_path)
             {
                 //TODO: for each role
-                if(this.user_role === "pentst")
+                if(this.role === "pentester")
                 {
                     this.$router.push({
                         path:'/pentester'
+                    })
+                }
+                if(this.role === "client")
+                {
+                    this.$router.push({
+                        path:"/user/postjob"
                     })
                 }
             }

@@ -42,8 +42,7 @@ import "vue-awesome/icons/info";
 
 export default {
   mixins: [],
-  mounted() {
-  },
+  mounted() {},
   components: {
     Icon,
     UserInfo

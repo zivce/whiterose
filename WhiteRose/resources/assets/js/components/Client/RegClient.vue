@@ -91,22 +91,20 @@ export default {
             lastname: vm.inputs.lastname.value
           })
           .then(function(response) {
-            debugger;
             if (response.data === "This mail already exist") {
-              vm.errorToast("User exists.","Error!");
+              vm.errorToast("User exists.", "Error!");
               return;
             } else if (response.status === 200) {
-                
-                vm.notifySuccess("Proceed to login.","Success");
-                
-                vm.$router.push({
-                  path:"client"
-                });
+              vm.notifySuccess("Proceed to login.", "Success");
+
+              vm.$router.push({
+                path: "client"
+              });
               return;
             }
           })
           .catch(response => {
-            vm.errorToast("Error happened.","Error!");
+            vm.errorToast("Error happened.", "Error!");
             window.setTimeout(() => {
               window.location.reload();
             }, 1500);

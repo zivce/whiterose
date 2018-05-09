@@ -6,7 +6,19 @@
         >
           Home
         </router-link>
-           Header here.
+        <b-dropdown  
+        :text="username" id="user"
+
+        >
+          <b-dropdown-item href="/#/user/dashboard">
+            <slot name="button-content"><icon name="user"></icon> Profile</slot>
+          </b-dropdown-item>
+        
+          <b-dropdown-item  href="/clientlogout">
+              <slot name="button-content"><icon name="logout"></icon> Logout</slot>
+          </b-dropdown-item>
+          
+        </b-dropdown>
       </h1>
 
       <home v-if="home">
@@ -29,19 +41,24 @@
 </template>
 
 <script>
-import logger from "../../utils/groupLogger";
 import Home from "./Home.vue";
+import Icon from "vue-awesome/components/Icon";
+import "vue-awesome/icons/user";
+import "../../Icons/logout";
 
 export default {
   components: {
-    Home
+    Home,
+    Icon
   },
   mounted() {},
   computed: {
     home() {}
   },
   data() {
-    return {};
+    return {
+      username: this.$parent.user[1].email
+    };
   }
 };
 </script>

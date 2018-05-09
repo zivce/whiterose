@@ -184,7 +184,7 @@ export default {
             })
             .then(function(response) {})
             .catch(function(error) {
-              vm.errorToast("An error happened.","Error!")
+              vm.errorToast("An error happened.", "Error!");
             });
         } else {
           //reset

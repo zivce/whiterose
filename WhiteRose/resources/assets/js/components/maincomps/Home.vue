@@ -49,13 +49,12 @@ export default {
   height: 50vh;
 }
 
-h1{
+h1 {
   text-align: center;
   padding: 10%;
 }
-.right_col
-{
-  padding:5%;
+.right_col {
+  padding: 5%;
   background-color: #060b4e;
   color: white;
 }

@@ -112,13 +112,11 @@ export default {
       let no_error_on_pwagain = !this.errors.has("same password");
 
       this.inputs.pwagain.ok = no_error_on_pwagain;
-      
+
       return this.errors.has("same password");
-    
     }
   },
   methods: {
-    
     addSkillsInput() {
       this.skillsPresent++;
       if (this.skillsPresent === 9) return;
@@ -138,7 +136,6 @@ export default {
   destroyed() {},
 
   data() {
-    
     let vm = this;
 
     return {
@@ -146,180 +143,179 @@ export default {
       skillsPresent: 0,
 
       all_fields_ok: false,
-        submitHandler() {
-          debugger;
-          vm.checkAllFields();
+      submitHandler() {
+        vm.checkAllFields();
 
-          if (!vm.all_fields_ok) {
-            vm.errorNotify();
-            return;
-          }
-          vm.inputs.skills.forEach(skill => {
-            vm.skills.push(skill.value);
-          });
+        if (!vm.all_fields_ok) {
+          vm.errorNotify();
+          return;
+        }
+        vm.inputs.skills.forEach(skill => {
+          vm.skills.push(skill.value);
+        });
 
-          let registerInfo = {
-            email: vm.inputs.email.value,
-            password: vm.inputs.password.value,
-            sameaspw: vm.inputs.pwagain.value,
-            firstname: vm.inputs.firstname.value,
-            lastname: vm.inputs.lastname.value,
-            username: vm.inputs.username.value,
-            skills: vm.skills
-          };
+        let registerInfo = {
+          email: vm.inputs.email.value,
+          password: vm.inputs.password.value,
+          sameaspw: vm.inputs.pwagain.value,
+          firstname: vm.inputs.firstname.value,
+          lastname: vm.inputs.lastname.value,
+          username: vm.inputs.username.value,
+          skills: vm.skills
+        };
 
-          axios
-            .post("/hackerreg", registerInfo)
-            .then(function(response) {
-              if (response.data === "This mail already exist") {
-                vm.$snotify.error("User exists!", "Error!", {
-                  position: SnotifyPosition.centerTop,
-                  backdrop: 0.5
-                });
-
-                return;
-              } else if (response.status === 200) {
-                // window.setTimeout(() => {
-                //   window.location.href = "/";
-                // });
-                return;
-              }
-            })
-            .catch(response => {
-              vm.$snotify.error("An error has occured.", "Error", {
+        axios
+          .post("/hackerreg", registerInfo)
+          .then(function(response) {
+            if (response.data === "This mail already exist") {
+              vm.$snotify.error("User exists!", "Error!", {
                 position: SnotifyPosition.centerTop,
                 backdrop: 0.5
               });
 
+              return;
+            } else if (response.status === 200) {
               // window.setTimeout(() => {
-              //   window.location.reload();
-              // }, 1500);
+              //   window.location.href = "/";
+              // });
+              return;
+            }
+          })
+          .catch(response => {
+            vm.$snotify.error("An error has occured.", "Error", {
+              position: SnotifyPosition.centerTop,
+              backdrop: 0.5
             });
-        },
-        vvalidation_pw_again: {
-          rules: {
-            required: true,
-            is: this.pwAgain
+
+            // window.setTimeout(() => {
+            //   window.location.reload();
+            // }, 1500);
+          });
+      },
+      vvalidation_pw_again: {
+        rules: {
+          required: true,
+          is: this.pwAgain
+        }
+      },
+      inputs: {
+        email: {
+          ok: false,
+          type: "text",
+          id: "email",
+          pholder: "your email here.",
+          label: "e-mail address",
+          value: "",
+          vvalidation: {
+            rules: {
+              required: true,
+              email: true
+            }
+          },
+          validation: {
+            required: true
           }
         },
-        inputs: {
-          email: {
-            ok: false,
+        password: {
+          ok: false,
+          type: "password",
+          pholder: "your password here.",
+          id: "password",
+          label: "password",
+          value: "",
+          vvalidation: {
+            rules: {
+              required: true
+            }
+          },
+
+          validation: {
+            required: true
+          }
+        },
+        pwagain: {
+          ok: false,
+
+          type: "password",
+          id: "same password",
+          pholder: "repeat password here",
+          value: "",
+          label: "repeat password",
+
+          validation: {
+            required: true
+          }
+        },
+        firstname: {
+          ok: false,
+
+          type: "text",
+          id: "firstname",
+          pholder: "your firstname here.",
+          label: "Name",
+          value: "",
+
+          vvalidation: {
+            rules: {
+              required: true
+            }
+          },
+
+          validation: {
+            required: true
+          }
+        },
+        username: {
+          ok: false,
+
+          type: "text",
+          id: "username",
+          label: "Username",
+          pholder: "your username here.",
+          value: "",
+          vvalidation: {
+            rules: {
+              required: true
+            }
+          },
+          validation: {
+            required: true
+          }
+        },
+        skills: [
+          {
             type: "text",
-            id: "email",
-            pholder: "your email here.",
-            label: "e-mail address",
-            value: "",
-            vvalidation: {
-              rules: {
-                required: true,
-                email: true
-              }
-            },
-            validation: {
-              required: true
-            }
-          },
-          password: {
-            ok: false,
-            type: "password",
-            pholder: "your password here.",
-            id: "password",
-            label: "password",
+            id: "skills",
+            label: "Skills",
+            pholder: "insert one skill here",
             value: "",
             vvalidation: {
               rules: {
                 required: true
               }
             },
-
-            validation: {
-              required: true
-            }
-          },
-          pwagain: {
-            ok: false,
-
-            type: "password",
-            id: "same password",
-            pholder: "repeat password here",
-            value: "",
-            label: "repeat password",
-
-            validation: {
-              required: true
-            }
-          },
-          firstname: {
-            ok: false,
-
-            type: "text",
-            id: "firstname",
-            pholder: "your firstname here.",
-            label: "Name",
-            value: "",
-
-            vvalidation: {
-              rules: {
-                required: true
-              }
-            },
-
-            validation: {
-              required: true
-            }
-          },
-          username: {
-            ok: false,
-
-            type: "text",
-            id: "username",
-            label: "Username",
-            pholder: "your username here.",
-            value: "",
-            vvalidation: {
-              rules: {
-                required: true
-              }
-            },
-            validation: {
-              required: true
-            }
-          },
-          skills: [
-            {
-              type: "text",
-              id: "skills",
-              label: "Skills",
-              pholder: "insert one skill here",
-              value: "",
-              vvalidation: {
-                rules: {
-                  required: true
-                }
-              },
-              validation: {
-                required: true
-              }
-            }
-          ],
-          lastname: {
-            ok: false,
-
-            type: "text",
-            id: "lastname",
-            label: "Last Name",
-            vvalidation: {
-              rules: {
-                required: true
-              }
-            },
-            pholder: "your last name here.",
-            value: "",
             validation: {
               required: true
             }
           }
+        ],
+        lastname: {
+          ok: false,
+
+          type: "text",
+          id: "lastname",
+          label: "Last Name",
+          vvalidation: {
+            rules: {
+              required: true
+            }
+          },
+          pholder: "your last name here.",
+          value: "",
+          validation: {
+            required: true
+          }
+        }
       }
     };
   }
