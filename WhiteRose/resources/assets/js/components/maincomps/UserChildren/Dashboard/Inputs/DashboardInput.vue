@@ -12,8 +12,7 @@
     required="true"
     v-validate="vval"
     :maxlength="10"
-    :name="prop.id"
-    @change="emitValue()"/>
+    :name="prop.id"/>
     
     <span v-if="errors.has(prop.id)" class="incorrect_input">
         {{id_upper}} required!

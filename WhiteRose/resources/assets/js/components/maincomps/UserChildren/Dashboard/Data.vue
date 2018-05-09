@@ -14,6 +14,10 @@
                 Top 5 Pentesters
             </b-nav-item>
             
+            <b-nav-item  @click="switchComponentNum(2)">
+                Your verified sites
+            </b-nav-item>
+            
 
         </b-nav>
       </div>

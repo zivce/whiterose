@@ -10,7 +10,7 @@
         :text="username" id="user"
 
         >
-          <b-dropdown-item href="/#/user/dashboard">
+          <b-dropdown-item href="/#/user/dashboard/setup">
             <slot name="button-content"><icon name="user"></icon> Profile</slot>
           </b-dropdown-item>
         

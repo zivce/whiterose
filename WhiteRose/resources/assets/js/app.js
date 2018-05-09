@@ -99,14 +99,13 @@ if(home_exists)
             
             user = JSON.parse(user);
 
-            console.log(user[0]);
             
             this.user = user;
 
             //bind user to instance
             let on_root_path = this.$router.app.$route.fullPath === "/";
-            console.log(this.user);
-            this.role = this.user[0];
+
+            this.role = this.user.role;
 
 
             if(on_root_path)
@@ -141,14 +140,14 @@ if(home_exists)
             //TODO: dodaj rute razlicite u zavisnosti od role.
             
             //TODO: dodatno moze da se proverava i pre nego sto udje na neku rutu
-
-            if(home.user_role === "client")
+            
+            if(home.role === "client")
             {
-                next({path:"/user"});
+                next({path:"user/postjob"});
             }
-            if(home.user_role === "pentst")
+            if(home.role === "pentester")
             {
-                next({path:"/pentester"})
+                next({path:"pentester/alljobs"})
             }
 
         }
