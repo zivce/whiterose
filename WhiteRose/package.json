@@ -32,11 +32,14 @@
         "vue-router": "^3.0.1"
     },
     "dependencies": {
-        "moment": "^2.21.0",
-        "vue-tables-2": "^1.4.0",
         "bootstrap-vue": "^2.0.0-rc.9",
+        "chart.js": "^2.7.2",
+        "moment": "^2.21.0",
+        "npm": "^6.0.0",
         "vee-validate": "^2.0.8",
         "vue-awesome": "^3.0.0",
-        "vue-snotify": "^3.0.4"
+        "vue-chartjs": "^3.3.1",
+        "vue-snotify": "^3.0.4",
+        "vue-tables-2": "^1.4.0"
     }
 }

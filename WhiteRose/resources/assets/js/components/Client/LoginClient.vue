@@ -1,10 +1,9 @@
 <template>
     <form class="fform">
         <form-input :prop.sync="inputs.email"/>
+        <form-input :prop.sync="inputs.password"/> 
 
-        <form-input :prop.sync="inputs.pw"/> 
-
-        <b-button class="btn btn-info btn-secondary actionbtn" @click.once="submitHandler()">
+        <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
           Log In!
         </b-button>
 
@@ -17,62 +16,87 @@
 import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
+import eventBus1 from "../../utils/eventBus1";
 
 export default {
-  mounted() {},
+  mounted() {
+    eventBus1.$on("field_ok", val => {
+      let id = val.id;
+
+      if (typeof this.inputs[id] === "undefined") return;
+
+      this.inputs[id].ok = val.field_ok;
+    });
+  },
   components: {
     FormInput
   },
+  mixins: [],
   computed: {},
   destroyed() {},
   data() {
     return {
+      all_fields_ok: false,
+
       submitHandler() {
+        let vm = this;
+
+        this.checkAllFields();
+
+        if (!vm.all_fields_ok) {
+          this.errorNotify();
+          return;
+        }
+
         axios
           .post("/clientlogin", {
             email: this.inputs.email.value,
-            pw: this.inputs.pw.value
+            pw: this.inputs.password.value
           })
           .then(function(response) {
             let user_exists = response.data !== "User does not exist";
-
+            let wrong_info = response.data === "Wrong username or password";
             let email_not_verified =
               response.data === "Please verify your account";
 
             if (email_not_verified) {
-              this.$snotify.info("Verify your email.", "Verification", {
+              vm.$snotify.info("Verify your email.", "Verification", {
                 position: SnotifyPosition.centerTop,
                 backdrop: 0.5
               });
 
               return;
             } else if (user_exists) {
-              //after login go to home and header should change
+              if (wrong_info) {
+                this.errorToast("Wrong info.", "Error!");
+              } else {
+                let data_store = JSON.stringify(response.data);
+                window.localStorage.setItem("r", data_store);
 
-              axios.get("/home").then(() => {
-                // window.setTimeout(() => {
-                //   window.location.href = "/";
-                // }, 5);
-
-                return;
-              });
+                window.location.reload();
+              }
             } else {
               //does not exist
-              this.$snotify.error("User does not exist!", "Error!", {
-                position: SnotifyPosition.centerTop,
-                backdrop: 0.5
-              });
+              this.errorToast("User does not exist!", "Error!");
+
+              // vm.$snotify.error("User does not exist!", "Error!", {
+              //   position: SnotifyPosition.centerTop,
+              //   backdrop: 0.5
+              // });
             }
           })
           .catch(function(error) {
-            vm.$snotify.error("Not logged in!", "Error!", {
-              position: SnotifyPosition.centerTop,
-              backdrop: 0.5
-            });
+            this.errorToast("An error has occured!", "Error!");
+
+            window.setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           });
       },
       inputs: {
         email: {
+          login_c: true,
+          ok: false,
           type: "email",
           id: "email",
           label: "e-mail address",
@@ -81,7 +105,9 @@ export default {
             required: true
           }
         },
-        pw: {
+        password: {
+          login_c: true,
+          ok: false,
           type: "password",
           id: "password",
           label: "password",

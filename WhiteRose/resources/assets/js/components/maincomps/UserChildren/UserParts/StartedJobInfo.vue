@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      date_start : moment(this.det.date).format('DD.MM.YYYY')
+      date_start: moment(this.det.date).format("DD.MM.YYYY")
     };
   }
 };

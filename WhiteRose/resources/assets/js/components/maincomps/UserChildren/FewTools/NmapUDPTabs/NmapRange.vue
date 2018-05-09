@@ -23,31 +23,30 @@
 </template>
 
 <script>
-import eventBus from '../../../../../utils/eventBus';
+import eventBus from "../../../../../utils/eventBus";
 export default {
-    props:{
-        value:{
-            type:String
-        },
-        portOk : {
-            type:Boolean,
-            twoWay:true
-        }
+  props: {
+    value: {
+      type: String
     },
+    portOk: {
+      type: Boolean,
+      twoWay: true
+    }
+  },
   computed: {
-    errHandler(){
-        return this.errors.has("list");
+    errHandler() {
+      return this.errors.has("list");
     },
     errPort() {
       return !this.port_ok_local;
-    }},
-  methods:{
-      updateVal(val)
-      {
-        this.$emit('input',val);
-      },
-      checkIfPortOk($event) {
-      
+    }
+  },
+  methods: {
+    updateVal(val) {
+      this.$emit("input", val);
+    },
+    checkIfPortOk($event) {
       let helperBool = true;
       let arrSplit = this.value.split(",");
 
@@ -71,25 +70,21 @@ export default {
       });
 
       this.port_ok_local = helperBool;
-      
-      eventBus.$emit("portOk",this.port_ok_local);
 
-    },
+      eventBus.$emit("portOk", this.port_ok_local);
+    }
   },
   data() {
     return {
-        port_ok_local: this.portOk
+      port_ok_local: this.portOk
     };
   }
 };
 </script>
 
 <style scoped>
-
-
 .has-error {
   box-shadow: 0 0 5px rgb(255, 0, 0);
   border: 1px solid rgba(255, 0, 0, 1);
 }
-
 </style>

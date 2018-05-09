@@ -4,7 +4,7 @@
   }
 
 
-  .h3s{
+.h3s{
     font-weight: $h3-weight;
     font-size: $h3-size;
   }
@@ -17,3 +17,25 @@
   box-shadow: 3px 3px 7px 2px #e2e2e2;
 
 }
+
+.portfolio_job_container
+{
+  padding: 4%;
+  background-color: white;
+  width: 60%;
+  margin: 30px;
+  -webkit-box-shadow: 3px 3px 7px 2px #e2e2e2;
+  box-shadow: 3px 3px 7px 2px #e2e2e2;
+}
+
+.dashboard_container{
+  width: 90% !important;
+
+}
+
+.preview_from_table_container
+{
+  margin: 10% auto 10px auto !important;
+}
+
+// 3px 3px 7px 2px #100c43;

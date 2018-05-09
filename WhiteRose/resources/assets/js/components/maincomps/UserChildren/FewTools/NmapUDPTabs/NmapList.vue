@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import eventBus from '../../../../../utils/eventBus';
+import eventBus from "../../../../../utils/eventBus";
 
 export default {
   props: {
@@ -28,27 +28,24 @@ export default {
   },
   computed: {
     maximum() {
-      if (this.loc_max >= 65535) this.loc_max= 65535;
+      if (this.loc_max >= 65535) this.loc_max = 65535;
     },
     minimum() {
       if (this.loc_min > 65534) this.loc_min = 65534;
     }
   },
-  methods:{
-    updateMin()
-    {
-      eventBus.$emit("minPort",this.loc_min);
+  methods: {
+    updateMin() {
+      eventBus.$emit("minPort", this.loc_min);
     },
-    updateMax()
-    {
-      eventBus.$emit("maxPort",this.loc_max);
+    updateMax() {
+      eventBus.$emit("maxPort", this.loc_max);
     }
   },
   data() {
     return {
-      loc_min : this.min,
-      loc_max : this.max
-
+      loc_min: this.min,
+      loc_max: this.max
     };
   }
 };

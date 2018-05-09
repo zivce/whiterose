@@ -1,12 +1,4 @@
-//SVE U JEDAN FAJL RUTERI SE MESAJU!!!
-//UBACI OBA RUTERA OVDE 
 
-//DINAMICKI RUTIRAJ 
-// U WEB PHP SE RAZRESAVA KOJI CE RUTER DA SE KORISTI
-// OBA RUTERA KRECU RUTIRANJE OD / PA NA MAIN ILI LANDER 
-
-// require('./appLander');
-// require('./appMain');
 
 require('./bootstrap');
 
@@ -36,8 +28,20 @@ import mainRouter from './routes/routesMain';
 
 import {ClientTable,Event} from 'vue-tables-2';
 import Axios from 'axios';
+import errorToaster from './components/toastr/FormErrorToaster';
+import logg from './utils/groupLogger';
+import successToastr from './components/toastr/welcometoastr';
 
+import checkFields from './utils/checkAllFields';
 
+/**
+ * Mixins
+ */
+
+Vue.mixin(logg);
+Vue.mixin(errorToaster);
+Vue.mixin(checkFields);
+Vue.mixin(successToastr);
 
 /**
   * What Vue should globally use.
@@ -64,11 +68,8 @@ if(lander_exists)
         el: '#lander',
         router:  landerRouter,
         created(){
-
-            
         },
         mounted(){
-            
         }
     })
 }
@@ -88,14 +89,72 @@ if(home_exists)
 {
     
     const home = new Vue({
-
         el: '#home',
         router: mainRouter,
         created(){
+
+            let user = localStorage.getItem("r");
             
+            console.log(user);
+            
+            user = JSON.parse(user);
+
+            console.log(user[0]);
+            
+            this.user = user;
+
+            //bind user to instance
+            let on_root_path = this.$router.app.$route.fullPath === "/";
+            console.log(this.user);
+            this.role = this.user[0];
+
+
+            if(on_root_path)
+            {
+                //TODO: for each role
+                if(this.role === "pentester")
+                {
+                    this.$router.push({
+                        path:'/pentester'
+                    })
+                }
+                if(this.role === "client")
+                {
+                    this.$router.push({
+                        path:"/user/postjob"
+                    })
+                }
+            }
+
+            // localStorage.clear();
+
         },
         mounted(){
+        }
+    })
+    
+    mainRouter.beforeEach((to,from,next) => {
+        
+        if(to.path === "/")
+        {   
             
+            //TODO: dodaj rute razlicite u zavisnosti od role.
+            
+            //TODO: dodatno moze da se proverava i pre nego sto udje na neku rutu
+
+            if(home.user_role === "client")
+            {
+                next({path:"/user"});
+            }
+            if(home.user_role === "pentst")
+            {
+                next({path:"/pentester"})
+            }
+
+        }
+        else
+        {
+            next();
         }
     })
 }

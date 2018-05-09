@@ -16,7 +16,6 @@
 
 
 <script>
-import logger from "../utils/groupLogger";
 import Matrix from "./MatrixLoader.vue";
 
 export default {
@@ -24,8 +23,6 @@ export default {
     Matrix
   },
   mounted() {
-    logger(["Component Main mounted", "happy hacking"], "Main.vue");
-
     //CHANGE LATER FOR LOADER TO 4000
     let delay = 4;
 

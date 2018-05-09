@@ -139,6 +139,7 @@ import "vue-awesome/icons/handshake";
 
 import welcomeToastr from "../../toastr/welcometoastr";
 import JobFormInput from "../../utilcomps/JobPosterInput.vue";
+
 export default {
   created() {
     //TODO: povuci sve verifikovane sajtove...
@@ -175,7 +176,7 @@ export default {
         if (form_ok && vm.all_fields_ok) {
           axios
             .post("/postjob", {
-              selected_scan : this.selected_scan,
+              selected_scan: this.selected_scan,
               selected_site: this.selected_site,
               title: this.titleinput.value,
               desc: this.descinput.value,
@@ -183,15 +184,11 @@ export default {
             })
             .then(function(response) {})
             .catch(function(error) {
-              vm.$snotify.error("Error happened", "Error!", {
-                position: SnotifyPosition.centerTop,
-                backdrop: 0.5
-              });
+              vm.errorToast("An error happened.", "Error!");
             });
-        }
-        else {
+        } else {
           //reset
-          vm.all_fields_ok = true
+          vm.all_fields_ok = true;
         }
       });
     }
@@ -202,7 +199,7 @@ export default {
       validator: this.$validator,
       scan_pdf: null,
       selected_site: "",
-      selected_scan:"",
+      selected_scan: "",
       scans: [
         { value: "scan1", text: "Scan1-Date1" },
         { value: "scan2", text: "Scan2-Date2" },

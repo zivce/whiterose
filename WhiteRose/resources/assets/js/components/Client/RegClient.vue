@@ -1,36 +1,37 @@
 <template>
         <form class="fform">
-          <form-input :prop.sync="regForm.inputs.firstname"/>
-          <form-input :prop.sync="regForm.inputs.lastname"/>
-          <form-input :prop.sync="regForm.inputs.email"/>
-          <form-input :prop.sync="regForm.inputs.pw"/>
+          <form-input :prop.sync="inputs.firstname"/>
+          <form-input :prop.sync="inputs.username"/>
+          <form-input :prop.sync="inputs.lastname"/>
+          <form-input :prop.sync="inputs.email"/>
+          <form-input :prop.sync="inputs.pw"/>
         
         <!-- SAME PW AGAIN  -->
 
         <div  class="fform_input">
         
-          <label :for="regForm.inputs.pwagain.id">{{regForm.inputs.pwagain.label}}</label>
+          <label :for="inputs.pwagain.id">{{inputs.pwagain.label}}</label>
 
           <input  
           autocomplete="on"
 
-          :placeholder="regForm.inputs.pwagain.label"
+          :placeholder="inputs.pwagain.label"
           :class="{'has-error':errorPwAgain}"
-          :type="regForm.inputs.pwagain.type" 
-          :id="regForm.inputs.pwagain.id" 
-          v-model="regForm.inputs.pwagain.value" 
-          :required="regForm.inputs.pwagain.validation.required"
+          :type="inputs.pwagain.type" 
+          :id="inputs.pwagain.id" 
+          v-model="inputs.pwagain.value" 
+          :required="inputs.pwagain.validation.required"
            v-validate="{
              rules:{
-             required:true,is:regForm.inputs.pw.value,
+             required:true,is:inputs.pw.value,
             }}"
-          :name="regForm.inputs.pwagain.id"/>
-          <span v-if="errors.has('sameaspw')" class="incorrect_input">
+          :name="inputs.pwagain.id"/>
+          <span v-if="errors.has('pwagain')" class="incorrect_input">
             Not the same password!
           </span>
         
         </div>
-        <b-button class="fixbtn btn btn-info btn-secondary actionbtn" @click="regForm.submitHandler()">
+        <b-button class="fixbtn btn btn-info btn-secondary actionbtn" @click="submitHandler()">
           Register!
         </b-button>
          </form>
@@ -39,15 +40,20 @@
 
 <script>
 import logger from "../../utils/groupLogger";
-import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
+
+import eventBusRegC from "../../utils/eventBusRegC";
+import errorToastr from "../toastr/FormErrorToaster";
+import checkFields from "../../utils/checkAllFields";
 
 export default {
   mounted() {
-    logger(
-      ["Component LoginClient mounted", "happy hacking"],
-      "LoginClient.vue"
-    );
+    eventBusRegC.$on("field_ok", val => {
+      let id = val.id;
+
+      if (typeof this.inputs[id] === "undefined") return;
+      this.inputs[id].ok = val.field_ok;
+    });
   },
   destroyed() {},
   components: {
@@ -55,95 +61,125 @@ export default {
   },
   computed: {
     errorPwAgain() {
-      return this.errors.has("sameaspw");
+      if (this.inputs.pwagain.value === "") this.inputs.pwagain.ok = false;
+      else this.inputs.pwagain.ok = !this.errors.has("pwagain");
+
+      return this.errors.has("pwagain");
     }
   },
+  mounted() {},
+  mixins: [errorToastr, checkFields],
   data() {
-    let vm = this;
-
     return {
-      regForm: {
-        submitHandler() {
-          axios
+      all_fields_ok: false,
+      submitHandler() {
+        let vm = this;
 
-            .post("/clientreg", {
-              email: vm.regForm.inputs.email.value,
-              password: vm.regForm.inputs.pw.value,
-              sameaspw: vm.regForm.inputs.pwagain.value,
-              firstname: vm.regForm.inputs.firstname.value,
-              lastname: vm.regForm.inputs.lastname.value
-            })
-            .then(function(response) {
-              if (response.data === "This mail already exist") {
-                vm.$snotify.error("User exists!", "Error!", {
-                  position: SnotifyPosition.centerTop,
-                  backdrop: 0.5
-                });
+        this.checkAllFields();
 
-                return;
-              } else if (response.status === 200) {
-                // window.setTimeout(() => {
-                //   window.location.href = "/";
-                // });
-                return;
-              }
-            })
-            .catch(response => {
-              vm.$snotify.error("An error has occured.", "Error", {
-                position: SnotifyPosition.centerTop,
-                backdrop: 0.5
+        if (!vm.all_fields_ok) {
+          this.errorNotify();
+          return;
+        }
+
+        axios
+          .post("/clientreg", {
+            email: vm.inputs.email.value,
+            password: vm.inputs.pw.value,
+            sameaspw: vm.inputs.pwagain.value,
+            firstname: vm.inputs.firstname.value,
+            lastname: vm.inputs.lastname.value
+          })
+          .then(function(response) {
+            if (response.data === "This mail already exist") {
+              vm.errorToast("User exists.", "Error!");
+              return;
+            } else if (response.status === 200) {
+              vm.notifySuccess("Proceed to login.", "Success");
+
+              vm.$router.push({
+                path: "client"
               });
-
-              // window.setTimeout(() => {
-              //   window.location.reload();
-              // }, 1500);
-            });
+              return;
+            }
+          })
+          .catch(response => {
+            vm.errorToast("Error happened.", "Error!");
+            window.setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          });
+      },
+      inputs: {
+        email: {
+          reg_c: true,
+          ok: false,
+          type: "text",
+          id: "email",
+          label: "e-mail address",
+          value: "",
+          validation: {
+            required: true
+          }
         },
-        inputs: {
-          email: {
-            type: "text",
-            id: "email",
-            label: "e-mail address",
-            value: "",
-            validation: {
-              required: true
-            }
-          },
-          pw: {
-            type: "password",
-            id: "password",
-            label: "password",
-            value: "",
-            validation: {
-              required: true
-            }
-          },
-          pwagain: {
-            type: "password",
-            id: "sameaspw",
-            value: "",
-            label: "repeat password",
-            validation: {
-              required: true
-            }
-          },
-          firstname: {
-            type: "text",
-            id: "firstname",
-            label: "Name",
-            value: "",
-            validation: {
-              required: true
-            }
-          },
-          lastname: {
-            type: "text",
-            id: "lastname",
-            label: "Last Name",
-            value: "",
-            validation: {
-              required: true
-            }
+        pw: {
+          reg_c: true,
+
+          ok: false,
+          type: "password",
+          id: "pw",
+          label: "password",
+          value: "",
+          validation: {
+            required: true
+          }
+        },
+        pwagain: {
+          reg_c: true,
+
+          ok: false,
+          type: "password",
+          id: "pwagain",
+          value: "",
+          label: "repeat password",
+          validation: {
+            required: true
+          }
+        },
+        firstname: {
+          reg_c: true,
+
+          ok: false,
+          type: "text",
+          id: "firstname",
+          label: "Name",
+          value: "",
+          validation: {
+            required: true
+          }
+        },
+        username: {
+          reg_c: true,
+
+          ok: false,
+          type: "text",
+          id: "username",
+          label: "Username",
+          value: "",
+          validation: {
+            required: true
+          }
+        },
+        lastname: {
+          reg_c: true,
+
+          ok: false,
+          type: "text",
+          id: "lastname",
+          label: "Last Name",
+          value: "",
+          validation: {
+            required: true
           }
         }
       }

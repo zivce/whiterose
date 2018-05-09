@@ -1,6 +1,11 @@
 import VueRouter from 'vue-router';
 let routes = [
     {
+        path:'/home',
+        component: require('../components/maincomps/Home.vue')
+        
+    },
+    {
         name:'main',
         path: '/',
         children: [
@@ -8,6 +13,31 @@ let routes = [
             path:'/user',
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
+                {
+                    path:'dashboard',
+                    children:[
+                    {
+                        path: "messages",
+                        component: require('../components/maincomps/UserChildren/Dashboard/Messages.vue')
+                    },
+                    {
+                        path: "data",
+                        component: require('../components/maincomps/UserChildren/Dashboard/Data.vue')
+                    },
+                    {
+                        path: "search",
+                        component: require('../components/maincomps/UserChildren/Dashboard/Search.vue')
+                    },
+                    
+                    {
+                        path: "setup",
+                        component: require('../components/maincomps/UserChildren/Dashboard/Setup.vue')
+                    }
+                    
+
+                    ],
+                    component: require('../components/maincomps/UserChildren/DashboardClient.vue')
+                },
                 //load user comps here
                 {
                     path:'postjob',
@@ -124,7 +154,10 @@ let routes = [
         redirect:'/'
     }
 ]
-
-export default new VueRouter({
+const router = new VueRouter({
     routes
-});
+})
+
+
+
+export default router;

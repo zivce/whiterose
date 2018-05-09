@@ -16,6 +16,24 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+
+// $loggedIn = true;
+
+
+
+// if($loggedIn)
+//     Route::get('/',function(){
+//         return view('home');
+//     });
+// else
+//     Route::get('/', function () {
+//         return view('lender');
+//     });
+
+
+Route::get('/lander',function(){
+    return view('lender');
+});
 Auth::routes();
 
 
@@ -51,6 +69,8 @@ Route::post('postjob','ClientController@postJob')->name('postjob');
 
 //Returnng all jobs to clients or pentester
 Route::post('returnalljobs','Controller@allJobs')->name('returnalljobs');
+Route::post('startedJobs','Controller@startedJobs')->name('startedJobs');
+Route::post('finishedJobs','Controller@finishedJobs')->name('finishedJobs');
 
 //Return posted jobs to client
 Route::get('returnmyjobs','ClientController@myJobs')->name('returnmyjobs');

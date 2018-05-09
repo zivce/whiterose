@@ -1,6 +1,6 @@
 <template>
   <div class="comp_container">
-    <h2 class="h2s">Preview started jobs.</h2>
+    <h2 class="h2s">Preview finished jobs.</h2>
 
     <transition name="flip" mode="out-in">
     
@@ -55,25 +55,27 @@ export default {
   },
   mixins: [welcomeToastr],
   created() {
-//TODO: napuni finished_jobs
-//TODO: skini hardcode
-//TODO: izbrisi import gore
+    //TODO: napuni finished_jobs
+    //TODO: skini hardcode
+    //TODO: izbrisi import gore
 
-    //  axios
-    //   .get("allbids")
-    //   .then(response => {
-    //     //this adapts response for show in vue tables 2
-    //     response.data.data.forEach(scan_info => {
-    //       this.table_data.push({
-    //         pentester: bid_info.username,
-    //         rating: bid_info.rating,
-    //         bid_info
-    //       });
-    //     });
-    //   })
-    //   .catch(err => {
-    //     //error snotify here.
-    //   });
+    axios
+      .get("finishedJobs")
+      .then(response => {
+        console.log(response.data[0]);
+        // this adapts response for show in vue tables 2
+        this.jobs[0] = response.data[0];
+        response.data.forEach(job_info => {
+          //ovde sam hardkodirao da bi se uklopilo u tabelu
+          //treba ovo sto je zakomentarisano pa da promenis tabelu
+          this.jobs.push({
+            job_info
+          });
+        });
+      })
+      .catch(err => {
+        //error snotify here.
+      });
   },
   computed: {},
   mounted() {
@@ -92,7 +94,7 @@ export default {
     return {
       details: {},
       isVisibleBid: false,
-      columns: ["pentester","title", "price", "more info"],
+      columns: ["pentester", "title", "price", "more info"],
       finished_jobs: hardcodepentst,
       options: {
         columnsClasses: {
@@ -105,7 +107,8 @@ export default {
           dropdown: true,
           nav: "scroll"
         }
-      }
+      },
+      jobs: []
     };
   }
 };
