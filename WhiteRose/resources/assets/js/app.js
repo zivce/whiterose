@@ -25,14 +25,20 @@ import VeeValidate from 'vee-validate';
 import landerRouter from './routes/routes';
 import mainRouter from './routes/routesMain';
 
-
 import {ClientTable,Event} from 'vue-tables-2';
 import Axios from 'axios';
 import errorToaster from './components/toastr/FormErrorToaster';
 import logg from './utils/groupLogger';
 import successToastr from './components/toastr/welcometoastr';
+import VBar from 'v-bar';
 
 import checkFields from './utils/checkAllFields';
+
+/**
+ * Comps
+ */
+
+ Vue.component('v-bar',VBar)
 
 /**
  * Mixins
@@ -46,7 +52,6 @@ Vue.mixin(successToastr);
 /**
   * What Vue should globally use.
   */
-
 Vue.use(ClientTable);
 Vue.use(Snotify);
 Vue.use(BootstrapVue);

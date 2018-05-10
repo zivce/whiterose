@@ -1,11 +1,14 @@
 <template>
   <div id="main_vue">
-      <h1  class="row">
+      <div class="row" id="header">
+        <h1 >
         <router-link 
         to="/home"
         >
           Home
         </router-link>
+      </h1>
+        
         <b-dropdown  
         :text="username" id="user"
 
@@ -19,7 +22,9 @@
           </b-dropdown-item>
           
         </b-dropdown>
-      </h1>
+
+      </div>
+      
 
       <home v-if="home">
       </home>
@@ -33,6 +38,7 @@
       <h1 id="footer" class="row">
         Footer here.
       </h1>
+
       <vue-snotify/>
 
       
@@ -64,8 +70,39 @@ export default {
 </script>
 
 <style scoped>
+#header >>> #user__BV_toggle_ {
+  margin: auto;
+  height: 5vh;
+  background-color: transparent;
+  border: 0;
+}
+#header >>> .dropdown-menu.show {
+  top: 4px !important;
+  left: -70px !important;
+}
+#header >>> #user {
+  position: absolute;
+  right: 5vw;
+  top: 4vh;
+}
+#header >>> #user__BV_toggle_:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+#header h1 {
+  height: 5vh;
+  margin: 0 auto;
+}
+
 #footer {
   bottom: 0;
+}
+#header {
+  box-shadow: 3px 3px 7px 2px #e2e2e2;
+  height: 13vh;
+  color: white;
+  background: rgba(0, 0, 53, 0.93);
 }
 
 #main_vue {

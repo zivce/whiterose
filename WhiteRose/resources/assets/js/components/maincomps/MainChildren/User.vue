@@ -5,7 +5,7 @@
         <icon name="info" ></icon>
       </b-button>
 
-      <transition  name="fade" mode="in-out">
+      <transition  name="flip" mode="in-out">
         <user-info 
         :textinside = "textinside"
         :title = "title"
@@ -209,6 +209,7 @@ export default {
   margin-bottom: 20px;
 }
 #user_comps {
+  margin-top: 3vh;
   min-height: 90vh;
 }
 </style>
