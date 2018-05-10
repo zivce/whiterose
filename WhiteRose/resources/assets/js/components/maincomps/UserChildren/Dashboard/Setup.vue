@@ -38,11 +38,23 @@
                         Insert new image.
                     </h3>
 
-                    <b-form-file accept="image/jpg, image/png" v-model="avatar_image" placeholder="Choose file">
+                    <b-form-file
+                    name="avatar"
+                    :state="!errAvatar"
+                    v-validate="{
+                      rules:{
+                        required:true
+                      }
+                      }"
+                    accept="image/jpg, image/png" 
+                    v-model="avatar_image" placeholder="Choose file">
 
                     </b-form-file>
 
-    
+                    <span v-if="errors.has('avatar')" 
+                    class="incorrect_input">
+                        Image required!
+                    </span>
 
                 <b-button class="btn btn-info btn-secondary actionbtn" @click="insertImageHandler()">
                     Insert  
@@ -195,6 +207,16 @@ import eventBus from "../../../../utils/eventBus";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/file";
+
+//API services
+
+import PostDescApi from '../../../../services/api/user_api/postDescription.api';
+import VerifySiteApi from '../../../../services/api/user_api/verifySite.api';
+import PostAvatarApi from '../../../../services/api/user_api/postAvatar.api';
+import ResetPwApi from '../../../../services/api/user_api/resetPw.api';
+
+
+
 export default {
   mounted(){
 
@@ -204,15 +226,13 @@ export default {
       this.all_fields_ok &= val;
     });
 
-    //Define starting component
-    this.arr_comps['resetpw'] = true ;
-    this.arr_comps['addesc'] = false ;
-    this.arr_comps['avatar'] = false ;
-    this.arr_comps[ 'verifysite'] = false ;
     
 
     },
   computed: {
+    errAvatar() {
+      return this.errors.has("avatar");
+    },
     errSiteVerif(){
       return this.errors.has(this.site_for_verification.id);
     },
@@ -227,7 +247,9 @@ export default {
     DashboardInput,Icon
   },
   methods: {
-
+      checkImageInput(){
+        return this.errAvatar ? false : true
+      },
       //ne radi .get za Map
       // isVisible(comp)
       // {
@@ -271,28 +293,13 @@ export default {
 
 
       postDescription() {
-      let vm = this;
 
-      //   eventBus.$emit("validateAllFields");
+        let vm = this;
+        let valid = this.$validator;
+        let desc = {desc : this.descinput.value}
 
-      this.$validator.validateAll().then(form_ok => {
-        if (form_ok) {
-          axios
-            .post("/postdescription", {
-              desc: this.descinput.value
-            })
-            .then(function(response) {
-              vm.successToast("Description added.", "Success.");
-            })
-            .catch(function(error) {
-              vm.errorToast("An error happened.", "Error.");
-            });
-        } else {
-          //reset
-          vm.errorToast("Please fill out form correctly.", "Error.");
-          vm.all_fields_ok = true;
-        }
-      });
+        PostDescApi.postDescription(valid,vm,this.descinput.value);
+
     },
 
     
@@ -300,49 +307,19 @@ export default {
 
     verifySiteHandler() {
       let vm = this;
-      this.$validator.validateAll().then(form_ok => {
-        if (form_ok) {
-          axios
-            .post("/verifysite", {
-              desc: this.avatar_image
-            })
-            .then(function(response) {
-              vm.successToast("Site verified.", "Success.");
-            })
-            .catch(function(error) {
-              vm.errorToast("An error happened.", "Error.");
-            });
-        } else {
-          //reset
-          vm.errorToast("Please fill out form correctly.", "Error.");
+      let valid = this.$validator;
+      let send = {site: this.site_for_verification.value};
 
-          vm.all_fields_ok = true;
-        }
-      });
+      VerifySiteApi.verifySite(valid,vm,send)
     },
 
     insertImageHandler() {
       let vm = this;
+      let valid = this.$validator;
+      let send = {avatar: this.avatar_image};
 
-      //   eventBus.$emit("validateAllFields");
+      PostAvatarApi.postAvatar(valid,vm,send);
 
-      this.$validator.validateAll().then(form_ok => {
-        if (form_ok) {
-          axios
-            .post("/changeImage", {
-              desc: this.avatar_image
-            })
-            .then(function(response) {
-              vm.successToast("Avatar added.", "Success.");
-            })
-            .catch(function(error) {
-              vm.errorToast("An error happened.", "Error.");
-            });
-        } else {
-          //reset
-          vm.all_fields_ok = true;
-        }
-      });
     },
 
     resetHandler() {
@@ -350,24 +327,10 @@ export default {
 
       eventBus.$emit("validateAllFields");
 
-      this.$validator.validateAll().then(form_ok => {
-        if (form_ok && vm.all_fields_ok) {
-          axios
-            .post("/resetPw", {
-              newpw: this.newpw.value
-            })
-            .then(function(response) {
-              vm.successToast("Password reseted.", "Success");
-            })
-            .catch(function(error) {
-              vm.notifySuccess("An error happened.", "Error!");
-            });
-        } else {
-          //reset
-          vm.errorToast("Please fill out form correctly.", "Error.");
-          vm.all_fields_ok = true;
-        }
-      });
+      let valid = this.$validator;
+      let send = {newpw: this.newpw.value};
+
+      ResetPwApi.resetPw(valid,vm,send);
     }
 
   },
@@ -382,7 +345,6 @@ export default {
       //Validation helper
       all_fields_ok: false,
       
-      arr_comps : {},
 
       //Props to send to backend
       avatar_image : null,
