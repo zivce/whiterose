@@ -6,7 +6,7 @@
         <b-nav-item to="/user/dashboard/setup">Setup Profile</b-nav-item>
         <b-nav-item to="/user/dashboard/messages">Messages</b-nav-item>
         <b-nav-item to="/user/dashboard/data">Data</b-nav-item>
-        <b-nav-item to="/user/dashboard/search">Search</b-nav-item>
+        
       </b-nav>
      <transition name="fade" mode="out-in">
       

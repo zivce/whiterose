@@ -24,10 +24,6 @@ let routes = [
                         path: "data",
                         component: require('../components/maincomps/UserChildren/Dashboard/Data.vue')
                     },
-                    {
-                        path: "search",
-                        component: require('../components/maincomps/UserChildren/Dashboard/Search.vue')
-                    },
                     
                     {
                         path: "setup",
@@ -43,6 +39,10 @@ let routes = [
                     path:'postjob',
                     component: require('../components/maincomps/UserChildren/PostJob.vue')
 
+                },
+                {
+                    path: "search",
+                    component: require('../components/maincomps/UserChildren/Search.vue')
                 },
                 {
                     path:'tools',
