@@ -7,32 +7,48 @@
             <h3 class="h3s">Select option from list.</h3>
 
             <b-nav-item @click="switchComponentNum(0)">
+              <span :class="{'strong':isVisibleChart}">
                 Spendings
+              </span>
             </b-nav-item>
 
             <b-nav-item  @click="switchComponentNum(1)">
+              <span :class="{'strong':isVisibleTopFive}">
                 Top 5 Pentesters
+              </span>
             </b-nav-item>
             
             <b-nav-item  @click="switchComponentNum(2)">
-                Your verified sites
+                <span :class="{'strong':isVisibleSites}">
+                  Your verified sites
+                </span>
+
             </b-nav-item>
             
 
         </b-nav>
       </div>
       
+      <!-- CHART  -->
+      <transition name="fade">
       <div class="col-8">
+      
+      <transition name="fade">
 
-        <div v-if="isVisibleChart">
+        <div v-show="isVisibleChart">
           
           <div class="control_chart">
               <app-line :height="heig" :width="width"/>
           </div>  
         
         </div>
-    
-        <div v-if="isVisibleTopFive">
+      
+      </transition>
+
+      <!-- TOP FIVE PART  -->
+      <transition name="fade">
+
+      <div v-show="isVisibleTopFive">
           
           <div class="col-12"  v-if="!isVisibleBid">
 
@@ -64,8 +80,33 @@
 
         
         </div>
+      </transition>
+
+        <!-- VERIFIED SITES -->
+        <transition name="fade">
+
+            <div v-show="isVisibleSites">
+
+              <div class="col-12" >
+
+                <h2 class="h2s">Verified sites</h2>
+
+                <v-client-table
+                :data='sites'
+                :columns='columns_sites'
+                :options='options_sites'
+                >
+                
+                </v-client-table >
+              </div>
+            </div>
+
+        </transition>
+
+
       </div>
     
+      </transition>
 
     </div>
   </div>
@@ -74,15 +115,24 @@
 
 <script>
 import AppLine from "../DataComps/DoughnutChart";
+
 import hardc from "../hardcode_pentesters";
+
+import DomainsHardcode from "../domains.hardcode";
+
 import MoreInfo from "../UserParts/ContactPentester.vue";
 import eventBus from "../../../../utils/eventBus";
 import Icon from "vue-awesome/components/Icon";
 
+//API services
+import TopFiveApi from "../../../../services/api/user_api/topfive.api";
+
 import "vue-awesome/icons/eye";
 
 export default {
- 
+  created() {
+    // this.pentesters = TopFiveApi.getTopFive();
+  },
   components: {
     AppLine,
     Icon,
@@ -90,22 +140,26 @@ export default {
   },
   mixins: [],
   methods: {
-     showDet(props) {
+    showDet(props) {
       this.details = props.row;
       this.isVisibleBid = true;
     },
-    switchComponentNum(num)
-    {
-      if(num === 0)
-      {
+    switchComponentNum(num) {
+      if (num === 0) {
         this.isVisibleChart = true;
-        this.isVisibleTopFive = false;
 
-      }
-      else if( num === 1)
-      {
-        this.isVisibleChart= false;
+        this.isVisibleTopFive = false;
+        this.isVisibleSites = false;
+      } else if (num === 1) {
         this.isVisibleTopFive = true;
+
+        this.isVisibleChart = false;
+        this.isVisibleSites = false;
+      } else if (num === 2) {
+        this.isVisibleSites = true;
+
+        this.isVisibleTopFive = false;
+        this.isVisibleChart = false;
       }
     }
   },
@@ -120,17 +174,37 @@ export default {
       heig: 500,
       width: 800,
 
-
       details: {},
-      
+
       //Visibility props
       isVisibleBid: false,
-      isVisibleChart : true,
-      isVisibleTopFive : false,
+      isVisibleChart: true,
+      isVisibleTopFive: false,
+      isVisibleSites: false,
 
       //Table options
       columns: ["username", "rating", "preview"],
+      columns_sites: ["domain"],
+
+      //TODO: zameni stvarnim podacima
+
       pentesters: hardc,
+      sites: DomainsHardcode,
+
+      //...
+
+      options_sites: {
+        columnsClasses: {
+          domain: "cursorable"
+        },
+        filterByColumn: true,
+        filterable: ["domain"],
+        pagination: {
+          dropdown: true,
+          nav: "scroll"
+        }
+      },
+
       options: {
         columnsClasses: {
           rating: "cursorable"
@@ -149,7 +223,20 @@ export default {
 </script>
 
 <style scoped>
+.strong {
+  color: rgb(7, 8, 15);
+  font-weight: 600;
+}
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: ease-in 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  transition: ease-out 0.5s;
+  opacity: 0;
+}
 
 .control_table {
   width: 70%;
@@ -160,5 +247,5 @@ export default {
   /* max-width: 30%; */
   /* max-height: 30%; */
   margin-bottom: 30px;
-} 
+}
 </style>

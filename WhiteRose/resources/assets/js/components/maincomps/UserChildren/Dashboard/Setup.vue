@@ -1,34 +1,48 @@
 <template>
 <div id="root_setup" class="setup_margin_top">
     <div class="d-flex flex-row">
-    
+
+    <!-- TODO: probaj sa v-show da napravis -->
+    <transition name="fade">
+
     <div class="d-flex col-5" id="sidebar_dashboard">
         <b-nav class="flex-column">
             <h3 class="h3s">Select option from list.</h3>
 
             <b-nav-item @click="switchComponentNum('resetpw')">
-                Reset Password
+              <span :class="{'strong':isVisibleReset}">
+                  Reset Password
+                </span>
             </b-nav-item>
 
             <b-nav-item  @click="switchComponentNum('addesc')">
-                Add Description
+                <span :class="{'strong':isVisibleDesc}">
+                  Add Description
+                </span>
             </b-nav-item>
 
             
             <b-nav-item  @click="switchComponentNum('verifysite')">
-                Verify Sites
+                <span :class="{'strong':isVisibleVerifySite}">
+                  Verify Sites
+                </span>
             </b-nav-item>
             
             
             <b-nav-item  @click="switchComponentNum('avatar')">
-                Add Avatar
+                <span :class="{'strong':isVisibleChangeImage}">
+                  Add Avatar
+                </span>
+
             </b-nav-item>
             
 
         </b-nav>
     </div>
-    
+    </transition>
+
     <!-- ADD AVATAR  -->
+    <!-- <transition name="fade"> -->
 
     <div class="d-flex col-5" v-if="isVisibleChangeImage">
 
@@ -61,9 +75,11 @@
                 </b-button>
             </div>
         </div>
+      <!-- </transition> -->
 
 
     <!-- VERIFY SITE  -->
+    <!-- <transition name="fade"> -->
 
     <div class="d-flex col-5" v-if="isVisibleVerifySite">
 
@@ -111,8 +127,9 @@
                 </b-button>
           </div>
     </div>
-
+    <!-- </transition> -->
     <!-- RESET PW  -->
+    <!-- <transition name="fade"> -->
 
     <div class="d-flex col-5" v-if="isVisibleReset">
 
@@ -153,7 +170,8 @@
                 </b-button>
             </div>
         </div>
-
+    <!-- </transition> -->
+    <!-- <transition name="fade"> -->
 
         <!-- ADD DESCRIPTION  -->
 
@@ -194,7 +212,7 @@
             </div>
             </div>
         </div>
-
+    <!-- </transition> -->
 
     </div>
     
@@ -210,30 +228,24 @@ import "vue-awesome/icons/file";
 
 //API services
 
-import PostDescApi from '../../../../services/api/user_api/postDescription.api';
-import VerifySiteApi from '../../../../services/api/user_api/verifySite.api';
-import PostAvatarApi from '../../../../services/api/user_api/postAvatar.api';
-import ResetPwApi from '../../../../services/api/user_api/resetPw.api';
-
-
+import PostDescApi from "../../../../services/api/user_api/postDescription.api";
+import VerifySiteApi from "../../../../services/api/user_api/verifySite.api";
+import PostAvatarApi from "../../../../services/api/user_api/postAvatar.api";
+import ResetPwApi from "../../../../services/api/user_api/resetPw.api";
 
 export default {
-  mounted(){
-
+  mounted() {
     //make fields ok
-    
+
     eventBus.$on("field_ok", val => {
       this.all_fields_ok &= val;
     });
-
-    
-
-    },
+  },
   computed: {
     errAvatar() {
       return this.errors.has("avatar");
     },
-    errSiteVerif(){
+    errSiteVerif() {
       return this.errors.has(this.site_for_verification.id);
     },
     errDesc() {
@@ -244,82 +256,72 @@ export default {
     }
   },
   components: {
-    DashboardInput,Icon
+    DashboardInput,
+    Icon
   },
   methods: {
-      checkImageInput(){
-        return this.errAvatar ? false : true
-      },
-      //ne radi .get za Map
-      // isVisible(comp)
-      // {
+    checkImageInput() {
+      return this.errAvatar ? false : true;
+    },
+    //ne radi .get za Map
+    // isVisible(comp)
+    // {
 
-      // },
-      switchComponentNum(comp){
+    // },
+    switchComponentNum(comp) {
+      if (comp === "addesc") {
+        this.isVisibleDesc = true;
+        this.isVisibleChangeImage = false;
+        this.isVisibleReset = false;
+        this.isVisibleVerifySite = false;
+      }
 
-        if(comp === 'addesc')
-        {
-          this.isVisibleDesc = true;
-          this.isVisibleChangeImage = false;
-          this.isVisibleReset = false;
-          this.isVisibleVerifySite = false;
-        }
+      if (comp === "resetpw") {
+        this.isVisibleDesc = false;
+        this.isVisibleChangeImage = false;
+        this.isVisibleReset = true;
+        this.isVisibleVerifySite = false;
+      }
 
-        if(comp === 'resetpw')
-        {
-          this.isVisibleDesc = false;
-          this.isVisibleChangeImage= false;
-          this.isVisibleReset = true;
-          this.isVisibleVerifySite = false;
-        }
+      if (comp === "verifysite") {
+        this.isVisibleDesc = false;
+        this.isVisibleChangeImage = false;
+        this.isVisibleReset = false;
+        this.isVisibleVerifySite = true;
+      }
 
-        if(comp === 'verifysite')
-        {
-          this.isVisibleDesc = false;
-          this.isVisibleChangeImage = false;
-          this.isVisibleReset = false;
-          this.isVisibleVerifySite = true;
-        }
-        
-        if(comp === 'avatar')
-        {
-          this.isVisibleDesc = false;
-          this.isVisibleChangeImage = true;
-          this.isVisibleReset = false;
-          this.isVisibleVerifySite = false;
-        }
-        
-      },
-
-
-      postDescription() {
-
-        let vm = this;
-        let valid = this.$validator;
-        let desc = {desc : this.descinput.value}
-
-        PostDescApi.postDescription(valid,vm,this.descinput.value);
-
+      if (comp === "avatar") {
+        this.isVisibleDesc = false;
+        this.isVisibleChangeImage = true;
+        this.isVisibleReset = false;
+        this.isVisibleVerifySite = false;
+      }
     },
 
-    
+    postDescription() {
+      let vm = this;
+      let valid = this.$validator;
+      let desc = { desc: this.descinput.value };
+
+      PostDescApi.postDescription(valid, vm, this.descinput.value);
+    },
+
     //TODO: Check validation for site verification not working
 
     verifySiteHandler() {
       let vm = this;
       let valid = this.$validator;
-      let send = {site: this.site_for_verification.value};
+      let send = { site: this.site_for_verification.value };
 
-      VerifySiteApi.verifySite(valid,vm,send)
+      VerifySiteApi.verifySite(valid, vm, send);
     },
 
     insertImageHandler() {
       let vm = this;
       let valid = this.$validator;
-      let send = {avatar: this.avatar_image};
+      let send = { avatar: this.avatar_image };
 
-      PostAvatarApi.postAvatar(valid,vm,send);
-
+      PostAvatarApi.postAvatar(valid, vm, send);
     },
 
     resetHandler() {
@@ -328,26 +330,24 @@ export default {
       eventBus.$emit("validateAllFields");
 
       let valid = this.$validator;
-      let send = {newpw: this.newpw.value};
+      let send = { newpw: this.newpw.value };
 
-      ResetPwApi.resetPw(valid,vm,send);
+      ResetPwApi.resetPw(valid, vm, send);
     }
-
   },
   data() {
     return {
       //Visibility variables
-      isVisibleReset: true,
+      isVisibleReset: false,
       isVisibleDesc: false,
-      isVisibleChangeImage : false,
-      isVisibleVerifySite : false,
+      isVisibleChangeImage: false,
+      isVisibleVerifySite: false,
 
       //Validation helper
       all_fields_ok: false,
-      
 
       //Props to send to backend
-      avatar_image : null,
+      avatar_image: null,
       descinput: {
         id: "desc",
         label: "description",
@@ -381,8 +381,12 @@ export default {
 </script>
 
 <style scoped>
-#icon_file
-{
+.strong {
+  color: rgb(7, 8, 15);
+  font-weight: 600;
+}
+
+#icon_file {
   vertical-align: middle;
 }
 #sidebar_dashboard {
