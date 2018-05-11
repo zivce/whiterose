@@ -99,14 +99,10 @@ if(home_exists)
         created(){
 
             let user = localStorage.getItem("r");
-            
-            console.log(user);
-            
             user = JSON.parse(user);
+            console.log(user);
 
-            
             this.user = user;
-
             //bind user to instance
             let on_root_path = this.$router.app.$route.fullPath === "/";
 
@@ -125,7 +121,7 @@ if(home_exists)
                 if(this.role === "client")
                 {
                     this.$router.push({
-                        path:"/user/postjob"
+                        path:`/user/${this.user.id}/`
                     })
                 }
             }
@@ -148,7 +144,7 @@ if(home_exists)
             
             if(home.role === "client")
             {
-                next({path:"user/postjob"});
+                next({path:`user/${home.user.id}/postjob`});
             }
             if(home.role === "pentester")
             {

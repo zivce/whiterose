@@ -17,29 +17,29 @@
     <!-- control panel -->
 
       <b-nav class="d-flex justify-content-center user_nav"  pills>
-        <b-nav-item to="/user/postjob">
+        <b-nav-item :to="'/user/'+ user_id+ '/postjob'">
         Post Job
         </b-nav-item>
-        <b-nav-item to="/user/tools">
+        <b-nav-item :to="'/user/'+ user_id+ '/tools'">
         Tools
         </b-nav-item>
-        <b-nav-item to="/user/scans">
+        <b-nav-item :to="'/user/'+ user_id+ '/scans'">
         Scans
         </b-nav-item>
         
-        <b-nav-item to="/user/myjobs">
+        <b-nav-item :to="'/user/'+ user_id+ '/myjobs'">
         My Jobs
         </b-nav-item>
-        <b-nav-item to="/user/bids">
+        <b-nav-item :to="'/user/'+ user_id+ '/bids'">
         Bids
         </b-nav-item>
-        <b-nav-item to="/user/startedjobs">
+        <b-nav-item :to="'/user/'+ user_id+ '/startedjobs'">
         Started Jobs
         </b-nav-item>
-        <b-nav-item to="/user/finishedjobs">
+        <b-nav-item :to="'/user/'+ user_id+ '/finishedjobs'">
         Finished Jobs
         </b-nav-item>
-        <b-nav-item to="/user/search">
+        <b-nav-item :to="'/user/'+ user_id+ '/search'">
         Search
         </b-nav-item>
       </b-nav>
@@ -48,7 +48,9 @@
         <router-view>
         </router-view>
       <!-- </transition> -->
-
+      <div v-if="main_client_visible">
+        <p>Main CLient</p>
+      </div>
 
   </div>
 
@@ -72,6 +74,7 @@ import DataTxt from "./Data/data.txt";
 import MessagesTxt from "./Data/messages.txt";
 import SearchTxt from "./Data/search.txt";
 import SetupTxt from "./Data/setup.txt";
+import eventBus from '../../../utils/eventBus';
 
 export default {
   mixins: [],
@@ -81,6 +84,21 @@ export default {
   created() {},
   computed: {},
   mounted() {
+   
+    eventBus.$on("emited_user_id",(val)=>{
+      this.user_id = val;
+    })
+    
+
+    if(this.$route.path === `/user/${this.user_id}/`)
+    {
+      this.main_client_visible = true;
+    }
+    else 
+    {
+      this.main_client_visible = false;
+    }
+
     this.helper();
   },
   components: {
@@ -121,8 +139,10 @@ export default {
       title: PostJobTxt.title,
 
       isVisibleUserInfo: false,
+      main_client_visible : false,
       //Current route
       route: "",
+      user_id:'',
 
       //interval
       int1: null,

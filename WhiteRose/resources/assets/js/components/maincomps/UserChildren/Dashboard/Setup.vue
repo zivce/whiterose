@@ -263,11 +263,7 @@ export default {
     checkImageInput() {
       return this.errAvatar ? false : true;
     },
-    //ne radi .get za Map
-    // isVisible(comp)
-    // {
-
-    // },
+    
     switchComponentNum(comp) {
       if (comp === "addesc") {
         this.isVisibleDesc = true;
@@ -338,7 +334,7 @@ export default {
   data() {
     return {
       //Visibility variables
-      isVisibleReset: false,
+      isVisibleReset: true,
       isVisibleDesc: false,
       isVisibleChangeImage: false,
       isVisibleVerifySite: false,

@@ -13,11 +13,11 @@
         :text="username" id="user"
 
         >
-          <b-dropdown-item href="/#/user/dashboard/setup">
+          <b-dropdown-item :href="profile_url">
             <slot name="button-content"><icon name="user"></icon> Profile</slot>
           </b-dropdown-item>
         
-          <b-dropdown-item  href="/clientlogout">
+          <b-dropdown-item  @click="handleLogout()">
               <slot name="button-content"><icon name="logout"></icon> Logout</slot>
           </b-dropdown-item>
           
@@ -25,20 +25,20 @@
 
       </div>
       
+      <div >
 
-      <home v-if="home">
-      </home>
+        <home v-if="home">
+        </home>
 
-      <transition name="fade" mode="out-in" >
-        <router-view v-if="!home">
-        </router-view>
-      </transition>
+        <transition name="fade" mode="out-in" >
+          <router-view v-if="!home">
+          </router-view>
+        </transition>
+      </div>
+        <div id="footer" class="row">
+          <p class="d-flex">You've reached rock bottom. Who lives in the pineapple under the sea...</p>
+      </div>
       
-
-      <h1 id="footer" class="row">
-        Footer here.
-      </h1>
-
       <vue-snotify/>
 
       
@@ -51,18 +51,45 @@ import Home from "./Home.vue";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/user";
 import "../../Icons/logout";
+import eventBus from '../../utils/eventBus';
 
 export default {
   components: {
     Home,
     Icon
   },
-  mounted() {},
+  mounted() {
+    this.user_id = this.$route.params.id;
+    this.profile_url = `/#/user/${this.user_id}/dashboard/setup`;
+    eventBus.$emit("emited_user_id",this.user_id);
+  },
   computed: {
     home() {}
   },
+  methods : {
+    handleLogout(){
+      axios
+        .get('/clientlogout')
+        .then((res)=>{
+          if(res.status === 200)
+          {
+            this.notifySuccess("Logged out!", "Success!");
+
+            window.setTimeout ( () => {
+              window.location.reload()
+            },1500)
+          }
+          else 
+          {
+            this.errorToast("Error happened","Error!")
+          }
+        })
+      }
+  },
   data() {
     return {
+      user_id: '',
+      profile_url : ``,
       username: this.$parent.user.email
     };
   }
@@ -95,10 +122,19 @@ export default {
   margin: 0 auto;
 }
 
+#footer p{
+  margin:auto;
+}
 #footer {
-  bottom: 0;
+  text-align: center;
+  margin-top : 5%;
+  box-shadow: 3px 3px 7px 2px #e2e2e2;
+  height: 13vh;
+  color: white;
+  background: rgba(0, 0, 53, 0.93);
 }
 #header {
+  margin-bottom: 3%;
   box-shadow: 3px 3px 7px 2px #e2e2e2;
   height: 13vh;
   color: white;
