@@ -10,11 +10,12 @@ let routes = [
     {
         name:'main',
         path: '/',
+        redirect : 'home',
         children: [
         {
-            path:`/user/:id`,
+            path:`user/:id`,
             props:true,
-            redirect : `/user/:id/dashboard/setup`,
+            redirect : `user/:id/dashboard/setup`,
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
                 {
@@ -22,7 +23,7 @@ let routes = [
                     children:[
                     {
                         meta:{
-                            fail: `/user/:id/`
+                            fail: `user/:id/`
                         },
                         path: "messages",
                         component: require('../components/maincomps/UserChildren/Dashboard/Messages.vue')
@@ -30,7 +31,7 @@ let routes = [
                     {
                         
                         meta:{
-                            fail: `/user/:id/`
+                            fail: `user/:id/`
                         },
                         path: "data",
                         component: require('../components/maincomps/UserChildren/Dashboard/Data.vue')
@@ -39,7 +40,7 @@ let routes = [
                     {
                         
                         meta:{
-                            fail: `/user/:id/`
+                            fail: `user/:id/`
                         },
                         path: "setup",
                         component: require('../components/maincomps/UserChildren/Dashboard/Setup.vue')
@@ -63,7 +64,7 @@ let routes = [
                     path:'tools',
                     children:[
                         {
-                            path:'/udp-nmap',
+                            path:'udp-nmap',
                             component: require('../components/maincomps/UserChildren/FewTools/NmapUDP.vue')
                         }
                     ],

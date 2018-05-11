@@ -20,7 +20,7 @@
         <b-nav-item :to="'/user/'+ user_id+ '/postjob'">
         Post Job
         </b-nav-item>
-        <b-nav-item :to="'/user/'+ user_id+ '/tools'">
+        <b-nav-item :to="'/user/'+ user_id + '/tools'">
         Tools
         </b-nav-item>
         <b-nav-item :to="'/user/'+ user_id+ '/scans'">
@@ -85,7 +85,6 @@ export default {
   computed: {},
   mounted() {
    
-   debugger;
     this.user_id = this.$store.getters.returnId;
 
     if(this.$route.path === `/user/${this.user_id}/`)

@@ -13,7 +13,7 @@
         :text="username" id="user"
 
         >
-          <b-dropdown-item :href="profile_url">
+          <b-dropdown-item :to="profile_url">
             <slot name="button-content"><icon name="user"></icon> Profile</slot>
           </b-dropdown-item>
         
@@ -25,10 +25,15 @@
 
       </div>
       
-      <div >
+      <div id="main_main">
 
         <home v-if="home">
         </home>
+<!--         
+        <home v-if="main_comp" id="">
+          
+        </home> -->
+
 
         <transition name="fade" mode="out-in" >
           <router-view v-if="!home">
@@ -61,9 +66,17 @@ export default {
   mounted() {
     this.username = this.$store.getters.returnEmail;
     
-    this.user_id = this.$route.params.id;
-    
-    this.profile_url = `/#/user/${this.user_id}/dashboard/setup`;
+    this.user_id = this.$store.getters.returnId;
+
+    if(this.$store.state.route.path === "/")
+    {
+      this.main_comp = true;
+    }
+    else{
+      this.main_comp = false;
+    }
+
+    this.profile_url = `/user/${this.user_id}/dashboard/setup`;
   },
   computed: {
     home() {}
@@ -92,13 +105,18 @@ export default {
     return {
       user_id: '',
       profile_url : ``,
-      username: ''
+      username: '',
+      main_comp: false,
     };
   }
 };
 </script>
 
 <style scoped>
+#main_main{
+  min-height: 90vh;
+}
+
 #header >>> #user__BV_toggle_ {
   margin: auto;
   height: 5vh;

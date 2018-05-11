@@ -102,8 +102,7 @@ if(home_exists)
         store,
         el: '#home',
         router: mainRouter,
-        created(){
-            debugger;
+        beforeMount(){
             this.unsync = sync(this.$store,this.$router);
             let user = localStorage.getItem("r");
             user = JSON.parse(user);
@@ -112,13 +111,14 @@ if(home_exists)
 
             this.$root.role = this.$store.getters.returnRole;
             //bind user to instance
-            let on_root_path = this.$router.app.$route.fullPath === "/";
             
             store.commit("setUser",user);
 
             let user_role = this.$store.getters.returnRole;
+            
+            this.user_id =  this.$store.getters.returnId;
 
-            if(on_root_path)
+            if(this.$store.state.route.path === "/home")
             {
                 //TODO: for each role
                 if(user_role === "pentester")
@@ -149,34 +149,34 @@ if(home_exists)
         },
         mounted(){
 
-            this.user_id = this.$store.getters.returnId;
+            this.user_id = '';
         }
     })
     
-    mainRouter.beforeEach((to,from,next) => {
-        
-        if(to.path === "/")
-        {   
-            debugger;
-            //TODO: dodaj rute razlicite u zavisnosti od role.
-            console.log(home.$store);
+    // mainRouter.beforeEach((to,from,next) => {
+    //     //INF LOOP
+    //     if(to.path === "/")
+    //     {   
+    //         //TODO: dodaj rute razlicite u zavisnosti od role.
+    //         console.log(home.$store);
 
-            //TODO: dodatno moze da se proverava i pre nego sto udje na neku rutu
-            let user_id = home.$store.getters.returnId;
-            let user_role = home.$store.getters.returnRole;
-            if(user_role === "client")
-            {
-                next({path:`user/${user_id}/postjob`});
-            }
-            if(user_role === "pentester")
-            {
-                next({path:"pentester/alljobs"})
-            }
+    //         //TODO: dodatno moze da se proverava i pre nego sto udje na neku rutu
+    //         let user_id = home.$store.getters.returnId;
+    //         let user_role = home.$store.getters.returnRole;
 
-        }
-        else
-        {
-            next();
-        }
-    })
+    //         if(user_role === "client")
+    //         {
+    //             next({path:`user/${user_id}/postjob`});
+    //         }
+    //         if(user_role === "pentester")
+    //         {
+    //             next({path:"pentester/alljobs"})
+    //         }
+
+    //     }
+    //     else
+    //     {
+    //         next();
+    //     }
+    // })
 }
