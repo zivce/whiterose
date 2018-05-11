@@ -56,7 +56,7 @@ import Home from "./Home.vue";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/user";
 import "../../Icons/logout";
-import eventBus from '../../utils/eventBus';
+import eventBus from "../../utils/eventBus";
 
 export default {
   components: {
@@ -65,14 +65,12 @@ export default {
   },
   mounted() {
     this.username = this.$store.getters.returnEmail;
-    
+
     this.user_id = this.$store.getters.returnId;
 
-    if(this.$store.state.route.path === "/")
-    {
+    if (this.$store.state.route.path === "/") {
       this.main_comp = true;
-    }
-    else{
+    } else {
       this.main_comp = false;
     }
 
@@ -81,39 +79,34 @@ export default {
   computed: {
     home() {}
   },
-  methods : {
-    handleLogout(){
-      axios
-        .get('/clientlogout')
-        .then((res)=>{
-          if(res.status === 200)
-          {
-            this.notifySuccess("Logged out!", "Success!");
+  methods: {
+    handleLogout() {
+      axios.get("/clientlogout").then(res => {
+        if (res.status === 200) {
+          this.notifySuccess("Logged out!", "Success!");
 
-            window.setTimeout ( () => {
-              window.location.reload()
-            },1500)
-          }
-          else 
-          {
-            this.errorToast("Error happened","Error!")
-          }
-        })
-      }
+          window.setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        } else {
+          this.errorToast("Error happened", "Error!");
+        }
+      });
+    }
   },
   data() {
     return {
-      user_id: '',
-      profile_url : ``,
-      username: '',
-      main_comp: false,
+      user_id: "",
+      profile_url: ``,
+      username: "",
+      main_comp: false
     };
   }
 };
 </script>
 
 <style scoped>
-#main_main{
+#main_main {
   min-height: 90vh;
 }
 
@@ -142,12 +135,12 @@ export default {
   margin: 0 auto;
 }
 
-#footer p{
-  margin:auto;
+#footer p {
+  margin: auto;
 }
 #footer {
   text-align: center;
-  margin-top : 5%;
+  margin-top: 5%;
   box-shadow: 3px 3px 7px 2px #e2e2e2;
   height: 13vh;
   color: white;

@@ -49,95 +49,84 @@ export default {
   created() {
     // this.messages = MessagesApi.getMessages();
 
-    this.messages =  
-        this.messages.map((elem)=>{
-            return {
-                ...elem,
-                visible_long_msg:false,
-                
-            }
-        })
- },
+    this.messages = this.messages.map(elem => {
+      return {
+        ...elem,
+        visible_long_msg: false
+      };
+    });
+  },
   components: {
     Icon
   },
   methods: {
-      
-      longMsg(msg_id)
-      {
-        let obj = this.messages[msg_id]
-        return obj.visible_long_msg;
-      },
+    longMsg(msg_id) {
+      let obj = this.messages[msg_id];
+      return obj.visible_long_msg;
+    },
     pretty_print(msg) {
       return msg.slice(0, 100);
     },
     expand(msg_id) {
-        let index = _.findIndex(this.messages,{id:msg_id})
-        index++;
-        this.messages[index].visible_long_msg = true;
+      let index = _.findIndex(this.messages, { id: msg_id });
+      index++;
+      this.messages[index].visible_long_msg = true;
     },
     not_expand(msg_id) {
-    
-        let index = _.findIndex(this.messages,{id:msg_id})
-        index++;
-        this.messages[index].visible_long_msg = false;
+      let index = _.findIndex(this.messages, { id: msg_id });
+      index++;
+      this.messages[index].visible_long_msg = false;
     }
-      
   },
   data() {
     return {
-      messages: messages,
+      messages: messages
     };
   }
 };
 </script>
 
 <style lang="scss" scoped>
-    
-$color : rgb(86, 142, 163);
-.fa-icon
-{
-    vertical-align: middle;
+$color: rgb(86, 142, 163);
+.fa-icon {
+  vertical-align: middle;
 }
-.message_wrapper
-{
-    height: 73vh;
-    margin-top:3%;
+.message_wrapper {
+  height: 73vh;
+  margin-top: 3%;
 }
 
 .message_p {
-    font-size: large;
-    color: azure;
+  font-size: large;
+  color: azure;
 }
-.message_h3{
-    color:white;
+.message_h3 {
+  color: white;
 }
-.message_container
-{
-    margin-top: 2%;
-    background-color: #568ea3;
-    margin-bottom: 20px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: rgba(0, 6, 16, 0.31) 3px 3px 7px 2px;
-    padding: 5%;
+.message_container {
+  margin-top: 2%;
+  background-color: #568ea3;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: rgba(0, 6, 16, 0.31) 3px 3px 7px 2px;
+  padding: 5%;
 }
-.message-pop-enter , .menu-popover-leave-to {
-    opacity: 0;
-    transform: rotateY(50deg);
+.message-pop-enter,
+.menu-popover-leave-to {
+  opacity: 0;
+  transform: rotateY(50deg);
 }
 .message-pop-enter-to {
-    opacity:1;
-    transform: rotateY(0deg);
-
+  opacity: 1;
+  transform: rotateY(0deg);
 }
 
 .message-pop-enter-active {
-    transition : opacity, transform 200ms ease-out;
+  transition: opacity, transform 200ms ease-out;
 }
-.expand{
-    cursor: pointer;
+.expand {
+  cursor: pointer;
 }
-
 </style>

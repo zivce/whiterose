@@ -263,7 +263,7 @@ export default {
     checkImageInput() {
       return this.errAvatar ? false : true;
     },
-    
+
     switchComponentNum(comp) {
       if (comp === "addesc") {
         this.isVisibleDesc = true;

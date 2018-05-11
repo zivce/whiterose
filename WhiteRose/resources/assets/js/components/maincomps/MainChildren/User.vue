@@ -74,7 +74,7 @@ import DataTxt from "./Data/data.txt";
 import MessagesTxt from "./Data/messages.txt";
 import SearchTxt from "./Data/search.txt";
 import SetupTxt from "./Data/setup.txt";
-import eventBus from '../../../utils/eventBus';
+import eventBus from "../../../utils/eventBus";
 
 export default {
   mixins: [],
@@ -84,15 +84,11 @@ export default {
   created() {},
   computed: {},
   mounted() {
-   
     this.user_id = this.$store.getters.returnId;
 
-    if(this.$route.path === `/user/${this.user_id}/`)
-    {
+    if (this.$route.path === `/user/${this.user_id}/`) {
       this.main_client_visible = true;
-    }
-    else 
-    {
+    } else {
       this.main_client_visible = false;
     }
 
@@ -136,10 +132,10 @@ export default {
       title: PostJobTxt.title,
 
       isVisibleUserInfo: false,
-      main_client_visible : false,
+      main_client_visible: false,
       //Current route
       route: "",
-      user_id:'',
+      user_id: "",
 
       //interval
       int1: null,

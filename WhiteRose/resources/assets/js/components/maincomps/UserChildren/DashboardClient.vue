@@ -32,15 +32,14 @@
 </template>
 
 <script>
-
 export default {
   mixins: [],
   mounted() {
-    this.user_id = this.$store.getters.returnId;    
+    this.user_id = this.$store.getters.returnId;
   },
   data() {
     return {
-      user_id:''
+      user_id: ""
     };
   }
 };
