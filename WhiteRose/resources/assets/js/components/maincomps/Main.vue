@@ -59,9 +59,11 @@ export default {
     Icon
   },
   mounted() {
+    this.username = this.$store.getters.returnEmail;
+    
     this.user_id = this.$route.params.id;
+    
     this.profile_url = `/#/user/${this.user_id}/dashboard/setup`;
-    eventBus.$emit("emited_user_id",this.user_id);
   },
   computed: {
     home() {}
@@ -90,7 +92,7 @@ export default {
     return {
       user_id: '',
       profile_url : ``,
-      username: this.$parent.user.email
+      username: ''
     };
   }
 };

@@ -9,7 +9,8 @@ window.moment = require('moment');
 /**
  * Imports block 
  */
-
+import store from './store';
+import { sync } from 'vuex-router-sync'
 import BootstrapVue from 'bootstrap-vue'
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -19,6 +20,7 @@ import logger from './utils/groupLogger';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import Snotify, { SnotifyPosition } from 'vue-snotify';
+import Vuex from 'vuex'
 
 import VeeValidate from 'vee-validate';
 
@@ -56,6 +58,7 @@ Vue.use(ClientTable);
 Vue.use(Snotify);
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
+Vue.use(Vuex);
 
 /**
  * Lander part here
@@ -68,8 +71,9 @@ let lander_exists = document.getElementById("lander") ? true : false;
 
 if(lander_exists)
 {
-    const lander = new Vue({
 
+    const lander = new Vue({
+        
         el: '#lander',
         router:  landerRouter,
         created(){
@@ -93,35 +97,40 @@ let home_exists = document.getElementById("home") ? true : false;
 if(home_exists)
 {
     
+
     const home = new Vue({
+        store,
         el: '#home',
         router: mainRouter,
         created(){
-
+            debugger;
+            this.unsync = sync(this.$store,this.$router);
             let user = localStorage.getItem("r");
             user = JSON.parse(user);
-            console.log(user);
+            
+            //TODO: negde se koristi role find out.. 
 
-            this.user = user;
+            this.$root.role = this.$store.getters.returnRole;
             //bind user to instance
             let on_root_path = this.$router.app.$route.fullPath === "/";
+            
+            store.commit("setUser",user);
 
-            this.role = this.user.role;
-
+            let user_role = this.$store.getters.returnRole;
 
             if(on_root_path)
             {
                 //TODO: for each role
-                if(this.role === "pentester")
+                if(user_role === "pentester")
                 {
                     this.$router.push({
                         path:'/pentester'
                     })
                 }
-                if(this.role === "client")
+                if(user_role === "client")
                 {
                     this.$router.push({
-                        path:`/user/${this.user.id}/`
+                        path:`/user/${this.user_id}/`
                     })
                 }
             }
@@ -129,7 +138,18 @@ if(home_exists)
             // localStorage.clear();
 
         },
+        destroyed(){
+            this.unsync();
+        },
+        data() {
+            return {
+                user_id: '',
+                unsync : new Function(),
+            }
+        },
         mounted(){
+
+            this.user_id = this.$store.getters.returnId;
         }
     })
     
@@ -137,16 +157,18 @@ if(home_exists)
         
         if(to.path === "/")
         {   
-            
+            debugger;
             //TODO: dodaj rute razlicite u zavisnosti od role.
-            
+            console.log(home.$store);
+
             //TODO: dodatno moze da se proverava i pre nego sto udje na neku rutu
-            
-            if(home.role === "client")
+            let user_id = home.$store.getters.returnId;
+            let user_role = home.$store.getters.returnRole;
+            if(user_role === "client")
             {
-                next({path:`user/${home.user.id}/postjob`});
+                next({path:`user/${user_id}/postjob`});
             }
-            if(home.role === "pentester")
+            if(user_role === "pentester")
             {
                 next({path:"pentester/alljobs"})
             }

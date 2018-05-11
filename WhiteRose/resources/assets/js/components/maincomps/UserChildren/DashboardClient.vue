@@ -32,15 +32,11 @@
 </template>
 
 <script>
-import eventBus from '../../../utils/eventBus';
 
 export default {
   mixins: [],
   mounted() {
-    
-    eventBus.$on("emited_user_id",(val)=>{
-      this.user_id = val;
-    })
+    this.user_id = this.$store.getters.returnId;    
   },
   data() {
     return {

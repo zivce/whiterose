@@ -1,4 +1,6 @@
 import VueRouter from 'vue-router';
+
+
 let routes = [
     {
         path:'/home',
@@ -10,24 +12,35 @@ let routes = [
         path: '/',
         children: [
         {
-            path:'/user/:id/',
+            path:`/user/:id`,
             props:true,
-            redirect : '/user/:id/dashboard/setup',
+            redirect : `/user/:id/dashboard/setup`,
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
                 {
                     path:'dashboard',
                     children:[
                     {
+                        meta:{
+                            fail: `/user/:id/`
+                        },
                         path: "messages",
                         component: require('../components/maincomps/UserChildren/Dashboard/Messages.vue')
                     },
                     {
+                        
+                        meta:{
+                            fail: `/user/:id/`
+                        },
                         path: "data",
                         component: require('../components/maincomps/UserChildren/Dashboard/Data.vue')
                     },
                     
                     {
+                        
+                        meta:{
+                            fail: `/user/:id/`
+                        },
                         path: "setup",
                         component: require('../components/maincomps/UserChildren/Dashboard/Setup.vue')
                     }

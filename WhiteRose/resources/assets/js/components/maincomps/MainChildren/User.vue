@@ -85,10 +85,8 @@ export default {
   computed: {},
   mounted() {
    
-    eventBus.$on("emited_user_id",(val)=>{
-      this.user_id = val;
-    })
-    
+   debugger;
+    this.user_id = this.$store.getters.returnId;
 
     if(this.$route.path === `/user/${this.user_id}/`)
     {
