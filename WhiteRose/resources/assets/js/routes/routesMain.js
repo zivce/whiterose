@@ -11,6 +11,7 @@ let routes = [
         children: [
         {
             path:'/user',
+            redirect: '/user/dashboard/setup',
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
                 {
