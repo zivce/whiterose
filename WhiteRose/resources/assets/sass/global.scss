@@ -4,7 +4,9 @@
     color: $h2s-color;
   }
 
-
+  .btn-info:not(:disabled):not(.disabled):active:focus, .btn-info:not(:disabled):not(.disabled).active:focus, .show > .btn-info.dropdown-toggle:focus {
+    box-shadow: 0;
+  }
 button:focus{
   box-shadow : none !important;
   outline: none !important;

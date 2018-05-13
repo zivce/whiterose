@@ -21,6 +21,9 @@ const store = new Vuex.Store({
         
     },
     getters:{
+        returnRoute : state => {
+            return state.route.fullPath;
+        },
         returnRole : state =>{
             return state.role;
         },

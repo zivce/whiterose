@@ -1,0 +1,68 @@
+
+<template>
+    <div  class="fform_input_job">
+    
+
+    <input  
+    :placeholder="prop.label"
+    :class="{'has-error':errHandler}"
+    :type="prop.type" 
+    :id="prop.id" 
+    v-model="prop.value" 
+    required="true"
+    v-validate="vval"
+    :maxlength="10"
+    :name="prop.id"/>
+    
+    <span v-if="errors.has(prop.id)" class="incorrect_input">
+        {{id_upper}} required!
+    </span>
+    
+    </div>
+
+</template>
+
+<script>
+import eventBus from "../../../../../utils/eventBus";
+
+export default {
+  props: {
+    prop: {
+      type: Object,
+      twoWay: true
+    },
+    pw: {
+      type: String,
+      twoWay: true
+    }
+  },
+  computed: {
+    errHandler() {
+      return this.errors.has(this.prop.id);
+    }
+  },
+  created() {},
+  mounted() {
+    eventBus.$on("validateAllFields", () => {
+      this.$validator.validateAll().then(res => {
+        eventBus.$emit("field_ok", res);
+      });
+    });
+  },
+  methods: {},
+  data() {
+    return {
+      passwordagain: this.pw,
+      vval: { required: true },
+      id_upper: _.capitalize(this.prop.label)
+    };
+  }
+};
+</script>
+
+
+<style scoped>
+.has-error {
+  border: 1px solid rgba(255, 0, 0, 1);
+}
+</style>

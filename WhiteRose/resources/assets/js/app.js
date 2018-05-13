@@ -118,22 +118,39 @@ if(home_exists)
             
             this.user_id =  this.$store.getters.returnId;
 
-            if(this.$store.state.route.path === "/home")
+            //HARDCODE FOR PENTESTER
+            user_role = "pentester";
+
+            if(user_role === "client")
             {
-                //TODO: for each role
-                if(user_role === "pentester")
-                {
-                    this.$router.push({
-                        path:'/pentester'
-                    })
-                }
-                if(user_role === "client")
-                {
-                    this.$router.push({
-                        path:`/user/${this.user_id}/`
-                    })
-                }
+                this.$router.push({
+                    path:`/user/${this.user_id}/`
+                })
             }
+            else if( user_role === "pentester")
+            {
+                this.$router.push({
+                    path:`/pentester/${this.user_id}/`
+                })
+            }
+
+
+            // if(this.$store.state.route.path === "/home")
+            // {
+            //     //TODO: for each role
+            //     if(user_role === "pentester")
+            //     {
+            //         this.$router.push({
+            //             path:`/pentester/${this.user_id}`
+            //         })
+            //     }
+            //     if(user_role === "client")
+            //     {
+            //         this.$router.push({
+            //             path:`/user/${this.user_id}/`
+            //         })
+            //     }
+            // }
 
             // localStorage.clear();
 
