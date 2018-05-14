@@ -103,8 +103,8 @@ Route::get('/download/{dir}/{fileName}','ClientController@downloadScan')->name('
 
 //Upload CV
 Route::post('uploadCv','PentesterController@uploadCV')->name('uploadCv');
-Route::post('postCv','PentesterController@postCV')->name('postCv');
-Route::post('postdeails','PentesterController@postPentesterDetails')->name('postdeails');
+Route::post('postCv1','PentesterController@postCV')->name('postCv');
+Route::post('postCv','PentesterController@postPentesterDetails')->name('postdeails');
 
 //Accepting the bid/starting the job
 Route::post('accept','ClientController@acceptTheBid')->name('accept');
