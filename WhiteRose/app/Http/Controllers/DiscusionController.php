@@ -29,5 +29,6 @@ class DiscusionController extends Controller
 
         $message->discusion_id=$request->discusionID;
         $message->save();
+        
     }
 }
