@@ -8,20 +8,23 @@
           Home
         </router-link>
       </h1>
-        
-        <b-dropdown  
-        :text="username" id="user"
+        <div id="profile_container">
 
-        >
-          <b-dropdown-item :to="profile_url">
-            <slot name="button-content"><icon name="user"></icon> Profile</slot>
-          </b-dropdown-item>
-        
-          <b-dropdown-item  @click="handleLogout()">
-              <slot name="button-content"><icon name="logout"></icon> Logout</slot>
-          </b-dropdown-item>
+          <b-dropdown  
+          :text="username" id="user"
+
+          >
+            <b-dropdown-item :to="profile_url">
+              <slot name="button-content"><icon name="user"></icon> Profile</slot>
+            </b-dropdown-item>
           
-        </b-dropdown>
+            <b-dropdown-item  @click="handleLogout()">
+                <slot name="button-content"><icon name="logout"></icon> Logout</slot>
+            </b-dropdown-item>
+            
+          </b-dropdown>
+          
+        </div>
 
       </div>
       
@@ -54,6 +57,7 @@
 <script>
 import Home from "./Home.vue";
 import Icon from "vue-awesome/components/Icon";
+import "vue-awesome/icons/user";
 import "vue-awesome/icons/user";
 import "../../Icons/logout";
 import eventBus from "../../utils/eventBus";
@@ -106,7 +110,10 @@ export default {
 </script>
 
 <style  scoped>
-
+#profile_container{
+  display:flex;
+  flex-direction:row;
+}
 #main_main {
   min-height: 90vh;
 }
