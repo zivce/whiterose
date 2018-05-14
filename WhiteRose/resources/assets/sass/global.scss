@@ -1,14 +1,24 @@
 .h2s{
     font-weight: $h2-weight;
     font-size: $h2-size;
+    color: $h2s-color;
   }
+
+
+button:focus{
+  box-shadow : none !important;
+  outline: none !important;
+  border-radius: none !important;
+}
 
 
 .h3s{
     font-weight: $h3-weight;
     font-size: $h3-size;
   }
-
+.setup_margin_top{
+  margin-top: 5%;
+}
 .comp_container {
   padding: 4%;
   background-color: white;
@@ -17,7 +27,16 @@
   box-shadow: 3px 3px 7px 2px #e2e2e2;
 
 }
-
+.textarea_everyone {
+  box-shadow: 0px 0px 2px #949494;
+  text-align: center;
+  outline: none !important;
+  border-bottom: 1px solid rgba(0, 8, 53, 0.603);
+  background-color: transparent;
+  border: 0px;
+  width: 100%;
+  min-height: 80px;
+}
 .portfolio_job_container
 {
   padding: 4%;
@@ -33,9 +52,19 @@
 
 }
 
+.dashboard_setup_container
+{
+  padding: 3%;
+  background-color: white;
+  width: 60%; 
+  margin: 0 auto;
+
+}
+
+
 .preview_from_table_container
 {
-  margin: 10% auto 10px auto !important;
+  // margin: 10% auto 10px auto !important;
 }
 
 // 3px 3px 7px 2px #100c43;

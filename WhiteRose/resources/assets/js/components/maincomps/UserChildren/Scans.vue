@@ -25,8 +25,6 @@
 </template>
 
 <script>
-import logger from "../../../utils/groupLogger";
-import welcomeToastr from "../../toastr/welcometoastr";
 import hardcode from "./hardcode";
 
 import Icon from "vue-awesome/components/Icon";
@@ -36,7 +34,7 @@ export default {
   components: {
     Icon
   },
-  mixins: [welcomeToastr],
+  mixins: [],
   created() {
     axios
       .get("allscans")
@@ -54,9 +52,7 @@ export default {
         //error snotify here.
       });
   },
-  mounted() {
-    logger(["hellow", "user mounted"], "User.vue");
-  },
+  mounted() {},
   data() {
     return {
       sortIcon: "fa fa-caret",

@@ -1,4 +1,6 @@
 import VueRouter from 'vue-router';
+
+
 let routes = [
     {
         path:'/home',
@@ -8,28 +10,38 @@ let routes = [
     {
         name:'main',
         path: '/',
+        redirect : 'home',
         children: [
         {
-            path:'/user',
+            path:`user/:id`,
+            props:true,
+            redirect : `user/:id/dashboard/setup`,
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
                 {
                     path:'dashboard',
                     children:[
                     {
+                        meta:{
+                            fail: `user/:id/`
+                        },
                         path: "messages",
                         component: require('../components/maincomps/UserChildren/Dashboard/Messages.vue')
                     },
                     {
+                        
+                        meta:{
+                            fail: `user/:id/`
+                        },
                         path: "data",
                         component: require('../components/maincomps/UserChildren/Dashboard/Data.vue')
                     },
-                    {
-                        path: "search",
-                        component: require('../components/maincomps/UserChildren/Dashboard/Search.vue')
-                    },
                     
                     {
+                        
+                        meta:{
+                            fail: `user/:id/`
+                        },
                         path: "setup",
                         component: require('../components/maincomps/UserChildren/Dashboard/Setup.vue')
                     }
@@ -45,10 +57,14 @@ let routes = [
 
                 },
                 {
+                    path: "search",
+                    component: require('../components/maincomps/UserChildren/Search.vue')
+                },
+                {
                     path:'tools',
                     children:[
                         {
-                            path:'/udp-nmap',
+                            path:'udp-nmap',
                             component: require('../components/maincomps/UserChildren/FewTools/NmapUDP.vue')
                         }
                     ],
