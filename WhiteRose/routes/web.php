@@ -68,7 +68,7 @@ Route::get('returntokens','Controller@returnTokens')->name('returntokens');
 Route::post('postjob','ClientController@postJob')->name('postjob');
 
 //Returnng all jobs to clients or pentester
-Route::post('returnalljobs','Controller@allJobs')->name('returnalljobs');
+Route::get('returnalljobs','Controller@allJobs')->name('returnalljobs');
 Route::post('startedJobs','Controller@startedJobs')->name('startedJobs');
 Route::post('finishedJobs','Controller@finishedJobs')->name('finishedJobs');
 
@@ -77,7 +77,7 @@ Route::get('returnmyjobs','ClientController@myJobs')->name('returnmyjobs');
 Route::post('returnmyjob','ClientController@myJob')->name('returnmyjob');//undonde
 
 //Biding on job
-Route::post('bid','PentesterConroller@binOnJob')->name('bid');
+Route::post('postbid','PentesterConroller@binOnJob')->name('bid');
 
 //View my bids
 Route::post('viewbidsclient','ClientController@viewMyBiddedJobs')->name('viewbidsclient');
