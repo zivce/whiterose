@@ -5,7 +5,6 @@ let routes = [
     {
         path:'/home',
         component: require('../components/maincomps/Home.vue')
-        
     },
     {
         name:'main',
@@ -14,7 +13,6 @@ let routes = [
         children: [
         {
             path:`user/:id`,
-            props:true,
             redirect : `user/:id/dashboard/setup`,
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
@@ -44,7 +42,17 @@ let routes = [
                         },
                         path: "setup",
                         component: require('../components/maincomps/UserChildren/Dashboard/Setup.vue')
+                    },
+                
+                    {
+                        
+                        meta:{
+                            fail: `user/:id/`
+                        },
+                        path: "profile",
+                        component: require('../components/maincomps/UserChildren/Dashboard/Profile.vue')
                     }
+                    
                     
 
                     ],
@@ -60,13 +68,14 @@ let routes = [
                     path: "search",
                     component: require('../components/maincomps/UserChildren/Search.vue')
                 },
+                
                 {
                     path:'tools',
                     children:[
                         {
-                            path:'udp-nmap',
+                            path:'/:id/udp-nmap',
                             component: require('../components/maincomps/UserChildren/FewTools/NmapUDP.vue')
-                        }
+                        },
                     ],
                     component: require('../components/maincomps/UserChildren/Tools.vue')
 
@@ -99,8 +108,44 @@ let routes = [
             ]
         },
         {
-            path:'pentester',
-            children:[
+            path:'pentester/:id',
+            redirect : 'pentester/:id/dashboard/setup',
+            component : require('../components/maincomps/MainChildren/Pentester.vue'),
+            children:[ 
+                {
+                path:'dashboard',
+                children:[
+                {
+                    meta:{
+                        fail: `pentester/:id/`
+                    },
+                    path: "messages",
+                    component: require('../components/maincomps/PentesterChildren/Dashboard/Messages.vue')
+                },
+                
+                
+                {
+                    
+                    meta:{
+                        fail: `pentester/:id/`
+                    },
+                    path: "setup",
+                    component: require('../components/maincomps/PentesterChildren/Dashboard/Setup.vue')
+                },
+                
+                {
+                    
+                    meta:{
+                        fail: `pentester/:id/`
+                    },
+                    path: "profile",
+                    component: require('../components/maincomps/PentesterChildren/Dashboard/Profile.vue')
+                }
+                
+
+                ],
+                component: require('../components/maincomps/PentesterChildren/DashboardPentester.vue')
+            },
                 //load pentester comps
                 {
                     path:'alljobs',
@@ -110,10 +155,7 @@ let routes = [
                     path:'cvpost',
                     component: require('../components/maincomps/PentesterChildren/CvPost.vue')
                 },
-                {
-                    path:'jobsapp',
-                    component: require('../components/maincomps/PentesterChildren/JobsApp.vue')
-                },
+                
                 {
                     path:'portfoliopost',
                     component: require('../components/maincomps/PentesterChildren/PortfolioPost.vue')
@@ -121,44 +163,39 @@ let routes = [
                 {
                     path:'skillstest',
                     component: require('../components/maincomps/PentesterChildren/SkillsTest.vue')
-                },
-                {
-                    path:'superjobapp',
-                    meta:{superuser:true},
-                    component: require('../components/maincomps/PentesterChildren/SuperJobApp.vue')
-                },
+                }
             ],
             component : require('../components/maincomps/MainChildren/Pentester.vue'),
         },
         {
-            path:'moderator',
+            path:'admin',
             children:[
-                //Load moderator comps
+                //Load admin comps
                 {
-                    path:'userbanner',
-                    component: require('../components/maincomps/ModeratorChildren/UserBan.vue')
+                    path:'userbaner',
+                    component: require('../components/maincomps/AdminChildren/UserBan.vue')
                 },
                 {
                     path:'alljobsreviewer',
-                    component: require('../components/maincomps/ModeratorChildren/AllJobsReviewer.vue')
-                },
-            ],
-            component : require('../components/maincomps/MainChildren/Moderator.vue'),
-        },
-        {
-            path:'admin',
-            children:[
-                //Load admin vues
-                {
-                    path:'messagereplier',
-                    component: require('../components/maincomps/AdminChildren/MessageReplier.vue')
-                },
-                {
-                    path:'postviewer',
-                    component: require('../components/maincomps/AdminChildren/PostViewer.vue')
+                    component: require('../components/maincomps/AdminChildren/AllJobsReviewer.vue')
                 },
             ],
             component : require('../components/maincomps/MainChildren/Admin.vue'),
+        },
+        {
+            path:'moderator',
+            children:[
+                //Load moderator vues
+                {
+                    path:'messagereplier',
+                    component: require('../components/maincomps/ModeratorChildren/MessageReplier.vue')
+                },
+                {
+                    path:'postviewer',
+                    component: require('../components/maincomps/ModeratorChildren/PostViewer.vue')
+                },
+            ],
+            component : require('../components/maincomps/MainChildren/Moderator.vue'),
         }
         
 

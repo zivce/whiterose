@@ -7,11 +7,9 @@
 </template>
 
 <script>
-import logger from "../../../utils/groupLogger";
 
 export default {
   mounted() {
-    logger(["hello", "postviewer mounted"], "AdminChild/PostViewer.vue");
   },
   data() {
     return {};
