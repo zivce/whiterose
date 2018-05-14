@@ -9,6 +9,9 @@
         </router-link>
       </h1>
         <div id="profile_container">
+          
+          <icon name="comment">
+          </icon>
 
           <b-dropdown  
           :text="username" id="user"
@@ -58,7 +61,8 @@
 import Home from "./Home.vue";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/user";
-import "vue-awesome/icons/user";
+import "vue-awesome/icons/comment";
+
 import "../../Icons/logout";
 import eventBus from "../../utils/eventBus";
 
