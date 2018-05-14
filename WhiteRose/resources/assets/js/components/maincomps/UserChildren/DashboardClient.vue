@@ -14,10 +14,11 @@
         Messages
         </b-nav-item>
         
+        
         <b-nav-item 
-        :to="'/user/'+ user_id+ '/dashboard/data'"
+        :to="'/user/'+ user_id+ '/dashboard/profile'"
         >
-        Data
+        Profile
         </b-nav-item>
         
       </b-nav>

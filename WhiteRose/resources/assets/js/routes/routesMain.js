@@ -42,7 +42,17 @@ let routes = [
                         },
                         path: "setup",
                         component: require('../components/maincomps/UserChildren/Dashboard/Setup.vue')
+                    },
+                
+                    {
+                        
+                        meta:{
+                            fail: `user/:id/`
+                        },
+                        path: "profile",
+                        component: require('../components/maincomps/UserChildren/Dashboard/Profile.vue')
                     }
+                    
                     
 
                     ],
@@ -112,14 +122,7 @@ let routes = [
                     path: "messages",
                     component: require('../components/maincomps/PentesterChildren/Dashboard/Messages.vue')
                 },
-                {
-                    
-                    meta:{
-                        fail: `pentester/:id/`
-                    },
-                    path: "data",
-                    component: require('../components/maincomps/PentesterChildren/Dashboard/Data.vue')
-                },
+                
                 
                 {
                     
@@ -165,34 +168,34 @@ let routes = [
             component : require('../components/maincomps/MainChildren/Pentester.vue'),
         },
         {
-            path:'moderator',
+            path:'admin',
             children:[
-                //Load moderator comps
+                //Load admin comps
                 {
-                    path:'userbanner',
-                    component: require('../components/maincomps/ModeratorChildren/UserBan.vue')
+                    path:'userbaner',
+                    component: require('../components/maincomps/AdminChildren/UserBan.vue')
                 },
                 {
                     path:'alljobsreviewer',
-                    component: require('../components/maincomps/ModeratorChildren/AllJobsReviewer.vue')
-                },
-            ],
-            component : require('../components/maincomps/MainChildren/Moderator.vue'),
-        },
-        {
-            path:'admin',
-            children:[
-                //Load admin vues
-                {
-                    path:'messagereplier',
-                    component: require('../components/maincomps/AdminChildren/MessageReplier.vue')
-                },
-                {
-                    path:'postviewer',
-                    component: require('../components/maincomps/AdminChildren/PostViewer.vue')
+                    component: require('../components/maincomps/AdminChildren/AllJobsReviewer.vue')
                 },
             ],
             component : require('../components/maincomps/MainChildren/Admin.vue'),
+        },
+        {
+            path:'moderator',
+            children:[
+                //Load moderator vues
+                {
+                    path:'messagereplier',
+                    component: require('../components/maincomps/ModeratorChildren/MessageReplier.vue')
+                },
+                {
+                    path:'postviewer',
+                    component: require('../components/maincomps/ModeratorChildren/PostViewer.vue')
+                },
+            ],
+            component : require('../components/maincomps/MainChildren/Moderator.vue'),
         }
         
 

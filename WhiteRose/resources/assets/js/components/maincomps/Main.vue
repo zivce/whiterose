@@ -105,7 +105,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style  scoped>
+
 #main_main {
   min-height: 90vh;
 }
@@ -144,14 +145,14 @@ export default {
   box-shadow: 3px 3px 7px 2px #e2e2e2;
   height: 13vh;
   color: white;
-  background: rgba(0, 0, 53, 0.93);
+  background: #000919de;
 }
 #header {
   margin-bottom: 3%;
   box-shadow: 3px 3px 7px 2px #e2e2e2;
   height: 13vh;
   color: white;
-  background: rgba(0, 0, 53, 0.93);
+  background: #000919de;
 }
 
 #main_vue {
