@@ -13,11 +13,11 @@ class Discusion extends Model
     }
     public function client()
     {
-        return $this->hasOne('App\Client');
+        return $this->belongsTo('App\Client');
     }
     public function pentester()
     {
-        return $this->hasOne('App\Pentester');
+        return $this->belongsTo('App\Pentester');
     }
     public function messages()
     {
