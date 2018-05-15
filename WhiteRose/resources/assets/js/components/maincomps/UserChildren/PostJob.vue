@@ -116,7 +116,7 @@
         Insert document. <span>(optional)</span>
       </h3>
 
-      <b-form-file accept=".pdf" v-model="scan_pdf" placeholder="Choose file">
+      <b-form-file accept=".pdf" v-model="scan_pdf" name="file" placeholder="Choose file">
 
       </b-form-file>
     </div>
@@ -169,8 +169,12 @@ export default {
   methods: {
     submitHandler() {
       let vm = this;
+      let formData = new FormData();
+      formData.append('document', this.scan_pdf);
+      console.log(formData);
 
       eventBus.$emit("validateAllFields");
+      console.log(this.scan_pdf);
 
       this.$validator.validateAll().then(form_ok => {
         if (form_ok && vm.all_fields_ok) {
@@ -180,7 +184,8 @@ export default {
               selected_site: this.selected_site,
               title: this.titleinput.value,
               desc: this.descinput.value,
-              price: this.priceinput.value
+              price: this.priceinput.value,
+              document : this.scan_pdf,
             })
             .then(function(response) {})
             .catch(function(error) {
@@ -197,7 +202,7 @@ export default {
     return {
       all_fields_ok: true,
       validator: this.$validator,
-      scan_pdf: null,
+      // scan_pdf: null,
       selected_site: "",
       selected_scan: "",
       scans: [
