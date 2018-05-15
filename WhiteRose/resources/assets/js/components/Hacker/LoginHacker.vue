@@ -62,6 +62,8 @@ export default {
 
               return;
             } else if (user_exists) {
+              let data_store = JSON.stringify(response.data);
+              window.localStorage.setItem("r", data_store);
               window.location.reload();
             } else {
               //does not exist
