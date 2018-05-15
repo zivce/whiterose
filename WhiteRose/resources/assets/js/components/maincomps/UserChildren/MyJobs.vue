@@ -66,7 +66,7 @@ export default {
       .then(response => {
         console.log(response.data[0]);
         // this adapts response for show in vue tables 2
-        this.jobs[0] = response.data[0];
+        // this.jobs[0] = response.data[0];
         response.data.forEach(job_info => {
           //ovde sam hardkodirao da bi se uklopilo u tabelu
           //treba ovo sto je zakomentarisano pa da promenis tabelu

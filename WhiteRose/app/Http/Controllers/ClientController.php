@@ -102,10 +102,12 @@ class ClientController extends Controller
         $document=$request->document;
 
         $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
-        Storage::makeDirectory($dirName);
-        $fileName=$dirName.'/'.Carbon::now()->toDateTimeString().$document->getClientOriginalExtension();
-        Storage::put($fileName,$document);
-        $job->file_path=Storage::url($fileName);
+        if($document!==null){
+            Storage::makeDirectory($dirName);
+            $fileName=$dirName.'/'.Carbon::now()->toDateTimeString().$document->getClientOriginalExtension();
+            Storage::put($fileName,$document);
+            $job->file_path=Storage::url($fileName);
+        }
         $job->save();
 
 
