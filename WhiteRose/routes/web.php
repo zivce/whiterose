@@ -77,7 +77,7 @@ Route::get('returnmyjobs','ClientController@myJobs')->name('returnmyjobs');
 Route::post('returnmyjob','ClientController@myJob')->name('returnmyjob');//undonde
 
 //Biding on job
-Route::post('postbid','PentesterConroller@binOnJob')->name('bid');
+Route::post('postbid','PentesterController@binOnJob')->name('bid');
 
 //View my bids
 Route::post('viewbidsclient','ClientController@viewMyBiddedJobs')->name('viewbidsclient');
@@ -112,7 +112,7 @@ Route::post('accept','ClientController@acceptTheBid')->name('accept');
 //Message communication
 Route::post('postMesaages','DiscusionController@postMessage');
 Route::get('getMessages','DiscusionController@getMessages')->name('getMessages');
-
+Route::get('getAllFirstMessages','DiscusionController@returnLastMessages');
 // Route::group(['prefix' => 'client'], function () {
 //   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
 //   Route::post('/login', 'ClientAuth\LoginController@login');

@@ -13,7 +13,7 @@ class CreateCVsTable extends Migration
      */
     public function up()
     {
-        Schema::create('c_vs', function (Blueprint $table) {
+        Schema::create('c_v_s', function (Blueprint $table) {
             $table->increments('id');
             $table->text('biography');
             $table->text('skills');

@@ -53,5 +53,10 @@ class Client extends Authenticatable
     {
         return $this->hasMany('App\Website');
     }
+
+    public function discusions()
+    {
+        return $this->hasMany('App\Discusion');
+    }
  
 }
