@@ -43,34 +43,30 @@
 <script>
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/ban";
-import usersHardcode from './users.hardcode';
+import usersHardcode from "./users.hardcode";
 
 export default {
-  components:{
+  components: {
     Icon
   },
   mixins: [],
-  mounted() {
-  },
-  methods : {
-    closeModal(){
+  mounted() {},
+  methods: {
+    closeModal() {
       this.isVisibleModal = false;
-    }
-    ,
-    banUser(props)
-    {
-      console.log(props);
-
     },
-    showModal(){
+    banUser(props) {
+      console.log(props);
+    },
+    showModal() {
       this.isVisibleModal = true;
     }
   },
   data() {
     return {
       columns: ["user name", "role", "ban"],
-      isVisibleModal : false,
-      all_users : usersHardcode,
+      isVisibleModal: false,
+      all_users: usersHardcode,
       options: {
         columnsClasses: {
           role: "cursorable"
@@ -81,7 +77,7 @@ export default {
           dropdown: true,
           nav: "scroll"
         }
-      },
+      }
     };
   }
 };

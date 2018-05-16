@@ -45,74 +45,69 @@
 </template>
 
 <script>
-import AllInfo from '../../../../services/api/pentester_api/AllInfo.api';
-import InfoHardcode from './user.hardcode';
-
+import AllInfo from "../../../../services/api/pentester_api/AllInfo.api";
+import InfoHardcode from "./user.hardcode";
 
 //TODO: napuni info
 export default {
-  created(){
+  created() {
     // this.info =  AllInfo.getAllInfo();
   },
-  methods : {
-      pretty_print(date){
-          return moment(date).format("DD.MM.YYYY");
-      }
+  methods: {
+    pretty_print(date) {
+      return moment(date).format("DD.MM.YYYY");
+    }
   },
-  data(){
-      return{
-          info : InfoHardcode
-      }
+  data() {
+    return {
+      info: InfoHardcode
+    };
   }
-  
-}
+};
 </script>
 
 <style lang="scss" scoped>
-$bg-project-color : #568ea3;
-$h2-size:1.5rem;
-$h2-weight : bold;
+$bg-project-color: #568ea3;
+$h2-size: 1.5rem;
+$h2-weight: bold;
 
-.h2_profile{
-    font-weight: $h2-weight;
-    font-size: $h2-size;
-
+.h2_profile {
+  font-weight: $h2-weight;
+  font-size: $h2-size;
 }
-.dates
-{
-    color: white;
-    display: flex;
-    flex-direction: row;
-    width: 50%;
-    margin: 0 auto;
+.dates {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  margin: 0 auto;
 }
-.dates p
-{
-    flex:0.7;
+.dates p {
+  flex: 0.7;
 }
-#profile_container_pentester{
-    color: white;
-    background: #49496b;
-    margin-top: 2%;
-   text-align: center;
+#profile_container_pentester {
+  color: white;
+  background: #49496b;
+  margin-top: 2%;
+  text-align: center;
 }
 .span_container {
-    width: 47.5%;
-    display: flex;
-    flex-direction:  row;
-    margin: 0 auto;
-    vertical-align: top;
-    margin-bottom: 2%;
+  width: 47.5%;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  vertical-align: top;
+  margin-bottom: 2%;
 }
 .span_container > h3 {
-    margin: 0;
-    flex: 1.1;
-    padding: 1%;
+  margin: 0;
+  flex: 1.1;
+  padding: 1%;
 }
 .span_container > p {
-    margin: 0;
-    flex: 1.2;
-    vertical-align: middle;
+  margin: 0;
+  flex: 1.2;
+  vertical-align: middle;
 }
 .proje_t {
   font-size: large;
@@ -121,11 +116,10 @@ $h2-weight : bold;
 .proje_h3 {
   color: white;
 }
-.proje_wrapper
-{
-    height: 30vh;
-    width: 32vw;
-    margin: 0 auto;
+.proje_wrapper {
+  height: 30vh;
+  width: 32vw;
+  margin: 0 auto;
 }
 .proj_container {
   margin-top: 2%;
@@ -137,6 +131,4 @@ $h2-weight : bold;
   box-shadow: rgba(0, 6, 16, 0.31) 3px 3px 7px 2px;
   padding: 5%;
 }
-
-
 </style>

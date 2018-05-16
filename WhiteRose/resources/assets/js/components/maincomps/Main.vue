@@ -9,9 +9,13 @@
         </router-link>
       </h1>
         <div id="profile_container">
-          
-          <icon name="comment">
-          </icon>
+          <div id="msgs" 
+          @click="goToMsg()">
+            <icon name="comment"
+            width="28"
+            height="28">
+            </icon>
+          </div>
 
           <b-dropdown  
           :text="username" id="user"
@@ -83,11 +87,15 @@ export default {
     }
 
     this.profile_url = `/user/${this.user_id}/dashboard/setup`;
+    this.messages_url  = `/user/${this.user_id}/dashboard/messages`;
   },
   computed: {
     home() {}
   },
   methods: {
+    goToMsg(){
+      this.$router.push({path: this.messages_url});
+    },
     handleLogout() {
       axios.get("/clientlogout").then(res => {
         if (res.status === 200) {
@@ -104,6 +112,7 @@ export default {
   },
   data() {
     return {
+      messages_url : '',
       user_id: "",
       profile_url: ``,
       username: "",
@@ -114,9 +123,9 @@ export default {
 </script>
 
 <style  scoped>
-#profile_container{
-  display:flex;
-  flex-direction:row;
+#profile_container {
+  display: flex;
+  flex-direction: row;
 }
 #main_main {
   min-height: 90vh;
@@ -128,9 +137,15 @@ export default {
   background-color: transparent;
   border: 0;
 }
-#header >>> .dropdown-menu.show {
+/* #header >>> .dropdown-menu.show {
   top: 4px !important;
   left: -70px !important;
+} */
+#header >>> #msgs {
+  position: absolute;
+  right: 27vw;
+  top: 5vh;
+  cursor: pointer;
 }
 #header >>> #user {
   position: absolute;

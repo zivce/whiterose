@@ -68,7 +68,7 @@ export default {
               return;
             } else if (user_exists) {
               if (wrong_info) {
-                this.errorToast("Wrong info.", "Error!");
+                vm.errorToast("Wrong info.", "Error!");
               } else {
                 let data_store = JSON.stringify(response.data);
                 window.localStorage.setItem("r", data_store);
@@ -77,7 +77,7 @@ export default {
               }
             } else {
               //does not exist
-              this.errorToast("User does not exist!", "Error!");
+              vm.errorToast("User does not exist!", "Error!");
 
               // vm.$snotify.error("User does not exist!", "Error!", {
               //   position: SnotifyPosition.centerTop,
@@ -86,7 +86,7 @@ export default {
             }
           })
           .catch(function(error) {
-            this.errorToast("An error has occured!", "Error!");
+            vm.errorToast("An error has occured!", "Error!");
 
             window.setTimeout(() => {
               window.location.reload();

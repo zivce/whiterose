@@ -51,14 +51,17 @@ let routes = [
                         },
                         path: "profile",
                         component: require('../components/maincomps/UserChildren/Dashboard/Profile.vue')
-                    }
-                    
-                    
+                    },
+                    {
+                        path: "/convo/:pent_id",
+                        component: require('../components/maincomps/UserChildren/Dashboard/Conversation.vue')
+                    },
 
                     ],
                     component: require('../components/maincomps/UserChildren/DashboardClient.vue')
                 },
                 //load user comps here
+               
                 {
                     path:'postjob',
                     component: require('../components/maincomps/UserChildren/PostJob.vue')
@@ -163,7 +166,12 @@ let routes = [
                 {
                     path:'skillstest',
                     component: require('../components/maincomps/PentesterChildren/SkillsTest.vue')
-                }
+                },
+                {
+                    name:'convo',
+                    path: "convo/:job_id",
+                    component: require('../components/maincomps/PentesterChildren/Dashboard/Conversation.vue')
+                },
             ],
             component : require('../components/maincomps/MainChildren/Pentester.vue'),
         },

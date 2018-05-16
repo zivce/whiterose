@@ -2,6 +2,7 @@
 <v-bar id="message_wrapper" wrapper="message_wrapper">
   <div class="d-flex flex-column justify-content-center">
     <div class="message_container col-8" v-for="(msg,index) in messages" :key="index">
+      {{index}}
         <h3 class="message_h3">{{msg.pentester}}</h3>
         <transition name="message-pop">
             <div v-if="!longMsg(index)">
@@ -15,7 +16,7 @@
             
             <p  class="message_p">{{msg.message}}</p>
             <div >
-                <b-button   class="btn btn-success btn-secondary" @click="mailTo(msg.email)">
+                <b-button   class="btn btn-success btn-secondary" >
                 Reply <icon name="envelope"></icon>
                 </b-button>
             
@@ -48,6 +49,9 @@ import "vue-awesome/icons/envelope";
 export default {
   created() {
     // this.messages = MessagesApi.getMessages();
+    this.user_id = this.$store.getters.returnId;
+
+    this.conv_url = `/user/${this.user_id}/dashboard/convo/`;
 
     this.messages = this.messages.map(elem => {
       return {
@@ -60,8 +64,16 @@ export default {
     Icon
   },
   methods: {
+    openConversation(job_id)
+    {
+      this.conv_url += job_id;
+      this.$router.push({path: this.conv_url})
+    },
     longMsg(msg_id) {
-      let obj = this.messages[msg_id];
+      let index = _.findIndex(this.messages, { id: msg_id });
+      let obj = this.messages[index+1];
+      console.log(obj);
+
       return obj.visible_long_msg;
     },
     pretty_print(msg) {
@@ -80,6 +92,8 @@ export default {
   },
   data() {
     return {
+      user_id : '',
+      conv_url : '',
       messages: messages
     };
   }

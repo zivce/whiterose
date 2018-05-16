@@ -7,11 +7,9 @@
 </template>
 
 <script>
-
 export default {
   mixins: [],
-  mounted() {
-  },
+  mounted() {},
   data() {
     return {};
   }

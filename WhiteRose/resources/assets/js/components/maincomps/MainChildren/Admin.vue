@@ -23,20 +23,16 @@
 </template>
 
 <script>
-
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/info";
 
 export default {
   components: {
-    Icon,
+    Icon
   },
   mixins: [],
-  methods: {
-   
-  },
-  mounted() {
-  },
+  methods: {},
+  mounted() {},
   data() {
     return {
       isVisibleAdminInfo: false
