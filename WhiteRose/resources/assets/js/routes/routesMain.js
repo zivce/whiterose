@@ -12,8 +12,8 @@ let routes = [
         redirect : 'home',
         children: [
         {
-            path:`user/:id`,
-            redirect : `user/:id/dashboard/setup`,
+            path:`client/:id`,
+            redirect : `client/:id/dashboard/setup`,
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
                 {
@@ -21,7 +21,7 @@ let routes = [
                     children:[
                     {
                         meta:{
-                            fail: `user/:id/`
+                            fail: `client/:id/`
                         },
                         path: "messages",
                         component: require('../components/maincomps/UserChildren/Dashboard/Messages.vue')
@@ -29,7 +29,7 @@ let routes = [
                     {
                         
                         meta:{
-                            fail: `user/:id/`
+                            fail: `client/:id/`
                         },
                         path: "data",
                         component: require('../components/maincomps/UserChildren/Dashboard/Data.vue')
@@ -38,7 +38,7 @@ let routes = [
                     {
                         
                         meta:{
-                            fail: `user/:id/`
+                            fail: `client/:id/`
                         },
                         path: "setup",
                         component: require('../components/maincomps/UserChildren/Dashboard/Setup.vue')
@@ -47,7 +47,7 @@ let routes = [
                     {
                         
                         meta:{
-                            fail: `user/:id/`
+                            fail: `client/:id/`
                         },
                         path: "profile",
                         component: require('../components/maincomps/UserChildren/Dashboard/Profile.vue')

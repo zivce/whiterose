@@ -93,8 +93,11 @@
 
                 <div id="second_input" class="fform_input_job">
         
-
+                    <!-- TODO: dodaj regex za sajt -->
+                    
+                    <!-- FIRST PART  -->
                     <input  
+                    v-if="isInputSitePart"
                     :placeholder="site_for_verification.label"
                     :class="{'has-error':errSiteVerif}"
                     :type="site_for_verification.type" 
@@ -104,6 +107,7 @@
                     v-validate="{rules:{
                       required:true
                       }}"
+                      
                     :maxlength="10"
                     :name="site_for_verification.id"/>
                     
@@ -111,22 +115,106 @@
                         Site required!
                     </span>
                     
-                    </div>
+                </div>
 
-                <p style="text-align:center">
-                  
-                  
+                <!-- SECOND PART -->
+                
+                <v-client-table
+                class="col-12"
+                v-if="isKeyVerifPart"
+                :data='client_sites'
+                :columns='columns_sites'
+                :options='options_sites'
+                >
+              
+              <a  slot="verified" 
+                  slot-scope="props"
+                  class="cursorable"
+              >
+                  <icon v-if="props.row.verified" class="check_ico" name="check"></icon>
+                  <icon v-if="!props.row.verified" class="times_ico" name="times"></icon>
+               
+              </a>
+              <a  
+                  v-if="!props.row.verified"
+                  slot="verify" 
+                  slot-scope="props"
+                  class="cursorable"
+                  href ="link_here"
+                  @click="keyDownloaded"
+                  download
+              >key</a>
+                
+                </v-client-table >
+                
+                <!-- <p 
+                v-if="isKeyVerifPart"
+                style="text-align:center">
                   Insert this txt file  
-                  <a href="link/file.txt" download>
+                  <a @click="getKey()" download>
                     <icon name="file" id="icon_file"></icon>
                   </a> 
                   to your <code>public</code>
                   directory and then click verify.
                   
-                </p>
-                 <b-button class="btn btn-info btn-secondary actionbtn" @click="verifySiteHandler()">
-                    Verify 
+                </p> -->
+
+                <!-- THIRD PART -->
+
+
+
+                <!-- BUTTONS SECTION -->
+
+                 <b-button 
+                  v-if="isInputSitePart"
+                 class="btn btn-info btn-secondary actionbtn" 
+                 @click="newSiteHandler()">
+                 
+                    Next step > 
+                
                 </b-button>
+
+                 <!-- <b-button 
+                  v-if="isKeyVerifPart"
+                 class="btn btn-info btn-secondary actionbtn" 
+                 @click="keyDownloaded()">
+                 
+                    Next step > 
+                
+                </b-button> -->
+                 <b-button 
+                  v-if="isKeyVerifPart"
+                 class="btn btn-info btn-secondary actionbtn" 
+                 @click="getBackToFirstScreen()">
+                 
+                    Back 
+                
+                </b-button>
+               
+                <div style="display:flex;flex-direction:row;wrap:row;">
+                  <b-button 
+                    v-if="isVerifySitePart"
+                  class="btn btn-info btn-secondary actionbtn" 
+                  @click="getBackToSecondScreen()">
+                  
+                      Back 
+                  
+                  </b-button>
+
+
+                  <b-button 
+                    v-if="isVerifySitePart"
+                  class="btn btn-info btn-secondary actionbtn" 
+                  @click="verifySite()">
+                  
+                      Verify 
+                  
+                  </b-button>
+                </div>
+               
+
+          
+          
           </div>
     </div>
     <!-- </transition> -->
@@ -227,6 +315,9 @@ import eventBus from "../../../../utils/eventBus";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/file";
+import "vue-awesome/icons/times";
+
+
 
 //API services
 
@@ -234,6 +325,7 @@ import PostDescApi from "../../../../services/api/user_api/postDescription.api";
 import VerifySiteApi from "../../../../services/api/user_api/verifySite.api";
 import PostAvatarApi from "../../../../services/api/user_api/postAvatar.api";
 import ResetPwApi from "../../../../services/api/user_api/resetPw.api";
+import ClientSitesHardcode from './client_sites.hardcode';
 
 export default {
   mounted() {
@@ -262,6 +354,37 @@ export default {
     Icon
   },
   methods: {
+    //site verification
+    newSiteHandler(){
+      this.isInputSitePart= false;
+      this.isKeyVerifPart = true;
+      this.isVerifySitePart = false;
+    },
+    getKey(){
+      //download logic here.. 
+    },
+    getBackToFirstScreen(){
+      this.isInputSitePart= true;
+      this.isKeyVerifPart = false;
+      this.isVerifySitePart = false;
+    },
+    getBackToSecondScreen(){
+      this.isInputSitePart= false;
+      this.isKeyVerifPart = true;
+      this.isVerifySitePart = false;
+    },
+    keyDownloaded(){  
+      this.isInputSitePart= false;
+      this.isKeyVerifPart = false;
+      this.isVerifySitePart = true;
+    },
+    
+    verifySite(){
+      this.isInputSitePart= true;
+      this.isKeyVerifPart = false;
+      this.isVerifySitePart = false;
+    },
+
     checkImageInput() {
       return this.errAvatar ? false : true;
     },
@@ -345,10 +468,28 @@ export default {
       isVisibleDesc: false,
       isVisibleChangeImage: false,
       isVisibleVerifySite: false,
+      isInputSitePart : true,
+      isKeyVerifPart : false,
+      isVerifySitePart : false,
 
       //Validation helper
       all_fields_ok: false,
-
+      //Site verification
+      client_sites : ClientSitesHardcode,
+      columns_sites :  ["domain", "verified", "verify"],
+      options_sites : 
+       {
+        columnsClasses: {
+          verified: "cursorable",
+          domain : "cursorable"
+        },
+        filterable :[],
+        filterByColumn: true,
+        pagination: {
+          dropdown: true,
+          nav: "scroll"
+        },
+      },
       //Props to send to backend
       avatar_file : null,
       avatar_image: null,

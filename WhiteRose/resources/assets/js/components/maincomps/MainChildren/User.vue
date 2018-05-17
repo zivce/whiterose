@@ -17,29 +17,29 @@
     <!-- control panel -->
 
       <b-nav class="d-flex justify-content-center user_nav"  pills>
-        <b-nav-item :to="'/user/'+ user_id+ '/postjob'">
+        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/postjob'">
         Post Job
         </b-nav-item>
-        <b-nav-item :to="'/user/'+ user_id + '/tools'">
+        <b-nav-item :to="'/'+user_role+'/'+ user_id + '/tools'">
         Tools
         </b-nav-item>
-        <b-nav-item :to="'/user/'+ user_id+ '/scans'">
+        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/scans'">
         Scans
         </b-nav-item>
         
-        <b-nav-item :to="'/user/'+ user_id+ '/myjobs'">
+        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/myjobs'">
         My Jobs
         </b-nav-item>
-        <b-nav-item :to="'/user/'+ user_id+ '/bids'">
+        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/bids'">
         Bids
         </b-nav-item>
-        <b-nav-item :to="'/user/'+ user_id+ '/startedjobs'">
+        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/startedjobs'">
         Started Jobs
         </b-nav-item>
-        <b-nav-item :to="'/user/'+ user_id+ '/finishedjobs'">
+        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/finishedjobs'">
         Finished Jobs
         </b-nav-item>
-        <b-nav-item :to="'/user/'+ user_id+ '/search'">
+        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/search'">
         Search
         </b-nav-item>
       </b-nav>
@@ -85,8 +85,9 @@ export default {
   computed: {},
   mounted() {
     this.user_id = this.$store.getters.returnId;
+    this.user_role = this.$store.getters.returnRole;
 
-    if (this.$route.path === `/user/${this.user_id}/`) {
+    if (this.$route.path === `/${this.user_role}/${this.user_id}/`) {
       this.main_client_visible = true;
     } else {
       this.main_client_visible = false;
@@ -136,6 +137,8 @@ export default {
       //Current route
       route: "",
       user_id: "",
+      user_role:"",
+
 
       //interval
       int1: null,

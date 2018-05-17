@@ -4,19 +4,19 @@
       
       <b-nav class="d-flex justify-content-center user_nav"  pills>
         <b-nav-item 
-        :to="'/user/'+ user_id+ '/dashboard/setup'"
+        :to="'/'+user_role+'/'+ user_id+ '/dashboard/setup'"
         >
         Setup Profile
         </b-nav-item>
         
         <b-nav-item 
-        :to="'/user/'+ user_id+ '/dashboard/messages'">
+        :to="'/'+user_role+'/'+ user_id+ '/dashboard/messages'">
         Messages
         </b-nav-item>
         
         
         <b-nav-item 
-        :to="'/user/'+ user_id+ '/dashboard/profile'"
+        :to="'/'+user_role+'/'+ user_id+ '/dashboard/profile'"
         >
         Profile
         </b-nav-item>
@@ -37,10 +37,13 @@ export default {
   mixins: [],
   mounted() {
     this.user_id = this.$store.getters.returnId;
+    this.user_role = this.$store.getters.returnRole;
+
   },
   data() {
     return {
-      user_id: ""
+      user_id: "",
+      user_role : ""
     };
   }
 };
