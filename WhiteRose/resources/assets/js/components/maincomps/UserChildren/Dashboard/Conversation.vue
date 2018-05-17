@@ -1,27 +1,213 @@
 <template>
-    
-    <div>
-        <p>Welcome to convo</p>
-        <p>{{job_id}}</p>
-        
+    <div class="comp_container">
+        <h2 class="h2s">Convo with {{findSender()}}</h2>
 
+        <div 
+        class = "msg_cont "
+        v-for="msg in whole_convo"
+        :key = msg.msg_id
+        >
+        
+            <div 
+            class="client"
+            v-if = "msg.client_to_pentester"
+            >
+
+                <div class = "msg_cont_header_client">
+                    <p><strong>{{msg.date_time}}</strong></p>           
+                </div>
+                <p>
+                {{msg.message}}
+                </p>
+
+            </div>
+
+            <div
+            class="pentester"
+            v-if="msg.pentester_to_client"
+            >
+              
+                <div class = "msg_cont_header_pent">
+                    <p><strong>{{msg.date_time}}</strong></p>           
+                </div>
+                
+                <p>
+                    {{msg.message}}
+                </p>
+
+            </div>
+
+
+        </div>
+
+        <!-- RENDER NEW MESSAGES -->
+        
+        <div 
+            class="pentester msg_cont"
+            v-for="msg in msgs_for_send"
+            :key = msg.msg_id
+        >
+
+                <div class = "msg_cont_header_pent">
+                    <p><strong>{{msg.date_time}}</strong></p>           
+                </div>
+    
+                <p>
+                {{msg.message}}
+                </p>
+
+            </div>
+
+
+
+        <div class="cont_input_msg">
+        
+            <input 
+            name="msg_client" 
+            class="msg_input"
+            @keyup.enter="bufferMsgForSending()"
+            v-model="one_msg"/>
+            
+            <b-button 
+            @click="bufferMsgForSending()" 
+            class="btn btn-info btn_send"
+            style="border-radius: 0;">
+                <icon name= "paper-plane"> </icon>
+            </b-button>
+        
+        </div>
     </div>
 
 </template>
 
 <script>
+import ConvoHardcode from '../convo_client_2_pentester.hardcode';
+import ClientConvoAPI from '../../../../services/api/user_api/Convo.api';
+import ConvoSendMessagesAPI from '../../../../services/api/user_api/ConvoSendMessages.api';
+
+import Icon from "vue-awesome/components/Icon";
+import "vue-awesome/icons/paper-plane";
+
+
 export default {
+    destroyed(){
+        //TODO: salje se niz poruka
+        //TODO : msgs_for_send
+        //TODO: moguce vise poruka da iskuca odma 
+        //TODO: se vide salje se kad izlazi sa komponente
+
+    },
+    created(){
+        //TODO: ovde da se puni komponenta
+        //TODO : na osnovu job_id i pentester_id da se povuce convo
+        //TODO: job_id se cuva u vuex.. 
+        //ConvoHardcode.getConv(job_id,user_id).. 
+    },
     mounted()
     {
         this.job_id = this.$store.getters.returnParams;
-        console.log(this.job_id);
+        
+        this.user_name = this.$store.getters.returnUser;
+        this.user_name = this.user_name.name;
+
+    },
+    components : {
+        Icon
+    },
+
+    methods : {
+        bufferMsgForSending(){
+            if(!this.one_msg.length)
+                return;
+               
+            let new_msg = {
+                msg_id : this.msgs_for_send.length - 1,
+                client_to_pentester: false,
+                pentester_to_client : true,
+                date_time : moment().format("DD.MM.YYYY hh:mm"),
+                sender: this.user_name,
+                message: this.one_msg
+            }
+            this.one_msg = '';
+            
+            this.msgs_for_send.push(new_msg);
+
+        },
+        //find client that sent msg
+        findSender() {
+            let sender =  this.whole_convo.find(elem => {
+                if(elem.client_to_pentester)
+                    return elem;
+            })
+            return sender.sender;
+
+        }
     },
     data(){
-        job_id : ''
+        return {
+            one_msg : '',
+            msgs_for_send: [],
+            whole_convo : ConvoHardcode
+        }
     }
 }
 </script>
 
 <style scoped>
 
+.btn_send
+{
+    flex: 0.2;
+}
+
+.msg_input
+{
+    flex:2;
+}
+.cont_input_msg
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.msg_cont_header_client
+{
+    text-align: left;
+    border-bottom: 1px solid #000;
+}
+
+.msg_cont_header_pent
+{
+    text-align: right;
+    border-bottom: 1px solid #000;
+}
+
+.msg_cont_header{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.msg_cont {
+    width: 100%;
+}
+
+
+.client {
+    text-align: left;
+    width: 100%;
+    height: fit-content;
+    box-shadow: 0px 0px 0px 4px;
+    padding: 3%;
+    margin: 5% 0 5% 0;
+}
+.pentester {
+    text-align:right;
+    width  : 100%;
+    height: fit-content;
+
+    box-shadow: 0px 0px 0px 4px;
+    padding: 3%;
+    margin: 5% 0 5% 0;
+}
 </style>

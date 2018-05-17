@@ -115,11 +115,10 @@ if(home_exists)
             store.commit("setUser",user);
 
             let user_role = this.$store.getters.returnRole;
+            console.log("user role aopppjs", user_role);
             
             this.user_id =  this.$store.getters.returnId;
 
-            //HARDCODE FOR PENTESTER
-            user_role = "pentester";
 
             if(user_role === "client")
             {

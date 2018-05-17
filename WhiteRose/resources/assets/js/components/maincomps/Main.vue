@@ -85,9 +85,10 @@ export default {
     } else {
       this.main_comp = false;
     }
+    this.user_role = this.$store.getters.returnRole;
 
-    this.profile_url = `/user/${this.user_id}/dashboard/setup`;
-    this.messages_url  = `/user/${this.user_id}/dashboard/messages`;
+    this.profile_url = `/${this.user_role}/${this.user_id}/dashboard/setup`;
+    this.messages_url  = `/${this.user_role}/${this.user_id}/dashboard/messages`;
   },
   computed: {
     home() {}
@@ -97,22 +98,41 @@ export default {
       this.$router.push({path: this.messages_url});
     },
     handleLogout() {
-      axios.get("/clientlogout").then(res => {
-        if (res.status === 200) {
-          this.notifySuccess("Logged out!", "Success!");
+      if(this.user_role === "pentester")
+      {
+        axios.get("/hackerlogout").then(res => {
+          if (res.status === 200) {
+            this.notifySuccess("Logged out!", "Success!");
 
-          window.setTimeout(() => {
-            window.location.reload();
-          }, 1500);
-        } else {
-          this.errorToast("Error happened", "Error!");
-        }
-      });
+            window.setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          } else {
+            this.errorToast("Error happened", "Error!");
+          }
+        });
+      }
+      else if(this.user_role === "user")
+      {
+        axios.get("/clientlogout").then(res => {
+          if (res.status === 200) {
+            this.notifySuccess("Logged out!", "Success!");
+
+            window.setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          } else {
+            this.errorToast("Error happened", "Error!");
+          }
+        });
+      }
+     
     }
   },
   data() {
     return {
       messages_url : '',
+      user_role: '',
       user_id: "",
       profile_url: ``,
       username: "",

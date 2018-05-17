@@ -61,7 +61,9 @@
                       }
                       }"
                     accept="image/jpg, image/png" 
-                    v-model="avatar_image" placeholder="Choose file">
+                    @change="processFile($event)"
+                    v-model="avatar_image" 
+                    placeholder="Choose file">
 
                     </b-form-file>
 
@@ -293,7 +295,11 @@ export default {
         this.isVisibleVerifySite = false;
       }
     },
-
+    processFile(event)
+    {
+      console.log("file attached" , event.target.files[0]);
+      this.avatar_file = event.target.files[0];
+    },
     postDescription() {
       let vm = this;
       let valid = this.$validator;
@@ -312,10 +318,11 @@ export default {
       VerifySiteApi.verifySite(valid, vm, send);
     },
 
-    insertImageHandler() {
+    insertImageHandler(e) {
       let vm = this;
       let valid = this.$validator;
-      let send = { avatar: this.avatar_image };
+      
+      let send = { avatar: this.avatar_file };
 
       PostAvatarApi.postAvatar(valid, vm, send);
     },
@@ -343,6 +350,7 @@ export default {
       all_fields_ok: false,
 
       //Props to send to backend
+      avatar_file : null,
       avatar_image: null,
       descinput: {
         id: "desc",

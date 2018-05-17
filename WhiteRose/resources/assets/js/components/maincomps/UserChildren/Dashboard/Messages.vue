@@ -2,7 +2,6 @@
 <v-bar id="message_wrapper" wrapper="message_wrapper">
   <div class="d-flex flex-column justify-content-center">
     <div class="message_container col-8" v-for="(msg,index) in messages" :key="index">
-      {{index}}
         <h3 class="message_h3">{{msg.pentester}}</h3>
         <transition name="message-pop">
             <div v-if="!longMsg(index)">
@@ -16,7 +15,9 @@
             
             <p  class="message_p">{{msg.message}}</p>
             <div >
-                <b-button   class="btn btn-success btn-secondary" >
+                <b-button   
+                class="btn btn-success btn-secondary"  
+                 @click="openConversation(msg.job_id)" >
                 Reply <icon name="envelope"></icon>
                 </b-button>
             
@@ -66,27 +67,24 @@ export default {
   methods: {
     openConversation(job_id)
     {
-      this.conv_url += job_id;
-      this.$router.push({path: this.conv_url})
-    },
-    longMsg(msg_id) {
-      let index = _.findIndex(this.messages, { id: msg_id });
-      let obj = this.messages[index+1];
-      console.log(obj);
+      this.$router.push({name:'convo_client',params: { job_id: job_id }})
 
+    },
+    longMsg(index) {
+      let obj = this.messages[index];
       return obj.visible_long_msg;
     },
     pretty_print(msg) {
       return msg.slice(0, 100);
     },
-    expand(msg_id) {
-      let index = _.findIndex(this.messages, { id: msg_id });
-      index++;
+    expand(index) {
+      // let index = _.findIndex(this.messages, { id: msg_id });
+      // index++;
       this.messages[index].visible_long_msg = true;
     },
-    not_expand(msg_id) {
-      let index = _.findIndex(this.messages, { id: msg_id });
-      index++;
+    not_expand(index) {
+      // let index = _.findIndex(this.messages, { id: msg_id });
+      // index++;
       this.messages[index].visible_long_msg = false;
     }
   },

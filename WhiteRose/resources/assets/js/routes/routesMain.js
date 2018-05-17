@@ -61,7 +61,11 @@ let routes = [
                     component: require('../components/maincomps/UserChildren/DashboardClient.vue')
                 },
                 //load user comps here
-               
+                {
+                    name:'convo_client',
+                    path: "convo/:job_id",
+                    component: require('../components/maincomps/UserChildren/Dashboard/Conversation.vue')
+                },
                 {
                     path:'postjob',
                     component: require('../components/maincomps/UserChildren/PostJob.vue')

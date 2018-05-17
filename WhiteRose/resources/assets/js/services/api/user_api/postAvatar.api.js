@@ -11,6 +11,10 @@ export default {
     {
         //sendingArr sadrzi niz propertija forme
         //moze da se mapira.. 
+        console.log("prosledjeno",
+        send);
+        
+        //RADI 
 
 
         validator.validateAll().then((form_ok)=>{
