@@ -115,21 +115,20 @@ if(home_exists)
             store.commit("setUser",user);
 
             let user_role = this.$store.getters.returnRole;
-            console.log("user role aopppjs", user_role);
             
             this.user_id =  this.$store.getters.returnId;
-
-
+            
             if(user_role === "client")
             {
+                
                 this.$router.push({
-                    path:`/user/${this.user_id}/`
+                    path:`${user_role}/${this.user_id}/`
                 })
             }
             else if( user_role === "pentester")
             {
                 this.$router.push({
-                    path:`/pentester/${this.user_id}/`
+                    path:`${user_role}/${this.user_id}/`
                 })
             }
 

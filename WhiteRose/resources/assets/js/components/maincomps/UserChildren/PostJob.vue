@@ -116,7 +116,11 @@
         Insert document. <span>(optional)</span>
       </h3>
 
-      <b-form-file accept=".pdf" v-model="scan_pdf" name="file" placeholder="Choose file">
+      <b-form-file 
+      accept=".pdf"
+      @change="processFile($event)"
+      name="file"
+      placeholder="Choose file">
 
       </b-form-file>
     </div>
@@ -139,6 +143,11 @@ import "vue-awesome/icons/handshake";
 
 import welcomeToastr from "../../toastr/welcometoastr";
 import JobFormInput from "../../utilcomps/JobPosterInput.vue";
+
+
+//Services part 
+import PostJobAPI from '../../../services/api/user_api/PostJob.api';
+
 
 export default {
   created() {
@@ -167,30 +176,42 @@ export default {
     });
   },
   methods: {
+    processFile(event)
+    {
+      this.formData.append("file", event.target.files[0]);
+    },
     submitHandler() {
       let vm = this;
-      let formData = new FormData();
-      formData.append('document', this.scan_pdf);
-      console.log(formData);
+      
 
       eventBus.$emit("validateAllFields");
-      console.log(this.scan_pdf);
+      
 
       this.$validator.validateAll().then(form_ok => {
         if (form_ok && vm.all_fields_ok) {
-          axios
-            .post("/postjob", {
+         
+        //  //api call to send document
+         PostJobAPI
+         .postDoc(this.formData)
+         .then(res => {
+           console.log(res);
+         });
+
+          let post_job_data = {
               selected_scan: this.selected_scan,
               selected_site: this.selected_site,
               title: this.titleinput.value,
               desc: this.descinput.value,
               price: this.priceinput.value,
-              document : this.scan_pdf,
+          }
+
+          //api call to send form data
+          PostJobAPI
+            .postForm(post_job_data)
+            .then(res=>{
+              console.log(res);
             })
-            .then(function(response) {})
-            .catch(function(error) {
-              vm.errorToast("An error happened.", "Error!");
-            });
+          
         } else {
           //reset
           vm.all_fields_ok = true;
@@ -202,9 +223,12 @@ export default {
     return {
       all_fields_ok: true,
       validator: this.$validator,
-      // scan_pdf: null,
+      scan_pdf: null,
       selected_site: "",
       selected_scan: "",
+
+      //TODO: Povuci iz baze verified scans
+      formData : new FormData(),
       scans: [
         { value: "scan1", text: "Scan1-Date1" },
         { value: "scan2", text: "Scan2-Date2" },

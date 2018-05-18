@@ -53,6 +53,9 @@ let routes = [
                         component: require('../components/maincomps/UserChildren/Dashboard/Profile.vue')
                     },
                     {
+                        meta:{
+                            fail: `client/:id/`
+                        },
                         path: "/convo/:pent_id",
                         component: require('../components/maincomps/UserChildren/Dashboard/Conversation.vue')
                     },

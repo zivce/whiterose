@@ -9,31 +9,51 @@
         >
         
             <div 
-            class="client"
+            
+            class="client d-flex "
             v-if = "msg.client_to_pentester"
             >
-
-                <div class = "msg_cont_header_client">
-                    <p><strong>{{msg.date_time}}</strong></p>           
+                <div class="col-2">
+                    <img 
+                    src="http://i.pravatar.cc/100?img=3" 
+                    class="client_avatar"
+                    alt="">
                 </div>
-                <p>
-                {{msg.message}}
-                </p>
+
+                <div class="col-8">
+                    <div class = "msg_cont_header_client">
+                        <p><strong>{{msg.date_time}}</strong></p>           
+                    </div>
+                    <p>
+                    {{msg.message}}
+                    </p>
+                </div>
 
             </div>
 
             <div
-            class="pentester"
+            class="pentester d-flex"
             v-if="msg.pentester_to_client"
             >
-              
-                <div class = "msg_cont_header_pent">
-                    <p><strong>{{msg.date_time}}</strong></p>           
+                <div class="col-2">
+
+                    <img 
+                    src="http://i.pravatar.cc/100?img=4" 
+                    class="pentester_avatar"
+                    alt=""> 
+
                 </div>
-                
-                <p>
-                    {{msg.message}}
-                </p>
+                <div class="col-8">
+                    <div class = "msg_cont_header_pent">
+                        <p><strong>{{msg.date_time}}</strong></p>           
+                    </div>
+                    
+                    <p>
+                        {{msg.message}}
+                    </p>
+                </div>
+
+
 
             </div>
 
@@ -42,19 +62,29 @@
 
         <!-- RENDER NEW MESSAGES -->
         
-        <div 
-            class="pentester msg_cont"
-            v-for="msg in msgs_for_send"
-            :key = msg.msg_id
+        <div v-if="msgs_for_send.length"
+            class="client msg_cont d-flex"
         >
-
-                <div class = "msg_cont_header_pent">
-                    <p><strong>{{msg.date_time}}</strong></p>           
-                </div>
-    
-                <p>
-                {{msg.message}}
-                </p>
+         
+         <div class="col-2">
+            <img 
+            src="http://i.pravatar.cc/100?img=3" 
+            class="client_avatar"
+            alt="">
+         </div>
+         
+         <div class="col-8">
+            <div class = "msg_cont_header_client">
+                <p><strong>{{msgs_for_send[0].date_time}}</strong></p>           
+            </div>
+            
+            <p  
+            v-for="msg in msgs_for_send"   
+            :key = msg.msg_id >
+            
+            {{msg.message}}
+            </p>
+         </div>
 
             </div>
 
@@ -87,14 +117,12 @@ import ConvoSendMessagesAPI from '../../../../services/api/user_api/ConvoSendMes
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/paper-plane";
+import ConvoApi from '../../../../services/api/user_api/Convo.api';
 
 
 export default {
     destroyed(){
-        //TODO: salje se niz poruka
-        //TODO : msgs_for_send
-        //TODO: moguce vise poruka da iskuca odma 
-        //TODO: se vide salje se kad izlazi sa komponente
+        
 
     },
     created(){
@@ -122,17 +150,21 @@ export default {
                
             let new_msg = {
                 msg_id : this.msgs_for_send.length - 1,
-                client_to_pentester: false,
-                pentester_to_client : true,
+                client_to_pentester: true,
+                pentester_to_client : false,
                 date_time : moment().format("DD.MM.YYYY hh:mm"),
                 sender: this.user_name,
                 message: this.one_msg
             }
             this.one_msg = '';
-            
+
             this.msgs_for_send.push(new_msg);
 
+        
+            ConvoSendMessagesAPI.sendMsg(new_msg);
+
         },
+
         //find client that sent msg
         findSender() {
             let sender =  this.whole_convo.find(elem => {
@@ -154,7 +186,18 @@ export default {
 </script>
 
 <style scoped>
+.client_avatar {
+    border-radius: 50%;
+    float: right;
+    margin: 2%;
 
+}
+.pentester_avatar  {
+    border-radius: 50%;
+    float: left;
+    margin: 2%;
+
+}
 .btn_send
 {
     flex: 0.2;
@@ -172,14 +215,21 @@ export default {
 
 .msg_cont_header_client
 {
-    text-align: left;
-    border-bottom: 1px solid #000;
+    text-align: right;
+    border-bottom: 1px solid #233dbb;
+
+}
+.msg_cont_header_pent > p {
+    margin-bottom: 0;
+}
+.msg_cont_header_client > p {
+    margin-bottom: 0;
 }
 
 .msg_cont_header_pent
 {
-    text-align: right;
-    border-bottom: 1px solid #000;
+    text-align: left;
+    border-bottom: 1px solid rgba(170, 4, 60, 0.878);
 }
 
 .msg_cont_header{
@@ -194,20 +244,20 @@ export default {
 
 
 .client {
-    text-align: left;
-    width: 100%;
+    flex-direction: row-reverse;
+    text-align:right;
+    width  : 100%;
     height: fit-content;
-    box-shadow: 0px 0px 0px 4px;
     padding: 3%;
     margin: 5% 0 5% 0;
 }
 .pentester {
-    text-align:right;
-    width  : 100%;
-    height: fit-content;
 
-    box-shadow: 0px 0px 0px 4px;
+    text-align: left;
+    width: 100%;
+    height: fit-content;
     padding: 3%;
     margin: 5% 0 5% 0;
+
 }
 </style>

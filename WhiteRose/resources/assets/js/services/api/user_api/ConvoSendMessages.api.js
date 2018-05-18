@@ -10,8 +10,9 @@ import errorToast from '../../../components/toastr/welcometoastr';
  */
 
 export default {
-
-    getAllJobs()
+    
+  
+    sendMsg(msg)
     {
       return new Promise((resolve) => {
             let jobs = [];

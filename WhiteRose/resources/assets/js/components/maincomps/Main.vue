@@ -112,7 +112,7 @@ export default {
           }
         });
       }
-      else if(this.user_role === "user")
+      else if(this.user_role === "client")
       {
         axios.get("/clientlogout").then(res => {
           if (res.status === 200) {
