@@ -2,8 +2,13 @@
     font-weight: $h2-weight;
     font-size: $h2-size;
     color: $h2s-color;
+    font-family: "Lusitana",serif;
   }
-
+.h1s
+{
+  font-family: "Lusitana",serif;
+  letter-spacing: 2px;
+}
   .btn-info:not(:disabled):not(.disabled):active:focus, .btn-info:not(:disabled):not(.disabled).active:focus, .show > .btn-info.dropdown-toggle:focus {
     box-shadow: 0;
   }
@@ -13,10 +18,9 @@ button:focus{
   border-radius: none !important;
 }
 
-
 .h3s{
-    font-weight: $h3-weight;
-    font-size: $h3-size;
+    font-weight: $h3-other-weight;
+    font-size: $h3-other-size;
   }
 .setup_margin_top{
   margin-top: 5%;
@@ -52,6 +56,30 @@ button:focus{
 .dashboard_container{
   // width: 90% !important;
 
+}
+.message_container {
+  margin-top: 2%;
+  background-color: #2c3340;
+  margin-bottom: 0.1%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: 1%;
+  padding: 1%;
+}
+
+.message_h3 {
+  text-align: left;
+  color: white;
+  font-family: "Lusitana",serif;
+  font-size : $h3-size;
+  font-weight:  $h3-weight;
+
+}
+
+.message_p {
+  font-size: 1rem;
+  color: azure;
 }
 
 .dashboard_setup_container

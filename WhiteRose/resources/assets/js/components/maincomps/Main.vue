@@ -5,24 +5,37 @@
         <router-link 
         to="/home"
         >
-        <img src="/img/rose.png"/>
+          
+          <icon
+          :class = "{'red_ico':isHacker}"
+          id="rose_ico"
+          height="64"
+          width="64"
+          name="logo"
+          >
+            
+          </icon>
+
         </router-link>
       </h1>
+
         <div id="profile_container">
           
 
-          <b-dropdown  
-          :text="username" id="user"
-
+          <b-dropdown
+          :text="username" 
+          :class = "{'hacker':isHacker}"
+          id="user"
           >
-            <b-dropdown-item :to="profile_url">
-              <slot name="button-content"><icon name="user"></icon> Profile</slot>
-            </b-dropdown-item>
-          
-            <b-dropdown-item  @click="handleLogout()">
-                <slot name="button-content"><icon name="logout"></icon> Logout</slot>
-            </b-dropdown-item>
+              <b-dropdown-item :to="profile_url">
+                <slot name="button-content"><icon name="user"></icon> Profile</slot>
+              </b-dropdown-item>
             
+              <b-dropdown-item  @click="handleLogout()">
+                  <slot name="button-content"><icon name="logout"></icon> Logout</slot>
+              </b-dropdown-item>
+              
+  
           </b-dropdown>
           
         </div>
@@ -62,6 +75,9 @@ import "vue-awesome/icons/user";
 import "vue-awesome/icons/comment";
 
 import "../../Icons/logout";
+import "../../Icons/logo";
+
+
 import eventBus from "../../utils/eventBus";
 
 export default {
@@ -80,7 +96,11 @@ export default {
       this.main_comp = false;
     }
     this.user_role = this.$store.getters.returnRole;
-
+    if(this.user_role === 'pentester')
+    {
+      this.isHacker = true;
+    }  
+    
     this.profile_url = `/${this.user_role}/${this.user_id}/dashboard/setup`;
   },
   computed: {
@@ -93,6 +113,7 @@ export default {
     handleLogout() {
       if(this.user_role === "pentester")
       {
+
         axios.get("/hackerlogout").then(res => {
           if (res.status === 200) {
             this.notifySuccess("Logged out!", "Success!");
@@ -124,6 +145,7 @@ export default {
   },
   data() {
     return {
+      isHacker: false,
       messages_url : '',
       user_role: '',
       user_id: "",
@@ -154,12 +176,47 @@ export default {
   top: 4px !important;
   left: -70px !important;
 } */
+
+
+#rose_ico
+{
+  fill : white;
+}
+.red_ico {
+  fill : #ff1a00 !important;
+}
+
 #header >>> #msgs {
   position: absolute;
   right: 27vw;
   top: 5vh;
   cursor: pointer;
 }
+
+/* if hacker added this styles */
+
+
+.hacker >>> button {
+  color : #ff1a00;
+}
+.hacker >>> .dropdown-menu.show {
+  background-color:#2c3340!important;
+}
+.hacker >>> a 
+{
+    font-weight: 800;
+    color: #ff1a00;
+}
+
+.hacker >>> a:hover 
+{
+    background-color: #020919;
+}
+.hacker >>> a:focus 
+{
+    background-color: #020919;
+}
+
 #header >>> #user {
   position: absolute;
   right: 5vw;

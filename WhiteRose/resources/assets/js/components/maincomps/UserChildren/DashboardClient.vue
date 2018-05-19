@@ -2,20 +2,29 @@
   <div class="comp_container ">
       <h2 class="h2s" >Dashboard</h2>
       
-      <b-nav class="d-flex justify-content-center user_nav"  pills>
+      <b-nav class="d-flex justify-content-center user_nav_main"  pills>
         <b-nav-item 
+        active-class ="active_item_user"
+        class="nav_item_user"
+
         :to="'/'+user_role+'/'+ user_id+ '/dashboard/setup'"
         >
         Setup Profile
         </b-nav-item>
         
-        <b-nav-item 
+        <b-nav-item
+        class="nav_item_user"
+
+        active-class ="active_item_user"
         :to="'/'+user_role+'/'+ user_id+ '/dashboard/messages'">
         Messages
         </b-nav-item>
         
         
         <b-nav-item 
+        class="nav_item_user"
+
+        active-class ="active_item_user"
         :to="'/'+user_role+'/'+ user_id+ '/dashboard/profile'"
         >
         Profile

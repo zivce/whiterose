@@ -30,15 +30,17 @@
     <h3 class="h3s">Sites</h3>
 
     <v-bar id="proje_wrapper" wrapper="proje_wrapper">
+
     <div 
     v-for="site in info.sites" 
-    class="proj_container" 
+    class="" 
     :key="site.id">
         
         <h3 class="proje_h3">{{site.title}}</h3>
         <p>{{pretty_print(site.added_on)}}</p>
 
     </div>
+
     </v-bar>
 </div>
 
@@ -87,7 +89,7 @@ $h2-weight: bold;
 }
 #profile_container_pentester {
   color: white;
-  background: #49496b;
+  background: #2c3340;
   margin-top: 2%;
   width: 100%;
   text-align: center;

@@ -2,21 +2,21 @@
   <div id="user_comps">
       <div class="nav_btns">
           
-        <b-button class="btn btn-info btn-secondary " @click="hideShowInfo">
+        <b-button class="btn btn-client " @click="hideShowInfo">
           <icon name="info" ></icon>
         </b-button>
         
-        <b-button class="btn btn-info btn-secondary"
+        <b-button class="btn btn-client"
         :to="messages_url">
           <icon name="comment" ></icon>
         </b-button>
         
-        <b-button class="btn btn-info btn-secondary"
+        <b-button class="btn btn-client"
         :to="profile_url">
           <icon name="user" ></icon>
         </b-button>
 
-         <b-button class="btn btn-info btn-secondar"
+         <b-button class="btn btn-client"
         :to="setup_url">
           <icon name="wrench" ></icon>
         </b-button>
@@ -36,44 +36,44 @@
 
       <b-nav class="d-flex justify-content-center user_nav_main"  pills>
         <b-nav-item 
-        active-class ="active_item"
+        active-class ="active_item_user"
         class="nav_item_user"
         :to="'/'+user_role+'/'+ user_id+ '/postjob'">
         Post Job
         </b-nav-item>
         <b-nav-item 
-        active-class ="active_item"
+        active-class ="active_item_user"
         class="nav_item_user"
         :to="'/'+user_role+'/'+ user_id + '/tools'">
         Tools
         </b-nav-item>
         <b-nav-item 
-        active-class ="active_item"
+        active-class ="active_item_user"
         class="nav_item_user"
         :to="'/'+user_role+'/'+ user_id+ '/scans'">
         Scans
         </b-nav-item>
         
         <b-nav-item
-        active-class ="active_item"
+        active-class ="active_item_user"
         class="nav_item_user"
          :to="'/'+user_role+'/'+ user_id+ '/myjobs'">
         My Jobs
         </b-nav-item>
         <b-nav-item 
-        active-class ="active_item"
+        active-class ="active_item_user"
         class="nav_item_user"
         :to="'/'+user_role+'/'+ user_id+ '/bids'">
         Bids
         </b-nav-item>
         <b-nav-item 
-        active-class ="active_item"
+        active-class ="active_item_user"
         class="nav_item_user"
         :to="'/'+user_role+'/'+ user_id+ '/startedjobs'">
         Started Jobs
         </b-nav-item>
         <b-nav-item 
-        active-class ="active_item"
+        active-class ="active_item_user"
         class="nav_item_user"
         :to="'/'+user_role+'/'+ user_id+ '/finishedjobs'">
         Finished Jobs
@@ -260,7 +260,11 @@ export default {
 .flip-leave-active {
   transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-
+.btn-client {
+    color: #f6f6f6;
+    background-color: #2c3340;
+    border-color: #2c3340;
+}
 .flip-enter,
 .flip-leave-to {
   transform: scaleY(0) translateZ(0);
@@ -277,12 +281,6 @@ export default {
 }
 .nav_btns * {
   margin-bottom: 25%;
-}
-.user_nav_main {
- 
-  margin-bottom: 20px;
-  background-image: linear-gradient(left, transparent 14%,rgba(22, 43, 103, 0.842) 27%, rgba(36, 60, 127, 0.842) 72%, transparent 87%);
-
 }
 
 .active_item{

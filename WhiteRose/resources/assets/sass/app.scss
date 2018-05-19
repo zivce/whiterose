@@ -1,5 +1,9 @@
-
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Lusitana');
 // Fonts
+
+$font-family-sans-serif : "Poppins", Helvetica, Arial, sans-serif !important;
+$font-family-serif : "Lusitana", serif !important;
 
 // Variables
 @import "variables";

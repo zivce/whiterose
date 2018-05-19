@@ -2,3 +2,46 @@
 {
     color : white !important;
 }
+.user_nav_main {
+    margin-bottom: 20px !important;
+    background-image: linear-gradient(left, transparent 20%,#2c3340 20%, 
+    #2c3340 80%, transparent 80%) 
+}  
+
+.user_nav_main  a{
+    color : white !important;
+}
+
+
+.hacker_nav_main a
+{
+
+    color : rgb(255, 0, 0);
+
+}
+
+.hacker_nav_main  a:hover
+{
+
+    color : rgb(255, 255, 255) !important;
+
+}
+
+.hacker_nav_main {
+
+    margin-bottom: 20px !important;
+    background-image: linear-gradient(left, transparent 20%,#2c3340 20%, 
+    #2c3340 80%, transparent 80%) 
+
+}  
+
+.active_item_user{
+    color: white !important;
+      background-color: #007effe3 !important;
+      border-radius: 0 !important;
+  }
+.active_item_hacker{
+    color: white !important;
+    background-color: #551B14 !important;
+    border-radius: 0 !important;
+}

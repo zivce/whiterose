@@ -114,23 +114,20 @@ $color: rgb(86, 142, 163);
   margin-top: 3%;
 }
 
-.message_p {
-  font-size: large;
-  color: azure;
-}
-.message_h3 {
-  color: white;
-}
-.message_container {
-     margin-top: 2%;
-    background-color: #568ea3;
-    margin-bottom: -1.9%;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    height: 1%;
-    padding: 1%;
-}
+
+
+
+// }
+// .message_container {
+//      margin-top: 2%;
+//     background-color: #568ea3;
+//     margin-bottom: -1.9%;
+//     text-align: center;
+//     margin-left: auto;
+//     margin-right: auto;
+//     height: 1%;
+//     padding: 1%;
+// }
 .message-pop-enter,
 .menu-popover-leave-to {
   opacity: 0;
