@@ -42,6 +42,7 @@ export default {
   color: white;
   position: absolute;
   width: 30%;
+  left: 5%;
   background: rgb(86, 142, 163);
   margin: 8px;
   padding: 3%;

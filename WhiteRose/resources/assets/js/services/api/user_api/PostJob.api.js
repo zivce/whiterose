@@ -8,7 +8,20 @@ import errorToast from '../../../components/toastr/welcometoastr';
  */
 
 export default {
+  getAllUserScans(){
+    return new Promise((resolve) => {
+    axios
+        .get("allscans")
+        .then((res)=>{
+            resolve(res);
+        })
+        .catch(function(error) {
+        vm.errorToast("Error happened.", "Error!");
+        });
+}); 
 
+
+},
     postDoc(document)
     {
       return new Promise((resolve) => {
@@ -27,6 +40,8 @@ export default {
                 });
           });    
     },
+    
+
     postForm(obj)
     {
       return new Promise((resolve) => {

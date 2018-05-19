@@ -328,10 +328,11 @@ import PostDescApi from "../../../../services/api/user_api/postDescription.api";
 import VerifySiteApi from "../../../../services/api/user_api/verifySite.api";
 import PostAvatarApi from "../../../../services/api/user_api/postAvatar.api";
 import ResetPwApi from "../../../../services/api/user_api/resetPw.api";
-import ClientSitesHardcode from './client_sites.hardcode';
+// import ClientSitesHardcode from './client_sites.hardcode';
 
 export default {
   mounted() {
+    this.client_sites = this.$store.state.sites;
     
 
     eventBus.$on("field_ok", val => {
@@ -499,7 +500,7 @@ export default {
       //Validation helper
       all_fields_ok: false,
       //Site verification
-      client_sites : ClientSitesHardcode,
+      client_sites : [],
       columns_sites :  ["domain", "verified", "verify"],
       options_sites : 
        {

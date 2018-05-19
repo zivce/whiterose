@@ -8,7 +8,9 @@ const store = new Vuex.Store({
         user: {},
         role : '',
         email : '',
-        id : ''
+        id : '',
+        sites : '',
+        scans: ''
     },
     mutations : {
         setUser(state,payload)
@@ -18,7 +20,14 @@ const store = new Vuex.Store({
             state.email = payload.email;
             state.id = payload.id;
         },
-        
+        setSites(state,payload)
+        {
+            state.sites = payload;
+        },
+        setScans(state,payload)
+        {
+            state.scans  = payload;
+        }
     },
     getters:{
         returnParams : state => {

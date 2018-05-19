@@ -152,7 +152,15 @@ import PostJobAPI from '../../../services/api/user_api/PostJob.api';
 export default {
   created() {
     //TODO: povuci sve verifikovane sajtove...
-    //TODO: napuni options
+
+
+    // PostJobAPI.getAllUserScans().then(
+    //   (response) => {
+    //     this.scans = response.data;
+    //   }
+    // )
+
+   
   },
   computed: {
     errDesc() {
@@ -168,8 +176,19 @@ export default {
   },
   mixins: [welcomeToastr],
   mounted() {
-    //ako je makar jedan field false
-    //pukne ne ulazi u submitovanje forme.
+    
+    //get only verified sites.
+
+    let sites = this.$store.state.sites
+    .filter(site=> site.verified)
+    .map ( site => {
+      return {
+        value : site.domain,
+        text : site.domain
+      }
+    })
+
+    this.options = sites;
 
     eventBus.$on("field_ok", val => {
       this.all_fields_ok &= val;
@@ -234,6 +253,7 @@ export default {
         { value: "scan2", text: "Scan2-Date2" },
         { value: "scan3", text: "Scan3-Date3" }
       ],
+      //TODO: Napuni ovaj niz..
       options: [
         { value: "www.gooogle.com", text: "Google" },
         { value: "www.facebook.com", text: "Face" },

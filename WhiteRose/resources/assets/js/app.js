@@ -26,6 +26,7 @@ import VeeValidate from 'vee-validate';
 
 import landerRouter from './routes/routes';
 import mainRouter from './routes/routesMain';
+import StoreAPI from './services/api/store_api/Store.api';
 
 import {ClientTable,Event} from 'vue-tables-2';
 import Axios from 'axios';
@@ -35,6 +36,12 @@ import successToastr from './components/toastr/welcometoastr';
 import VBar from 'v-bar';
 
 import checkFields from './utils/checkAllFields';
+
+
+
+//hardcode 
+import SitesHardcode from './client_sites.hardcode';
+
 
 /**
  * Comps
@@ -118,6 +125,18 @@ if(home_exists)
             
             store.commit("setUser",user);
 
+            //TODO: dodaj verifikovane sajtove u store
+            // StoreAPI.getSites().then((res)=>{
+            //     store.commit("setSites",res.data)
+            // })
+
+            // StoreAPI.getAllUserScans().then((res)=>{
+            //     store.commit("setScans",res.data)
+            // })
+            
+            store.commit("setSites",SitesHardcode);
+
+
             let user_role = this.$store.getters.returnRole;
             
             this.user_id =  this.$store.getters.returnId;
@@ -135,24 +154,6 @@ if(home_exists)
                     path:`/${user_role}/${this.user_id}/`
                 })
             }
-
-
-            // if(this.$store.state.route.path === "/home")
-            // {
-            //     //TODO: for each role
-            //     if(user_role === "pentester")
-            //     {
-            //         this.$router.push({
-            //             path:`/pentester/${this.user_id}`
-            //         })
-            //     }
-            //     if(user_role === "client")
-            //     {
-            //         this.$router.push({
-            //             path:`/user/${this.user_id}/`
-            //         })
-            //     }
-            // }
 
             // localStorage.clear();
 

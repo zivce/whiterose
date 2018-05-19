@@ -5,17 +5,11 @@
         <router-link 
         to="/home"
         >
-          Home
+        <img src="/img/rose.png"/>
         </router-link>
       </h1>
         <div id="profile_container">
-          <div id="msgs" 
-          @click="goToMsg()">
-            <icon name="comment"
-            width="28"
-            height="28">
-            </icon>
-          </div>
+          
 
           <b-dropdown  
           :text="username" id="user"
@@ -88,7 +82,6 @@ export default {
     this.user_role = this.$store.getters.returnRole;
 
     this.profile_url = `/${this.user_role}/${this.user_id}/dashboard/setup`;
-    this.messages_url  = `/${this.user_role}/${this.user_id}/dashboard/messages`;
   },
   computed: {
     home() {}
@@ -178,10 +171,14 @@ export default {
   box-shadow: none;
 }
 #header h1 {
-  height: 5vh;
-  margin: 0 auto;
+    margin: 0 auto;
+    margin-top: 1%;
 }
-
+#main_vue {
+  background-position-x: 2%;
+  background-position-y: 22px;
+  background: url("/img/logo.png") no-repeat;
+}
 #footer p {
   margin: auto;
 }
@@ -194,11 +191,10 @@ export default {
   background: #000919de;
 }
 #header {
-  margin-bottom: 3%;
-  box-shadow: 3px 3px 7px 2px #e2e2e2;
-  height: 13vh;
-  color: white;
-  background: #000919de;
+    margin-bottom: 3%;
+    height: 13vh;
+    color: white;
+    background: #000919d1;
 }
 
 #main_vue {

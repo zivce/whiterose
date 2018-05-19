@@ -1,10 +1,28 @@
 <template>
   <div id="user_comps">
-      
-      <b-button class="btn btn-info btn-secondary" @click="hideShowInfo">
-        <icon name="info" ></icon>
-      </b-button>
+      <div class="nav_btns">
+          
+        <b-button class="btn btn-info btn-secondary " @click="hideShowInfo">
+          <icon name="info" ></icon>
+        </b-button>
+        
+        <b-button class="btn btn-info btn-secondary"
+        :to="messages_url">
+          <icon name="comment" ></icon>
+        </b-button>
+        
+        <b-button class="btn btn-info btn-secondary"
+        :to="profile_url">
+          <icon name="user" ></icon>
+        </b-button>
 
+         <b-button class="btn btn-info btn-secondar"
+        :to="setup_url">
+          <icon name="wrench" ></icon>
+        </b-button>
+
+
+      </div>
       <transition  name="flip" mode="in-out">
         <user-info 
         :textinside = "textinside"
@@ -16,32 +34,51 @@
 
     <!-- control panel -->
 
-      <b-nav class="d-flex justify-content-center user_nav"  pills>
-        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/postjob'">
+      <b-nav class="d-flex justify-content-center user_nav_main"  pills>
+        <b-nav-item 
+        active-class ="active_item"
+        class="nav_item_user"
+        :to="'/'+user_role+'/'+ user_id+ '/postjob'">
         Post Job
         </b-nav-item>
-        <b-nav-item :to="'/'+user_role+'/'+ user_id + '/tools'">
+        <b-nav-item 
+        active-class ="active_item"
+        class="nav_item_user"
+        :to="'/'+user_role+'/'+ user_id + '/tools'">
         Tools
         </b-nav-item>
-        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/scans'">
+        <b-nav-item 
+        active-class ="active_item"
+        class="nav_item_user"
+        :to="'/'+user_role+'/'+ user_id+ '/scans'">
         Scans
         </b-nav-item>
         
-        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/myjobs'">
+        <b-nav-item
+        active-class ="active_item"
+        class="nav_item_user"
+         :to="'/'+user_role+'/'+ user_id+ '/myjobs'">
         My Jobs
         </b-nav-item>
-        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/bids'">
+        <b-nav-item 
+        active-class ="active_item"
+        class="nav_item_user"
+        :to="'/'+user_role+'/'+ user_id+ '/bids'">
         Bids
         </b-nav-item>
-        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/startedjobs'">
+        <b-nav-item 
+        active-class ="active_item"
+        class="nav_item_user"
+        :to="'/'+user_role+'/'+ user_id+ '/startedjobs'">
         Started Jobs
         </b-nav-item>
-        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/finishedjobs'">
+        <b-nav-item 
+        active-class ="active_item"
+        class="nav_item_user"
+        :to="'/'+user_role+'/'+ user_id+ '/finishedjobs'">
         Finished Jobs
         </b-nav-item>
-        <b-nav-item :to="'/'+user_role+'/'+ user_id+ '/search'">
-        Search
-        </b-nav-item>
+       
       </b-nav>
       
       <!-- <transition name="fade"> -->
@@ -61,7 +98,7 @@ import UserInfo from "../UserChildren/UserParts/UserInfo.vue";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/info";
-
+import "vue-awesome/icons/wrench";
 //txt files
 import PostJobTxt from "./Data/post_job.txt";
 import ToolsTxt from "./Data/tools.txt";
@@ -87,6 +124,11 @@ export default {
     this.user_id = this.$store.getters.returnId;
     this.user_role = this.$store.getters.returnRole;
 
+    this.messages_url  = `/${this.user_role}/${this.user_id}/dashboard/messages`;
+    this.profile_url = `/${this.user_role}/${this.user_id}/dashboard/profile`;
+    this.setup_url = `/${this.user_role}/${this.user_id}/dashboard/setup`;
+    
+    
     if (this.$route.path === `/${this.user_role}/${this.user_id}/`) {
       this.main_client_visible = true;
     } else {
@@ -142,7 +184,9 @@ export default {
 
       //interval
       int1: null,
-
+      messages_url : '',
+      profile_url : '',
+      setup_url : '',
       //collection of texts to insert
       collection_txts: [
         {
@@ -207,6 +251,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .flip-enter-active {
   transition: all 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53);
 }
@@ -220,9 +266,29 @@ export default {
   transform: scaleY(0) translateZ(0);
   opacity: 0;
 }
-
-.user_nav {
+.nav_btns {
+  position: absolute;
+  display:flex;
+  flex-direction:column;
+  width: 3%;
+}
+.nav_btns svg {
+  vertical-align: middle;
+}
+.nav_btns * {
+  margin-bottom: 25%;
+}
+.user_nav_main {
+ 
   margin-bottom: 20px;
+  background-image: linear-gradient(left, transparent 14%,rgba(22, 43, 103, 0.842) 27%, rgba(36, 60, 127, 0.842) 72%, transparent 87%);
+
+}
+
+.active_item{
+  color: white !important;
+    background-color: #007effe3 !important;
+    border-radius: 0 !important;
 }
 #user_comps {
   margin-top: 3vh;

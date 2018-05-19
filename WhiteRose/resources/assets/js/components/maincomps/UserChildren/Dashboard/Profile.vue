@@ -5,7 +5,7 @@
     
     <div style="margin: 27px auto;">
         <a href="https://placeholder.com">
-        <img src="http://via.placeholder.com/200x200">
+        <img src="http://i.pravatar.cc/200?img=3">
     </a>
     
     </div>
@@ -89,6 +89,7 @@ $h2-weight: bold;
   color: white;
   background: #49496b;
   margin-top: 2%;
+  width: 100%;
   text-align: center;
 }
 .span_container {
@@ -118,7 +119,7 @@ $h2-weight: bold;
 }
 .proje_wrapper {
   height: 30vh;
-  width: 32vw;
+  width: 100%;
   margin: 0 auto;
 }
 .proj_container {

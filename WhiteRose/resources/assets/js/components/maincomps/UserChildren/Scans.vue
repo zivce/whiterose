@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import hardcode from "./hardcode";
+import hardcode from "./scans.hardcode";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/download";

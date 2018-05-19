@@ -1,5 +1,5 @@
 <template>
-  <div class="comp_container dashboard_container">
+  <div class="comp_container ">
       <h2 class="h2s" >Dashboard</h2>
       
       <b-nav class="d-flex justify-content-center user_nav"  pills>
