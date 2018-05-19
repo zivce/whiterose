@@ -104,7 +104,11 @@ if(home_exists)
         router: mainRouter,
         beforeMount(){
             this.unsync = sync(this.$store,this.$router);
+
+            //TODO: ruta da proverava koja je rola .. 
+            
             let user = localStorage.getItem("r");
+            
             user = JSON.parse(user);
             
             //TODO: negde se koristi role find out.. 
@@ -122,13 +126,13 @@ if(home_exists)
             {
                 
                 this.$router.push({
-                    path:`${user_role}/${this.user_id}/`
+                    path:`/${user_role}/${this.user_id}/`
                 })
             }
             else if( user_role === "pentester")
             {
                 this.$router.push({
-                    path:`${user_role}/${this.user_id}/`
+                    path:`/${user_role}/${this.user_id}/`
                 })
             }
 

@@ -78,12 +78,11 @@
                 <p><strong>{{msgs_for_send[0].date_time}}</strong></p>           
             </div>
             
-            <p  
-            v-for="msg in msgs_for_send"   
-            :key = msg.msg_id >
-            
-            {{msg.message}}
+            <p>
+            {{bundleMessages()}}
             </p>
+
+
          </div>
 
             </div>
@@ -144,6 +143,12 @@ export default {
     },
 
     methods : {
+        bundleMessages() {
+            let msgs_only = this.msgs_for_send.map(msg => msg.message)
+
+            return msgs_only.join(" ");
+
+        },
         bufferMsgForSending(){
             if(!this.one_msg.length)
                 return;

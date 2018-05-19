@@ -83,7 +83,8 @@ let routes = [
                     path:'tools',
                     children:[
                         {
-                            path:'/:id/udp-nmap',
+                            name:'udp_nmap',
+                            path:'udp-nmap',
                             component: require('../components/maincomps/UserChildren/FewTools/NmapUDP.vue')
                         },
                     ],

@@ -191,23 +191,23 @@ export default {
         if (form_ok && vm.all_fields_ok) {
          
         //  //api call to send document
-         PostJobAPI
-         .postDoc(this.formData)
-         .then(res => {
-           console.log(res);
-         });
+        //  PostJobAPI
+        //  .postDoc(this.formData)
+        //  .then(res => {
+        //    console.log(res);
+        //  });
 
-          let post_job_data = {
-              selected_scan: this.selected_scan,
-              selected_site: this.selected_site,
-              title: this.titleinput.value,
-              desc: this.descinput.value,
-              price: this.priceinput.value,
-          }
+        
+          this.formData.append("selected_scan",this.selected_scan);
+          this.formData.append("selected_site",this.selected_site);
 
+          this.formData.append("title",this.titleinput.value);
+          this.formData.append("desc", this.descinput.value);
+          this.formData.append("price",this.priceinput.value);
+          
           //api call to send form data
           PostJobAPI
-            .postForm(post_job_data)
+            .postForm(this.formData)
             .then(res=>{
               console.log(res);
             })

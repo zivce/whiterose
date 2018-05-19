@@ -1,16 +1,22 @@
 <template>
 <v-bar id="message_wrapper" wrapper="message_wrapper">
   <div class="d-flex flex-column justify-content-center">
-    <div class="message_container col-8" v-for="(msg,index) in messages" :key="index">
+    <div class="message_container col-8" 
+    @click="openConversation(msg.job_id)" 
+    style="cursor:pointer;"
+    v-for="(msg,index) in messages" 
+    :key="index">
+    
         <h3 class="message_h3">{{msg.pentester}}</h3>
         <transition name="message-pop">
             <div v-if="!longMsg(index)">
                 <p class="message_p">{{pretty_print(msg.message)}}</p>
-                <p class="expand message_p"  @click="expand(index)"><strong>...</strong></p>
+                <!-- <p class="expand message_p"  @click="expand(index)"><strong>...</strong></p> -->
             </div>
         </transition>
 
         <transition name="message-pop">
+
         <div v-if="longMsg(index)">
             
             <p  class="message_p">{{msg.message}}</p>
@@ -116,14 +122,14 @@ $color: rgb(86, 142, 163);
   color: white;
 }
 .message_container {
-  margin-top: 2%;
-  background-color: #568ea3;
-  margin-bottom: 20px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: rgba(0, 6, 16, 0.31) 3px 3px 7px 2px;
-  padding: 5%;
+     margin-top: 2%;
+    background-color: #568ea3;
+    margin-bottom: -1.9%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: 1%;
+    padding: 1%;
 }
 .message-pop-enter,
 .menu-popover-leave-to {

@@ -11,17 +11,17 @@ export default {
     {
         //sendingArr sadrzi niz propertija forme
         //moze da se mapira.. 
-        console.log("prosledjeno",
-        send);
+       
         
-        //RADI 
-
-
         validator.validateAll().then((form_ok)=>{
                 if (form_ok) {
                     axios
-                      .post("/postdescription", {
+                      .post("/postavatar", {
                         send
+                      }, {
+                        headers : {
+                          'Content-Type' : 'multipart/form-data'
+                        }
                       })
                       .then(function(response) {
                         vm.successToast("Description added.", "Success.");

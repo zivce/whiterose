@@ -5,7 +5,7 @@
       <div class="row" id="toolContainer">
         
         <b-nav vertical pills class="col-md-4">
-          <b-nav-item :to="'/' + user_id + '/udp-nmap'">
+          <b-nav-item @click="pushToUdp()">
             UDP Nmap  
           </b-nav-item>  
         </b-nav>
@@ -29,6 +29,11 @@ export default {
   mixins: [welcomeToastr],
   mounted() {
     this.user_id = this.$store.getters.returnId;
+  },
+  methods : {
+    pushToUdp() {
+       this.$router.push({name:'udp_nmap'})
+    }
   },
   data() {
     return {

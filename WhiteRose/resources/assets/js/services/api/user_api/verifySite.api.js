@@ -9,7 +9,8 @@ export default {
 
     verifySite(validator,vm,site)
     {
-
+        console.log(validator);
+        
 
         validator.validateAll().then((form_ok)=>{
                 if (form_ok) {

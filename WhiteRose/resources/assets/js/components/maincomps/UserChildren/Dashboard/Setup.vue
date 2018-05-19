@@ -39,6 +39,8 @@
 
         </b-nav>
     </div>
+
+    
     </transition>
 
     <!-- ADD AVATAR  -->
@@ -91,17 +93,22 @@
                         Verify site
                     </h3>
 
-                <div id="second_input" class="fform_input_job">
+                <dashboard-input 
+                v-if="isInputSitePart"
+                :prop.sync="site_for_verification"
+                >
+                </dashboard-input>
+                
+                <!-- <div class="fform_input_job">
         
-                    <!-- TODO: dodaj regex za sajt -->
-                    
-                    <!-- FIRST PART  -->
+                    TODO : dodaj regex za sajt 
+
                     <input  
                     v-if="isInputSitePart"
                     :placeholder="site_for_verification.label"
                     :class="{'has-error':errSiteVerif}"
-                    :type="site_for_verification.type" 
-                    :id="site_for_verification.id" 
+                    :type="site_for_verification.type"
+                    id="site" 
                     v-model="site_for_verification.value" 
                     required="true"
                     v-validate="{rules:{
@@ -109,13 +116,13 @@
                       }}"
                       
                     :maxlength="10"
-                    :name="site_for_verification.id"/>
+                    name="site"/>
                     
-                    <span v-if="errors.has(site_for_verification.id)" class="incorrect_input">
+                    <span v-if="errors.has('site')" class="incorrect_input">
                         Site required!
                     </span>
                     
-                </div>
+                </div> -->
 
                 <!-- SECOND PART -->
                 
@@ -147,17 +154,13 @@
                 
                 </v-client-table >
                 
-                <!-- <p 
-                v-if="isKeyVerifPart"
+                <p 
+                v-if="isVerifySitePart"
                 style="text-align:center">
-                  Insert this txt file  
-                  <a @click="getKey()" download>
-                    <icon name="file" id="icon_file"></icon>
-                  </a> 
+                  Insert the downloaded file
                   to your <code>public</code>
-                  directory and then click verify.
-                  
-                </p> -->
+                  directory and then click verify.                  
+                </p>
 
                 <!-- THIRD PART -->
 
@@ -235,7 +238,7 @@
 
                 </dashboard-input>
 
-                <div id="second_input" class="fform_input_job">
+                <div class="fform_input_job">
         
 
                     <input  
@@ -329,7 +332,7 @@ import ClientSitesHardcode from './client_sites.hardcode';
 
 export default {
   mounted() {
-    //make fields ok
+    
 
     eventBus.$on("field_ok", val => {
       this.all_fields_ok &= val;
@@ -354,12 +357,7 @@ export default {
     Icon
   },
   methods: {
-    //site verification
-    newSiteHandler(){
-      this.isInputSitePart= false;
-      this.isKeyVerifPart = true;
-      this.isVerifySitePart = false;
-    },
+
     getKey(){
       //download logic here.. 
     },
@@ -391,6 +389,8 @@ export default {
 
     switchComponentNum(comp) {
       if (comp === "addesc") {
+        
+        this.errors.clear();
         this.isVisibleDesc = true;
         this.isVisibleChangeImage = false;
         this.isVisibleReset = false;
@@ -398,6 +398,7 @@ export default {
       }
 
       if (comp === "resetpw") {
+        this.errors.clear();
         this.isVisibleDesc = false;
         this.isVisibleChangeImage = false;
         this.isVisibleReset = true;
@@ -405,6 +406,8 @@ export default {
       }
 
       if (comp === "verifysite") {
+
+        this.errors.clear();
         this.isVisibleDesc = false;
         this.isVisibleChangeImage = false;
         this.isVisibleReset = false;
@@ -412,6 +415,8 @@ export default {
       }
 
       if (comp === "avatar") {
+        
+        this.errors.clear();
         this.isVisibleDesc = false;
         this.isVisibleChangeImage = true;
         this.isVisibleReset = false;
@@ -420,9 +425,30 @@ export default {
     },
     processFile(event)
     {
-      console.log("file attached" , event.target.files[0]);
-      this.avatar_file = event.target.files[0];
+      this.avatar_file.append("avatar",event.target.files[0]);
     },
+
+
+
+
+
+    //HANDLERS FORMS
+    newSiteHandler(){
+      
+      if(this.site_for_verification.value.length)
+      {
+        this.isInputSitePart= false;
+        this.isKeyVerifPart = true;
+        this.isVerifySitePart = false;
+      }
+      else
+      {
+        this.errorToast("Please insert site","Error!");
+      }
+    
+
+    },
+
     postDescription() {
       let vm = this;
       let valid = this.$validator;
@@ -437,24 +463,22 @@ export default {
       let vm = this;
       let valid = this.$validator;
       let send = { site: this.site_for_verification.value };
-
+      
       VerifySiteApi.verifySite(valid, vm, send);
     },
 
     insertImageHandler(e) {
       let vm = this;
       let valid = this.$validator;
-      
-      let send = { avatar: this.avatar_file };
 
-      PostAvatarApi.postAvatar(valid, vm, send);
+      PostAvatarApi.postAvatar(valid, vm, this.avatar_file);
     },
 
     resetHandler() {
       let vm = this;
 
       eventBus.$emit("validateAllFields");
-
+      debugger;
       let valid = this.$validator;
       let send = { newpw: this.newpw.value };
 
@@ -491,7 +515,7 @@ export default {
         },
       },
       //Props to send to backend
-      avatar_file : null,
+      avatar_file : new FormData(),
       avatar_image: null,
       descinput: {
         id: "desc",
@@ -547,5 +571,12 @@ export default {
 }
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
+}
+.check_ico
+{
+  color : rgba(0, 128, 0, 0.726);
+}
+.times_ico {
+  color : rgb(173, 6, 6);
 }
 </style>
