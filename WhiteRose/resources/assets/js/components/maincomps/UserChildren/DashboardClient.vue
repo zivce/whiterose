@@ -1,7 +1,7 @@
 <template>
   <div class="comp_container ">
       <h2 class="h2s" >Dashboard</h2>
-      
+<!--       
       <b-nav class="d-flex justify-content-center user_nav_main"  pills>
         <b-nav-item 
         active-class ="active_item_user"
@@ -30,7 +30,9 @@
         Profile
         </b-nav-item>
         
-      </b-nav>
+      </b-nav> -->
+
+      
      <transition name="fade" mode="out-in">
       
       <router-view>
