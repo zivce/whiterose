@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="comp_container">
     
     <transition name="flip" mode="out-in">
       
@@ -15,7 +15,7 @@
         class="cursorable"
         @click="showModal(props)"
         >
-        <icon id="ban_ico" name="ban"></icon>
+        <icon class="ban_ico" name="ban"></icon>
       </a>
 
       
@@ -25,12 +25,14 @@
     <transition name="flip" mode="out-in">
     
       <div
+      class="center_it"
       v-if="isVisibleModal">
         
-        <h1>Ban user?</h1>
+        <h3 class="h3s">Ban user?</h3>
+
         <div class="btns">
-          <b-button @click="banUser(props)">Yes</b-button>
-          <b-button @click="closeModal()">No</b-button>
+          <b-button class="btn btn-danger btn-secondary" @click="banUser()">Yes</b-button>
+          <b-button class="btn btn-success btn-secondary" @click="closeModal()">No</b-button>
         </div>
 
       </div>
@@ -41,6 +43,8 @@
 </template>
 
 <script>
+
+import BanUserAPI from '../../../services/api/admin_api/UserBan.api';
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/ban";
 import usersHardcode from "./users.hardcode";
@@ -55,16 +59,24 @@ export default {
     closeModal() {
       this.isVisibleModal = false;
     },
-    banUser(props) {
-      console.log(props);
+    banUser() {
+
+      //TODO : napravi ban
+      // BanUserAPI.banUser(this.for_ban_details.id);
+
+      this.isVisibleModal = false;
+      this.notifySuccess("User banned.", "Success!")
     },
-    showModal() {
+    showModal(props) {
+      this.for_ban_details = props.row;
       this.isVisibleModal = true;
     }
   },
   data() {
     return {
-      columns: ["user name", "role", "ban"],
+      for_ban_details : null,
+
+      columns: ["username", "role", "ban"],
       isVisibleModal: false,
       all_users: usersHardcode,
       options: {
@@ -84,4 +96,13 @@ export default {
 </script>
 
 <style scoped>
+.ban_ico{
+  color : rgb(234, 0, 0);
+}
+
+.center_it {
+    width: fit-content;
+    margin: 0 auto;
+}
+
 </style>

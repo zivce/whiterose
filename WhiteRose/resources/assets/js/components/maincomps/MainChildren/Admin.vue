@@ -3,10 +3,17 @@
 
     <!-- control panel -->
 
-      <b-nav class="d-flex justify-content-center"  pills>
+      <b-nav class="d-flex justify-content-center user_nav_main"  pills>
         
-        <b-nav-item to="/admin/userbaner">Ban user</b-nav-item>
-        <b-nav-item to="/admin/alljobsreviewer">Preview jobs</b-nav-item>
+        <b-nav-item
+          active-class ="active_item_user"
+          class="nav_item_user"
+          to="/admin/userbaner">Ban user</b-nav-item>
+        <b-nav-item 
+        to="/admin/alljobsreviewer"
+        active-class ="active_item_user"
+        class="nav_item_user"
+        >Preview jobs</b-nav-item>
 
       </b-nav>
       
