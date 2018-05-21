@@ -114,6 +114,7 @@ if(home_exists)
 
             //TODO: ruta da proverava koja je rola .. 
             
+            //TODO: izbaci moze da se ishakuje
             let user = localStorage.getItem("r");
             
             user = JSON.parse(user);
@@ -141,19 +142,9 @@ if(home_exists)
             
             this.user_id =  this.$store.getters.returnId;
             
-            if(user_role === "client")
-            {
-                
-                this.$router.push({
-                    path:`/${user_role}/${this.user_id}/`
-                })
-            }
-            else if( user_role === "pentester")
-            {
-                this.$router.push({
-                    path:`/${user_role}/${this.user_id}/`
-                })
-            }
+            this.$router.push({
+                path:`/${user_role}/${this.user_id}/`
+            })
 
             // localStorage.clear();
 

@@ -201,11 +201,7 @@ export default {
     },
     submitHandler() {
       let vm = this;
-      
-
       eventBus.$emit("validateAllFields");
-      
-
       this.$validator.validateAll().then(form_ok => {
         if (form_ok && vm.all_fields_ok) {
          

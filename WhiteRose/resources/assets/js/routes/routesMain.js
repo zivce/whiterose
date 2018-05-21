@@ -184,14 +184,17 @@ let routes = [
             component : require('../components/maincomps/MainChildren/Pentester.vue'),
         },
         {
-            path:'admin',
+            path:'admin/:id',
+            redirect : {name : 'banuser'},
             children:[
                 //Load admin comps
                 {
+                    name : 'banuser',
                     path:'userbaner',
                     component: require('../components/maincomps/AdminChildren/UserBan.vue')
                 },
                 {
+                    name : 'alljobsreview',
                     path:'alljobsreviewer',
                     component: require('../components/maincomps/AdminChildren/AllJobsReviewer.vue')
                 },
