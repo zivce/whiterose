@@ -36,7 +36,9 @@ Route::get('/lander',function(){
 });
 Auth::routes();
 
-
+Route::get('/testlog',function(){
+    Auth::guard('client')->logout();
+});
 Route::get('/',function(){
     
     if(Auth::guard('client')->check()||Auth::guard('pentester')->check())
