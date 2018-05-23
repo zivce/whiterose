@@ -32,7 +32,7 @@
               </b-dropdown-item>
 
 
-              <b-dropdown-item  @click="isActiveTokenCharger = !isActiveTokenCharger">
+              <b-dropdown-item  :to="{name:'tokens'}">
                   <slot name="button-content"><icon name="check"></icon> Buy tokens</slot>
               </b-dropdown-item>
 
@@ -69,7 +69,7 @@
       <vue-snotify/>
 
       <!-- adding token charger -->
-      <token-charger v-if="isActiveTokenCharger"/>
+      <!-- <token-charger v-if="isActiveTokenCharger"/> -->
       
   </div>
 

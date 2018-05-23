@@ -1,5 +1,9 @@
 <template>
-    <div class="d-flex flex-column comp_container example example4 ">
+  <div class="comp_container">
+   
+    <div
+    v-if="visible" 
+    class="d-flex flex-column example example4 ">
         <div id="wrap">
 
             <card 
@@ -23,6 +27,7 @@
 
 
     </div>
+    </div>
 </template>
 
 <script>
@@ -32,12 +37,16 @@ import { Card, createToken } from 'vue-stripe-elements-plus'
 export default {
     components : {Card},
     mounted () {
-        
+      // let t = window.setTimeout(()=>{
+      //   this.visible = true
+      //   window.clearTimeout(t);
+      // },5000)
 
     },
 
     data() {
         return {
+          visible:true,
             options : {
                 classes : {
                    
@@ -105,10 +114,10 @@ export default {
     margin: 0 auto;
 }
 .example {
-   position: absolute;
+   /* position: absolute;
     top: 0;
-    left: 32vw;
-    width: 34vw;
+    left: 20vw;
+    padding : 1%; */
 }
 
 /**
@@ -116,7 +125,7 @@ export default {
 **/
 
 .example.example4 {
-    background-color: #f6f9fc;
+    background-color: transparent;
   }
   
   .example.example4 >>>  * {
@@ -210,7 +219,7 @@ export default {
     display: block;
     width: 100%;
     height: 37px;
-    background-color: #020c6baf;
+    background-color:#2c3340;
     border-radius: 2px;
     color: #fff;
     cursor: pointer;
