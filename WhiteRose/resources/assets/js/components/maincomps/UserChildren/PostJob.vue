@@ -144,23 +144,17 @@ import "vue-awesome/icons/handshake";
 import welcomeToastr from "../../toastr/welcometoastr";
 import JobFormInput from "../../utilcomps/JobPosterInput.vue";
 
-
-//Services part 
-import PostJobAPI from '../../../services/api/user_api/PostJob.api';
-
+//Services part
+import PostJobAPI from "../../../services/api/user_api/PostJob.api";
 
 export default {
   created() {
     //TODO: povuci sve verifikovane sajtove...
-
-
     // PostJobAPI.getAllUserScans().then(
     //   (response) => {
     //     this.scans = response.data;
     //   }
     // )
-
-   
   },
   computed: {
     errDesc() {
@@ -176,17 +170,16 @@ export default {
   },
   mixins: [welcomeToastr],
   mounted() {
-    
     //get only verified sites.
 
     let sites = this.$store.state.sites
-    .filter(site=> site.verified)
-    .map ( site => {
-      return {
-        value : site.domain,
-        text : site.domain
-      }
-    })
+      .filter(site => site.verified)
+      .map(site => {
+        return {
+          value: site.domain,
+          text: site.domain
+        };
+      });
 
     this.options = sites;
 
@@ -195,8 +188,7 @@ export default {
     });
   },
   methods: {
-    processFile(event)
-    {
+    processFile(event) {
       this.formData.append("file", event.target.files[0]);
     },
     submitHandler() {
@@ -204,29 +196,24 @@ export default {
       eventBus.$emit("validateAllFields");
       this.$validator.validateAll().then(form_ok => {
         if (form_ok && vm.all_fields_ok) {
-         
-        //  //api call to send document
-        //  PostJobAPI
-        //  .postDoc(this.formData)
-        //  .then(res => {
-        //    console.log(res);
-        //  });
+          //  //api call to send document
+          //  PostJobAPI
+          //  .postDoc(this.formData)
+          //  .then(res => {
+          //    console.log(res);
+          //  });
 
-        
-          this.formData.append("selected_scan",this.selected_scan);
-          this.formData.append("selected_site",this.selected_site);
+          this.formData.append("selected_scan", this.selected_scan);
+          this.formData.append("selected_site", this.selected_site);
 
-          this.formData.append("title",this.titleinput.value);
+          this.formData.append("title", this.titleinput.value);
           this.formData.append("desc", this.descinput.value);
-          this.formData.append("price",this.priceinput.value);
-          
+          this.formData.append("price", this.priceinput.value);
+
           //api call to send form data
-          PostJobAPI
-            .postForm(this.formData)
-            .then(res=>{
-              console.log(res);
-            })
-          
+          PostJobAPI.postForm(this.formData).then(res => {
+            console.log(res);
+          });
         } else {
           //reset
           vm.all_fields_ok = true;
@@ -243,7 +230,7 @@ export default {
       selected_scan: "",
 
       //TODO: Povuci iz baze verified scans
-      formData : new FormData(),
+      formData: new FormData(),
       scans: [
         { value: "scan1", text: "Scan1-Date1" },
         { value: "scan2", text: "Scan2-Date2" },

@@ -110,159 +110,135 @@
 </template>
 
 <script>
-import ConvoHardcode from '../convo_client_2_pentester.hardcode';
-import ClientConvoAPI from '../../../../services/api/user_api/Convo.api';
-import ConvoSendMessagesAPI from '../../../../services/api/user_api/ConvoSendMessages.api';
+import ConvoHardcode from "../convo_client_2_pentester.hardcode";
+import ClientConvoAPI from "../../../../services/api/user_api/Convo.api";
+import ConvoSendMessagesAPI from "../../../../services/api/user_api/ConvoSendMessages.api";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/paper-plane";
-import ConvoApi from '../../../../services/api/user_api/Convo.api';
-
+import ConvoApi from "../../../../services/api/user_api/Convo.api";
 
 export default {
-    destroyed(){
-        
+  destroyed() {},
+  created() {
+    //TODO: ovde da se puni komponenta
+    //TODO : na osnovu job_id i pentester_id da se povuce convo
+    //TODO: job_id se cuva u vuex..
+    //ConvoHardcode.getConv(job_id,user_id)..
+  },
+  mounted() {
+    this.job_id = this.$store.getters.returnParams;
 
+    this.user_name = this.$store.getters.returnUser;
+    this.user_name = this.user_name.name;
+  },
+  components: {
+    Icon
+  },
+
+  methods: {
+    bundleMessages() {
+      let msgs_only = this.msgs_for_send.map(msg => msg.message);
+
+      return msgs_only.join(" ");
     },
-    created(){
-        //TODO: ovde da se puni komponenta
-        //TODO : na osnovu job_id i pentester_id da se povuce convo
-        //TODO: job_id se cuva u vuex.. 
-        //ConvoHardcode.getConv(job_id,user_id).. 
+    bufferMsgForSending() {
+      if (!this.one_msg.length) return;
+
+      let new_msg = {
+        msg_id: this.msgs_for_send.length - 1,
+        client_to_pentester: true,
+        pentester_to_client: false,
+        date_time: moment().format("DD.MM.YYYY hh:mm"),
+        sender: this.user_name,
+        message: this.one_msg
+      };
+      this.one_msg = "";
+
+      this.msgs_for_send.push(new_msg);
+
+      ConvoSendMessagesAPI.sendMsg(new_msg);
     },
-    mounted()
-    {
-        this.job_id = this.$store.getters.returnParams;
-        
-        this.user_name = this.$store.getters.returnUser;
-        this.user_name = this.user_name.name;
 
-    },
-    components : {
-        Icon
-    },
-
-    methods : {
-        bundleMessages() {
-            let msgs_only = this.msgs_for_send.map(msg => msg.message)
-
-            return msgs_only.join(" ");
-
-        },
-        bufferMsgForSending(){
-            if(!this.one_msg.length)
-                return;
-               
-            let new_msg = {
-                msg_id : this.msgs_for_send.length - 1,
-                client_to_pentester: true,
-                pentester_to_client : false,
-                date_time : moment().format("DD.MM.YYYY hh:mm"),
-                sender: this.user_name,
-                message: this.one_msg
-            }
-            this.one_msg = '';
-
-            this.msgs_for_send.push(new_msg);
-
-        
-            ConvoSendMessagesAPI.sendMsg(new_msg);
-
-        },
-
-        //find client that sent msg
-        findSender() {
-            let sender =  this.whole_convo.find(elem => {
-                if(elem.client_to_pentester)
-                    return elem;
-            })
-            return sender.sender;
-
-        }
-    },
-    data(){
-        return {
-            one_msg : '',
-            msgs_for_send: [],
-            whole_convo : ConvoHardcode
-        }
+    //find client that sent msg
+    findSender() {
+      let sender = this.whole_convo.find(elem => {
+        if (elem.client_to_pentester) return elem;
+      });
+      return sender.sender;
     }
-}
+  },
+  data() {
+    return {
+      one_msg: "",
+      msgs_for_send: [],
+      whole_convo: ConvoHardcode
+    };
+  }
+};
 </script>
 
 <style scoped>
 .client_avatar {
-    border-radius: 50%;
-    float: right;
-    margin: 2%;
-
+  border-radius: 50%;
+  float: right;
+  margin: 2%;
 }
-.pentester_avatar  {
-    border-radius: 50%;
-    float: left;
-    margin: 2%;
-
+.pentester_avatar {
+  border-radius: 50%;
+  float: left;
+  margin: 2%;
 }
-.btn_send
-{
-    flex: 0.2;
+.btn_send {
+  flex: 0.2;
 }
 
-.msg_input
-{
-    flex:2;
+.msg_input {
+  flex: 2;
 }
-.cont_input_msg
-{
-    display: flex;
-    flex-direction: row;
+.cont_input_msg {
+  display: flex;
+  flex-direction: row;
 }
 
-.msg_cont_header_client
-{
-    text-align: right;
-    border-bottom: 1px solid #233dbb;
-
+.msg_cont_header_client {
+  text-align: right;
+  border-bottom: 1px solid #233dbb;
 }
 .msg_cont_header_pent > p {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 .msg_cont_header_client > p {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-.msg_cont_header_pent
-{
-    text-align: left;
-    border-bottom: 1px solid rgba(170, 4, 60, 0.878);
+.msg_cont_header_pent {
+  text-align: left;
+  border-bottom: 1px solid rgba(170, 4, 60, 0.878);
 }
 
-.msg_cont_header{
-    display: flex;
-    flex-direction: row;
-
+.msg_cont_header {
+  display: flex;
+  flex-direction: row;
 }
 
 .msg_cont {
-    width: 100%;
+  width: 100%;
 }
-
 
 .client {
-    flex-direction: row-reverse;
-    text-align:right;
-    width  : 100%;
-    height: fit-content;
-    padding: 3%;
-    margin: 5% 0 5% 0;
+  flex-direction: row-reverse;
+  text-align: right;
+  width: 100%;
+  height: fit-content;
+  padding: 3%;
+  margin: 5% 0 5% 0;
 }
 .pentester {
-
-    text-align: left;
-    width: 100%;
-    height: fit-content;
-    padding: 3%;
-    margin: 5% 0 5% 0;
-
+  text-align: left;
+  width: 100%;
+  height: fit-content;
+  padding: 3%;
+  margin: 5% 0 5% 0;
 }
 </style>

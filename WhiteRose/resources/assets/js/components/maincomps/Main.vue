@@ -32,7 +32,7 @@
               </b-dropdown-item>
 
 
-              <b-dropdown-item  :to="{name:'tokens'}">
+              <b-dropdown-item  :to="tokens_url">
                   <slot name="button-content"><icon name="check"></icon> Buy tokens</slot>
               </b-dropdown-item>
 
@@ -76,8 +76,7 @@
 </template>
 
 <script>
-import TokenCharger from './TokenCharger.vue';
-
+import TokenCharger from "./TokenCharger.vue";
 
 import Home from "./Home.vue";
 import Icon from "vue-awesome/components/Icon";
@@ -86,7 +85,6 @@ import "vue-awesome/icons/comment";
 
 import "../../Icons/logout";
 import "../../Icons/logo";
-
 
 import eventBus from "../../utils/eventBus";
 
@@ -107,24 +105,22 @@ export default {
       this.main_comp = false;
     }
     this.user_role = this.$store.getters.returnRole;
-    if(this.user_role === 'pentester')
-    {
+    if (this.user_role === "pentester") {
       this.isHacker = true;
-    }  
-    
+    }
+
     this.profile_url = `/${this.user_role}/${this.user_id}/dashboard/setup`;
+    this.tokens_url = `/${this.user_role}/${this.user_id}/purchasetokens`;
   },
   computed: {
     home() {}
   },
   methods: {
-    goToMsg(){
-      this.$router.push({path: this.messages_url});
+    goToMsg() {
+      this.$router.push({ path: this.messages_url });
     },
     handleLogout() {
-      if(this.user_role === "pentester")
-      {
-
+      if (this.user_role === "pentester") {
         axios.get("/hackerlogout").then(res => {
           if (res.status === 200) {
             this.notifySuccess("Logged out!", "Success!");
@@ -136,9 +132,7 @@ export default {
             this.errorToast("Error happened", "Error!");
           }
         });
-      }
-      else if(this.user_role === "client")
-      {
+      } else if (this.user_role === "client") {
         axios.get("/clientlogout").then(res => {
           if (res.status === 200) {
             this.notifySuccess("Logged out!", "Success!");
@@ -151,15 +145,15 @@ export default {
           }
         });
       }
-     
     }
   },
   data() {
     return {
-      isActiveTokenCharger:false,
+      tokens_url: "",
+      isActiveTokenCharger: false,
       isHacker: false,
-      messages_url : '',
-      user_role: '',
+      messages_url: "",
+      user_role: "",
       user_id: "",
       profile_url: ``,
       username: "",
@@ -189,13 +183,11 @@ export default {
   left: -70px !important;
 } */
 
-
-#rose_ico
-{
-  fill : white;
+#rose_ico {
+  fill: white;
 }
 .red_ico {
-  fill : #ff1a00 !important;
+  fill: #ff1a00 !important;
 }
 
 #header >>> #msgs {
@@ -207,26 +199,22 @@ export default {
 
 /* if hacker added this styles */
 
-
 .hacker >>> button {
-  color : #ff1a00;
+  color: #ff1a00;
 }
 .hacker >>> .dropdown-menu.show {
-  background-color:#2c3340!important;
+  background-color: #2c3340 !important;
 }
-.hacker >>> a 
-{
-    font-weight: 800;
-    color: #ff1a00;
+.hacker >>> a {
+  font-weight: 800;
+  color: #ff1a00;
 }
 
-.hacker >>> a:hover 
-{
-    background-color: #020919;
+.hacker >>> a:hover {
+  background-color: #020919;
 }
-.hacker >>> a:focus 
-{
-    background-color: #020919;
+.hacker >>> a:focus {
+  background-color: #020919;
 }
 
 #header >>> #user {
@@ -240,8 +228,8 @@ export default {
   box-shadow: none;
 }
 #header h1 {
-    margin: 0 auto;
-    margin-top: 1%;
+  margin: 0 auto;
+  margin-top: 1%;
 }
 #main_vue {
   background-position-x: 2%;
@@ -260,10 +248,10 @@ export default {
   background: #000919de;
 }
 #header {
-    margin-bottom: 3%;
-    height: 13vh;
-    color: white;
-    background: #000919d1;
+  margin-bottom: 3%;
+  height: 13vh;
+  color: white;
+  background: #000919d1;
 }
 
 #main_vue {

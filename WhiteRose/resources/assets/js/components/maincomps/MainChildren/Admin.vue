@@ -42,12 +42,11 @@ export default {
   mounted() {
     this.user_id = this.$store.getters.returnId;
     this.user_role = this.$store.getters.returnRole;
-
   },
   data() {
     return {
-      user_role : null,
-      user_id : null,
+      user_role: null,
+      user_id: null,
       isVisibleAdminInfo: false
     };
   }

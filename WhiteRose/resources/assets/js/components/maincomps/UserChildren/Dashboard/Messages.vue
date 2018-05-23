@@ -71,10 +71,8 @@ export default {
     Icon
   },
   methods: {
-    openConversation(job_id)
-    {
-      this.$router.push({name:'convo_client',params: { job_id: job_id }})
-
+    openConversation(job_id) {
+      this.$router.push({ name: "convo_client", params: { job_id: job_id } });
     },
     longMsg(index) {
       let obj = this.messages[index];
@@ -96,8 +94,8 @@ export default {
   },
   data() {
     return {
-      user_id : '',
-      conv_url : '',
+      user_id: "",
+      conv_url: "",
       messages: messages
     };
   }
@@ -113,9 +111,6 @@ $color: rgb(86, 142, 163);
   height: 73vh;
   margin-top: 3%;
 }
-
-
-
 
 // }
 // .message_container {

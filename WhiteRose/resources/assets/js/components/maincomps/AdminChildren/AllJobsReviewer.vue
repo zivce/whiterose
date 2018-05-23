@@ -43,7 +43,7 @@ import Icon from "vue-awesome/components/Icon";
 import hardc from "./alljobs.hardcode";
 import eventBus from "../../../utils/eventBus";
 // import AllJobsAPI from '../../../services/api/admin_api/AllJobs.api';
-import MoreInfo from './AdminMoreInfo.vue';
+import MoreInfo from "./AdminMoreInfo.vue";
 import "vue-awesome/icons/eye";
 // import AllJobsApi from '../../../services/api/admin_api/AllJobs.api';
 
@@ -59,7 +59,6 @@ export default {
 
     let vm = this;
     // AllJobsApi.getAllJobs().then(jobs => vm.all_jobs = jobs);
-
   },
   computed: {},
   mounted() {

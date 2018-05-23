@@ -320,8 +320,6 @@ import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/file";
 import "vue-awesome/icons/times";
 
-
-
 //API services
 
 import PostDescApi from "../../../../services/api/user_api/postDescription.api";
@@ -333,7 +331,6 @@ import ResetPwApi from "../../../../services/api/user_api/resetPw.api";
 export default {
   mounted() {
     this.client_sites = this.$store.state.sites;
-    
 
     eventBus.$on("field_ok", val => {
       this.all_fields_ok &= val;
@@ -358,28 +355,27 @@ export default {
     Icon
   },
   methods: {
-
-    getKey(){
-      //download logic here.. 
+    getKey() {
+      //download logic here..
     },
-    getBackToFirstScreen(){
-      this.isInputSitePart= true;
+    getBackToFirstScreen() {
+      this.isInputSitePart = true;
       this.isKeyVerifPart = false;
       this.isVerifySitePart = false;
     },
-    getBackToSecondScreen(){
-      this.isInputSitePart= false;
+    getBackToSecondScreen() {
+      this.isInputSitePart = false;
       this.isKeyVerifPart = true;
       this.isVerifySitePart = false;
     },
-    keyDownloaded(){  
-      this.isInputSitePart= false;
+    keyDownloaded() {
+      this.isInputSitePart = false;
       this.isKeyVerifPart = false;
       this.isVerifySitePart = true;
     },
-    
-    verifySite(){
-      this.isInputSitePart= true;
+
+    verifySite() {
+      this.isInputSitePart = true;
       this.isKeyVerifPart = false;
       this.isVerifySitePart = false;
     },
@@ -390,7 +386,6 @@ export default {
 
     switchComponentNum(comp) {
       if (comp === "addesc") {
-        
         this.errors.clear();
         this.isVisibleDesc = true;
         this.isVisibleChangeImage = false;
@@ -407,7 +402,6 @@ export default {
       }
 
       if (comp === "verifysite") {
-
         this.errors.clear();
         this.isVisibleDesc = false;
         this.isVisibleChangeImage = false;
@@ -416,7 +410,6 @@ export default {
       }
 
       if (comp === "avatar") {
-        
         this.errors.clear();
         this.isVisibleDesc = false;
         this.isVisibleChangeImage = true;
@@ -424,30 +417,19 @@ export default {
         this.isVisibleVerifySite = false;
       }
     },
-    processFile(event)
-    {
-      this.avatar_file.append("avatar",event.target.files[0]);
+    processFile(event) {
+      this.avatar_file.append("avatar", event.target.files[0]);
     },
 
-
-
-
-
     //HANDLERS FORMS
-    newSiteHandler(){
-      
-      if(this.site_for_verification.value.length)
-      {
-        this.isInputSitePart= false;
+    newSiteHandler() {
+      if (this.site_for_verification.value.length) {
+        this.isInputSitePart = false;
         this.isKeyVerifPart = true;
         this.isVerifySitePart = false;
+      } else {
+        this.errorToast("Please insert site", "Error!");
       }
-      else
-      {
-        this.errorToast("Please insert site","Error!");
-      }
-    
-
     },
 
     postDescription() {
@@ -464,7 +446,7 @@ export default {
       let vm = this;
       let valid = this.$validator;
       let send = { site: this.site_for_verification.value };
-      
+
       VerifySiteApi.verifySite(valid, vm, send);
     },
 
@@ -479,7 +461,7 @@ export default {
       let vm = this;
 
       eventBus.$emit("validateAllFields");
-      debugger;
+
       let valid = this.$validator;
       let send = { newpw: this.newpw.value };
 
@@ -493,30 +475,29 @@ export default {
       isVisibleDesc: false,
       isVisibleChangeImage: false,
       isVisibleVerifySite: false,
-      isInputSitePart : true,
-      isKeyVerifPart : false,
-      isVerifySitePart : false,
+      isInputSitePart: true,
+      isKeyVerifPart: false,
+      isVerifySitePart: false,
 
       //Validation helper
       all_fields_ok: false,
       //Site verification
-      client_sites : [],
-      columns_sites :  ["domain", "verified", "verify"],
-      options_sites : 
-       {
+      client_sites: [],
+      columns_sites: ["domain", "verified", "verify"],
+      options_sites: {
         columnsClasses: {
           verified: "cursorable",
-          domain : "cursorable"
+          domain: "cursorable"
         },
-        filterable :[],
+        filterable: [],
         filterByColumn: true,
         pagination: {
           dropdown: true,
           nav: "scroll"
-        },
+        }
       },
       //Props to send to backend
-      avatar_file : new FormData(),
+      avatar_file: new FormData(),
       avatar_image: null,
       descinput: {
         id: "desc",
@@ -573,11 +554,10 @@ export default {
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
 }
-.check_ico
-{
-  color : rgba(0, 128, 0, 0.726);
+.check_ico {
+  color: rgba(0, 128, 0, 0.726);
 }
 .times_ico {
-  color : rgb(173, 6, 6);
+  color: rgb(173, 6, 6);
 }
 </style>

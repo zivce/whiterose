@@ -30,9 +30,9 @@ export default {
   mounted() {
     this.user_id = this.$store.getters.returnId;
   },
-  methods : {
+  methods: {
     pushToUdp() {
-       this.$router.push({name:'udp_nmap'})
+      this.$router.push({ name: "udp_nmap" });
     }
   },
   data() {

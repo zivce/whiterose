@@ -49,12 +49,11 @@ export default {
   mounted() {
     this.user_id = this.$store.getters.returnId;
     this.user_role = this.$store.getters.returnRole;
-
   },
   data() {
     return {
       user_id: "",
-      user_role : ""
+      user_role: ""
     };
   }
 };

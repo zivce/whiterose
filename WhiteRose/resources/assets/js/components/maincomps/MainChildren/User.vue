@@ -124,11 +124,10 @@ export default {
     this.user_id = this.$store.getters.returnId;
     this.user_role = this.$store.getters.returnRole;
 
-    this.messages_url  = `/${this.user_role}/${this.user_id}/dashboard/messages`;
+    this.messages_url = `/${this.user_role}/${this.user_id}/dashboard/messages`;
     this.profile_url = `/${this.user_role}/${this.user_id}/dashboard/profile`;
     this.setup_url = `/${this.user_role}/${this.user_id}/dashboard/setup`;
-    
-    
+
     if (this.$route.path === `/${this.user_role}/${this.user_id}/`) {
       this.main_client_visible = true;
     } else {
@@ -179,14 +178,13 @@ export default {
       //Current route
       route: "",
       user_id: "",
-      user_role:"",
-
+      user_role: "",
 
       //interval
       int1: null,
-      messages_url : '',
-      profile_url : '',
-      setup_url : '',
+      messages_url: "",
+      profile_url: "",
+      setup_url: "",
       //collection of texts to insert
       collection_txts: [
         {
@@ -251,8 +249,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .flip-enter-active {
   transition: all 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53);
 }
@@ -261,9 +257,9 @@ export default {
   transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .btn-client {
-    color: #f6f6f6;
-    background-color: #2c3340;
-    border-color: #2c3340;
+  color: #f6f6f6;
+  background-color: #2c3340;
+  border-color: #2c3340;
 }
 .flip-enter,
 .flip-leave-to {
@@ -272,8 +268,8 @@ export default {
 }
 .nav_btns {
   position: absolute;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   width: 3%;
 }
 .nav_btns svg {
@@ -283,10 +279,10 @@ export default {
   margin-bottom: 25%;
 }
 
-.active_item{
+.active_item {
   color: white !important;
-    background-color: #007effe3 !important;
-    border-radius: 0 !important;
+  background-color: #007effe3 !important;
+  border-radius: 0 !important;
 }
 #user_comps {
   margin-top: 3vh;

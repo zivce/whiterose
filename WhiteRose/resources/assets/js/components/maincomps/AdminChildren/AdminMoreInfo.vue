@@ -51,9 +51,8 @@
 </template>
 
 <script>
-import eventBus from '../../../utils/eventBus';
-import RemoveJobAPI from '../../../services//api/admin_api/RemoveJob.api';
-
+import eventBus from "../../../utils/eventBus";
+import RemoveJobAPI from "../../../services//api/admin_api/RemoveJob.api";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/window-close";
@@ -79,21 +78,20 @@ export default {
     }
   },
   methods: {
-    forSureRemoveJob(){
-        //TODO: api call to remove job
-        // RemoveJobAPI.removeJob(this.det.id);
-        
-        this.notifySuccess("Job removed", "Success");
-        this.removed  = false;
+    forSureRemoveJob() {
+      //TODO: api call to remove job
+      // RemoveJobAPI.removeJob(this.det.id);
 
-        let t = window.setTimeout(() => {
-            eventBus.$emit("isVisibleMoreInfo", false);
-           window.clearTimeout(t); 
-        },1000)
-    
+      this.notifySuccess("Job removed", "Success");
+      this.removed = false;
+
+      let t = window.setTimeout(() => {
+        eventBus.$emit("isVisibleMoreInfo", false);
+        window.clearTimeout(t);
+      }, 1000);
     },
-    closeModal () {
-        this.removed = false;
+    closeModal() {
+      this.removed = false;
     },
     removeJob() {
       this.removed = true;
@@ -104,12 +102,12 @@ export default {
         if (form_ok) {
           axios
             .post("/postbid", {
-                id: this.det.id,
-                title: this.det.title,
-                maximum_price: this.det.maximum_price,
-                domain:this.det.domain,
-                description: this.det.description,
-                user:"hardcode",
+              id: this.det.id,
+              title: this.det.title,
+              maximum_price: this.det.maximum_price,
+              domain: this.det.domain,
+              description: this.det.description,
+              user: "hardcode"
               // desc: this.descinput.value,
               // price: this.priceinput.value,
               // det
@@ -127,9 +125,7 @@ export default {
       eventBus.$emit("isVisibleMoreInfo", false);
     }
   },
-  mounted() {
-
-  },
+  mounted() {},
   data() {
     return {
       removed: false,

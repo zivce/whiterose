@@ -127,7 +127,12 @@ let routes = [
             path:'pentester/:id',
             redirect : 'pentester/:id/dashboard/setup',
             component : require('../components/maincomps/MainChildren/Pentester.vue'),
-            children:[ 
+            children:[  
+                {
+                name:'tokens',
+                path:'purchasetokens',
+                component: require('../components/maincomps/TokenCharger.vue')
+                },
                 {
                 path:'dashboard',
                 children:[

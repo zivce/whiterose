@@ -43,8 +43,7 @@
 </template>
 
 <script>
-
-import BanUserAPI from '../../../services/api/admin_api/UserBan.api';
+import BanUserAPI from "../../../services/api/admin_api/UserBan.api";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/ban";
 import usersHardcode from "./users.hardcode";
@@ -60,12 +59,11 @@ export default {
       this.isVisibleModal = false;
     },
     banUser() {
-
       //TODO : napravi ban
       // BanUserAPI.banUser(this.for_ban_details.id);
 
       this.isVisibleModal = false;
-      this.notifySuccess("User banned.", "Success!")
+      this.notifySuccess("User banned.", "Success!");
     },
     showModal(props) {
       this.for_ban_details = props.row;
@@ -74,7 +72,7 @@ export default {
   },
   data() {
     return {
-      for_ban_details : null,
+      for_ban_details: null,
 
       columns: ["username", "role", "ban"],
       isVisibleModal: false,
@@ -96,13 +94,12 @@ export default {
 </script>
 
 <style scoped>
-.ban_ico{
-  color : rgb(234, 0, 0);
+.ban_ico {
+  color: rgb(234, 0, 0);
 }
 
 .center_it {
-    width: fit-content;
-    margin: 0 auto;
+  width: fit-content;
+  margin: 0 auto;
 }
-
 </style>
