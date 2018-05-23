@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use App\Scan;
 use App\Bid;
+
 use App\Started_job;
 use App\Discusion;
 
@@ -99,15 +100,18 @@ class ClientController extends Controller
         $job->title=$request->title;
         $job->client_id=Auth::guard('client')->user()->id;
         $job->description=$request->desc;
-        $document=$request->document;
+        $document=$request->file;
 
         $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
-        if($document!==null){
+       
             Storage::makeDirectory($dirName);
-            $fileName=$dirName.'/'.Carbon::now()->toDateTimeString().$document->getClientOriginalExtension();
-            Storage::put($fileName,$document);
-            $job->file_path=Storage::url($fileName);
-        }
+            $fileName=$dirName.'/'.Carbon::now()->toDateTimeString().'.'.$document->getClientOriginalExtension();
+            $fileName=str_replace(' ','_',$fileName);
+            $fileName=str_replace(':','_',$fileName);       
+            Storage::putFileAs($dirName,$document,$fileName);
+
+            $job->file_path=storage_path('app\\'.$dirName.'\\'.$fileName);
+     
         $job->save();
 
 
