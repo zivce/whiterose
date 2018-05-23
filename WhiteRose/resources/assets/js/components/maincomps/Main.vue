@@ -5,9 +5,9 @@
         <router-link 
         to="/home"
         >
-          
+
+          <!-- :class = "{'red_ico':isHacker}" -->
           <icon
-          :class = "{'red_ico':isHacker}"
           id="rose_ico"
           height="64"
           width="64"
@@ -18,7 +18,7 @@
 
         </router-link>
       </h1>
-
+        
         <div id="profile_container">
           
 
@@ -30,7 +30,12 @@
               <b-dropdown-item :to="profile_url">
                 <slot name="button-content"><icon name="user"></icon> Profile</slot>
               </b-dropdown-item>
-            
+
+
+              <b-dropdown-item  @click="isActiveTokenCharger = !isActiveTokenCharger">
+                  <slot name="button-content"><icon name="check"></icon> Buy tokens</slot>
+              </b-dropdown-item>
+
               <b-dropdown-item  @click="handleLogout()">
                   <slot name="button-content"><icon name="logout"></icon> Logout</slot>
               </b-dropdown-item>
@@ -63,12 +68,17 @@
       
       <vue-snotify/>
 
+      <!-- adding token charger -->
+      <token-charger v-if="isActiveTokenCharger"/>
       
   </div>
 
 </template>
 
 <script>
+import TokenCharger from './TokenCharger.vue';
+
+
 import Home from "./Home.vue";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/user";
@@ -82,6 +92,7 @@ import eventBus from "../../utils/eventBus";
 
 export default {
   components: {
+    TokenCharger,
     Home,
     Icon
   },
@@ -145,6 +156,7 @@ export default {
   },
   data() {
     return {
+      isActiveTokenCharger:false,
       isHacker: false,
       messages_url : '',
       user_role: '',

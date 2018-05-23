@@ -19,6 +19,7 @@
     <div id="home" class="container-fluid" :role="role">
         <router-view></router-view>
     </div>
+    <script src="https://js.stripe.com/v3/"></script>
     <script src="{{ asset('js/app.js') }}"> </script>
 
 </body>

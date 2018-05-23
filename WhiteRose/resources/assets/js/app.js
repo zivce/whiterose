@@ -117,8 +117,15 @@ if(home_exists)
             //TODO: izbaci moze da se ishakuje
             let user = localStorage.getItem("r");
             
-            user = JSON.parse(user);
-            
+                user = JSON.parse(user);
+            // else 
+            // {
+            //     //here goes sesh status 
+            //     //verify user role 
+
+
+            // }
+
             //TODO: negde se koristi role find out.. 
 
             this.$root.role = this.$store.getters.returnRole;
@@ -164,30 +171,4 @@ if(home_exists)
         }
     })
     
-    // mainRouter.beforeEach((to,from,next) => {
-    //     //INF LOOP
-    //     if(to.path === "/")
-    //     {   
-    //         //TODO: dodaj rute razlicite u zavisnosti od role.
-    //         console.log(home.$store);
-
-    //         //TODO: dodatno moze da se proverava i pre nego sto udje na neku rutu
-    //         let user_id = home.$store.getters.returnId;
-    //         let user_role = home.$store.getters.returnRole;
-
-    //         if(user_role === "client")
-    //         {
-    //             next({path:`user/${user_id}/postjob`});
-    //         }
-    //         if(user_role === "pentester")
-    //         {
-    //             next({path:"pentester/alljobs"})
-    //         }
-
-    //     }
-    //     else
-    //     {
-    //         next();
-    //     }
-    // })
 }
