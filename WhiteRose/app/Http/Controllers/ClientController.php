@@ -92,22 +92,26 @@ class ClientController extends Controller
     //posting job
     public function postJob(Request $request)
     {
-        
+        //return $request;
         $job=new Job;
         $job->maximum_price=$request->price;
         $job->domain=$request->selected_site;
         $job->title=$request->title;
         $job->client_id=Auth::guard('client')->user()->id;
         $job->description=$request->desc;
-        $document=$request->document;
+        $document=$request->file;
 
         $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
-        if($document!==null){
-            Storage::makeDirectory($dirName);
-            $fileName=$dirName.'/'.Carbon::now()->toDateTimeString().$document->getClientOriginalExtension();
-            Storage::put($fileName,$document);
-            $job->file_path=Storage::url($fileName);
-        }
+        
+        Storage::makeDirectory($dirName);
+        $fileName=Carbon::now()->toDateTimeString().'.pdf';
+        $fileName=str_replace(' ','_',$fileName);
+        $fileName=str_replace(':','_',$fileName);
+       // return $fileName;
+        Storage::putFileAs($dirName,$document,$fileName);
+       // return "OK";
+        $job->file_path=storage_path($dirName.'\\'.$fileName);
+        
         $job->save();
 
 
