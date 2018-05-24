@@ -11,11 +11,11 @@
       <strong> 1  </strong>  &nbsp; 
       <icon style="
           vertical-align: middle;"
-          width="30"
-          height="30"
+          width="20"
+          height="20"
           name="bandcamp"></icon> 
-          &nbsp; =  &nbsp;<strong> 5 </strong>&nbsp; <span style="color:#0f0;font-weight:bold;">$
-          </span> 
+          &nbsp; = &nbsp; <span style="color:#0f0;font-weight:bold;">$
+          </span> <strong>5</strong>&nbsp; 
    
     </h3>
     </div>
@@ -31,7 +31,8 @@
       <input style="
     margin: 0 auto;
     width: 39%;
-" 
+    "
+      max="1000" 
       min = "0"
       :placeholder="prop.label"
       :class="{'has-error':errHandler}"
@@ -51,6 +52,18 @@
       </span>
     
     </div>
+    <span class="d-flex justify-content-center">
+      Your credit card will be charged with  
+      <span style="color:#0f0;font-weight:bold;">
+        &nbsp; $
+      </span>
+      <strong style="
+        margin-left: 2%;
+        margin-right: 2%;"> 
+        {{prop.value * 5 }} 
+        </strong>.
+    </span>
+
     <div
     v-if="visible" 
     class="d-flex flex-column example example4 ">
@@ -86,6 +99,8 @@ import { Card, createToken } from "vue-stripe-elements-plus";
 import Icon from "vue-awesome/components/Icon";
 import '../../Icons/bandcamp';
 import TokenChargerAPI from '../../services/api/TokenCharger.api';
+
+//TODO: ubaci tokene u vuex da bi ih pokupio kasnije iz mainvue
 
 export default {
   components: { Card, Icon },
@@ -160,7 +175,22 @@ export default {
         {
           createToken()
             .then(token => {
-              TokenChargerAPI.sendTokenAndAmount(token,this.prop.value);            
+
+              //HARDCODE : 
+              let tokens_already = this.$store.returnTokens; 
+              console.log(tokens_already);
+              
+              let tk = this.prop.value;
+              
+              this.$store.commit("setTokens",{tokens: tk});
+
+              this.notifySuccess("Tokens added.","Success");
+              //TODO: uncomment
+              // TokenChargerAPI
+              //   .sendTokenAndAmount(token,this.prop.value)
+              //   .then((amount)=>{
+                  
+              //   });            
             })
 
         }

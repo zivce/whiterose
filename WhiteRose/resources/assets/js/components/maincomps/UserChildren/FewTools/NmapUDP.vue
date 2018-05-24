@@ -118,12 +118,30 @@ f -->
             
         </div>
 
+        <span 
+        class="d-flex justify-content-center" 
+        style="margin-top: 7%;"
+        >One scan will cost you &nbsp;
+          <strong> {{COST_OF_SUBMISSION}} </strong> 
+          &nbsp;
+          <icon 
+          style="vertical-align:middle;" 
+          width="20" 
+          height="20" 
+          name="bandcamp"></icon>
+
+        </span>
+
+
         <b-button class="btn-primary actionbtn" @click="getData()">
             Start Scan!
         </b-button>
 
         
-        <textarea v-if="isVisible " readonly name="" id="backLog" cols="100" :rows="lines" v-model="currentLog">
+        <textarea v-if="isVisible " readonly name="" id="backLog" cols="100"    
+        style="margin-top: 36px;margin-bottom: 0px;height: 118px;width: 100%;" 
+        :rows="lines" 
+        v-model="currentLog">
            
         </textarea>
        
@@ -135,13 +153,15 @@ f -->
 import bFormCheckboxGroup from "bootstrap-vue/es/components/form-checkbox/form-checkbox-group";
 import eventBus from "../../../../utils/eventBus";
 
+
 //IMPORT TABS
 import NmapCommon from "./NmapUDPTabs/NmapCommon.vue";
 import NmapRange from "./NmapUDPTabs/NmapRange.vue";
 import NmapList from "./NmapUDPTabs/NmapList.vue";
-
+import Icon from "vue-awesome/components/Icon";
 export default {
   components: {
+    Icon,
     bFormCheckboxGroup,
     NmapCommon,
     NmapRange,
@@ -152,6 +172,24 @@ export default {
   },
   mounted() {
     //listeneri za komponente
+
+    let sites = this.$store.state.sites
+      .filter(site => {
+        if(site)
+          return site.verified
+      })
+      .map(site => {
+        if(site)
+        {
+          return {
+            value: site.domain,
+            text: site.domain
+          };
+        }
+          
+      });
+
+    this.sites = sites;
 
     eventBus.$on("portOk", value => {
       this.isPortListOk = value;
@@ -175,13 +213,12 @@ export default {
   },
   data() {
     return {
+      COST_OF_SUBMISSION : 5,
+
+
       //sites heres
       selected_site: null,
-      sites: [
-        { value: "www.gooogle.com", text: "Google" },
-        { value: "www.facebook.com", text: "Face" },
-        { value: "www.gooogle.com", text: "Google" }
-      ],
+      sites: null,
 
       //data for what is active
       is_range_active: true,
@@ -276,10 +313,9 @@ export default {
       return this.buildCmd();
     },
     getData() {
-      console.log("clicked");
       this.$validator.validateAll().then(result => {
         if (result && this.isAllowedToScanURL) {
-          this.selectedTab();
+          //this.selectedTab();
 
           if (!this.isPortListOk) return;
 
@@ -292,11 +328,14 @@ export default {
           //hide for new scan..
           vm.isVisible = false;
 
+          this.$store.commit("decrementTokens",
+          {tokens:this.COST_OF_SUBMISSION,vm:this})
+          
           axios
             .post("/scanning", {
-              url: this.url,
+              url: this.selected_site,
               cmd: this.cmd,
-              scan: this.route_to_scan_name()
+              scan: "UDP Nmap"
             })
             .then(function(response) {
               vm.lines = response.data.split(/\r\n|\r|\n/).length;

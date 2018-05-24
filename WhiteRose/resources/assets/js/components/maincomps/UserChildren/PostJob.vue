@@ -79,7 +79,7 @@
     
     <div class="group_input_title">
       <h3 class="h3s">
-        Insert price ($).
+        Insert amount of tokens for this job.
       </h3>
 
       <job-form-input 
@@ -125,7 +125,15 @@
       </b-form-file>
     </div>
 
+    <span>This submission will cost 
+      <strong> {{COST_OF_SUBMISSION}} </strong> 
+      <icon 
+      style="vertical-align:middle;" 
+      width="20" 
+      height="20" 
+      name="bandcamp"></icon>
     
+    </span>
 
     <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
       Submit  <icon name="handshake" id="hands_icon" scale="2"></icon>
@@ -202,10 +210,15 @@ export default {
           //  .then(res => {
           //    console.log(res);
           //  });
+          
+
+          let whole_cost_of_transaction = Number(this.COST_OF_SUBMISSION) + Number(this.priceinput.value);
+
+          this.$store.commit("decrementTokens",{tokens:whole_cost_of_transaction,vm:this})
 
           this.formData.append("selected_scan", this.selected_scan);
           this.formData.append("selected_site", this.selected_site);
-
+          
           this.formData.append("title", this.titleinput.value);
           this.formData.append("desc", this.descinput.value);
           this.formData.append("price", this.priceinput.value);
@@ -223,6 +236,10 @@ export default {
   },
   data() {
     return {
+      //consts
+      COST_OF_SUBMISSION : 5,
+
+
       all_fields_ok: true,
       validator: this.$validator,
       scan_pdf: null,

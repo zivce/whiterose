@@ -133,6 +133,11 @@ if(home_exists)
             
             store.commit("setUser",user);
 
+            //TODO: dodaj fetchovanje tokena
+            
+            if(store.getters.returnTokens === null)
+                store.commit("setTokens",{tokens:10});
+
             //TODO: dodaj verifikovane sajtove u store
             // StoreAPI.getSites().then((res)=>{
             //     store.commit("setSites",res.data)

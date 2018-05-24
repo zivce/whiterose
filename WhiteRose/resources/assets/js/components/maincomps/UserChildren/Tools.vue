@@ -5,7 +5,7 @@
       <div class="row" id="toolContainer">
         
         <b-nav vertical pills class="col-md-4">
-          <b-nav-item @click="pushToUdp()">
+          <b-nav-item :class="{'strong':isUdpVisible}" @click="pushToUdp()">
             UDP Nmap  
           </b-nav-item>  
         </b-nav>
@@ -32,18 +32,27 @@ export default {
   },
   methods: {
     pushToUdp() {
+      this.isUdpVisible = true;
       this.$router.push({ name: "udp_nmap" });
     }
   },
   data() {
     return {
-      user_id: ""
+      user_id: "",
+
+      //Visibility
+      isUdpVisible : false
     };
   }
 };
 </script>
 
 <style scoped>
+.strong {
+  color: rgb(7, 8, 15);
+  font-weight: 600;
+}
+
 #toolContainer {
   margin-top: 4%;
 }

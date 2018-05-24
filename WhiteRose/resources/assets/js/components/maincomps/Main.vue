@@ -27,6 +27,20 @@
           :class = "{'hacker':isHacker}"
           id="user"
           >
+              <b-dropdown-item 
+              style="
+                font-weight: bolder;
+                color: #2c3340;
+                font-size: 20px;"> 
+                <span>
+                  <icon 
+                  style="vertical-align:middle;"   
+                  height="25"
+                  width="25" name="bandcamp">
+                  </icon> {{tokens1}}
+                </span>
+              </b-dropdown-item>
+
               <b-dropdown-item :to="profile_url">
                 <slot name="button-content"><icon name="user"></icon> Profile</slot>
               </b-dropdown-item>
@@ -88,6 +102,9 @@ import "../../Icons/logo";
 
 import eventBus from "../../utils/eventBus";
 
+import {mapGetters} from 'vuex';
+
+
 export default {
   components: {
     TokenCharger,
@@ -96,7 +113,8 @@ export default {
   },
   mounted() {
     this.username = this.$store.getters.returnEmail;
-
+    // this.tokens = this.$store.getters.returnTokens;
+    
     this.user_id = this.$store.getters.returnId;
 
     if (this.$store.state.route.path === "/") {
@@ -113,6 +131,9 @@ export default {
     this.tokens_url = `/${this.user_role}/${this.user_id}/purchasetokens`;
   },
   computed: {
+    ...mapGetters({
+      tokens1 : 'returnTokens'
+    }),
     home() {}
   },
   methods: {
@@ -149,6 +170,7 @@ export default {
   },
   data() {
     return {
+      tokens : undefined,
       tokens_url: "",
       isActiveTokenCharger: false,
       isHacker: false,
@@ -207,7 +229,7 @@ export default {
 }
 .hacker >>> a {
   font-weight: 800;
-  color: #ff1a00;
+  color: #ff1a00 !important;
 }
 
 .hacker >>> a:hover {
