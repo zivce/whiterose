@@ -2,8 +2,8 @@
 <div id="root_setup" class="setup_margin_top">
     <div class="d-flex flex-row">
 
-    <!-- TODO: probaj sa v-show da napravis -->
-    <transition name="fade">
+  
+    <!-- <transition name="fade"> -->
 
     <div class="d-flex col-5" id="sidebar_dashboard">
         <b-nav class="flex-column">
@@ -41,10 +41,10 @@
     </div>
 
     
-    </transition>
+    <!-- </transition> -->
 
     <!-- ADD AVATAR  -->
-    <!-- <transition name="fade"> -->
+    <!-- <transition name="setup" mode="out-in"> -->
 
     <div class="d-flex col-5" v-if="isVisibleChangeImage">
 
@@ -83,7 +83,7 @@
 
 
     <!-- VERIFY SITE  -->
-    <!-- <transition name="fade"> -->
+    <!-- <transition name="setup" mode="out-in"> -->
 
     <div class="d-flex col-5" v-if="isVisibleVerifySite">
 
@@ -222,7 +222,7 @@
     </div>
     <!-- </transition> -->
     <!-- RESET PW  -->
-    <!-- <transition name="fade"> -->
+    <!-- <transition name="setup" mode="out-in"> -->
 
     <div class="d-flex col-5" v-if="isVisibleReset">
 
@@ -264,7 +264,7 @@
             </div>
         </div>
     <!-- </transition> -->
-    <!-- <transition name="fade"> -->
+    <!-- <transition name="setup" mode="out-in"> -->
 
         <!-- ADD DESCRIPTION  -->
 

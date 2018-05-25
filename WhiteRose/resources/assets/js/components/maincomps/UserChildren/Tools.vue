@@ -10,11 +10,12 @@
           </b-nav-item>  
         </b-nav>
 
-        <div class="col-md-7 offset-md-1">
-          <router-view>
-          </router-view>
-        </div>
-
+          <div class="col-md-7 offset-md-1">
+            <transition name="tool" mode="out-in">
+              <router-view>
+              </router-view>
+            </transition>
+          </div>    
 
       </div>
   </div>

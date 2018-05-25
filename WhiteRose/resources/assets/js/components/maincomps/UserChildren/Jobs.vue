@@ -26,9 +26,10 @@
         </b-button>
 
     </div>
-    <transition name="flip" mode="out-in">
+
+    <transition name="job" mode="out-in">
       
-      <router-view class="col-10">
+      <router-view class="col-10 job">
       </router-view>
 
     </transition>

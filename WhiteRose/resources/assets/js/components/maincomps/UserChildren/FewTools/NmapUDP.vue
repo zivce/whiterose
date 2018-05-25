@@ -133,7 +133,9 @@ f -->
         </span>
 
 
-        <b-button class="btn-primary actionbtn" @click="getData()">
+        <b-button 
+        
+        class="btn-primary actionbtn" @click="getData()">
             Start Scan!
         </b-button>
 
@@ -167,6 +169,7 @@ export default {
     NmapRange,
     NmapList
   },
+  
   created() {
     //TODO: do ajax call here to get verified sites
   },
@@ -204,6 +207,7 @@ export default {
     });
   },
   computed: {
+   
     errIp() {
       return this.errors.has("ip");
     },

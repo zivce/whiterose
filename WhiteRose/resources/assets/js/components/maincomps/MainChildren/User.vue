@@ -77,10 +77,12 @@
        
       </b-nav>
       
-      <!-- <transition name="fade"> -->
+      <transition name="main_user">
         <router-view>
         </router-view>
-      <!-- </transition> -->
+      </transition>
+
+
       <div v-if="main_client_visible">
         <p>Main CLient</p>
       </div>

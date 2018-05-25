@@ -20,13 +20,19 @@
       </h1>
         
         <div id="profile_container">
-          
-
+         
           <b-dropdown
           :text="username" 
           :class = "{'hacker':isHacker}"
+          @show = "clicked_user = !clicked_user"
+          @hide = "clicked_user = !clicked_user"
           id="user"
           >
+
+          <transition name="setup" mode="out-in">
+        
+            <div v-if="clicked_user">
+              
               <b-dropdown-item 
               style="
                 font-weight: bolder;
@@ -54,9 +60,13 @@
                   <slot name="button-content"><icon name="logout"></icon> Logout</slot>
               </b-dropdown-item>
               
-  
-          </b-dropdown>
-          
+              </div>      
+
+            </transition>
+      
+         
+            </b-dropdown>
+     
         </div>
 
       </div>
@@ -115,6 +125,12 @@ export default {
     this.username = this.$store.getters.returnEmail;
     // this.tokens = this.$store.getters.returnTokens;
     
+    /**
+    * for dropdown animation
+     */
+    //  eventBus.$on("bv::tooltip::show", () => {
+    //    this.clicked_user = !this.clicked_user;
+    //  })
     this.user_id = this.$store.getters.returnId;
 
     if (this.$store.state.route.path === "/") {
@@ -170,6 +186,8 @@ export default {
   },
   data() {
     return {
+      clicked_user : false,
+
       tokens : undefined,
       tokens_url: "",
       isActiveTokenCharger: false,

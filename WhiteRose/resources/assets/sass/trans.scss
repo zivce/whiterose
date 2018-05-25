@@ -13,3 +13,62 @@
     transform: scaleY(0) translateZ(0);
     opacity: 0;
   }
+
+
+/* Testing transitions for jobs */
+.job {
+  &-enter-active {
+    transition: all 600ms ease-in-out;
+  }
+  &-leave-active {
+    transition: all 100ms ease-in-out;
+  }
+
+  &-enter,
+  &-leave-to { opacity: 0;}
+  &-enter { transform : scale(0.9) }
+}
+
+/* Transitions for profile setup components */
+.setup {
+  &-enter-active {
+    transition: all 600ms ease-in-out;
+  }
+  &-leave-active {
+    transition: all 200ms ease-in;
+  }
+
+  &-enter,
+  &-leave-to { opacity: 0;}
+  &-enter { transform : scale(0.9) }
+}
+
+
+/* Transitions for all user components and dashboard client*/
+.main_user {
+  &-enter-active {
+    transition: all 600ms ease-in-out;
+  }
+  &-leave-active {
+    transition: all 200ms ease-in;
+  }
+
+  &-enter,
+  &-leave-to { opacity: 0;}
+  &-enter { transform : scale(0.9) }
+}
+
+
+/* Transitions for tools client*/
+.tool {
+  &-enter-active {
+    transition: all 600ms ease-in-out;
+  }
+  &-leave-active {
+    transition: all 200ms ease-in;
+  }
+
+  &-enter,
+  &-leave-to { opacity: 0;}
+  &-enter { transform : scale(0.9) }
+}
