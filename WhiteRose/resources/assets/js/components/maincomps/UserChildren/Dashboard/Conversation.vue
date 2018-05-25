@@ -1,6 +1,5 @@
 <template>
     <div class="comp_container">
-        <span class="col-6">
           <h2 class="h2s">Convo with {{findSender()}}</h2>
 
           <span 
@@ -14,21 +13,23 @@
           </span>
 
           
-        </span>
+  
 
-        <span class="col-6">
+    
         <star-rating 
   
         style="
-          float: right;
+          float: left;
           width: fit-content;"
   
         v-model="rating"
         :increment="0.5"
+        :show-rating = "false"
         :star-size="20"
         >
         </star-rating>
-        </span>
+ 
+        
         
         <div 
         class = "msg_cont "
@@ -231,7 +232,10 @@ export default {
 .btn_send {
   flex: 0.2;
 }
-
+.del_msg > svg {
+  vertical-align: middle;
+  margin-left: 2%;
+}
 .msg_input {
   flex: 2;
 }

@@ -22,15 +22,26 @@
 
         <div class="row col-md-4 offset-md-4">
 
-        <transition name="flip" mode="out-in">
+          <transition 
+          name="lander" 
+          mode="out-in">
+
+            <router-view>
+
+            </router-view>
+          
+          </transition>
+
+          
+        <!-- <transition name="lander" mode="out-in">
                 <login-client v-if="login">
                 </login-client> 
         </transition>
         
-        <transition name="flip" mode="out-in">
+        <transition name="lander" mode="out-in">
           <reg-client v-if="reg">
           </reg-client>
-        </transition>
+        </transition> -->
   
         </div>
         
@@ -53,17 +64,23 @@ export default {
   mounted() {},
   methods: {
     loginTrue() {
-      this.login = true;
-      this.reg = false;
+
+      this.$router.push({name:'client_log'});
+
+      // this.login = true;
+      // this.reg = false;
     },
     regTrue() {
+      
+      this.$router.push({name: 'client_reg'});
+      
       // this.$snotify.info("Verify your email.", "Verification", {
       //   position: SnotifyPosition.leftBottom,
       //   backdrop: 0.5
       // });
 
-      this.reg = true;
-      this.login = false;
+      // this.reg = true;
+      // this.login = false;
     }
   },
   destroyed() {},

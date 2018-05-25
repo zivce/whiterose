@@ -32,8 +32,9 @@
     margin: 0 auto;
     width: 39%;
     "
-      max="1000" 
+      :max="fixMax" 
       min = "0"
+      @keydown="disableEsAndMinus"
       :placeholder="prop.label"
       :class="{'has-error':errHandler}"
       class="col-12"
@@ -111,6 +112,11 @@ export default {
     // },5000)
   },
   computed: {
+   
+    fixMax(){
+      if(this.prop.value > 1000)
+        this.prop.value = 1000;
+    },
     completed() {
       return this.complete && this.completeform;
 
@@ -166,7 +172,8 @@ export default {
       }
     };
   },
-  methods: {
+  methods: { 
+    
     pay() {
       this.$validator.validateAll().then(isFormOk => {
         if(isFormOk 

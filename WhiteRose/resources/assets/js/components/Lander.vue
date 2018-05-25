@@ -5,7 +5,7 @@
         Follow the white rabbit.
       </h1>
       
-      <router-link to="hacker">
+      <router-link :to="{name:'land_hacker'}">
       
         <b-button size="lg"  variant="outline-danger" id="hck">
           Hacker?
@@ -13,9 +13,9 @@
       
       </router-link>
  
-      <router-link to="client">
+      <router-link :to="{name: 'land_client'}">
 
-        <b-button size="lg" variant="outline-primary" href="client" id="usr">
+        <b-button size="lg" variant="outline-primary" id="usr">
           User?
         </b-button>
 
@@ -31,6 +31,11 @@
 export default {
   mounted() {
     setTimeout(() => {}, 1000);
+  },
+  methods : {
+    goToHacker() {
+      this.$router.push({name: 'land_hacker'});
+    }
   },
   data() {
     return {

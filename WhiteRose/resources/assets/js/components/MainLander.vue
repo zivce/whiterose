@@ -1,11 +1,11 @@
 <template>
     <div id="lander_before_main">
-      <!-- <transition name="fade">
+      <transition name="lander">
         <matrix v-if="isVisibleMatrix"></matrix>
-      </transition> -->
+      </transition> 
 
 
-      <transition name="flip" mode="out-in">
+      <transition name="lander" mode="out-in">
         <router-view v-if="!isVisibleMatrix"></router-view>
       </transition>
       
@@ -23,6 +23,8 @@ export default {
     Matrix
   },
   mounted() {
+    
+    //CHANGED!
     //CHANGE LATER FOR LOADER TO 4000
     let delay = 4;
 

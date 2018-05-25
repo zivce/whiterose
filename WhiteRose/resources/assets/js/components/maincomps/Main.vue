@@ -47,6 +47,20 @@
                 </span>
               </b-dropdown-item>
 
+              <b-dropdown-item>
+
+                <star-rating
+                :class =  "{'hacker_stars':isHacker}"
+                :active-color = 'activeColorChecker'
+                :star-size = "rating_options.size"
+                :read-only = "rating_options.read_only"
+                :rating="stars1"
+                :show-rating = "rating_options.show_rating"
+                >
+                
+                </star-rating>
+
+              </b-dropdown-item>
               <b-dropdown-item :to="profile_url">
                 <slot name="button-content"><icon name="user"></icon> Profile</slot>
               </b-dropdown-item>
@@ -101,7 +115,7 @@
 
 <script>
 import TokenCharger from "./TokenCharger.vue";
-
+import StarRating from 'vue-star-rating';
 import Home from "./Home.vue";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/user";
@@ -117,6 +131,7 @@ import {mapGetters} from 'vuex';
 
 export default {
   components: {
+    StarRating,
     TokenCharger,
     Home,
     Icon
@@ -147,10 +162,15 @@ export default {
     this.tokens_url = `/${this.user_role}/${this.user_id}/purchasetokens`;
   },
   computed: {
+
     ...mapGetters({
-      tokens1 : 'returnTokens'
+      tokens1 : 'returnTokens',
+      stars1 : 'returnRating'
     }),
-    home() {}
+    home() {},
+    activeColorChecker(){
+      return this.isHacker ? "#ff0000" : "#ffd055";
+    }
   },
   methods: {
     goToMsg() {
@@ -186,6 +206,13 @@ export default {
   },
   data() {
     return {
+
+      rating_options : {
+        read_only : true,
+        size : 20,
+        show_rating : false,
+      },
+
       clicked_user : false,
 
       tokens : undefined,
@@ -294,6 +321,9 @@ export default {
   background: #000919d1;
 }
 
+.hacker_stars >>> polygon {
+  stroke : transparent !important;  
+}
 #main_vue {
   min-height: 100vh;
   /* background: #C33764;  /* fallback for old browsers */

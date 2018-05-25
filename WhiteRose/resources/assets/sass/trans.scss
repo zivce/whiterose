@@ -72,3 +72,19 @@
   &-leave-to { opacity: 0;}
   &-enter { transform : scale(0.9) }
 }
+
+
+
+/* Transitions for lander */
+.lander {
+  &-enter-active {
+    transition: all 600ms ease-in-out;
+  }
+  &-leave-active {
+    transition: all 200ms ease-in;
+  }
+
+  &-enter,
+  &-leave-to { opacity: 0;}
+  &-enter { transform : scale(0.9) }
+}

@@ -1,40 +1,67 @@
-import VueRouter from 'vue-router';
+import VueRouter from "vue-router";
 let routes = [
-    {
-        name:'lander',
-        path: '/',
-        redirect:'lander',
+  {
+    name: "lander",
+    path: "/",
+    redirect: "lander",
+    children: [
+      {
+        path: "lander",
+        component: require("../components/Lander.vue")
+      },
+      {
+        path: "client",
+        redirect : "client/login",
+        name: "land_client",
         children: [
-        {
-            path:'lander',
-            component : require('../components/Lander.vue'),
-        },
-        {
-            path:'client',
-            component : require('../components/Client/MainClient.vue'),
-        },
-        {
-            path:'hacker',
-            component : require('../components/Hacker/MainHacker.vue'),
-        },
-        {
-            path:'admin',
-            component : require('../components/Admin/AdminLogin.vue'),
-        },
-        {
-            path:'mod',
-            component : require('../components/Moderator/ModeratorLogin.vue'),
-        }
+          {
+            name: "client_log",
+            path: "login",
+            component: require("../components/Client/LoginClient.vue")
+          },
+          {
+            name: "client_reg",
+            path: "register",
+            component: require("../components/Client/RegClient.vue")
+          }
         ],
-        component: require('../components/MainLander.vue')
-    },
-    {
-        path:'*',
-        redirect:'/lander'
-    }
-]
-
+        component: require("../components/Client/MainClient.vue")
+      },
+      {
+        name: "land_hacker",
+        redirect : "hacker/login",
+        path: "hacker",
+        children: [
+          {
+            name: "hacker_log",
+            path: "login",
+            component: require("../components/Hacker/LoginHacker.vue")
+          },
+          {
+            name: "hacker_reg",
+            path: "register",
+            component: require("../components/Hacker/RegHacker.vue")
+          }
+        ],
+        component: require("../components/Hacker/MainHacker.vue")
+      },
+      {
+        path: "admin",
+        component: require("../components/Admin/AdminLogin.vue")
+      },
+      {
+        path: "mod",
+        component: require("../components/Moderator/ModeratorLogin.vue")
+      }
+    ],
+    component: require("../components/MainLander.vue")
+  },
+  {
+    path: "*",
+    redirect: "/lander"
+  }
+];
 
 export default new VueRouter({
-    routes
+  routes
 });

@@ -9,14 +9,11 @@
             :class="{'has-error':errSite}"
             v-model="selected_site"
             :options="sites" 
-            v-validate="{
-            rules:{
-                required:true
-            }}"
+            v-validate="'required:true'"
             name="selectsite"
             >
             <template slot="first">
-            <option :value ="null" 
+            <option
             disabled>
                 Please select your site
             </option>
@@ -182,6 +179,7 @@ export default {
           return site.verified
       })
       .map(site => {
+        
         if(site)
         {
           return {
@@ -222,7 +220,7 @@ export default {
 
       //sites heres
       selected_site: null,
-      sites: null,
+      sites: [{}],
 
       //data for what is active
       is_range_active: true,

@@ -20,12 +20,26 @@
 
         <div class="row col-md-4 offset-md-4">
 
-          <login-hacker v-if="login">
-          </login-hacker> 
+          <transition 
+          name="lander" 
+          mode="out-in">
 
-          <reg-hacker v-if="reg">
-          </reg-hacker>
+            <router-view>
 
+            </router-view>
+          
+          </transition>
+
+<!--           
+          <transition name="lander">
+            <login-hacker v-if="login">
+            </login-hacker> 
+          </transition>
+          
+          <transition>
+            <reg-hacker v-if="reg">
+            </reg-hacker>
+          </transition> -->
         </div>
         
       </div>
@@ -47,8 +61,10 @@ export default {
   mounted() {},
   methods: {
     loginTrue() {
-      this.login = true;
-      this.reg = false;
+      // this.login = true;
+      // this.reg = false;
+      
+      this.$router.push({name:'hacker_log'});
     },
     regTrue() {
       // this.$snotify.info("Verify your email.", "Verification", {
@@ -56,8 +72,10 @@ export default {
       //   backdrop: 0.5
       // });
 
-      this.reg = true;
-      this.login = false;
+      // this.reg = true;
+      // this.login = false;
+
+      this.$router.push({name: 'hacker_reg'});
     }
   },
   destroyed() {},
