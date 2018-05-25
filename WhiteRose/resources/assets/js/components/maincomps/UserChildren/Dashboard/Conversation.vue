@@ -1,7 +1,35 @@
 <template>
     <div class="comp_container">
-        <h2 class="h2s">Convo with {{findSender()}}</h2>
+        <span class="col-6">
+          <h2 class="h2s">Convo with {{findSender()}}</h2>
 
+          <span 
+          class="del_msg"
+          v-b-tooltip.hover.right="'Delete messages'"
+          style="cursor:pointer;"
+          @click="deleteConvo()">
+            <icon
+              name="trash-alt">
+            </icon>
+          </span>
+
+          
+        </span>
+
+        <span class="col-6">
+        <star-rating 
+  
+        style="
+          float: right;
+          width: fit-content;"
+  
+        v-model="rating"
+        :increment="0.5"
+        :star-size="20"
+        >
+        </star-rating>
+        </span>
+        
         <div 
         class = "msg_cont "
         v-for="msg in whole_convo"
@@ -110,10 +138,13 @@
 </template>
 
 <script>
+import DeleteConvoAPI from '../../../../services/api/user_api/DeleteConvo.api';
+
+
 import ConvoHardcode from "../convo_client_2_pentester.hardcode";
 import ClientConvoAPI from "../../../../services/api/user_api/Convo.api";
 import ConvoSendMessagesAPI from "../../../../services/api/user_api/ConvoSendMessages.api";
-
+import StarRating from 'vue-star-rating';
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/paper-plane";
 import ConvoApi from "../../../../services/api/user_api/Convo.api";
@@ -125,6 +156,8 @@ export default {
     //TODO : na osnovu job_id i pentester_id da se povuce convo
     //TODO: job_id se cuva u vuex..
     //ConvoHardcode.getConv(job_id,user_id)..
+    //TODO: posalji rating ovde 
+
   },
   mounted() {
     this.job_id = this.$store.getters.returnParams;
@@ -133,10 +166,15 @@ export default {
     this.user_name = this.user_name.name;
   },
   components: {
-    Icon
+    Icon,StarRating
   },
 
   methods: {
+    deleteConvo() {
+
+      //TODO: implementacija
+      // DeleteConvoAPI.deleteConvo();
+    },
     bundleMessages() {
       let msgs_only = this.msgs_for_send.map(msg => msg.message);
 
@@ -170,6 +208,7 @@ export default {
   },
   data() {
     return {
+      rating: 0,
       one_msg: "",
       msgs_for_send: [],
       whole_convo: ConvoHardcode
@@ -240,5 +279,9 @@ export default {
   height: fit-content;
   padding: 3%;
   margin: 5% 0 5% 0;
+}
+
+.del_msg:hover {
+  color : red;
 }
 </style>

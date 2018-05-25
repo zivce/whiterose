@@ -79,7 +79,7 @@
 
             <b-button
             class="col-7"
-            @click="pay"
+            @click.once="pay"
             :disabled = '!completed'>
             
             Pay with credit card 

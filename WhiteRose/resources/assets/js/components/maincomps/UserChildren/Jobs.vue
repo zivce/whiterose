@@ -1,48 +1,42 @@
 <template>
-  <div class="comp_container_jobs">
+  <div class="comp_container d-flex flex-row">
     
-    <!-- My Jobs -->
-    <div class="col-12">
-      
-      <h2 class="h2s">Preview your jobs.</h2>
-      <transition name="flip" mode="out-in">
-      
-        <v-client-table
-        v-if="!isVisibleBid"
-        :data='jobs'
-        :columns='columns'
-        :options='options'
-        >
-      
-      <a  slot="preview" 
-          slot-scope="props"
-          class="cursorable"
-          @click="showDetails(props)"
-          >
-          <icon id="eye_ico" name="eye"></icon>
-        </a>
 
+    <div class="nav_btns col-2">
+          
+        <b-button 
+        v-b-tooltip.hover.right="'All jobs'"
+        class="btn btn-client " 
+        :to="{name:'myjobs'}">
+          <icon name="tasks" ></icon>
+        </b-button>
         
-        </v-client-table >
+        <b-button 
+        v-b-tooltip.hover.right="'Started jobs'"
+        class="btn btn-client"
+        :to="{name:'startedjobs'}">
+          <icon name="hourglass-start" ></icon>
+        </b-button>
+        
+        <b-button 
+        v-b-tooltip.hover.right="'Finished jobs'"
+        class="btn btn-client"
+        :to="{name:'finjobs'}">
+          <icon name="flag-checkered" ></icon>
+        </b-button>
+
+    </div>
+    <transition name="flip" mode="out-in">
       
-      </transition>
+      <router-view class="col-10">
+      </router-view>
 
-
-      <transition name="flip" mode="out-in">
-      
-        <more-info
-        :det.sync="details"
-        v-if="isVisibleBid">
-
-        </more-info>
-
-      </transition>
+    </transition>
     
     </div>
 
 
 
-  </div>
 
 </template>
 

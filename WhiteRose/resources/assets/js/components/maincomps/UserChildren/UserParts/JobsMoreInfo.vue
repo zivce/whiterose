@@ -55,6 +55,9 @@ export default {
 #close_btn {
   float: right;
 }
+#close_btn >>> svg {
+  vertical-align:  middle;
+}
 #pentester_bid {
 }
 </style>

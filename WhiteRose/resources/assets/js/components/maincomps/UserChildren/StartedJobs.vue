@@ -1,5 +1,5 @@
 <template>
-  <div class="comp_container">
+  <div class="comp_container_jobs">
     <h2 class="h2s">Preview started jobs.</h2>
 
     <transition name="flip" mode="out-in">

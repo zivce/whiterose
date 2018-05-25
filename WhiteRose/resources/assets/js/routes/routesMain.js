@@ -102,25 +102,38 @@ let routes = [
 
                 },
                 {
-                    path:'myjobs',
-                    component: require('../components/maincomps/UserChildren/MyJobs.vue')
+                   name:'jobs',
+                   path:'jobs',
+                   redirect:{name:'myjobs'},
+                    children : [
+                        {
+                            name:'myjobs',
+                            path:'myjobs',
+                            component: require('../components/maincomps/UserChildren/MyJobs.vue')
+                        },
+
+                        {
+                            name:'finjobs',
+                            path:'finishedjobs',
+                            component: require('../components/maincomps/UserChildren/FinishedJobs.vue')
+
+                        },
+                        {
+                            name:'startedjobs',                    
+                            path:'startedjobs',
+                            component: require('../components/maincomps/UserChildren/StartedJobs.vue')
+
+                        },
+                    ],
+                    component : require('../components/maincomps/UserChildren/Jobs.vue')
 
                 },
                 {
                     path:'bids',
                     component: require('../components/maincomps/UserChildren/Bids.vue')
 
-                },
-                {
-                    path:'finishedjobs',
-                    component: require('../components/maincomps/UserChildren/FinishedJobs.vue')
-
-                },
-                {
-                    path:'startedjobs',
-                    component: require('../components/maincomps/UserChildren/StartedJobs.vue')
-
-                },
+                }
+               
             ]
         },
         {

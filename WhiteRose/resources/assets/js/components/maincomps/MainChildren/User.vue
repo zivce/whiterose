@@ -2,21 +2,29 @@
   <div id="user_comps">
       <div class="nav_btns">
           
-        <b-button class="btn btn-client " @click="hideShowInfo">
+        <b-button 
+        v-b-tooltip.hover.right="'Info'"
+        class="btn btn-client " @click="hideShowInfo">
           <icon name="info" ></icon>
         </b-button>
         
-        <b-button class="btn btn-client"
+        <b-button 
+        v-b-tooltip.hover.right="'Messages'"
+        class="btn btn-client"
         :to="messages_url">
           <icon name="comment" ></icon>
         </b-button>
         
-        <b-button class="btn btn-client"
+        <b-button 
+        v-b-tooltip.hover.right="'Profile'"
+        class="btn btn-client"
         :to="profile_url">
           <icon name="user" ></icon>
         </b-button>
 
-         <b-button class="btn btn-client"
+         <b-button  
+        v-b-tooltip.hover.right="'Setup'"
+        class="btn btn-client"
         :to="setup_url">
           <icon name="wrench" ></icon>
         </b-button>
@@ -57,7 +65,7 @@
         <b-nav-item
         active-class ="active_item_user"
         class="nav_item_user"
-         :to="'/'+user_role+'/'+ user_id+ '/myjobs'">
+         :to="{name:'jobs',params:{id:user_id}}">
         My Jobs
         </b-nav-item>
         <b-nav-item 
@@ -65,18 +73,6 @@
         class="nav_item_user"
         :to="'/'+user_role+'/'+ user_id+ '/bids'">
         Bids
-        </b-nav-item>
-        <b-nav-item 
-        active-class ="active_item_user"
-        class="nav_item_user"
-        :to="'/'+user_role+'/'+ user_id+ '/startedjobs'">
-        Started Jobs
-        </b-nav-item>
-        <b-nav-item 
-        active-class ="active_item_user"
-        class="nav_item_user"
-        :to="'/'+user_role+'/'+ user_id+ '/finishedjobs'">
-        Finished Jobs
         </b-nav-item>
        
       </b-nav>
@@ -275,10 +271,12 @@ export default {
 .nav_btns svg {
   vertical-align: middle;
 }
-.nav_btns * {
+.nav_btns button {
   margin-bottom: 25%;
 }
-
+.nav_btns a {
+  margin-bottom: 25%;
+}
 .active_item {
   color: white !important;
   background-color: #007effe3 !important;

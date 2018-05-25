@@ -58,6 +58,10 @@ export default {
 #ico {
   vertical-align: middle;
 }
+#close_btn >>> svg {
+  vertical-align: middle;
+}
+
 #close_btn {
   float: right;
 }

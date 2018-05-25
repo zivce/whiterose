@@ -1,12 +1,12 @@
 <template>
-  <div class="comp_container">
+  <div class="comp_container_jobs">
     <h2 class="h2s">Preview finished jobs.</h2>
 
     <transition name="flip" mode="out-in">
     
       <v-client-table
       v-if="!isVisibleBid"
-      :data='started_jobs'
+      :data='jobs'
       :columns='columns'
       :options='options'
       >
@@ -95,7 +95,7 @@ export default {
       details: {},
       isVisibleBid: false,
       columns: ["pentester", "title", "price", "more info"],
-      finished_jobs: hardcodepentst,
+      jobs: [],
       options: {
         columnsClasses: {
           price: "cursorable"
