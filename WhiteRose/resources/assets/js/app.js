@@ -72,6 +72,7 @@ let lander_exists = document.getElementById("lander") ? true : false;
 
 if (lander_exists) {
   const lander = new Vue({
+    
     el: "#lander",
     router: landerRouter,
     created() {},

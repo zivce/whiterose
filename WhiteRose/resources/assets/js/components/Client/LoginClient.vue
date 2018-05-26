@@ -1,9 +1,9 @@
 <template>
     <form class="fform">
-        <form-input :prop.sync="inputs.email"/>
-        <form-input :prop.sync="inputs.password"/> 
+        <form-input ref="email" :prop.sync="inputs.email"/>
+        <form-input ref = "pw" :prop.sync="inputs.password"/> 
 
-        <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
+        <b-button ref="btn" class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
           Log In!
         </b-button>
 
@@ -20,6 +20,8 @@ import eventBus1 from "../../utils/eventBus1";
 
 export default {
   mounted() {
+
+
     eventBus1.$on("field_ok", val => {
       let id = val.id;
 
@@ -38,16 +40,18 @@ export default {
     return {
       all_fields_ok: false,
 
+      loggedIn : false,
+      clickPassed : false,
       submitHandler() {
         let vm = this;
-
+        this.clickPassed = true;
         this.checkAllFields();
 
         if (!vm.all_fields_ok) {
           this.errorNotify();
           return;
         }
-
+        
         axios
           .post("/clientlogin", {
             email: this.inputs.email.value,
@@ -70,9 +74,9 @@ export default {
               if (wrong_info) {
                 vm.errorToast("Wrong info.", "Error!");
               } else {
+                this.loggedIn = true;
                 let data_store = JSON.stringify(response.data);
                 window.localStorage.setItem("r", data_store);
-
                 window.location.reload();
               }
             } else {

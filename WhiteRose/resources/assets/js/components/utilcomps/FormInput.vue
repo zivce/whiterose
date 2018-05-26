@@ -67,12 +67,16 @@ export default {
     if (this.prop.id === "email") this.vval["email"] = true;
 
     //UNCOMMENT AFTER DEV
-    // if(this.prop.id === "password")
-    //   this.vval["regex"] = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
+     if(this.prop.id === "password")
+     {
+       this.regex_set = true;
+       this.vval["regex"] = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/       
+     }
   },
   mounted() {},
   data() {
     return {
+      regex_set : false,
       vval: { required: true },
       id_upper: _.capitalize(this.prop.label)
     };
