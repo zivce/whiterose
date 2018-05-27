@@ -13,9 +13,14 @@ const store = new Vuex.Store({
     sites: "",
     scans: "",
     tokens: null,
-    stars: 0
+    stars: 0,
+    test: 1,
+    job_for_edit : null
   },
   mutations: {
+    setTest (state,payload) {
+      state.test = payload.test;
+    },
     setUser(state, payload) {
       state.role = payload.role;
       state.user = payload;
@@ -32,7 +37,9 @@ const store = new Vuex.Store({
         payload.vm.errorToast("Insufficient tokens", "Error!");
       else state.tokens = decremented_tokens;
     },
-
+    setJobForEdit(state,payload){
+      state.job_for_edit = payload
+    },
     setRating(state, payload) {
       state.stars = payload.rating;
     },
@@ -44,6 +51,8 @@ const store = new Vuex.Store({
     }
   },
   getters: {
+    returnTest : state => state.test,
+    returnJobForEdit : state => state.job_for_edit,
     returnRating: state => state.stars,
     returnTokens: state => {
       return state.tokens;

@@ -157,6 +157,9 @@ import PostJobAPI from "../../../services/api/user_api/PostJob.api";
 
 export default {
   created() {
+   
+
+
     //TODO: povuci sve verifikovane sajtove...
     // PostJobAPI.getAllUserScans().then(
     //   (response) => {
@@ -188,6 +191,21 @@ export default {
           text: site.domain
         };
       });
+    /**
+     * Get job for edit if such
+     * 
+     */
+    let job_for_edit = this.$store.state.job_for_edit;
+    
+    if(job_for_edit)
+      {
+
+        this.titleinput.value = job_for_edit.title;
+        this.priceinput.value = job_for_edit.startingPrice;
+        this.descinput.value  = job_for_edit.description;
+
+        this.$store.commit("setJobForEdit",null);
+      }
 
     this.options = sites;
 
@@ -210,15 +228,18 @@ export default {
           //  .then(res => {
           //    console.log(res);
           //  });
-          
 
-          let whole_cost_of_transaction = Number(this.COST_OF_SUBMISSION) + Number(this.priceinput.value);
+          let whole_cost_of_transaction =
+            Number(this.COST_OF_SUBMISSION) + Number(this.priceinput.value);
 
-          this.$store.commit("decrementTokens",{tokens:whole_cost_of_transaction,vm:this})
+          this.$store.commit("decrementTokens", {
+            tokens: whole_cost_of_transaction,
+            vm: this
+          });
 
           this.formData.append("selected_scan", this.selected_scan);
           this.formData.append("selected_site", this.selected_site);
-          
+
           this.formData.append("title", this.titleinput.value);
           this.formData.append("desc", this.descinput.value);
           this.formData.append("price", this.priceinput.value);
@@ -237,8 +258,7 @@ export default {
   data() {
     return {
       //consts
-      COST_OF_SUBMISSION : 5,
-
+      COST_OF_SUBMISSION: 5,
 
       all_fields_ok: true,
       validator: this.$validator,

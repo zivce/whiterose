@@ -5,6 +5,7 @@
     <label :for="prop.id">{{prop.label}}</label>
 
     <input  
+    ref = "input_p"
     :placeholder="prop.label"
     :class="{'has-error':errHandler}"
     :type="prop.type" 
@@ -66,17 +67,17 @@ export default {
     //adds specific validation
     if (this.prop.id === "email") this.vval["email"] = true;
 
-    //UNCOMMENT AFTER DEV
-     if(this.prop.id === "password")
-     {
-       this.regex_set = true;
-       this.vval["regex"] = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/       
-     }
+    //TURN ON FOR PRODUCTION
+
+    //  if(this.prop.id === "password")
+    //  {
+    //    this.regex_set = true;
+    //    this.vval["regex"] = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
+    //  }
   },
-  mounted() {},
   data() {
     return {
-      regex_set : false,
+      regex_set: false,
       vval: { required: true },
       id_upper: _.capitalize(this.prop.label)
     };

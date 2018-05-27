@@ -11,11 +11,11 @@
 
           <div class="col-md-4 offset-md-4" id="btns">
             
-            <b-button size="lg" @click="loginTrue()" variant="outline-primary" id="log">
+            <b-button ref="log" size="lg" @click="loginTrue()" variant="outline-primary" id="log">
               Login
             </b-button>
           
-            <b-button size="lg" @click="regTrue()"  variant="outline-primary" id="reg">
+            <b-button ref="reg" size="lg" @click="regTrue()"  variant="outline-primary" id="reg">
               Register
             </b-button>
           </div>
@@ -33,15 +33,6 @@
           </transition>
 
           
-        <!-- <transition name="lander" mode="out-in">
-                <login-client v-if="login">
-                </login-client> 
-        </transition>
-        
-        <transition name="lander" mode="out-in">
-          <reg-client v-if="reg">
-          </reg-client>
-        </transition> -->
   
         </div>
         
@@ -64,16 +55,14 @@ export default {
   mounted() {},
   methods: {
     loginTrue() {
-
-      this.$router.push({name:'client_log'});
+      this.$router.push({ name: "client_log" });
 
       // this.login = true;
       // this.reg = false;
     },
     regTrue() {
-      
-      this.$router.push({name: 'client_reg'});
-      
+      this.$router.push({ name: "client_reg" });
+
       // this.$snotify.info("Verify your email.", "Verification", {
       //   position: SnotifyPosition.leftBottom,
       //   backdrop: 0.5

@@ -1,5 +1,5 @@
 <template>
-        <form class="fform">
+        <form class="fform" ref="reg_form_client">
           <form-input :prop.sync="inputs.firstname"/>
           <form-input :prop.sync="inputs.username"/>
           <form-input :prop.sync="inputs.lastname"/>
@@ -127,7 +127,7 @@ export default {
 
           ok: false,
           type: "password",
-          id: "pw",
+          id: "password",
           label: "password",
           value: "",
           validation: {

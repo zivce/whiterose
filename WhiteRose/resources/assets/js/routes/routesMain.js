@@ -75,6 +75,7 @@ let routes = [
                     component: require('../components/maincomps/UserChildren/Dashboard/Conversation.vue')
                 },
                 {
+                    name: 'postj',
                     path:'postjob',
                     component: require('../components/maincomps/UserChildren/PostJob.vue')
 

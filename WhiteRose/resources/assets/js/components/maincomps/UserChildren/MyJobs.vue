@@ -16,12 +16,29 @@
       
       <a  slot="preview" 
           slot-scope="props"
-          class="cursorable"
-          @click="showDetails(props)"
+          class="cursorable centered"
+          @click="showDetails(props,false)"
           >
           <icon id="eye_ico" name="eye"></icon>
         </a>
 
+      <a  slot="delete" 
+          slot-scope="props"
+          class="cursorable centered"
+          @click="showDetails(props,true)"
+          
+          >
+          <icon id="eye_ico" name="times"></icon>
+        </a>
+
+      <a  slot="edit" 
+          slot-scope="props"
+          class="cursorable centered"
+          @click="editJob(props)"
+          >
+          <icon id="eye_ico" name="edit"></icon>
+        </a>
+        
         
         </v-client-table >
       
@@ -31,6 +48,7 @@
       <transition name="flip" mode="out-in">
       
         <more-info
+        :delclicked= "delete_this"
         :det.sync="details"
         v-if="isVisibleBid">
 
@@ -59,17 +77,15 @@ import MoreInfo from "./UserParts/JobsMoreInfo.vue";
 import eventBus from "../../../utils/eventBus";
 import "vue-awesome/icons/eye";
 
-import "vue-awesome/icons/hourglass-start";
-import "vue-awesome/icons/flag-checkered";
-import "vue-awesome/icons/tasks";
+import "vue-awesome/icons/edit";
 
-import StartedJobs from '../UserChildren/StartedJobs.vue';
-import FinishedJobs from '../UserChildren/FinishedJobs.vue';
-
+import StartedJobs from "../UserChildren/StartedJobs.vue";
+import FinishedJobs from "../UserChildren/FinishedJobs.vue";
 
 export default {
   components: {
-    StartedJobs,FinishedJobs,
+    StartedJobs,
+    FinishedJobs,
     MoreInfo,
     Icon
   },
@@ -107,22 +123,35 @@ export default {
   },
   computed: {},
   methods: {
-    showDetails(props) {
+    editJob(props){
+      this.$store.commit("setJobForEdit",props.row);
+      this.$router.push({name: 'postj'});
+      
+    },
+    showDetails(props, del) {
+      this.delete_this = del;
       this.details = props.row;
       this.isVisibleBid = true;
     }
   },
   data() {
     return {
+      delete_this: false,
       details: {},
       isVisibleBid: false,
-      columns: ["title", "startingPrice", "preview"],
+      columns: ["title", "startingPrice", "preview", "delete", "edit"],
       my_jobs: hardcodemyjobs,
       options: {
         columnsClasses: {
-          rating: "cursorable"
+          startingPrice: "cursorable",
+          preview: "centered",
+          delete: "centered",
+          edit: "centered"
         },
         filterByColumn: true,
+        headings: {
+          startingPrice: "Starting Price"
+        },
         filterable: ["title", "startingPrice"],
         sortable: ["pricing"],
         pagination: {
@@ -153,8 +182,6 @@ export default {
   color: #000619d4;
   vertical-align: middle;
 }
-
-
 
 .nav_btns {
   display: flex;

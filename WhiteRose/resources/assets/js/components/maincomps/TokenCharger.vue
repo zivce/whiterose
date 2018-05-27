@@ -98,8 +98,8 @@
 import { Card, createToken } from "vue-stripe-elements-plus";
 
 import Icon from "vue-awesome/components/Icon";
-import '../../Icons/bandcamp';
-import TokenChargerAPI from '../../services/api/TokenCharger.api';
+import "../../Icons/bandcamp";
+import TokenChargerAPI from "../../services/api/TokenCharger.api";
 
 //TODO: ubaci tokene u vuex da bi ih pokupio kasnije iz mainvue
 
@@ -112,18 +112,14 @@ export default {
     // },5000)
   },
   computed: {
-   
-    fixMax(){
-      if(this.prop.value > 1000)
-        this.prop.value = 1000;
+    fixMax() {
+      if (this.prop.value > 1000) this.prop.value = 1000;
     },
     completed() {
       return this.complete && this.completeform;
-
     },
 
     errHandler() {
-
       this.completeform = !this.errors.has(this.prop.id);
 
       return this.errors.has(this.prop.id);
@@ -152,7 +148,7 @@ export default {
       },
 
       complete: false,
-      completeform : false,
+      completeform: false,
       opts: {
         base: {
           color: "#303238",
@@ -172,47 +168,37 @@ export default {
       }
     };
   },
-  methods: { 
-    
+  methods: {
     pay() {
       this.$validator.validateAll().then(isFormOk => {
-        if(isFormOk 
-        && this.complete 
-        && this.completeform)
-        {
-          createToken()
-            .then(token => {
+        if (isFormOk && this.complete && this.completeform) {
+          createToken().then(token => {
+            //HARDCODE :
+            let tokens_already = this.$store.returnTokens;
+            console.log(tokens_already);
 
-              //HARDCODE : 
-              let tokens_already = this.$store.returnTokens; 
-              console.log(tokens_already);
-              
-              let tk = this.prop.value;
-              
-              this.$store.commit("setTokens",{tokens: tk});
+            let tk = this.prop.value;
 
-              this.notifySuccess("Tokens added.","Success");
-              //TODO: uncomment
-              // TokenChargerAPI
-              //   .sendTokenAndAmount(token,this.prop.value)
-              //   .then((amount)=>{
-                  
-              //   });            
-            })
+            this.$store.commit("setTokens", { tokens: tk });
 
-        }
-        else 
-          this.errorToast("Please fill out the form", "Error!");
-    })
-   }
+            this.notifySuccess("Tokens added.", "Success");
+            //TODO: uncomment
+            // TokenChargerAPI
+            //   .sendTokenAndAmount(token,this.prop.value)
+            //   .then((amount)=>{
+
+            //   });
+          });
+        } else this.errorToast("Please fill out the form", "Error!");
+      });
+    }
   }
 };
 </script>
 
 <style scoped>
-
 .fform_input * {
-  margin-bottom : 3vh !important;
+  margin-bottom: 3vh !important;
 }
 
 .has-error {
@@ -220,7 +206,7 @@ export default {
 }
 
 .incorrect_input {
-  width:fit-content !important;
+  width: fit-content !important;
 }
 #token_charger {
   position: absolute;

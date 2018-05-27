@@ -115,7 +115,7 @@
 
 <script>
 import TokenCharger from "./TokenCharger.vue";
-import StarRating from 'vue-star-rating';
+import StarRating from "vue-star-rating";
 import Home from "./Home.vue";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/user";
@@ -126,8 +126,7 @@ import "../../Icons/logo";
 
 import eventBus from "../../utils/eventBus";
 
-import {mapGetters} from 'vuex';
-
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -139,9 +138,9 @@ export default {
   mounted() {
     this.username = this.$store.getters.returnEmail;
     // this.tokens = this.$store.getters.returnTokens;
-    
+
     /**
-    * for dropdown animation
+     * for dropdown animation
      */
     //  eventBus.$on("bv::tooltip::show", () => {
     //    this.clicked_user = !this.clicked_user;
@@ -162,13 +161,12 @@ export default {
     this.tokens_url = `/${this.user_role}/${this.user_id}/purchasetokens`;
   },
   computed: {
-
     ...mapGetters({
-      tokens1 : 'returnTokens',
-      stars1 : 'returnRating'
+      tokens1: "returnTokens",
+      stars1: "returnRating"
     }),
     home() {},
-    activeColorChecker(){
+    activeColorChecker() {
       return this.isHacker ? "#ff0000" : "#ffd055";
     }
   },
@@ -206,16 +204,15 @@ export default {
   },
   data() {
     return {
-
-      rating_options : {
-        read_only : true,
-        size : 20,
-        show_rating : false,
+      rating_options: {
+        read_only: true,
+        size: 20,
+        show_rating: false
       },
 
-      clicked_user : false,
+      clicked_user: false,
 
-      tokens : undefined,
+      tokens: undefined,
       tokens_url: "",
       isActiveTokenCharger: false,
       isHacker: false,
@@ -322,7 +319,7 @@ export default {
 }
 
 .hacker_stars >>> polygon {
-  stroke : transparent !important;  
+  stroke: transparent !important;
 }
 #main_vue {
   min-height: 100vh;

@@ -5,7 +5,6 @@ window.moment = require("moment");
 /**
  * Imports block
  */
-import store from "./store";
 import { sync } from "vuex-router-sync";
 import BootstrapVue from "bootstrap-vue";
 import VueRouter from "vue-router";
@@ -84,6 +83,7 @@ if (lander_exists) {
  * Home part here
  * Logic goes here
  */
+import store from "./store";
 
 let home_exists = document.getElementById("home") ? true : false;
 

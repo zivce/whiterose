@@ -139,13 +139,12 @@
 </template>
 
 <script>
-import DeleteConvoAPI from '../../../../services/api/user_api/DeleteConvo.api';
-
+import DeleteConvoAPI from "../../../../services/api/user_api/DeleteConvo.api";
 
 import ConvoHardcode from "../convo_client_2_pentester.hardcode";
 import ClientConvoAPI from "../../../../services/api/user_api/Convo.api";
 import ConvoSendMessagesAPI from "../../../../services/api/user_api/ConvoSendMessages.api";
-import StarRating from 'vue-star-rating';
+import StarRating from "vue-star-rating";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/paper-plane";
 import ConvoApi from "../../../../services/api/user_api/Convo.api";
@@ -157,8 +156,7 @@ export default {
     //TODO : na osnovu job_id i pentester_id da se povuce convo
     //TODO: job_id se cuva u vuex..
     //ConvoHardcode.getConv(job_id,user_id)..
-    //TODO: posalji rating ovde 
-
+    //TODO: posalji rating ovde
   },
   mounted() {
     this.job_id = this.$store.getters.returnParams;
@@ -167,12 +165,12 @@ export default {
     this.user_name = this.user_name.name;
   },
   components: {
-    Icon,StarRating
+    Icon,
+    StarRating
   },
 
   methods: {
     deleteConvo() {
-
       //TODO: implementacija
       // DeleteConvoAPI.deleteConvo();
     },
@@ -286,6 +284,6 @@ export default {
 }
 
 .del_msg:hover {
-  color : red;
+  color: red;
 }
 </style>

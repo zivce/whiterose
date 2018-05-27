@@ -152,7 +152,6 @@ f -->
 import bFormCheckboxGroup from "bootstrap-vue/es/components/form-checkbox/form-checkbox-group";
 import eventBus from "../../../../utils/eventBus";
 
-
 //IMPORT TABS
 import NmapCommon from "./NmapUDPTabs/NmapCommon.vue";
 import NmapRange from "./NmapUDPTabs/NmapRange.vue";
@@ -166,7 +165,7 @@ export default {
     NmapRange,
     NmapList
   },
-  
+
   created() {
     //TODO: do ajax call here to get verified sites
   },
@@ -175,19 +174,15 @@ export default {
 
     let sites = this.$store.state.sites
       .filter(site => {
-        if(site)
-          return site.verified
+        if (site) return site.verified;
       })
       .map(site => {
-        
-        if(site)
-        {
+        if (site) {
           return {
             value: site.domain,
             text: site.domain
           };
         }
-          
       });
 
     this.sites = sites;
@@ -205,7 +200,6 @@ export default {
     });
   },
   computed: {
-   
     errIp() {
       return this.errors.has("ip");
     },
@@ -215,8 +209,7 @@ export default {
   },
   data() {
     return {
-      COST_OF_SUBMISSION : 5,
-
+      COST_OF_SUBMISSION: 5,
 
       //sites heres
       selected_site: null,
@@ -330,9 +323,11 @@ export default {
           //hide for new scan..
           vm.isVisible = false;
 
-          this.$store.commit("decrementTokens",
-          {tokens:this.COST_OF_SUBMISSION,vm:this})
-          
+          this.$store.commit("decrementTokens", {
+            tokens: this.COST_OF_SUBMISSION,
+            vm: this
+          });
+
           axios
             .post("/scanning", {
               url: this.selected_site,

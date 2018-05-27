@@ -58,13 +58,13 @@ import "vue-awesome/icons/hourglass-start";
 import "vue-awesome/icons/flag-checkered";
 import "vue-awesome/icons/tasks";
 
-import StartedJobs from '../UserChildren/StartedJobs.vue';
-import FinishedJobs from '../UserChildren/FinishedJobs.vue';
-
+import StartedJobs from "../UserChildren/StartedJobs.vue";
+import FinishedJobs from "../UserChildren/FinishedJobs.vue";
 
 export default {
   components: {
-    StartedJobs,FinishedJobs,
+    StartedJobs,
+    FinishedJobs,
     MoreInfo,
     Icon
   },
@@ -148,8 +148,6 @@ export default {
   color: #000619d4;
   vertical-align: middle;
 }
-
-
 
 .nav_btns {
   display: flex;

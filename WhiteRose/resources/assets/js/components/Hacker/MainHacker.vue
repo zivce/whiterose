@@ -63,8 +63,8 @@ export default {
     loginTrue() {
       // this.login = true;
       // this.reg = false;
-      
-      this.$router.push({name:'hacker_log'});
+
+      this.$router.push({ name: "hacker_log" });
     },
     regTrue() {
       // this.$snotify.info("Verify your email.", "Verification", {
@@ -75,7 +75,7 @@ export default {
       // this.reg = true;
       // this.login = false;
 
-      this.$router.push({name: 'hacker_reg'});
+      this.$router.push({ name: "hacker_reg" });
     }
   },
   destroyed() {},

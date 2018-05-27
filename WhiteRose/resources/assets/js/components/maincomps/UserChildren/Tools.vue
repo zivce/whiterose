@@ -42,7 +42,7 @@ export default {
       user_id: "",
 
       //Visibility
-      isUdpVisible : false
+      isUdpVisible: false
     };
   }
 };

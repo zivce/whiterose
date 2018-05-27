@@ -23,7 +23,6 @@ export default {
     Matrix
   },
   mounted() {
-    
     //CHANGED!
     //CHANGE LATER FOR LOADER TO 4000
     let delay = 4;

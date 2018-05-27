@@ -5,6 +5,7 @@
 
     <transition name="flip" mode="out-in">
       <v-client-table
+      ref="bids_table"
       v-if="!isVisibleBid"
       :data='table_data'
       :columns='columns'
@@ -12,6 +13,7 @@
       >
     
     <a  slot="preview" 
+        ref="preview_btn"
         slot-scope="props"
         class="cursorable"
         @click="showDetails(props)"
@@ -26,6 +28,7 @@
     <transition name="flip" mode="out-in">
     
       <pentester-bid 
+      ref="pentester_bid"
       :det.sync="details"
       v-if="isVisibleBid">
 
@@ -47,6 +50,7 @@ import hardcodepentst from "./hardcodepntst";
 import PentesterBid from "./UserParts/PentesterBid.vue";
 import eventBus from "../../../utils/eventBus";
 import "vue-awesome/icons/eye";
+import GetBidsAPI from '../../../services/api/user_api/getBids.api';
 
 export default {
   components: {
@@ -55,7 +59,9 @@ export default {
   },
   mixins: [welcomeToastr],
   created() {
-    //  axios
+    //TODO : fetch bids here
+    
+    //    axios
     //   .get("allbids")
     //   .then(response => {
     //     //this adapts response for show in vue tables 2

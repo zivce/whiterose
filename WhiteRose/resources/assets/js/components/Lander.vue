@@ -32,9 +32,9 @@ export default {
   mounted() {
     setTimeout(() => {}, 1000);
   },
-  methods : {
+  methods: {
     goToHacker() {
-      this.$router.push({name: 'land_hacker'});
+      this.$router.push({ name: "land_hacker" });
     }
   },
   data() {

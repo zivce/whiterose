@@ -1,14 +1,16 @@
 <template>
-  <div id="user_comps">
+  <div id="user_comps" ref="user_main">
       <div class="nav_btns">
           
         <b-button 
+        ref = "info_btn"
         v-b-tooltip.hover.right="'Info'"
         class="btn btn-client " @click="hideShowInfo">
           <icon name="info" ></icon>
         </b-button>
         
         <b-button 
+        ref = "messages_btn"
         v-b-tooltip.hover.right="'Messages'"
         class="btn btn-client"
         :to="messages_url">
@@ -33,6 +35,7 @@
       </div>
       <transition  name="flip" mode="in-out">
         <user-info 
+        ref="user_info"
         :textinside = "textinside"
         :title = "title"
         v-show="isVisibleUserInfo" >
@@ -44,6 +47,7 @@
 
       <b-nav class="d-flex justify-content-center user_nav_main"  pills>
         <b-nav-item 
+        ref="btn_in_nav"
         active-class ="active_item_user"
         class="nav_item_user"
         :to="'/'+user_role+'/'+ user_id+ '/postjob'">
@@ -93,10 +97,13 @@
 
 <script>
 import UserInfo from "../UserChildren/UserParts/UserInfo.vue";
-
+// import * as Icon from 'vue-awesome';
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/info";
 import "vue-awesome/icons/wrench";
+
+
+
 //txt files
 import PostJobTxt from "./Data/post_job.txt";
 import ToolsTxt from "./Data/tools.txt";
@@ -112,6 +119,7 @@ import SetupTxt from "./Data/setup.txt";
 import eventBus from "../../../utils/eventBus";
 
 export default {
+  name:'user__MAIN__COMPONENT',
   mixins: [],
   destroyed() {
     clearInterval(this.int1);

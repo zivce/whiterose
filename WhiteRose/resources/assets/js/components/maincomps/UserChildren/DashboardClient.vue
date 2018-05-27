@@ -1,6 +1,6 @@
 <template>
   <div class="comp_container ">
-      <h2 class="h2s" >Dashboard</h2>
+      <h2 class="h2s" ref="dashboard_client">Dashboard</h2>
 <!--       
       <b-nav class="d-flex justify-content-center user_nav_main"  pills>
         <b-nav-item 
