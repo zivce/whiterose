@@ -1,5 +1,7 @@
 <template>
-  <div class="comp_container_jobs">
+  <div 
+  ref="fin_jobs"
+  class="comp_container_jobs">
     <h2 class="h2s">Preview finished jobs.</h2>
 
     <transition name="flip" mode="out-in">
@@ -62,7 +64,6 @@ export default {
     axios
       .get("finishedJobs")
       .then(response => {
-        console.log(response.data[0]);
         // this adapts response for show in vue tables 2
         this.jobs[0] = response.data[0];
         response.data.forEach(job_info => {

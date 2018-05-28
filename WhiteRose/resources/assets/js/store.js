@@ -51,6 +51,7 @@ const store = new Vuex.Store({
     }
   },
   getters: {
+    returnSites: state => state.sites,
     returnTest : state => state.test,
     returnJobForEdit : state => state.job_for_edit,
     returnRating: state => state.stars,

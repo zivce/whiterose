@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div ref="udp_nmap">
       
             <h4 class="d-flex justify-content-center">UDP Port Scan with Nmap</h4>
 
@@ -149,9 +149,9 @@ f -->
 </template>
 
 <script>
-import bFormCheckboxGroup from "bootstrap-vue/es/components/form-checkbox/form-checkbox-group";
+//import bFormCheckboxGroup from "bootstrap-vue/es/components/form-checkbox/form-checkbox-group";
 import eventBus from "../../../../utils/eventBus";
-
+import SitesHardcode from "../../../../client_sites.hardcode";
 //IMPORT TABS
 import NmapCommon from "./NmapUDPTabs/NmapCommon.vue";
 import NmapRange from "./NmapUDPTabs/NmapRange.vue";
@@ -160,7 +160,7 @@ import Icon from "vue-awesome/components/Icon";
 export default {
   components: {
     Icon,
-    bFormCheckboxGroup,
+    //bFormCheckboxGroup,
     NmapCommon,
     NmapRange,
     NmapList
@@ -171,6 +171,7 @@ export default {
   },
   mounted() {
     //listeneri za komponente
+    this.$store.commit("setSites", SitesHardcode);
 
     let sites = this.$store.state.sites
       .filter(site => {

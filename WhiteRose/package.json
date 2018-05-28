@@ -62,6 +62,7 @@
         "vuex-router-sync": "^5.0.0"
     },
     "jest": {
+        "testEnvironment": "jsdom",
         "verbose": true,
         "moduleFileExtensions": [
             "js",

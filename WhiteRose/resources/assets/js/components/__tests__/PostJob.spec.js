@@ -2,18 +2,17 @@
 import {shallowMount, mount, createLocalVue} from '@vue/test-utils';
 import {createRenderer} from 'vue-server-renderer';
 import * as jest from 'jest'
-import Main from '@/maincomps/UserChildren/Bids.vue';
+import flushPromises from "flush-promises";
+import Main from '@/maincomps/UserChildren/PostJob.vue';
 
-window.Vue = require("vue");
 window.Vue = require("vue");
 window.moment = require("moment");
 import * as jsdom from 'jsdom';
+
+
 /**
  * Imports block
  */
-
-import axios from '../__mocks__/mockAxios';
-window.axios = axios;
 
 import BootstrapVue from "bootstrap-vue";
 import VueRouter from "vue-router";
@@ -51,37 +50,29 @@ import "vue-awesome/icons/info";
 import "vue-awesome/icons/wrench";
 import "vue-awesome/icons/comment";
 import "vue-awesome/icons/user";
+import "../../Icons/bandcamp";
 
-import store from '../../store';
+import store from '../../store.js';
+import axios from '../__mocks__/mockAxios';
+window.axios = axios;
 
 const localVue = createLocalVue();
 
+
 localVue.component(Icon);
 localVue.use(VueRouter);
-localVue.use(ClientTable);
 
 //THIS MOCKS THE BIDS VUE 
 
-const routes = [
-    {
-        name:"root",
-        path:"/",
-        component : require('@/maincomps/UserChildren/Bids.vue')
-    }
-]
-const router = new VueRouter({
-    routes
-})
 
 
 
-localVue.config.ignoredElements = ['router-view']
-
-describe("Bids.vue", () => {
+describe("PostJob.vue", () => {
     
-    const wrapper = mount(Main,
-        {localVue,router,
+    const wrapper = shallowMount(Main,
+        {localVue,
         store,
+        
         stubs : {
             'Messages' : '<div class="msgs"/>'
             
@@ -90,7 +81,7 @@ describe("Bids.vue", () => {
     it("correctly mounts the vue instance", () => {
         expect(wrapper.isVueInstance()).toBeTruthy();
     })
-
+    
 
     //HASH is changeable every render
     // it("has same html structure", () => {
@@ -106,15 +97,41 @@ describe("Bids.vue", () => {
         expect(chld).toBeTruthy();
     })
 
-    it("correctly renders the bids table" , () => {
-        const table = wrapper.find({ref: "bids_table"})
+    it("correctly renders the verified sites select" , () => {
+        const table = wrapper.find({ref: "verified_sites"})
         expect(table).toBeTruthy();
 
     })
-    it("correctly shows the bid", () => {
-        const eye_btn = wrapper.find({ref: "preview_btn"})
-        eye_btn.trigger('click');
-        expect(wrapper.vm.isVisibleBid).toBeTruthy();
+
+    
+    it("correctly calls the submit function" , async() => {
+        const spy = spyOn(wrapper.vm,"submitHandler");
+        
+
+        const btn = wrapper.find(".btn_submit");
+
+        btn.trigger('click');
+
+        await flushPromises();
+        
+        expect(wrapper.vm.submitHandler).toBeCalled();
+
+    })
+    it('correctly fetches data' , () => {
+        const resolved = axios.get();
+        
+        resolved.then((response)=> {
+            expect(response.data).toBe(3);
+        });
+    })
+
+
+    it('correctly posts data' , () => {
+        const resolved = axios.post();
+        
+        resolved.then((response)=> {
+            expect(response.data).toBe(3);
+        });
     })
 
     it("correctly communicates with vuex ", () => {

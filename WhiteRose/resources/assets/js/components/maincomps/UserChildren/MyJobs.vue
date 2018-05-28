@@ -1,5 +1,5 @@
 <template>
-  <div class="comp_container_jobs">
+  <div class="comp_container_jobs" ref="my_jobs">
     
     <!-- My Jobs -->
     <div class="col-12">
@@ -8,6 +8,7 @@
       <transition name="flip" mode="out-in">
       
         <v-client-table
+        ref="my_jobs_table"
         v-if="!isVisibleBid"
         :data='jobs'
         :columns='columns'
@@ -19,7 +20,7 @@
           class="cursorable centered"
           @click="showDetails(props,false)"
           >
-          <icon id="eye_ico" name="eye"></icon>
+          <icon class="eye_ico" name="eye"></icon>
         </a>
 
       <a  slot="delete" 
@@ -28,15 +29,16 @@
           @click="showDetails(props,true)"
           
           >
-          <icon id="eye_ico" name="times"></icon>
+          <icon class="eye_ico" name="times"></icon>
         </a>
 
       <a  slot="edit" 
+          ref="edit_the_job"
           slot-scope="props"
-          class="cursorable centered"
+          class="cursorable centered edit_job"
           @click="editJob(props)"
           >
-          <icon id="eye_ico" name="edit"></icon>
+          <icon class="eye_ico" name="edit"></icon>
         </a>
         
         
@@ -72,7 +74,7 @@ import welcomeToastr from "../../toastr/welcometoastr";
 
 //TODO: hardcode pentest izbaci
 
-import hardcodemyjobs from "./hardcodemyjobs";
+//import hardcodemyjobs from "./hardcodemyjobs";
 import MoreInfo from "./UserParts/JobsMoreInfo.vue";
 import eventBus from "../../../utils/eventBus";
 import "vue-awesome/icons/eye";
@@ -97,7 +99,6 @@ export default {
     axios
       .get("returnmyjobs")
       .then(response => {
-        console.log(response.data[0]);
         // this adapts response for show in vue tables 2
         // this.jobs[0] = response.data[0];
         response.data.forEach(job_info => {
@@ -140,7 +141,7 @@ export default {
       details: {},
       isVisibleBid: false,
       columns: ["title", "startingPrice", "preview", "delete", "edit"],
-      my_jobs: hardcodemyjobs,
+      //my_jobs: hardcodemyjobs,
       options: {
         columnsClasses: {
           startingPrice: "cursorable",
@@ -173,12 +174,12 @@ export default {
   border-color: #2c3340;
 }
 
-#eye_ico {
+.eye_ico {
   color: var(--cyan);
   vertical-align: middle;
 }
 
-#eye_ico:hover {
+.eye_ico:hover {
   color: #000619d4;
   vertical-align: middle;
 }

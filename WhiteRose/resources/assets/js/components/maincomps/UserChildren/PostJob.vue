@@ -1,6 +1,8 @@
 <template>
   <div id="job_poster" class="comp_container">
-    <h2 class="h2s">Post your new job.</h2>
+    <h2 
+    ref="post_job_header"
+    class="h2s">Post your new job.</h2>
 
 
     <div class="group_input_title group_input_title_first">
@@ -10,7 +12,7 @@
       </h3>
 
       <b-form-select  
-      
+        ref="verified_sites"
         :class="{'has-error':errSite}"
         v-model="selected_site"
         :options="options" 
@@ -135,7 +137,9 @@
     
     </span>
 
-    <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
+    <b-button 
+    ref ="submit_btn"
+    class="btn_submit btn btn-info btn-secondary actionbtn" @click="submitHandler()">
       Submit  <icon name="handshake" id="hands_icon" scale="2"></icon>
     </b-button>
   </div>
@@ -148,6 +152,7 @@ import eventBus from "../../../utils/eventBus";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/handshake";
+import SitesHardcode from "../../../client_sites.hardcode";
 
 import welcomeToastr from "../../toastr/welcometoastr";
 import JobFormInput from "../../utilcomps/JobPosterInput.vue";
@@ -182,7 +187,9 @@ export default {
   mixins: [welcomeToastr],
   mounted() {
     //get only verified sites.
-
+    //HACK: ONLY FOR TESTING REMOVE THIS
+    this.$store.commit("setSites", SitesHardcode);
+    
     let sites = this.$store.state.sites
       .filter(site => site.verified)
       .map(site => {
@@ -191,6 +198,7 @@ export default {
           text: site.domain
         };
       });
+
     /**
      * Get job for edit if such
      * 

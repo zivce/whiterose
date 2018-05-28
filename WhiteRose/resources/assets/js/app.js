@@ -129,7 +129,7 @@ if (home_exists) {
       //     store.commit("setScans",res.data)
       // })
 
-      store.commit("setSites", SitesHardcode);
+      
 
       //TODO: fetch rating of user
       const RATING = 4;

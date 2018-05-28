@@ -2,18 +2,19 @@
 import {shallowMount, mount, createLocalVue} from '@vue/test-utils';
 import {createRenderer} from 'vue-server-renderer';
 import * as jest from 'jest'
-import Main from '@/maincomps/UserChildren/Bids.vue';
 
-window.Vue = require("vue");
+import Main from '@/maincomps/UserChildren/MyJobs.vue';
+
 window.Vue = require("vue");
 window.moment = require("moment");
 import * as jsdom from 'jsdom';
+
+
 /**
  * Imports block
  */
+import hardcodemyjobs from "@/maincomps/UserChildren/hardcodemyjobs";
 
-import axios from '../__mocks__/mockAxios';
-window.axios = axios;
 
 import BootstrapVue from "bootstrap-vue";
 import VueRouter from "vue-router";
@@ -27,10 +28,6 @@ import checkFields from "../../utils/checkAllFields";
 import fixInputs from '../../mixins/fixNumberInput';
 import { ClientTable, Event } from "vue-tables-2";
 
-/**
- * Comps
- */
-
 
 /**
  * Mixins
@@ -40,21 +37,31 @@ Vue.mixin(errorToaster);
 Vue.mixin(checkFields);
 Vue.mixin(successToastr);
 Vue.mixin(fixInputs);
+
 /**
  * What Vue should globally use.
  */
+
 Vue.use(Snotify);
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
+
+
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/info";
 import "vue-awesome/icons/wrench";
 import "vue-awesome/icons/comment";
 import "vue-awesome/icons/user";
+import "vue-awesome/icons/times";
+import "vue-awesome/icons/eye";
+import "vue-awesome/icons/edit";
 
 import store from '../../store';
 
 const localVue = createLocalVue();
+
+import axios from '../__mocks__/mockAxios';
+window.axios = axios;
 
 localVue.component(Icon);
 localVue.use(VueRouter);
@@ -67,6 +74,11 @@ const routes = [
         name:"root",
         path:"/",
         component : require('@/maincomps/UserChildren/Bids.vue')
+    },
+    {
+        name:"postj",
+        path:"/hello",
+        component  : require("@/maincomps/UserChildren/PostJob.vue")
     }
 ]
 const router = new VueRouter({
@@ -77,22 +89,27 @@ const router = new VueRouter({
 
 localVue.config.ignoredElements = ['router-view']
 
-describe("Bids.vue", () => {
-    
-    const wrapper = mount(Main,
-        {localVue,router,
-        store,
-        stubs : {
-            'Messages' : '<div class="msgs"/>'
-            
-        }});
+describe("MyJobs.vue", () => {
+    let wrapper;
+    beforeEach(() => {
+        wrapper = shallowMount(Main,
+            {localVue,router,
+            store,
+            stubs : {
+                'Messages' : '<div class="msgs"/>'
+                
+            }});
         
+        wrapper.setData({
+            jobs : hardcodemyjobs
+        })
+    })
+    
+
     it("correctly mounts the vue instance", () => {
         expect(wrapper.isVueInstance()).toBeTruthy();
     })
 
-
-    //HASH is changeable every render
     // it("has same html structure", () => {
     //     const renderer = createRenderer();
     //     renderer.renderToString(wrapper.vm, (err,str) => {
@@ -106,15 +123,42 @@ describe("Bids.vue", () => {
         expect(chld).toBeTruthy();
     })
 
-    it("correctly renders the bids table" , () => {
-        const table = wrapper.find({ref: "bids_table"})
+    
+    // it("correctly calls the submit function" , async() => {
+    //     const spy = spyOn(wrapper.vm,"editJob");
+        
+    //     const btn = wrapper.find({ref:"edit_the_job"});
+
+    //     btn.trigger('click');
+
+    //     await flushPromises();
+        
+    //     // expect(wrapper.vm.editJob).toBeCalled();
+    //     // expect(wrapper.vm.$refs.post_job_header).toBeTruthy();
+
+    // })
+
+    it("correctly renders preview of posted jobs" , () => {
+        const table = wrapper.find({ref: "my_jobs_table"})
         expect(table).toBeTruthy();
 
     })
-    it("correctly shows the bid", () => {
-        const eye_btn = wrapper.find({ref: "preview_btn"})
-        eye_btn.trigger('click');
-        expect(wrapper.vm.isVisibleBid).toBeTruthy();
+
+    it('correctly fetches data' , () => {
+        const resolved = axios.get();
+        
+        resolved.then((response)=> {
+            expect(response.data).toBe(3);
+        });
+    })
+
+
+    it('correctly posts data' , () => {
+        const resolved = axios.post();
+        
+        resolved.then((response)=> {
+            expect(response.data).toBe(3);
+        });
     })
 
     it("correctly communicates with vuex ", () => {

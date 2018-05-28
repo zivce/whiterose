@@ -2,18 +2,14 @@
 import {shallowMount, mount, createLocalVue} from '@vue/test-utils';
 import {createRenderer} from 'vue-server-renderer';
 import * as jest from 'jest'
-import Main from '@/maincomps/UserChildren/Bids.vue';
+import Main from '@/maincomps/UserChildren/Jobs.vue';
 
-window.Vue = require("vue");
 window.Vue = require("vue");
 window.moment = require("moment");
 import * as jsdom from 'jsdom';
 /**
  * Imports block
  */
-
-import axios from '../__mocks__/mockAxios';
-window.axios = axios;
 
 import BootstrapVue from "bootstrap-vue";
 import VueRouter from "vue-router";
@@ -53,21 +49,36 @@ import "vue-awesome/icons/comment";
 import "vue-awesome/icons/user";
 
 import store from '../../store';
+import axios from '../__mocks__/mockAxios';
+window.axios = axios;
 
 const localVue = createLocalVue();
+
 
 localVue.component(Icon);
 localVue.use(VueRouter);
 localVue.use(ClientTable);
 
 //THIS MOCKS THE BIDS VUE 
-
 const routes = [
     {
-        name:"root",
-        path:"/",
-        component : require('@/maincomps/UserChildren/Bids.vue')
-    }
+        name:'myjobs',
+        path:'myjobs',
+        component: require('@/maincomps/UserChildren/MyJobs.vue')
+    },
+
+    {
+        name:'finjobs',
+        path:'finishedjobs',
+        component: require('@/maincomps/UserChildren/FinishedJobs.vue')
+
+    },
+    {
+        name:'startedjobs',                    
+        path:'startedjobs',
+        component: require('@/maincomps/UserChildren/StartedJobs.vue')
+
+    },
 ]
 const router = new VueRouter({
     routes
@@ -77,11 +88,14 @@ const router = new VueRouter({
 
 localVue.config.ignoredElements = ['router-view']
 
-describe("Bids.vue", () => {
+describe("FinishedJobs.vue", () => {
     
-    const wrapper = mount(Main,
+    const wrapper = shallowMount(Main,
         {localVue,router,
         store,
+        mocks : {
+            get : () => Promise.resolve({data:3})
+        },
         stubs : {
             'Messages' : '<div class="msgs"/>'
             
@@ -106,17 +120,23 @@ describe("Bids.vue", () => {
         expect(chld).toBeTruthy();
     })
 
-    it("correctly renders the bids table" , () => {
-        const table = wrapper.find({ref: "bids_table"})
-        expect(table).toBeTruthy();
-
+    it("correctly goes to my jobs component" , () => {
+        wrapper.vm.$router.push({name: "myjobs"});
+        const ref = wrapper.find({ref: "my_jobs"})
+        expect(ref).toBeTruthy();
     })
-    it("correctly shows the bid", () => {
-        const eye_btn = wrapper.find({ref: "preview_btn"})
-        eye_btn.trigger('click');
-        expect(wrapper.vm.isVisibleBid).toBeTruthy();
+    
+    it("correctly goes to finished jobs component" , () => {
+        wrapper.vm.$router.push({name: "finjobs"});
+        const ref = wrapper.find({ref: "fin_jobs"})
+        expect(ref).toBeTruthy();
     })
-
+    
+    it("correctly goes to started jobs component" , () => {
+        wrapper.vm.$router.push({name: "startedjobs"});
+        const ref = wrapper.find({ref: "fin_jobs"})
+        expect(ref).toBeTruthy();
+    })
     it("correctly communicates with vuex ", () => {
         wrapper.vm.$store.commit("setTest",{test:3});
         expect(wrapper.vm.$store.getters.returnTest).toBe(3);

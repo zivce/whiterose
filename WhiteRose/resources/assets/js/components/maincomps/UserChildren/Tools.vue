@@ -5,7 +5,9 @@
       <div class="row" id="toolContainer">
         
         <b-nav vertical pills class="col-md-4">
-          <b-nav-item :class="{'strong':isUdpVisible}" @click="pushToUdp()">
+          <b-nav-item 
+          ref ="tool_udp"
+          :class="{'strong':isUdpVisible}" @click="pushToUdp()">
             UDP Nmap  
           </b-nav-item>  
         </b-nav>

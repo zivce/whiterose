@@ -1,19 +1,19 @@
 
 import {shallowMount, mount, createLocalVue} from '@vue/test-utils';
 import {createRenderer} from 'vue-server-renderer';
-import * as jest from 'jest'
-import Main from '@/maincomps/UserChildren/Bids.vue';
+
+import * as jest from 'jest';
+
+import Main from '@/maincomps/UserChildren/Tools.vue';
 
 window.Vue = require("vue");
-window.Vue = require("vue");
 window.moment = require("moment");
+
 import * as jsdom from 'jsdom';
+
 /**
  * Imports block
  */
-
-import axios from '../__mocks__/mockAxios';
-window.axios = axios;
 
 import BootstrapVue from "bootstrap-vue";
 import VueRouter from "vue-router";
@@ -53,35 +53,41 @@ import "vue-awesome/icons/comment";
 import "vue-awesome/icons/user";
 
 import store from '../../store';
+import axios from '../__mocks__/mockAxios';
+window.axios = axios;
 
 const localVue = createLocalVue();
 
+
 localVue.component(Icon);
 localVue.use(VueRouter);
-localVue.use(ClientTable);
+localVue.use(BootstrapVue);
 
 //THIS MOCKS THE BIDS VUE 
-
 const routes = [
     {
-        name:"root",
-        path:"/",
-        component : require('@/maincomps/UserChildren/Bids.vue')
+        name:'udp',
+        path:'udp-nmap',
+        component: require('@/maincomps/UserChildren/FewTools/NmapUDP.vue')
     }
 ]
+
 const router = new VueRouter({
     routes
 })
 
 
 
-localVue.config.ignoredElements = ['router-view']
+localVue.config.ignoredElements = ['b-form-select','b-form-checkbox']
 
-describe("Bids.vue", () => {
+describe("FinishedJobs.vue", () => {
     
-    const wrapper = mount(Main,
+    const wrapper = shallowMount(Main,
         {localVue,router,
         store,
+        mocks : {
+            get : () => Promise.resolve({data:3})
+        },
         stubs : {
             'Messages' : '<div class="msgs"/>'
             
@@ -106,17 +112,29 @@ describe("Bids.vue", () => {
         expect(chld).toBeTruthy();
     })
 
-    it("correctly renders the bids table" , () => {
-        const table = wrapper.find({ref: "bids_table"})
-        expect(table).toBeTruthy();
-
-    })
-    it("correctly shows the bid", () => {
-        const eye_btn = wrapper.find({ref: "preview_btn"})
-        eye_btn.trigger('click');
-        expect(wrapper.vm.isVisibleBid).toBeTruthy();
+    it("correctly goes to udp component" , () => {
+        wrapper.vm.$router.push({name: "udp"});
+        const ref = wrapper.find({ref: "udp_nmap"})
+        expect(ref).toBeTruthy();
     })
 
+    it('correctly fetches data' , () => {
+        const resolved = axios.get();
+        
+        resolved.then((response)=> {
+            expect(response.data).toBe(3);
+        });
+    })
+
+
+    it('correctly posts data' , () => {
+        const resolved = axios.post();
+        
+        resolved.then((response)=> {
+            expect(response.data).toBe(3);
+        });
+    })
+    
     it("correctly communicates with vuex ", () => {
         wrapper.vm.$store.commit("setTest",{test:3});
         expect(wrapper.vm.$store.getters.returnTest).toBe(3);
