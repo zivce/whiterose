@@ -103,7 +103,7 @@ class ClientController extends Controller
         $document=$request->file;
 
         $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
-       
+        if($document!==null || !empty($document)){
             Storage::makeDirectory($dirName);
             $fileName=$dirName.'/'.Carbon::now()->toDateTimeString().'.'.$document->getClientOriginalExtension();
             $fileName=str_replace(' ','_',$fileName);
@@ -111,7 +111,7 @@ class ClientController extends Controller
             Storage::putFileAs($dirName,$document,$fileName);
 
             $job->file_path=storage_path('app\\'.$dirName.'\\'.$fileName);
-     
+        }
         $job->save();
 
 
@@ -134,23 +134,28 @@ class ClientController extends Controller
    public function viewMyBiddedJobs(Request $request)
    {
 
-       $clientID=$request->clientID;
-       $jobID=$request->jobID;
-
+       $clientID=Auth::guard('client')->user()->id;
+       $client=Auth::guard('client')->user();
+       
+    //    $jobID=$request->jobID;
+       $jobs = $client->jobs()->get();
 
        $returnBids=array();
-       $bids=Bid::where('job_id',$jobID)
-                    ->where('client_id',$clientID)
-                    ->get();
-        foreach($bids as $bid)
-        {
+
+       foreach($jobs as $job){
+            $bids=$job->bids()->get();
+            foreach($bids as $bid)
+            {
             array_push($returnBids,[
-                'amount'=>$bid->amount,
-                'pentester_username'=>Pentester::where('id',$bid->pentester_id)->username,
-                'pentester_email'=>Pentester::where('id',$bid->pentester_id)->email,
-                'pentester_rating'=>Pentester::where('id',$bid->pentester_id)->rating
+                'bid'=>$bid,
+                // 'pentester_username'=>Pentester::where('id',$bid->pentester_id)->username,
+                'pentester_email'=>Pentester::where('id',$bid->pentester_id)->first()->email,
+                'pentester_rating'=>Pentester::where('id',$bid->pentester_id)->first()->rating,
+                'job_name'=>$job->title
             ]);
-        }
+            }
+       }
+
         return $returnBids;
    }
 

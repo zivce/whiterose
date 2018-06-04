@@ -61,21 +61,23 @@ export default {
   created() {
     //TODO : fetch bids here
     
-    //    axios
-    //   .get("allbids")
-    //   .then(response => {
-    //     //this adapts response for show in vue tables 2
-    //     response.data.data.forEach(scan_info => {
-    //       this.table_data.push({
-    //         pentester: bid_info.username,
-    //         rating: bid_info.rating,
-    //         bid_info
-    //       });
-    //     });
-    //   })
-    //   .catch(err => {
-    //     //error snotify here.
-    //   });
+       axios
+        .post("viewbidsclient")
+        .then(response => {
+          console.log(response.data);
+          //this adapts response for show in vue tables 2
+          response.data.forEach(bid_info => {
+            this.table_data.push({
+              pentester: bid_info.pentester_email,
+              rating: bid_info.pentester_rating,
+              title: bid_info.job_name,
+              bid_info: bid_info.bid
+            });
+          });
+        })
+        .catch(err => {
+          //error snotify here.
+      });
   },
   computed: {},
   mounted() {
@@ -108,14 +110,15 @@ export default {
     return {
       details: {},
       isVisibleBid: false,
-      columns: ["pentester", "rating", "preview"],
-      table_data: hardcodepentst,
+      columns: ["pentester", "rating", "title", "preview"],
+      // table_data: hardcodepentst,
+      table_data: [],
       options: {
         columnsClasses: {
           rating: "cursorable"
         },
         filterByColumn: true,
-        filterable: ["pentester", "rating"],
+        filterable: ["pentester", "rating" ,"title"],
         sortable: ["rating"],
         pagination: {
           dropdown: true,

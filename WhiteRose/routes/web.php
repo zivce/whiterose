@@ -79,7 +79,7 @@ Route::get('returnmyjobs','ClientController@myJobs')->name('returnmyjobs');
 Route::post('returnmyjob','ClientController@myJob')->name('returnmyjob');//undonde
 
 //Biding on job
-Route::post('postbid','PentesterController@binOnJob')->name('bid');
+Route::post('postbid','PentesterController@bidOnJob')->name('bid');
 
 //View my bids
 Route::post('viewbidsclient','ClientController@viewMyBiddedJobs')->name('viewbidsclient');
