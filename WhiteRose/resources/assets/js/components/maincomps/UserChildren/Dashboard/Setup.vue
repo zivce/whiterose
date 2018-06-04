@@ -148,9 +148,10 @@
                   slot="verify" 
                   slot-scope="props"
                   class="cursorable"
-                  @click="getKey(props)"
+                  :href="makeGetKeyUrl(props.row.domain)"
                   >key</a>
                 
+                  <!-- @click="getKey(props)" -->
                 </v-client-table >
                 
                 <p 
@@ -371,12 +372,18 @@ export default {
     Icon
   },
   methods: {
+    makeGetKeyUrl(site){
+      return `getkey/${site}`
+    },
     getKey(props){
-      VerifySiteApi.getKey(props.row.domain)
+      VerifySiteApi.getKey(props.row.domain,this)
       .then(()=>{
         this.verifySite();
       })
     },
+    
+    
+    
     viewSites() {
       this.isInputSitePart = false;
       this.isKeyVerifPart = true;
@@ -392,11 +399,13 @@ export default {
       this.isKeyVerifPart = true;
       this.isVerifySitePart = false;
     },
-    keyDownloaded() {
-      this.isInputSitePart = false;
-      this.isKeyVerifPart = false;
-      this.isVerifySitePart = true;
-    },
+
+
+    // keyDownloaded() {
+    //   this.isInputSitePart = false;
+    //   this.isKeyVerifPart = false;
+    //   this.isVerifySitePart = true;
+    // },
 
     verifySite() {
       this.isInputSitePart = true;
@@ -441,6 +450,9 @@ export default {
         this.isVisibleVerifySite = false;
       }
     },
+
+
+
     processFile(event) {
       this.avatar_file.append("avatar", event.target.files[0]);
     },
