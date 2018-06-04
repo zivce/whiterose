@@ -79,7 +79,8 @@
             @change="complete = $event.complete" />
 
             <b-button
-            class="col-7"
+            ref="pay_button"
+            class="col-7 pay_btn"
             @click.once="pay"
             :disabled = '!completed'>
             

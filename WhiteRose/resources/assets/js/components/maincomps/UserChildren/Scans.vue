@@ -4,6 +4,7 @@
     <h2 class="h2s">Preview your scans.</h2>
 
     <v-client-table
+    ref="scans_table"
     :data='table_data'
     :columns='columns'
     :options='options'
@@ -11,10 +12,15 @@
 
     
     <a  slot="download" 
+        ref= "down_btn"
+        class="down_btn"
         slot-scope="props"
         :href="props.row.uri"
+        @click="spy()"
     >
-      <icon name="download"></icon>
+      <icon
+      name="download" 
+      ></icon>
     </a>
 
 
@@ -35,6 +41,9 @@ export default {
     Icon
   },
   mixins: [],
+  methods : {
+    spy(){}
+  },
   created() {
     axios
       .get("allscans")

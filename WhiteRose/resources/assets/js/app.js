@@ -148,6 +148,7 @@ if (home_exists) {
     },
     destroyed() {
       this.unsync();
+      window.localStorage.clear();
     },
     data() {
       return {

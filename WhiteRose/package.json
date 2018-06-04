@@ -49,6 +49,7 @@
         "daterangepicker": "^3.0.2",
         "moment": "^2.21.0",
         "npm": "^6.0.0",
+        "sinon": "^5.0.10",
         "v-bar": "^3.0.0",
         "vee-validate": "^2.0.8",
         "vue-awesome": "^3.0.0",

@@ -5,6 +5,7 @@
     <transition name="flip" mode="out-in">
     
       <v-client-table
+      ref="started_jobs"
       v-if="!isVisibleBid"
       :data='started_jobs'
       :columns='columns'
@@ -13,6 +14,7 @@
     
     <a  slot="more info" 
         slot-scope="props"
+        ref="show_details"
         class="cursorable"
         @click="showDetails(props)"
         >

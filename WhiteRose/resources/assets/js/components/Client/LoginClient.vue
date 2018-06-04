@@ -72,8 +72,13 @@ export default {
               if (wrong_info) {
                 vm.errorToast("Wrong info.", "Error!");
               } else {
-                this.loggedIn = true;
+                vm.notifySuccess("User registered","Success");
+                
+                //this.loggedIn = true;
+                
                 let data_store = JSON.stringify(response.data);
+                console.log(data_store);
+
                 window.localStorage.setItem("r", data_store);
                 window.location.reload();
               }
@@ -81,10 +86,6 @@ export default {
               //does not exist
               vm.errorToast("User does not exist!", "Error!");
 
-              // vm.$snotify.error("User does not exist!", "Error!", {
-              //   position: SnotifyPosition.centerTop,
-              //   backdrop: 0.5
-              // });
             }
           })
           .catch(function(error) {
