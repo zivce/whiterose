@@ -149,7 +149,7 @@
                   slot-scope="props"
                   class="cursorable"
                   :href="makeGetKeyUrl(props.row.domain)"
-                  @click="redirectToVerifySite()"
+                  @click="redirectToVerifySite(props.row.domain)"
                   >key</a>
 
 
@@ -393,7 +393,9 @@ export default {
       })
     },
     
-    redirectToVerifySite() {
+    redirectToVerifySite(site) {
+      this.for_verify_site = site;
+
       this.isInputSitePart = false;
       this.isKeyVerifPart = false;
       this.isVerifySitePart = true;
@@ -505,7 +507,7 @@ export default {
     verifySiteHandler() {
       let vm = this;
       let valid = this.$validator;
-      let send = { site: this.site_for_verification.value };
+      let send = { site: this.for_verify_site };
 
       VerifySiteApi.verifySite(valid, vm, send);
     },
@@ -530,7 +532,7 @@ export default {
   },
   data() {
     return {
-     
+      for_verify_site : null,
 
       //Visibility variables
       isVisibleReset: true,
