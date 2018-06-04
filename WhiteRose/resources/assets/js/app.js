@@ -26,6 +26,8 @@ import StoreAPI from "./services/api/store_api/Store.api";
 import { ClientTable, Event } from "vue-tables-2";
 import Axios from "axios";
 import errorToaster from "./components/toastr/FormErrorToaster";
+import notifyInfo from "./components/toastr/infotoastr";
+
 import logg from "./utils/groupLogger";
 import successToastr from "./components/toastr/welcometoastr";
 import VBar from "v-bar";
@@ -51,6 +53,8 @@ Vue.mixin(errorToaster);
 Vue.mixin(checkFields);
 Vue.mixin(successToastr);
 Vue.mixin(fixInputs);
+Vue.mixin(notifyInfo);
+
 /**
  * What Vue should globally use.
  */
@@ -122,7 +126,6 @@ if (home_exists) {
 
       //TODO: dodaj sajtove u store
       
-      debugger;
 
       StoreAPI.getSites()
       .then((res)=>{

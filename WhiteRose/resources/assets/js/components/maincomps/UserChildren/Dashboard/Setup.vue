@@ -5,7 +5,7 @@
   
     <!-- <transition name="fade"> -->
 
-    <div class="d-flex col-5" id="sidebar_dashboard">
+    <div class="d-flex col-4" id="sidebar_dashboard">
         <b-nav class="flex-column">
             <h3 class="h3s">Select option from list.</h3>
 
@@ -128,22 +128,23 @@
                 
                 <v-client-table
                 class="col-12"
+                ref="sites"
                 v-if="isKeyVerifPart"
                 :data='client_sites'
                 :columns='columns_sites'
                 :options='options_sites'
                 >
               
-              <a  slot="verified" 
+              <a  slot="confirmed" 
                   slot-scope="props"
                   class="cursorable"
               >
-                  <icon v-if="props.row.verified" class="check_ico" name="check"></icon>
-                  <icon v-if="!props.row.verified" class="times_ico" name="times"></icon>
+                  <icon v-if="props.row.confirmed" class="check_ico" name="check"></icon>
+                  <icon v-if="!props.row.confirmed" class="times_ico" name="times"></icon>
                
               </a>
               <a  
-                  v-if="!props.row.verified"
+                  v-if="!props.row.confirmed"
                   slot="verify" 
                   slot-scope="props"
                   class="cursorable"
@@ -168,15 +169,28 @@
 
                 <!-- BUTTONS SECTION -->
 
-                 <b-button 
-                  v-if="isInputSitePart"
-                 class="btn btn-info btn-secondary actionbtn" 
-                 @click="newSiteHandler()">
-                 
-                    Next step > 
-                
-                </b-button>
+                <div style="display:flex;">
 
+                  <b-button 
+                    v-if="isInputSitePart"
+                  class="btn btn-info btn-secondary actionbtn" 
+                  @click="newSiteHandler()">
+                  
+                      Next step > 
+                  
+                  </b-button>
+
+                  <b-button 
+                    v-if="isInputSitePart"
+                  class="btn btn-info btn-secondary actionbtn" 
+                  @click="viewSites()">
+                  
+                    View sites
+                  
+                  </b-button>
+                
+                </div>
+                
                  <!-- <b-button 
                   v-if="isKeyVerifPart"
                  class="btn btn-info btn-secondary actionbtn" 
@@ -326,16 +340,21 @@ import VerifySiteApi from "../../../../services/api/user_api/verifySite.api";
 import PostAvatarApi from "../../../../services/api/user_api/postAvatar.api";
 import ResetPwApi from "../../../../services/api/user_api/resetPw.api";
 // import ClientSitesHardcode from './client_sites.hardcode';
+import { mapGetters, mapState } from 'vuex';
+
 
 export default {
+  name : "SETUP",
+  created() {
+    // this.client_sites = this.$store.state.returnSites;
+  },
   mounted() {
-    this.client_sites = this.$store.state.sites;
-
     eventBus.$on("field_ok", val => {
       this.all_fields_ok &= val;
     });
   },
   computed: {
+    ...mapGetters({client_sites : 'returnSites'}),
     errAvatar() {
       return this.errors.has("avatar");
     },
@@ -354,6 +373,12 @@ export default {
     Icon
   },
   methods: {
+    viewSites() {
+      this.isInputSitePart = false;
+      this.isKeyVerifPart = true;
+      this.isVerifySitePart = false;
+    },
+    
     getKey() {
       //download logic here..
     },
@@ -425,7 +450,12 @@ export default {
       if (this.site_for_verification.value.length !== 0 ) {
         VerifySiteApi
         .addNewSite(this,this.site_for_verification.value)
-        .then(() => {
+        .then((resolved) => {
+
+            //site already exists
+            if(!resolved)
+              return;
+
             this.isInputSitePart = false;
             this.isKeyVerifPart = true;
             this.isVerifySitePart = false;
@@ -487,9 +517,11 @@ export default {
 
       //Validation helper
       all_fields_ok: false,
+
+
+
       //Site verification
-      client_sites: [],
-      columns_sites: ["domain", "verified", "verify"],
+      columns_sites: ["domain", "confirmed", "verify"],
       options_sites: {
         columnsClasses: {
           verified: "cursorable",

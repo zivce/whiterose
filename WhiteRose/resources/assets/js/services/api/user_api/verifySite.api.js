@@ -9,7 +9,15 @@ export default {
     addNewSite(vm,site) {
       return new Promise(resolve => {
         axios.post("/newsite",{site})
-        .then(() => resolve())
+        .then((resp) => {
+          if(resp.data === "Website already exists!")
+          {
+            vm.notifyInfo("Website already exists", "Info.");
+            resolve(false);            
+          }
+          else
+            resolve(resp)
+        })
         .catch(function(error) {
           vm.errorToast("An error happened.", "Error.");
         });
