@@ -35,8 +35,8 @@ class ClientController extends Controller
     //verifing domain
     public function addNewWebsite(Request $request)
     {
-        $client_id=Auth::user()->id;
-        $siteName=$request->siteName;
+        $client_id=Auth::guard('client')->user()->id;
+        $siteName=$request->site;
         if(!Website::where('siteName',$siteName)->first())
             return "Website already exists!";
 
