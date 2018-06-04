@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use App\Scan;
 use App\Bid;
-
+use GuzzleHttp\Client as GUZ;
 use App\Started_job;
 use App\Discusion;
 
@@ -51,7 +51,11 @@ class ClientController extends Controller
 
     public function allSites()
     {
+        
+        
+        if(Website::where('client_id',Auth::guard('client')->user()->id)!==null)
         return Website::where('client_id',Auth::guard('client')->user()->id)->get();
+        return "You dont have any websites";
     }
     public function downloadKey(Request $request)
     {
@@ -63,14 +67,17 @@ class ClientController extends Controller
     }
     public function confirmSite(Request $request)
     {
-       $siteDomain='http://'.$request->siteName.'/text.txt';
+       $siteDomain='http://'.$request->site.'/text.txt';
+       $client=new GUZ();
+       $resp=$client->get($siteDomain);
+       return $resp;
        $retVal= Redirect::to($siteDomain);
       
-       $siteName=$request->siteName;
-       $cmpCode=Website::where('siteName',$siteName)->first()->confirmationCode;
+       $siteName=$request->site;
+       $cmpCode=Website::where('domain',$siteName)->first()->confirmationCode;
        if($cmpCode===$retVal)
        {
-           $confirmedSite=Website::where('siteName',$siteName)->first();
+           $confirmedSite=Website::where('domain',$siteName)->first();
            $confirmedSite->confirmed=1;
            
        }
