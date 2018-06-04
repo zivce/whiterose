@@ -37,9 +37,9 @@ class ClientController extends Controller
     {
         $client_id=Auth::guard('client')->user()->id;
         $siteName=$request->site;
-        if(!Website::where('siteName',$siteName)->first())
+        if(!Website::where('domain',$siteName)->first())
             return "Website already exists!";
-
+    
         $newSite=new Website;
         $newSite->domain=$siteName;
         $newSite->confimationCode=str_random(30);
