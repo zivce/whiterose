@@ -11,7 +11,7 @@
     v-model="prop.value" 
     required="true"
     v-validate="vval"
-    :maxlength="10"
+    :maxlength="maxlength"
     :name="prop.id"/>
     
     <span v-if="errors.has(prop.id)" class="incorrect_input">
@@ -52,6 +52,7 @@ export default {
   methods: {},
   data() {
     return {
+      maxlength : 20,
       passwordagain: this.pw,
       vval: { required: true },
       id_upper: _.capitalize(this.prop.label)

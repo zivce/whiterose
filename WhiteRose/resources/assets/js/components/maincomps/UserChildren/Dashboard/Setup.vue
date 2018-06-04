@@ -249,7 +249,7 @@
                     v-model="newpwagain.value" 
                     required="true"
                     v-validate="{required:true,is:newpw.value}"
-                    :maxlength="10"
+                    :maxlength="maxlength"
                     :name="newpwagain.id"/>
                     
                     <span v-if="errors.has(newpwagain.id)" class="incorrect_input">
@@ -470,6 +470,8 @@ export default {
   },
   data() {
     return {
+      maxlength: 20,
+
       //Visibility variables
       isVisibleReset: true,
       isVisibleDesc: false,
