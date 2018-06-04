@@ -6,6 +6,13 @@ import errorToast from '../../../components/toastr/welcometoastr';
  */
 
 export default {
+    getKey(site){
+      return new Promise(resolve => {
+        axios.post("/getkey",{site})
+        .then(() => resolve())
+      }) 
+
+    },
     addNewSite(vm,site) {
       return new Promise(resolve => {
         axios.post("/newsite",{site})
@@ -30,29 +37,11 @@ export default {
 
     verifySite(validator,vm,site)
     {
-        console.log(validator);
-        
-
-        validator.validateAll().then((form_ok)=>{
-                if (form_ok) {
-                    axios
-                      .post("/verifysite", {
-                        site
-                      })
-                      .then(function(response) {
-                        vm.successToast("Description added.", "Success.");
-                      })
-                      .catch(function(error) {
-                        vm.errorToast("An error happened.", "Error.");
-                      });
-                  } else {
-                    //reset
-                    vm.errorToast("Please fill out form correctly.", "Error.");
-                    vm.all_fields_ok = true;
-            }            
-
-
-        })
-
+       return new Promise(resolve => {
+          axios
+          .post("/confirmed", {
+            site
+          })
+       })
     }
 }

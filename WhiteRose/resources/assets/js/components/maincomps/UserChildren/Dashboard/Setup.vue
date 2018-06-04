@@ -5,7 +5,7 @@
   
     <!-- <transition name="fade"> -->
 
-    <div class="d-flex col-4" id="sidebar_dashboard">
+    <div class="d-flex col-5" id="sidebar_dashboard">
         <b-nav class="flex-column">
             <h3 class="h3s">Select option from list.</h3>
 
@@ -148,10 +148,8 @@
                   slot="verify" 
                   slot-scope="props"
                   class="cursorable"
-                  href ="link_here"
-                  @click="keyDownloaded"
-                  download
-              >key</a>
+                  @click="getKey(props)"
+                  >key</a>
                 
                 </v-client-table >
                 
@@ -222,7 +220,7 @@
                   <b-button 
                     v-if="isVerifySitePart"
                   class="btn btn-info btn-secondary actionbtn" 
-                  @click="verifySite()">
+                  @click="verifySiteHandler()">
                   
                       Verify 
                   
@@ -373,14 +371,16 @@ export default {
     Icon
   },
   methods: {
+    getKey(props){
+      VerifySiteApi.getKey(props.row.domain)
+      .then(()=>{
+        this.verifySite();
+      })
+    },
     viewSites() {
       this.isInputSitePart = false;
       this.isKeyVerifPart = true;
       this.isVerifySitePart = false;
-    },
-    
-    getKey() {
-      //download logic here..
     },
     getBackToFirstScreen() {
       this.isInputSitePart = true;
@@ -474,7 +474,6 @@ export default {
       PostDescApi.postDescription(valid, vm, this.descinput.value);
     },
 
-    //TODO: Check validation for site verification not working
 
     verifySiteHandler() {
       let vm = this;
@@ -527,7 +526,7 @@ export default {
           verified: "cursorable",
           domain: "cursorable"
         },
-        filterable: [],
+        filterable: ["domain"],
         filterByColumn: true,
         pagination: {
           dropdown: true,
