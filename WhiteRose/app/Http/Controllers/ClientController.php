@@ -41,7 +41,7 @@ class ClientController extends Controller
             return "Website already exists!";
 
         $newSite=new Website;
-        $newSite->siteName=$siteName;
+        $newSite->domain=$siteName;
         $newSite->confimationCode=str_random(30);
         $newSite->confirmed=0;
         $newSite->client_id=Auth::guard('client')->user()->id;
