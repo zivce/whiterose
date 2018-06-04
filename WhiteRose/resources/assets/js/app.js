@@ -86,7 +86,7 @@ if (lander_exists) {
 import store from "./store";
 
 let home_exists = document.getElementById("home") ? true : false;
-
+const TOKENS_HARDCODE = 5000;
 if (home_exists) {
   const home = new Vue({
     store,
@@ -118,7 +118,7 @@ if (home_exists) {
       //TODO: dodaj fetchovanje tokena
 
       if (store.getters.returnTokens === null)
-        store.commit("setTokens", { tokens: 10 });
+        store.commit("setTokens", { tokens: TOKENS_HARDCODE });
 
       //TODO: dodaj verifikovane sajtove u store
       // StoreAPI.getSites().then((res)=>{
