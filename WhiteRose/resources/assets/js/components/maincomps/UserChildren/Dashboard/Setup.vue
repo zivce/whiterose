@@ -143,14 +143,17 @@
                   <icon v-if="!props.row.confirmed" class="times_ico" name="times"></icon>
                
               </a>
-              <a  
+                  <a  
                   v-if="!props.row.confirmed"
                   slot="verify" 
                   slot-scope="props"
                   class="cursorable"
                   :href="makeGetKeyUrl(props.row.domain)"
+                  @click="redirectToVerifySite()"
                   >key</a>
-                
+
+
+
                   <!-- @click="getKey(props)" -->
                 </v-client-table >
                 
@@ -348,9 +351,17 @@ export default {
     // this.client_sites = this.$store.state.returnSites;
   },
   mounted() {
+    
     eventBus.$on("field_ok", val => {
       this.all_fields_ok &= val;
     });
+
+    //to go the end screen of verification 
+    // eventBus.$on("row-click")
+    // {
+    //   this.redirectToVerifySite();
+    // }
+
   },
   computed: {
     ...mapGetters({client_sites : 'returnSites'}),
@@ -382,7 +393,11 @@ export default {
       })
     },
     
-    
+    redirectToVerifySite() {
+      this.isInputSitePart = false;
+      this.isKeyVerifPart = false;
+      this.isVerifySitePart = true;
+    },
     
     viewSites() {
       this.isInputSitePart = false;
