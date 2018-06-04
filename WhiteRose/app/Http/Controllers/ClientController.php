@@ -37,7 +37,7 @@ class ClientController extends Controller
     {
         $client_id=Auth::guard('client')->user()->id;
         $siteName=$request->site;
-        if(!Website::where('domain',$siteName)->first())
+        if(Website::where('domain',$siteName)->first())
             return "Website already exists!";
     
         $newSite=new Website;
@@ -55,9 +55,8 @@ class ClientController extends Controller
     }
     public function downloadKey(Request $request)
     {
-        $siteName=$request->siteName;
+        $siteName=$request->site;
         $confirmationCode=Website::where('siteName',$siteName)->first()->confirmationCode;
-        $downloadFile='app\\'.$siteName;
         Storage::put($siteName,$confirmationCode);
         $absolutePath=storage_path($siteName);
         return response()->download($absolutePath)->deleteFileAfterSend(true);
