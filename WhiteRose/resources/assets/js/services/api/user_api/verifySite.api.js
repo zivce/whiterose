@@ -6,6 +6,19 @@ import errorToast from '../../../components/toastr/welcometoastr';
  */
 
 export default {
+    addNewSite(vm,site) {
+      return new Promise(resolve => {
+        axios.post("/newsite",{site})
+        .then(() => resolve())
+        .catch(function(error) {
+          vm.errorToast("An error happened.", "Error.");
+        });
+      })
+      
+    
+
+    },
+
 
     verifySite(validator,vm,site)
     {

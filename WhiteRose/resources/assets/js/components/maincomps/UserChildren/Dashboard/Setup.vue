@@ -249,7 +249,6 @@
                     v-model="newpwagain.value" 
                     required="true"
                     v-validate="{required:true,is:newpw.value}"
-                    :maxlength="maxlength"
                     :name="newpwagain.id"/>
                     
                     <span v-if="errors.has(newpwagain.id)" class="incorrect_input">
@@ -423,10 +422,15 @@ export default {
 
     //HANDLERS FORMS
     newSiteHandler() {
-      if (this.site_for_verification.value.length) {
-        this.isInputSitePart = false;
-        this.isKeyVerifPart = true;
-        this.isVerifySitePart = false;
+      if (this.site_for_verification.value.length !== 0 ) {
+        VerifySiteApi
+        .addNewSite(this,this.site_for_verification.value)
+        .then(() => {
+            this.isInputSitePart = false;
+            this.isKeyVerifPart = true;
+            this.isVerifySitePart = false;
+          }
+        )
       } else {
         this.errorToast("Please insert site", "Error!");
       }
@@ -470,7 +474,7 @@ export default {
   },
   data() {
     return {
-      maxlength: 20,
+     
 
       //Visibility variables
       isVisibleReset: true,

@@ -4,7 +4,7 @@ export default {
     getSites () {
         return new Promise((resolve) => {
                 axios
-                .get("verifiedsites")
+                .get("getAllSites")
                 .then((res)=>{
                     resolve(res);
                 })
