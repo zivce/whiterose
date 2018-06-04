@@ -56,7 +56,7 @@ Route::get('/hacker', 'HomeController@hacker')->name('hacker');
 
 //site verification
 Route::post('newsite','ClientController@addNewWebsite')->name('newsite');
-Route::post('getkey','ClientController@downloadKey')->name('getkey');
+Route::get('getkey/{site}','ClientController@downloadKey')->name('getkey');
 Route::post('confirm','ClientController@confirmSite')->name('confirm');
 Route::get('getAllSites','ClientController@allSites');
 //buying and selling tokens

@@ -57,13 +57,15 @@ class ClientController extends Controller
         return Website::where('client_id',Auth::guard('client')->user()->id)->get();
         return "You dont have any websites";
     }
-    public function downloadKey(Request $request)
+    public function downloadKey($site)
     {
-        $siteName=$request->site;
-        $confirmationCode=Website::where('siteName',$siteName)->first()->confirmationCode;
-        Storage::put($siteName,$confirmationCode);
-        $absolutePath=storage_path($siteName);
-        return response()->download($absolutePath)->deleteFileAfterSend(true);
+        
+        $confirmationCode=Website::where('domain',$site)->first()->confirmationCode;
+        $site=$site.'.txt';
+        Storage::put($site,$confirmationCode);
+        $absolutePath=storage_path('app\\'.$site);
+      
+         return response()->download($absolutePath);//->deleteFileAfterSend(true);
     }
     public function confirmSite(Request $request)
     {
@@ -71,7 +73,7 @@ class ClientController extends Controller
        $client=new GUZ();
        $resp=$client->get($siteDomain);
        return $resp;
-       $retVal= Redirect::to($siteDomain);
+      // $retVal= Redirect::to($siteDomain);
       
        $siteName=$request->site;
        $cmpCode=Website::where('domain',$siteName)->first()->confirmationCode;
