@@ -120,10 +120,14 @@ if (home_exists) {
       if (store.getters.returnTokens === null)
         store.commit("setTokens", { tokens: TOKENS_HARDCODE });
 
-      //TODO: dodaj verifikovane sajtove u store
-      // StoreAPI.getSites().then((res)=>{
-      //     store.commit("setSites",res.data)
-      // })
+      //TODO: dodaj sajtove u store
+      
+      debugger;
+
+      StoreAPI.getSites()
+      .then((res)=>{
+          store.commit("setSites",res.data)
+      })
 
       // StoreAPI.getAllUserScans().then((res)=>{
       //     store.commit("setScans",res.data)

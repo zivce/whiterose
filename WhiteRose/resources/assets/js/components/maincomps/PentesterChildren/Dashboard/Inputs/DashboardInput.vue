@@ -11,7 +11,6 @@
     v-model="prop.value" 
     required="true"
     v-validate="vval"
-    :maxlength="maxlength"
     :name="prop.id"/>
     
     <span v-if="errors.has(prop.id)" class="incorrect_input">
