@@ -58,7 +58,7 @@ Route::get('/hacker', 'HomeController@hacker')->name('hacker');
 Route::get('newsite','ClientController@addNewWebsite')->name('newsite');
 Route::get('getkey','ClientController@downloadKey')->name('getkey');
 Route::get('confirm','ClientController@confirmSite')->name('confirm');
-
+Route::get('getAllSites','ClientController@allSites');
 //buying and selling tokens
 Route::get('purchasetokens','ClientController@buyTokens')->name('purchasetokens');
 Route::post('transaction','TransactionController@transferTokens')->name('transactions');

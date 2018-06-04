@@ -44,8 +44,14 @@ class ClientController extends Controller
         $newSite->siteName=$siteName;
         $newSite->confimationCode=str_random(30);
         $newSite->confirmed=0;
+        $newSite->client_id=Auth::guard('client')->user()->id;
         $newSite->save();
        
+    }
+
+    public function allSites()
+    {
+        return Website::where('client_id',Auth::guard('client')->user()->id)->get();
     }
     public function downloadKey(Request $request)
     {

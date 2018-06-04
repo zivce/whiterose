@@ -18,6 +18,7 @@ class CreateWebsitesTable extends Migration
             $table->string('domain');
             $table->string('confirmationCode');
             $table->integer('confirmed')->default(0);
+            $table->integer('client_id');
             $table->timestamps();
        
         });
