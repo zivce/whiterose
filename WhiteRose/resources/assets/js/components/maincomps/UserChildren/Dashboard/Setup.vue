@@ -128,30 +128,33 @@
                 
                 <v-client-table
                 class="col-12"
+                ref="sites"
                 v-if="isKeyVerifPart"
                 :data='client_sites'
                 :columns='columns_sites'
                 :options='options_sites'
                 >
               
-              <a  slot="verified" 
+              <a  slot="confirmed" 
                   slot-scope="props"
                   class="cursorable"
               >
-                  <icon v-if="props.row.verified" class="check_ico" name="check"></icon>
-                  <icon v-if="!props.row.verified" class="times_ico" name="times"></icon>
+                  <icon v-if="props.row.confirmed" class="check_ico" name="check"></icon>
+                  <icon v-if="!props.row.confirmed" class="times_ico" name="times"></icon>
                
               </a>
-              <a  
-                  v-if="!props.row.verified"
+                  <a  
+                  v-if="!props.row.confirmed"
                   slot="verify" 
                   slot-scope="props"
                   class="cursorable"
-                  href ="link_here"
-                  @click="keyDownloaded"
-                  download
-              >key</a>
-                
+                  :href="makeGetKeyUrl(props.row.domain)"
+                  @click="redirectToVerifySite(props.row.domain)"
+                  >key</a>
+
+
+
+                  <!-- @click="getKey(props)" -->
                 </v-client-table >
                 
                 <p 
@@ -168,15 +171,28 @@
 
                 <!-- BUTTONS SECTION -->
 
-                 <b-button 
-                  v-if="isInputSitePart"
-                 class="btn btn-info btn-secondary actionbtn" 
-                 @click="newSiteHandler()">
-                 
-                    Next step > 
-                
-                </b-button>
+                <div style="display:flex;">
 
+                  <b-button 
+                    v-if="isInputSitePart"
+                  class="btn btn-info btn-secondary actionbtn" 
+                  @click="newSiteHandler()">
+                  
+                      Next step > 
+                  
+                  </b-button>
+
+                  <b-button 
+                    v-if="isInputSitePart"
+                  class="btn btn-info btn-secondary actionbtn" 
+                  @click="viewSites()">
+                  
+                    View sites
+                  
+                  </b-button>
+                
+                </div>
+                
                  <!-- <b-button 
                   v-if="isKeyVerifPart"
                  class="btn btn-info btn-secondary actionbtn" 
@@ -208,7 +224,7 @@
                   <b-button 
                     v-if="isVerifySitePart"
                   class="btn btn-info btn-secondary actionbtn" 
-                  @click="verifySite()">
+                  @click="verifySiteHandler()">
                   
                       Verify 
                   
@@ -326,16 +342,29 @@ import VerifySiteApi from "../../../../services/api/user_api/verifySite.api";
 import PostAvatarApi from "../../../../services/api/user_api/postAvatar.api";
 import ResetPwApi from "../../../../services/api/user_api/resetPw.api";
 // import ClientSitesHardcode from './client_sites.hardcode';
+import { mapGetters, mapState } from 'vuex';
+
 
 export default {
+  name : "SETUP",
+  created() {
+    // this.client_sites = this.$store.state.returnSites;
+  },
   mounted() {
-    this.client_sites = this.$store.state.sites;
-
+    
     eventBus.$on("field_ok", val => {
       this.all_fields_ok &= val;
     });
+
+    //to go the end screen of verification 
+    // eventBus.$on("row-click")
+    // {
+    //   this.redirectToVerifySite();
+    // }
+
   },
   computed: {
+    ...mapGetters({client_sites : 'returnSites'}),
     errAvatar() {
       return this.errors.has("avatar");
     },
@@ -354,8 +383,28 @@ export default {
     Icon
   },
   methods: {
-    getKey() {
-      //download logic here..
+    makeGetKeyUrl(site){
+      return `getkey/${site}`
+    },
+    getKey(props){
+      VerifySiteApi.getKey(props.row.domain,this)
+      .then(()=>{
+        this.verifySite();
+      })
+    },
+    
+    redirectToVerifySite(site) {
+      this.for_verify_site = site;
+
+      this.isInputSitePart = false;
+      this.isKeyVerifPart = false;
+      this.isVerifySitePart = true;
+    },
+    
+    viewSites() {
+      this.isInputSitePart = false;
+      this.isKeyVerifPart = true;
+      this.isVerifySitePart = false;
     },
     getBackToFirstScreen() {
       this.isInputSitePart = true;
@@ -367,11 +416,13 @@ export default {
       this.isKeyVerifPart = true;
       this.isVerifySitePart = false;
     },
-    keyDownloaded() {
-      this.isInputSitePart = false;
-      this.isKeyVerifPart = false;
-      this.isVerifySitePart = true;
-    },
+
+
+    // keyDownloaded() {
+    //   this.isInputSitePart = false;
+    //   this.isKeyVerifPart = false;
+    //   this.isVerifySitePart = true;
+    // },
 
     verifySite() {
       this.isInputSitePart = true;
@@ -416,6 +467,9 @@ export default {
         this.isVisibleVerifySite = false;
       }
     },
+
+
+
     processFile(event) {
       this.avatar_file.append("avatar", event.target.files[0]);
     },
@@ -425,7 +479,12 @@ export default {
       if (this.site_for_verification.value.length !== 0 ) {
         VerifySiteApi
         .addNewSite(this,this.site_for_verification.value)
-        .then(() => {
+        .then((resolved) => {
+
+            //site already exists
+            if(!resolved)
+              return;
+
             this.isInputSitePart = false;
             this.isKeyVerifPart = true;
             this.isVerifySitePart = false;
@@ -444,12 +503,11 @@ export default {
       PostDescApi.postDescription(valid, vm, this.descinput.value);
     },
 
-    //TODO: Check validation for site verification not working
 
     verifySiteHandler() {
       let vm = this;
       let valid = this.$validator;
-      let send = { site: this.site_for_verification.value };
+      let send = { site: this.for_verify_site };
 
       VerifySiteApi.verifySite(valid, vm, send);
     },
@@ -474,7 +532,7 @@ export default {
   },
   data() {
     return {
-     
+      for_verify_site : null,
 
       //Visibility variables
       isVisibleReset: true,
@@ -487,15 +545,17 @@ export default {
 
       //Validation helper
       all_fields_ok: false,
+
+
+
       //Site verification
-      client_sites: [],
-      columns_sites: ["domain", "verified", "verify"],
+      columns_sites: ["domain", "confirmed", "verify"],
       options_sites: {
         columnsClasses: {
           verified: "cursorable",
           domain: "cursorable"
         },
-        filterable: [],
+        filterable: ["domain"],
         filterByColumn: true,
         pagination: {
           dropdown: true,

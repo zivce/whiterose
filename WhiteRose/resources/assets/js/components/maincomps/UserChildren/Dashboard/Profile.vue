@@ -27,10 +27,9 @@
         <p>{{info.rating}}</p>
     </span>
 
-    <h3 class="h3s">Sites</h3>
 
-    <v-bar id="proje_wrapper" wrapper="proje_wrapper">
 
+<!--
     <div 
     v-for="site in info.sites" 
     class="" 
@@ -40,8 +39,8 @@
         <p>{{pretty_print(site.added_on)}}</p>
 
     </div>
+  -->
 
-    </v-bar>
 </div>
 
 </template>

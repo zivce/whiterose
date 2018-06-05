@@ -85,6 +85,7 @@ import StartedJobs from "../UserChildren/StartedJobs.vue";
 import FinishedJobs from "../UserChildren/FinishedJobs.vue";
 
 export default {
+  
   components: {
     StartedJobs,
     FinishedJobs,
