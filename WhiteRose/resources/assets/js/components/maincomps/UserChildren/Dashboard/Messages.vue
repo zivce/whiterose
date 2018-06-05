@@ -7,23 +7,23 @@
     v-for="(msg,index) in messages" 
     :key="index">
     
-        <h3 class="message_h3">{{msg.pentester}}</h3>
+        <h3 class="message_h3">{{msg.pentester_name}}</h3>
         <transition name="message-pop">
             <div v-if="!longMsg(index)">
-                <p class="message_p">{{pretty_print(msg.message)}}</p>
+                <p class="message_p">{{pretty_print(msg.message.text)}}</p>
                 <!-- <p class="expand message_p"  @click="expand(index)"><strong>...</strong></p> -->
             </div>
         </transition>
 
-        <transition name="message-pop">
+        <!-- <transition name="message-pop">
 
         <div v-if="longMsg(index)">
             
-            <p  class="message_p">{{msg.message}}</p>
+            <p  class="message_p">{{msg.message.text}}</p>
             <div >
                 <b-button   
                 class="btn btn-success btn-secondary"  
-                 @click="openConversation(msg.job_id)" >
+                 @click="openConversation(msg.message.discusion_id)" >
                 Reply <icon name="envelope"></icon>
                 </b-button>
             
@@ -34,7 +34,7 @@
             
         </div>
 
-        </transition>
+        </transition> -->
     
     </div>
 
@@ -55,17 +55,18 @@ import "vue-awesome/icons/envelope";
 
 export default {
   created() {
-    // this.messages = MessagesApi.getMessages();
+    MessagesApi.getMessages().then(resp => this.messages=resp);
+    console.log(this.messages);
     this.user_id = this.$store.getters.returnId;
 
     this.conv_url = `/user/${this.user_id}/dashboard/convo/`;
 
-    this.messages = this.messages.map(elem => {
-      return {
-        ...elem,
-        visible_long_msg: false
-      };
-    });
+    // this.messages = this.messages.map(elem => {
+    //   return {
+    //     ...elem,
+    //     visible_long_msg: false
+    //   };
+    // });
   },
   components: {
     Icon
@@ -96,7 +97,7 @@ export default {
     return {
       user_id: "",
       conv_url: "",
-      messages: messages
+      messages: []
     };
   }
 };

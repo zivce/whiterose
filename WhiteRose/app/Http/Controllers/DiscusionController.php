@@ -8,6 +8,7 @@ use App\Discusion;
 use Illuminate\Support\Facades\Auth;
 use App\Client;
 use App\Pentester;
+use App\Message;
 
 
 class DiscusionController extends Controller
@@ -44,7 +45,17 @@ class DiscusionController extends Controller
         $jobID=$request->jobID;
         $job=Job::where('id',1)->first();
         $discusion=$job->discusion()->first();
-        return $discusion->messages()->get();
+        $pentester=Pentester::where('id',$discusion->pentester_id)->first()->username;
+        $discusion->sender = $pentester;
+        // return $discusion->messages()->get();
+        $discusion = $discusion->with('messages')->get();
+
+        return $ret = [
+            "discusion" => $discusion,
+            "pentester" => $pentester
+        ];
+
+
 
     }
 
@@ -52,7 +63,7 @@ class DiscusionController extends Controller
     {
         
         $message=new Message;
-        $message->text=$request->text;
+        $message->text=$request->message;
         if(Auth::guard('client')->check())
             $message->clientToPentester=1;
         else

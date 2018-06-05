@@ -1,6 +1,6 @@
 <template>
     <div class="comp_container">
-          <h2 class="h2s">Convo with {{findSender()}}</h2>
+          <h2 class="h2s">Convo with {{whole_convo.pentester}}</h2>
 
           <span 
           class="del_msg"
@@ -33,14 +33,12 @@
         
         <div 
         class = "msg_cont "
-        v-for="msg in whole_convo"
-        :key = msg.msg_id
+        v-for="(msg) in whole_convo.discusion"
+        :key = msg.id
         >
         
-            <div 
-            
-            class="client d-flex "
-            v-if = "msg.client_to_pentester"
+            <div
+            class="client d-flex"
             >
                 <div class="col-2">
                     <img 
@@ -51,10 +49,14 @@
 
                 <div class="col-8">
                     <div class = "msg_cont_header_client">
-                        <p><strong>{{msg.date_time}}</strong></p>           
+                        <p><strong>{{msg.updated_at}}</strong></p>           
                     </div>
-                    <p>
-                    {{msg.message}}
+                    <p
+                    v-for="msg2 in msg.messages"
+                    :key = msg2.id
+                    v-if="msg2.clientToPentester==1"
+                    >
+                    {{msg2.text}}
                     </p>
                 </div>
 
@@ -62,7 +64,6 @@
 
             <div
             class="pentester d-flex"
-            v-if="msg.pentester_to_client"
             >
                 <div class="col-2">
 
@@ -74,11 +75,15 @@
                 </div>
                 <div class="col-8">
                     <div class = "msg_cont_header_pent">
-                        <p><strong>{{msg.date_time}}</strong></p>           
+                        <p><strong>{{msg.updated_at}}</strong></p>           
                     </div>
                     
-                    <p>
-                        {{msg.message}}
+                   <p
+                    v-for="msg3 in msg.messages"
+                    :key = msg3.id
+                    v-if="msg3.pentesterToClient==1"                    
+                    >
+                    {{msg3.text}}
                     </p>
                 </div>
 
@@ -157,6 +162,8 @@ export default {
     //TODO: job_id se cuva u vuex..
     //ConvoHardcode.getConv(job_id,user_id)..
     //TODO: posalji rating ovde
+    ClientConvoAPI.getConversation().then(resp => this.whole_convo=resp);
+    console.log(this.whole_convo);
   },
   mounted() {
     this.job_id = this.$store.getters.returnParams;
@@ -183,34 +190,36 @@ export default {
       if (!this.one_msg.length) return;
 
       let new_msg = {
-        msg_id: this.msgs_for_send.length - 1,
-        client_to_pentester: true,
-        pentester_to_client: false,
-        date_time: moment().format("DD.MM.YYYY hh:mm"),
+        // msg_id: this.msgs_for_send.length - 1,
+        client_to_pentester: 1,
+        pentester_to_client: 0,
         sender: this.user_name,
+        discusionID: this.whole_convo.discusion[0].id,
         message: this.one_msg
       };
       this.one_msg = "";
 
-      this.msgs_for_send.push(new_msg);
-
+      // this.msgs_for_send.push(new_msg);
+      console.log(new_msg);
       ConvoSendMessagesAPI.sendMsg(new_msg);
     },
 
     //find client that sent msg
-    findSender() {
-      let sender = this.whole_convo.find(elem => {
-        if (elem.client_to_pentester) return elem;
-      });
-      return sender.sender;
-    }
+
+    // findSender() {
+    //   let sender = this.whole_convo.find(elem => {
+    //     if (elem.clientToPentester) return elem;
+    //   });
+    //   return sender.sender;
+    // }
+
   },
   data() {
     return {
       rating: 0,
       one_msg: "",
       msgs_for_send: [],
-      whole_convo: ConvoHardcode
+      whole_convo: []
     };
   }
 };

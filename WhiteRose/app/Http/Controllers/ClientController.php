@@ -153,7 +153,7 @@ class ClientController extends Controller
             {
             array_push($returnBids,[
                 'bid'=>$bid,
-                // 'pentester_username'=>Pentester::where('id',$bid->pentester_id)->username,
+                'pentester_username'=>Pentester::where('id',$bid->pentester_id)->first()->username,
                 'pentester_email'=>Pentester::where('id',$bid->pentester_id)->first()->email,
                 'pentester_rating'=>Pentester::where('id',$bid->pentester_id)->first()->rating,
                 'job_name'=>$job->title
@@ -323,19 +323,20 @@ class ClientController extends Controller
         $bid->accepted=1;
         $bid->save();
 
-        $job=$bid->job();
-        $pentester=$bid->pentester();
+        $job=$bid->job()->first();
+        $pentester=$bid->pentester()->first();
 
         $job->pentesters()->attach($pentester,['amount'=>$bid->amount,'started'=>1]);
 
         $job->inprogress=1;
 
         $discusion=new Discusion;
-        $discusion->client_id=$bid->client_id;
-        $discusion->penester_id=$bid->pentester_id;
+        $discusion->client_id=$job->client_id;
+        $discusion->pentester_id=$bid->pentester_id;
         $discusion->job_id=$bid->job_id;
         $job->save();
         $discusion->save();
+        return "job accepted";
         
     }
 }

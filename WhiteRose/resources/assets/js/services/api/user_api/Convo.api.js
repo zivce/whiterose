@@ -11,31 +11,20 @@ import errorToast from '../../../components/toastr/welcometoastr';
 
 export default {
 
-    getAllJobs()
+    getConversation()
     {
       return new Promise((resolve) => {
             let jobs = [];
               axios
-                .get("returnalljobs")
+                .get("getMessages")
                 .then(response => {
-                  // console.log(response.data[0]);
-                  response.data.forEach(job_info => {
-                    jobs.push({
-                      id: job_info.id,
-                      title: job_info.title,
-                      maximum_price: job_info.maximum_price,
-                      domain:job_info.domain,
-                      description: job_info.description,
-                      user:"hardcode",
-                      //job_info
-                    });
-                  });
+                  console.log(response.data);
                   resolve(
-                    jobs
+                    response.data
                   );
                 })
                 .catch(function(error) {
-                  vm.errorToast("Error happened.", "Error!");
+                  // vm.errorToast("Error happened.", "Error!");
                 });
           });    
     }
