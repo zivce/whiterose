@@ -184,6 +184,28 @@ let routes = [
                 //load pentester comps
                 {
                     path:'alljobs',
+                    name:'jobs_pentester',
+                    redirect:{name:'myjobs_pentester'},
+                    children : [
+                        {
+                            name:'myjobs_pentester',
+                            path:'myjobs',
+                            component: require('../components/maincomps/PentesterChildren/MyJobs.vue')
+                        },
+
+                        {
+                            name:'finjobs_pentester',
+                            path:'finishedjobs',
+                            component: require('../components/maincomps/PentesterChildren/FinishedJobs.vue')
+
+                        },
+                        {
+                            name:'startedjobs_pentester',                    
+                            path:'startedjobs',
+                            component: require('../components/maincomps/PentesterChildren/StartedJobs.vue')
+
+                        },
+                    ],
                     component: require('../components/maincomps/PentesterChildren/AllJobs.vue')
                 },
                 {
