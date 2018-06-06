@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use App\Scan;
 use App\Bid;
-use GuzzleHttp\Client as GUZ;
+use GuzzleHttp\Client as fakingGazl;
 use App\Started_job;
 use App\Discusion;
 
@@ -65,25 +65,55 @@ class ClientController extends Controller
         Storage::put($site,$confirmationCode);
         $absolutePath=storage_path('app\\'.$site);
       
-         return response()->download($absolutePath);//->deleteFileAfterSend(true);
+         return response()->download($absolutePath,'ver.txt');//->deleteFileAfterSend(true);
     }
     public function confirmSite(Request $request)
     {
-       $siteDomain='http://'.$request->site.'/text.txt';
-       $client=new GUZ();
+       $siteDomain='http://'.$request->site['site'].'/ver.txt';
+       $client=new fakingGazl();
        $resp=$client->get($siteDomain);
-       return $resp;
+       
       // $retVal= Redirect::to($siteDomain);
       
-       $siteName=$request->site;
+       $siteName=$request->site['site'];
+       
        $cmpCode=Website::where('domain',$siteName)->first()->confirmationCode;
-       if($cmpCode===$retVal)
+       //return $resp->getBody();
+       
+       if(strcmp($cmpCode,$resp->getBody())==0)
        {
            $confirmedSite=Website::where('domain',$siteName)->first();
            $confirmedSite->confirmed=1;
+           $confirmedSite->save();
            
        }
 
+    }
+    public function verifiedSites()
+    {
+        return Website::where('client_id',Auth::guard('client')->user()->id)
+                        ->where('confirmed',1)
+                        ->select('domain')
+                        ->get();
+
+                        
+    }
+
+    public function uploadAvatar()
+    {
+        
+        
+ 
+         $image=$request->avatar;
+         $client=Auth::guard('client')->user();
+         $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
+         Storage::makeDirectory($dirName);
+         $fileName=Carbon::now()->toDateTimeString().'.'.$image->getClientOriginalExtension();
+         $fileName=str_replace(' ','_',$fileName);
+         $fileName=str_replace(':','_',$fileName);
+         Storage::putFileAs($dirName,$image,$fileName);
+         $client->image_path=storage_path('app\\'.$dirName.'\\'.$fileName);
+         $client->save();
     }
 
     //buying and transfering tokens

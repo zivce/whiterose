@@ -46,7 +46,12 @@ Route::get('/',function(){
 
     return view('lender');
 });
-
+Route::get('getLoggedUser',function()
+{
+    if(Auth::guard('pentester')->user())
+        return Auth::guard('pentester')->user();
+        return Auth::guard('client')->user();
+});
 
 
 Route::get('/home', 'HomeController@home')->name('home');
@@ -55,9 +60,10 @@ Route::get('/hacker', 'HomeController@hacker')->name('hacker');
 
 
 //site verification
+Route::get('getVerifiedSites','ClientController@verifiedSites');
 Route::post('newsite','ClientController@addNewWebsite')->name('newsite');
 Route::get('getkey/{site}','ClientController@downloadKey')->name('getkey');
-Route::post('confirm','ClientController@confirmSite')->name('confirm');
+Route::post('confirmed','ClientController@confirmSite')->name('confirm');
 Route::get('getAllSites','ClientController@allSites');
 //buying and selling tokens
 Route::get('purchasetokens','ClientController@buyTokens')->name('purchasetokens');
@@ -65,7 +71,8 @@ Route::post('transaction','TransactionController@transferTokens')->name('transac
 Route::post('payout','PentesterController@cashOutPentester')->name('payout'); //undone
 Route::get('returntokens','Controller@returnTokens')->name('returntokens');
 
-
+//upload avatar
+Route::post('postAvatar','ClientController@uploadAvatar');
 //Client posting a job
 Route::post('postjob','ClientController@postJob')->name('postjob');
 
