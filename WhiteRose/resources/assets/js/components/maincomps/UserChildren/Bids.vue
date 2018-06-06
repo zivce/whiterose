@@ -69,6 +69,7 @@ export default {
           response.data.forEach(bid_info => {
             this.table_data.push({
               pentester: bid_info.pentester_email,
+              pentester_username: bid_info.pentester_username,
               rating: bid_info.pentester_rating,
               title: bid_info.job_name,
               bid_info: bid_info.bid

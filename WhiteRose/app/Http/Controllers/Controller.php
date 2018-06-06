@@ -27,8 +27,14 @@ class Controller extends BaseController
 
     public function allJobs()
     {
-        return Job::all()
-                    ->sortBy('created_at');
+        // return Job::all()
+        //             ->sortBy('created_at');
+        $jobs = Job::all();
+        foreach($jobs as $job){
+            $client = $job->client()->first();
+            $job->client = $client;
+        }
+        return $jobs->sortBy('created_at');
     }
 
     
