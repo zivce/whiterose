@@ -49,8 +49,11 @@ Route::get('/',function(){
 Route::get('getLoggedUser',function()
 {
     if(Auth::guard('pentester')->user())
-        return Auth::guard('pentester')->user();
-        return Auth::guard('client')->user();
+    
+        return $user=['role'=>'pentester','user'=>Auth::guard('pentester')->user()];
+    
+        
+        return $user=['role'=>'client','user'=>Auth::guard('client')->user()];
 });
 
 
