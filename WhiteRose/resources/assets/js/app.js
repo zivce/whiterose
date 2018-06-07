@@ -95,11 +95,15 @@ if (home_exists) {
     store,
     el: "#home",
     router: mainRouter,
-    beforeMount() {
+    created() {
       this.unsync = sync(this.$store, this.$router);
 
       let _user = localStorage.getItem("r");
       let loggedInPromise = null;
+
+      _user = JSON.parse(_user);
+
+      
       // if(_user !== null)
       // {
       //   this.store.commit("setUser", _user);
@@ -118,53 +122,53 @@ if (home_exists) {
       //   localStorage.clear();
       // }
       // else {
+       
+      //TODO: Resi... 
+     
+          // axios
+          //   .get("getLoggedUser")
+          //   .then((user) => {
+              
+              store.commit("setUser", _user);
+    
+              //TODO: dodaj fetchovanje tokena
+        
+              if (store.getters.returnTokens === null)
+                store.commit("setTokens", { tokens: TOKENS_HARDCODE });
+        
+              //TODO: dodaj sajtove u store
+              
+        
+              StoreAPI.getSites()
+              .then((res)=>{
+                  store.commit("setSites",res.data)
+              })
+        
+              // StoreAPI.getAllUserScans().then((res)=>{
+              //     store.commit("setScans",res.data)
+              // })
+        
+              
+        
+              //TODO: fetch rating of user
+              const RATING = 4;
+        
+              store.commit("setRating", { rating: RATING });
+        
+              let user_role = this.$store.getters.returnRole;
+        
+              this.user_id = this.$store.getters.returnId;
 
-        loggedInPromise = new Promise((resolve) => {
-          axios
-            .get("getLoggedUser")
-            .then((user) => {
-              resolve(user);
-            })
-            .catch((err)=> {
-              //window.location.reload();
-            })
-        }).then((user) => {
+              
+              this.$router.push({
+                path: `/${user_role}/${this.user_id}/`
+              });
+             
 
-          store.commit("setUser", user.data);
+
+            // })
+
     
-          //TODO: dodaj fetchovanje tokena
-    
-          if (store.getters.returnTokens === null)
-            store.commit("setTokens", { tokens: TOKENS_HARDCODE });
-    
-          //TODO: dodaj sajtove u store
-          
-    
-          StoreAPI.getSites()
-          .then((res)=>{
-              store.commit("setSites",res.data)
-          })
-    
-          // StoreAPI.getAllUserScans().then((res)=>{
-          //     store.commit("setScans",res.data)
-          // })
-    
-          
-    
-          //TODO: fetch rating of user
-          const RATING = 4;
-    
-          store.commit("setRating", { rating: RATING });
-    
-          let user_role = this.$store.getters.returnRole;
-    
-          this.user_id = this.$store.getters.returnId;
-    
-          this.$router.push({
-            path: `/${user_role}/${this.user_id}/`
-          });
-    
-        })
     },
     destroyed() {
       this.unsync();

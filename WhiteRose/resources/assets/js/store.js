@@ -24,8 +24,8 @@ const store = new Vuex.Store({
     setUser(state, payload) {
       state.role = payload.role;
       state.user = payload;
-      state.email = payload.user.email;
-      state.id = payload.user.id;
+      state.email = payload.email;
+      state.id = payload.id;
     },
     setTokens(state, payload) {
       state.tokens = Number(state.tokens) + Number(payload.tokens);
