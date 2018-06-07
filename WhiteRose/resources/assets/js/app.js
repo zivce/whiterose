@@ -24,7 +24,6 @@ import mainRouter from "./routes/routesMain";
 import StoreAPI from "./services/api/store_api/Store.api";
 
 import { ClientTable, Event } from "vue-tables-2";
-import Axios from "axios";
 import errorToaster from "./components/toastr/FormErrorToaster";
 import notifyInfo from "./components/toastr/infotoastr";
 
@@ -99,59 +98,73 @@ if (home_exists) {
     beforeMount() {
       this.unsync = sync(this.$store, this.$router);
 
-      //TODO: ruta da proverava koja je rola ..
-
-      //TODO: izbaci moze da se ishakuje
-      let user = localStorage.getItem("r");
-
-      user = JSON.parse(user);
-      // else
+      let _user = localStorage.getItem("r");
+      let loggedInPromise = null;
+      // if(_user !== null)
       // {
-      //     //here goes sesh status
-      //     //verify user role
+      //   this.store.commit("setUser", _user);
+        
+      //   let user_role = this.$store.getters.returnRole;
+    
+      //   this.user_id = this.$store.getters.returnId;
+  
+      //   this.$router.push({
+      //     path: `/${user_role}/${this.user_id}/`
+      //   });
 
       // }
+      // if(_user !== null)
+      // {
+      //   localStorage.clear();
+      // }
+      // else {
 
-      //TODO: negde se koristi role find out..
+        loggedInPromise = new Promise((resolve) => {
+          axios
+            .get("getLoggedUser")
+            .then((user) => {
+              resolve(user);
+            })
+            .catch((err)=> {
+              //window.location.reload();
+            })
+        }).then((user) => {
 
-      this.$root.role = this.$store.getters.returnRole;
-      //bind user to instance
-
-      store.commit("setUser", user);
-
-      //TODO: dodaj fetchovanje tokena
-
-      if (store.getters.returnTokens === null)
-        store.commit("setTokens", { tokens: TOKENS_HARDCODE });
-
-      //TODO: dodaj sajtove u store
-      
-
-      StoreAPI.getSites()
-      .then((res)=>{
-          store.commit("setSites",res.data)
-      })
-
-      // StoreAPI.getAllUserScans().then((res)=>{
-      //     store.commit("setScans",res.data)
-      // })
-
-      
-
-      //TODO: fetch rating of user
-      const RATING = 4;
-
-      store.commit("setRating", { rating: RATING });
-
-      let user_role = this.$store.getters.returnRole;
-
-      this.user_id = this.$store.getters.returnId;
-
-      this.$router.push({
-        path: `/${user_role}/${this.user_id}/`
-      });
-
-      // localStorage.clear();
+          store.commit("setUser", user.data);
+    
+          //TODO: dodaj fetchovanje tokena
+    
+          if (store.getters.returnTokens === null)
+            store.commit("setTokens", { tokens: TOKENS_HARDCODE });
+    
+          //TODO: dodaj sajtove u store
+          
+    
+          StoreAPI.getSites()
+          .then((res)=>{
+              store.commit("setSites",res.data)
+          })
+    
+          // StoreAPI.getAllUserScans().then((res)=>{
+          //     store.commit("setScans",res.data)
+          // })
+    
+          
+    
+          //TODO: fetch rating of user
+          const RATING = 4;
+    
+          store.commit("setRating", { rating: RATING });
+    
+          let user_role = this.$store.getters.returnRole;
+    
+          this.user_id = this.$store.getters.returnId;
+    
+          this.$router.push({
+            path: `/${user_role}/${this.user_id}/`
+          });
+    
+        })
     },
     destroyed() {
       this.unsync();

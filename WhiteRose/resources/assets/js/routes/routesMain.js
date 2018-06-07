@@ -13,7 +13,7 @@ let routes = [
         children: [
         {
             path:`client/:id`,
-            redirect : `client/:id/dashboard/setup`,
+            redirect : {name: 'postj'},
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
                 {
@@ -139,7 +139,7 @@ let routes = [
         },
         {
             path:'pentester/:id',
-            redirect : 'pentester/:id/dashboard/setup',
+            redirect : {name: 'cvpost'},
             component : require('../components/maincomps/MainChildren/Pentester.vue'),
             children:[  
                 {

@@ -9,7 +9,7 @@ export default {
                     resolve(res);
                 })
                 .catch(function(error) {
-                    vm.errorToast("Error happened.", "Error!");
+                    //vm.errorToast("Error happened.", "Error!");
                 });
             });    
     }
