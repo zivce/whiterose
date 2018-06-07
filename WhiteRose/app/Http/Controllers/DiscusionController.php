@@ -41,20 +41,39 @@ class DiscusionController extends Controller
 
         
     }
-    public function getMessages(Request $request)
+    public function getMessages($jobID)
     {
-        $jobID=$request->jobID;
-        $job=Job::where('id',1)->first();
+        
+        
+        $job=Job::where('id',$jobID)->first();
         $discusion=$job->discusion()->first();
+        if(Auth::guard('pentester')->check())
+        {
+
+        
         $pentester=Pentester::where('id',$discusion->pentester_id)->first()->username;
         $discusion->sender = $pentester;
-        // return $discusion->messages()->get();
+        
         $discusion = $discusion->with('messages')->get();
 
         return $ret = [
             "discusion" => $discusion,
             "pentester" => $pentester
         ];
+        }
+        else{
+             
+        $client=CLient::where('id',$discusion->client_id)->first()->username;
+        $discusion->sender = $client;
+        
+        $discusion = $discusion->with('messages')->get();
+
+        return $ret = [
+            "discusion" => $discusion,
+            "client" => $client
+        ];
+        }
+        
 
 
 
