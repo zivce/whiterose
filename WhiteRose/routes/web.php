@@ -3,6 +3,7 @@
 // use Symfony\Component\Routing\Route;
 use App\Client;
 use Illuminate\Support\Facades\Auth;
+use App\Discusion;
 
 
 /*
@@ -35,7 +36,10 @@ Route::get('/lander',function(){
     return view('lender');
 });
 Auth::routes();
-
+Route::get('testMessages',function(){
+    $disc=Discusion::where('id',5)->first();
+    return json_encode($disc->messages()->latest()->first());
+});
 Route::get('/testlog',function(){
     Auth::guard('client')->logout();
 });
@@ -123,7 +127,7 @@ Route::post('accept','ClientController@acceptTheBid')->name('accept');
 
 //Message communication
 Route::post('postMesaages','DiscusionController@postMessage');
-Route::get('getMessages','DiscusionController@getMessages')->name('getMessages');
+Route::get('getMessages/{jobID}','DiscusionController@getMessages')->name('getMessages');
 Route::get('getAllFirstMessages','DiscusionController@returnLastMessages');
 // Route::group(['prefix' => 'client'], function () {
 //   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
