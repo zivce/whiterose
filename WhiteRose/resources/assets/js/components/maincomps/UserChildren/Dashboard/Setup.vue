@@ -341,6 +341,8 @@ import PostDescApi from "../../../../services/api/user_api/postDescription.api";
 import VerifySiteApi from "../../../../services/api/user_api/verifySite.api";
 import PostAvatarApi from "../../../../services/api/user_api/postAvatar.api";
 import ResetPwApi from "../../../../services/api/user_api/resetPw.api";
+
+
 // import ClientSitesHardcode from './client_sites.hardcode';
 import { mapGetters, mapState } from 'vuex';
 

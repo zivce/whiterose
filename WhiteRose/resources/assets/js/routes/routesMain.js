@@ -13,7 +13,7 @@ let routes = [
         children: [
         {
             path:`client/:id`,
-            redirect : `client/:id/dashboard/setup`,
+            redirect : {name: 'postj'},
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
                 {
@@ -139,7 +139,7 @@ let routes = [
         },
         {
             path:'pentester/:id',
-            redirect : 'pentester/:id/dashboard/setup',
+            redirect : {name: 'cvpost'},
             component : require('../components/maincomps/MainChildren/Pentester.vue'),
             children:[  
                 {
@@ -184,6 +184,28 @@ let routes = [
                 //load pentester comps
                 {
                     path:'alljobs',
+                    name:'jobs_pentester',
+                    redirect:{name:'myjobs_pentester'},
+                    children : [
+                        {
+                            name:'myjobs_pentester',
+                            path:'myjobs',
+                            component: require('../components/maincomps/PentesterChildren/MyJobs.vue')
+                        },
+
+                        {
+                            name:'finjobs_pentester',
+                            path:'finishedjobs',
+                            component: require('../components/maincomps/PentesterChildren/FinishedJobs.vue')
+
+                        },
+                        {
+                            name:'startedjobs_pentester',                    
+                            path:'startedjobs',
+                            component: require('../components/maincomps/PentesterChildren/StartedJobs.vue')
+
+                        },
+                    ],
                     component: require('../components/maincomps/PentesterChildren/AllJobs.vue')
                 },
                 {

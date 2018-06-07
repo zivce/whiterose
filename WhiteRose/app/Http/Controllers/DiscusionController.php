@@ -11,6 +11,7 @@ use App\Pentester;
 use App\Message;
 
 
+
 class DiscusionController extends Controller
 {
     public function returnLastMessages()
@@ -40,20 +41,39 @@ class DiscusionController extends Controller
 
         
     }
-    public function getMessages(Request $request)
+    public function getMessages($jobID)
     {
-        $jobID=$request->jobID;
-        $job=Job::where('id',1)->first();
+        
+        
+        $job=Job::where('id',$jobID)->first();
         $discusion=$job->discusion()->first();
+        if(Auth::guard('pentester')->check())
+        {
+
+        
         $pentester=Pentester::where('id',$discusion->pentester_id)->first()->username;
         $discusion->sender = $pentester;
-        // return $discusion->messages()->get();
+        
         $discusion = $discusion->with('messages')->get();
 
         return $ret = [
             "discusion" => $discusion,
             "pentester" => $pentester
         ];
+        }
+        else{
+             
+        $client=CLient::where('id',$discusion->client_id)->first()->username;
+        $discusion->sender = $client;
+        
+        $discusion = $discusion->with('messages')->get();
+
+        return $ret = [
+            "discusion" => $discusion,
+            "client" => $client
+        ];
+        }
+        
 
 
 
@@ -61,16 +81,52 @@ class DiscusionController extends Controller
 
     public function postMessage(Request $request)
     {
-        
-        $message=new Message;
-        $message->text=$request->message;
         if(Auth::guard('client')->check())
-            $message->clientToPentester=1;
+        {
+            $dis=Discusion::where('id',$request->discusionID)->first();
+            $lastmessage=$dis->messages()->latest()->first();
+            if($lastmessage->clientToPentester===1)
+            {
+                $text=json_decode($lastmessage->text);
+                array_push($text,$request->message);
+                $text->save();
+            }
+            else{
+                $message=new Message;
+                $message->text=$request->message;
+               
+                    $message->clientToPentester=1;
+               
+                   
+        
+                $message->discusion_id=$request->discusionID;
+                $message->save();
+            }
+        }
         else
-            $message->pentesterToClient=1;
-
-        $message->discusion_id=$request->discusionID;
-        $message->save();
+        {
+            $dis=Discusion::where('id',$request->discusionID)->first();
+            $lastmessage=$dis->messages()->latest()->first();
+            if($lastmessage->pentesterToClient===1)
+            {
+                $text=json_decode($lastmessage->text);
+                array_push($text,$request->message);
+                $text->save();
+            }
+            else{
+                $message=new Message;
+                $message->text=$request->message;
+                
+                    
+                
+                $message->pentesterToClient=1;
+        
+                $message->discusion_id=$request->discusionID;
+                $message->save();
+            }
+        }
+        
+        e();
         
     }
 }

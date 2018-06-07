@@ -3,6 +3,7 @@
 // use Symfony\Component\Routing\Route;
 use App\Client;
 use Illuminate\Support\Facades\Auth;
+use App\Discusion;
 
 
 /*
@@ -35,7 +36,10 @@ Route::get('/lander',function(){
     return view('lender');
 });
 Auth::routes();
-
+Route::get('testMessages',function(){
+    $disc=Discusion::where('id',5)->first();
+    return json_encode($disc->messages()->latest()->first());
+});
 Route::get('/testlog',function(){
     Auth::guard('client')->logout();
 });
@@ -46,7 +50,15 @@ Route::get('/',function(){
 
     return view('lender');
 });
-
+Route::get('getLoggedUser',function()
+{
+    if(Auth::guard('pentester')->user())
+    
+        return $user=['role'=>'pentester','user'=>Auth::guard('pentester')->user()];
+    
+        
+        return $user=['role'=>'client','user'=>Auth::guard('client')->user()];
+});
 
 
 Route::get('/home', 'HomeController@home')->name('home');
@@ -55,9 +67,10 @@ Route::get('/hacker', 'HomeController@hacker')->name('hacker');
 
 
 //site verification
+Route::get('getVerifiedSites','ClientController@verifiedSites');
 Route::post('newsite','ClientController@addNewWebsite')->name('newsite');
 Route::get('getkey/{site}','ClientController@downloadKey')->name('getkey');
-Route::post('confirm','ClientController@confirmSite')->name('confirm');
+Route::post('confirmed','ClientController@confirmSite')->name('confirm');
 Route::get('getAllSites','ClientController@allSites');
 //buying and selling tokens
 Route::get('purchasetokens','ClientController@buyTokens')->name('purchasetokens');
@@ -65,7 +78,8 @@ Route::post('transaction','TransactionController@transferTokens')->name('transac
 Route::post('payout','PentesterController@cashOutPentester')->name('payout'); //undone
 Route::get('returntokens','Controller@returnTokens')->name('returntokens');
 
-
+//upload avatar
+Route::post('postAvatar','ClientController@uploadAvatar');
 //Client posting a job
 Route::post('postjob','ClientController@postJob')->name('postjob');
 
@@ -113,7 +127,7 @@ Route::post('accept','ClientController@acceptTheBid')->name('accept');
 
 //Message communication
 Route::post('postMesaages','DiscusionController@postMessage');
-Route::get('getMessages','DiscusionController@getMessages')->name('getMessages');
+Route::get('getMessages/{jobID}','DiscusionController@getMessages')->name('getMessages');
 Route::get('getAllFirstMessages','DiscusionController@returnLastMessages');
 // Route::group(['prefix' => 'client'], function () {
 //   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');

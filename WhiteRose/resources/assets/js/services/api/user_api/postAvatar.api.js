@@ -16,7 +16,7 @@ export default {
         validator.validateAll().then((form_ok)=>{
                 if (form_ok) {
                     axios
-                      .post("/postavatar", {
+                      .post("/postAvatar", {
                         send
                       }, {
                         headers : {
