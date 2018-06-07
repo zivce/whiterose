@@ -11,12 +11,12 @@ import errorToast from '../../../components/toastr/welcometoastr';
 
 export default {
 
-    getConversation()
+    getConversation(j_id)
     {
       return new Promise((resolve) => {
-            let jobs = [];
+          let job_id = j_id.job_id;
               axios
-                .get("getMessages")
+                .get("getMessages/"+job_id)
                 .then(response => {
                   console.log(response.data);
                   resolve(

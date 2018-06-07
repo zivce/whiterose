@@ -33,12 +33,16 @@
         
         <div 
         class = "msg_cont "
-        v-for="(msg) in whole_convo.discusion"
-        :key = msg.id
+        v-for="(disc) in whole_convo.discusion"
+        :key = disc.id
         >
-        
+          <div
+          v-for="(msg) in disc.messages"
+          :key = msg.id
+          >
             <div
             class="client d-flex"
+            v-if="msg.clientToPentester==1"
             >
                 <div class="col-2">
                     <img 
@@ -51,12 +55,10 @@
                     <div class = "msg_cont_header_client">
                         <p><strong>{{msg.updated_at}}</strong></p>           
                     </div>
+
                     <p
-                    v-for="msg2 in msg.messages"
-                    :key = msg2.id
-                    v-if="msg2.clientToPentester==1"
                     >
-                    {{msg2.text}}
+                    {{msg.text}}
                     </p>
                 </div>
 
@@ -64,6 +66,7 @@
 
             <div
             class="pentester d-flex"
+              v-else 
             >
                 <div class="col-2">
 
@@ -79,11 +82,8 @@
                     </div>
                     
                    <p
-                    v-for="msg3 in msg.messages"
-                    :key = msg3.id
-                    v-if="msg3.pentesterToClient==1"                    
                     >
-                    {{msg3.text}}
+                    {{msg.text}}
                     </p>
                 </div>
 
@@ -91,7 +91,7 @@
 
             </div>
 
-
+          </div>
         </div>
 
         <!-- RENDER NEW MESSAGES -->
@@ -112,8 +112,15 @@
                 <p><strong>{{msgs_for_send[0].date_time}}</strong></p>           
             </div>
             
-            <p>
+            <!-- <p>
             {{bundleMessages()}}
+            </p> -->
+
+            <p
+            v-for="msg4 in msgs_for_send"
+            :key = msg4.id                  
+            >
+              {{msg4.message}}
             </p>
 
 
@@ -162,14 +169,15 @@ export default {
     //TODO: job_id se cuva u vuex..
     //ConvoHardcode.getConv(job_id,user_id)..
     //TODO: posalji rating ovde
-    ClientConvoAPI.getConversation().then(resp => this.whole_convo=resp);
+    this.job_id = this.$store.getters.returnParams;
+    ClientConvoAPI.getConversation(this.job_id).then(resp => this.whole_convo=resp);
     console.log(this.whole_convo);
   },
   mounted() {
-    this.job_id = this.$store.getters.returnParams;
 
     this.user_name = this.$store.getters.returnUser;
     this.user_name = this.user_name.name;
+    this.msg_send_id = 0;
   },
   components: {
     Icon,
@@ -184,22 +192,25 @@ export default {
     bundleMessages() {
       let msgs_only = this.msgs_for_send.map(msg => msg.message);
 
-      return msgs_only.join(" ");
+      return msgs_only.join("\n ");
     },
     bufferMsgForSending() {
       if (!this.one_msg.length) return;
 
       let new_msg = {
         // msg_id: this.msgs_for_send.length - 1,
+        id: this.msg_send_id,
         client_to_pentester: 1,
         pentester_to_client: 0,
         sender: this.user_name,
         discusionID: this.whole_convo.discusion[0].id,
-        message: this.one_msg
+        message: this.one_msg,
+        date_time: moment().format('YYYY-MM-DD hh:mm:ss')
       };
       this.one_msg = "";
+      this.msg_send_id++;
 
-      // this.msgs_for_send.push(new_msg);
+      this.msgs_for_send.push(new_msg);
       console.log(new_msg);
       ConvoSendMessagesAPI.sendMsg(new_msg);
     },
@@ -219,7 +230,8 @@ export default {
       rating: 0,
       one_msg: "",
       msgs_for_send: [],
-      whole_convo: []
+      whole_convo: [],
+      msg_send_id: undefined,
     };
   }
 };
