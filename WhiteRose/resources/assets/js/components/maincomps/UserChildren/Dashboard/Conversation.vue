@@ -170,11 +170,12 @@ export default {
     //ConvoHardcode.getConv(job_id,user_id)..
     //TODO: posalji rating ovde
     this.job_id = this.$store.getters.returnParams;
-    ClientConvoAPI.getConversation(this.job_id).then(resp => this.whole_convo=resp);
+    ClientConvoAPI.getConversation(this.job_id).then(
+      resp => (this.whole_convo = resp)
+    );
     console.log(this.whole_convo);
   },
   mounted() {
-
     this.user_name = this.$store.getters.returnUser;
     this.user_name = this.user_name.name;
     this.msg_send_id = 0;
@@ -205,7 +206,7 @@ export default {
         sender: this.user_name,
         discusionID: this.whole_convo.discusion[0].id,
         message: this.one_msg,
-        date_time: moment().format('YYYY-MM-DD hh:mm:ss')
+        date_time: moment().format("YYYY-MM-DD hh:mm:ss")
       };
       this.one_msg = "";
       this.msg_send_id++;
@@ -213,7 +214,7 @@ export default {
       this.msgs_for_send.push(new_msg);
       console.log(new_msg);
       ConvoSendMessagesAPI.sendMsg(new_msg);
-    },
+    }
 
     //find client that sent msg
 
@@ -223,7 +224,6 @@ export default {
     //   });
     //   return sender.sender;
     // }
-
   },
   data() {
     return {
@@ -231,7 +231,7 @@ export default {
       one_msg: "",
       msgs_for_send: [],
       whole_convo: [],
-      msg_send_id: undefined,
+      msg_send_id: undefined
     };
   }
 };

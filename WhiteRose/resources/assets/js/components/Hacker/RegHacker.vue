@@ -179,7 +179,7 @@ export default {
               //   window.location.href = "/";
               // });
 
-               vm.$snotify.success("User registered!", "Success!", {
+              vm.$snotify.success("User registered!", "Success!", {
                 position: SnotifyPosition.centerTop,
                 backdrop: 0.5
               });

@@ -50,7 +50,7 @@ import hardcodepentst from "./hardcodepntst";
 import PentesterBid from "./UserParts/PentesterBid.vue";
 import eventBus from "../../../utils/eventBus";
 import "vue-awesome/icons/eye";
-import GetBidsAPI from '../../../services/api/user_api/getBids.api';
+import GetBidsAPI from "../../../services/api/user_api/getBids.api";
 
 export default {
   components: {
@@ -60,24 +60,24 @@ export default {
   mixins: [welcomeToastr],
   created() {
     //TODO : fetch bids here
-    
-       axios
-        .post("viewbidsclient")
-        .then(response => {
-          console.log(response.data);
-          //this adapts response for show in vue tables 2
-          response.data.forEach(bid_info => {
-            this.table_data.push({
-              pentester: bid_info.pentester_email,
-              pentester_username: bid_info.pentester_username,
-              rating: bid_info.pentester_rating,
-              title: bid_info.job_name,
-              bid_info: bid_info.bid
-            });
+
+    axios
+      .post("viewbidsclient")
+      .then(response => {
+        console.log(response.data);
+        //this adapts response for show in vue tables 2
+        response.data.forEach(bid_info => {
+          this.table_data.push({
+            pentester: bid_info.pentester_email,
+            pentester_username: bid_info.pentester_username,
+            rating: bid_info.pentester_rating,
+            title: bid_info.job_name,
+            bid_info: bid_info.bid
           });
-        })
-        .catch(err => {
-          //error snotify here.
+        });
+      })
+      .catch(err => {
+        //error snotify here.
       });
   },
   computed: {},
@@ -119,7 +119,7 @@ export default {
           rating: "cursorable"
         },
         filterByColumn: true,
-        filterable: ["pentester", "rating" ,"title"],
+        filterable: ["pentester", "rating", "title"],
         sortable: ["rating"],
         pagination: {
           dropdown: true,

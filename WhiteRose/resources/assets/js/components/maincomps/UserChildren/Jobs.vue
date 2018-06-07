@@ -72,7 +72,6 @@ export default {
   created() {
     //TODO: napuni my_jobs
     //TODO: izbrisi hardcode dodelu
-
     // axios
     //   .get("returnmyjobs")
     //   .then(response => {

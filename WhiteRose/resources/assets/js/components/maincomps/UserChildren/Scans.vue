@@ -41,8 +41,8 @@ export default {
     Icon
   },
   mixins: [],
-  methods : {
-    spy(){}
+  methods: {
+    spy() {}
   },
   created() {
     axios

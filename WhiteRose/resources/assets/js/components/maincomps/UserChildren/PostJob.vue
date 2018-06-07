@@ -162,9 +162,6 @@ import PostJobAPI from "../../../services/api/user_api/PostJob.api";
 
 export default {
   created() {
-   
-
-
     //TODO: povuci sve verifikovane sajtove...
     // PostJobAPI.getAllUserScans().then(
     //   (response) => {
@@ -189,7 +186,7 @@ export default {
     //get only verified sites.
     //HACK: ONLY FOR TESTING REMOVE THIS
     this.$store.commit("setSites", SitesHardcode);
-    
+
     let sites = this.$store.state.sites
       .filter(site => site.verified)
       .map(site => {
@@ -201,19 +198,17 @@ export default {
 
     /**
      * Get job for edit if such
-     * 
+     *
      */
     let job_for_edit = this.$store.state.job_for_edit;
-    
-    if(job_for_edit)
-      {
 
-        this.titleinput.value = job_for_edit.title;
-        this.priceinput.value = job_for_edit.startingPrice;
-        this.descinput.value  = job_for_edit.description;
+    if (job_for_edit) {
+      this.titleinput.value = job_for_edit.title;
+      this.priceinput.value = job_for_edit.startingPrice;
+      this.descinput.value = job_for_edit.description;
 
-        this.$store.commit("setJobForEdit",null);
-      }
+      this.$store.commit("setJobForEdit", null);
+    }
 
     this.options = sites;
 

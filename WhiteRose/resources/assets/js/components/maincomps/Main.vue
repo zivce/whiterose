@@ -298,7 +298,7 @@ export default {
 #main_vue {
   background-position-x: 2%;
   background-position-y: 22px;
-  background: url("/img/logo.png") no-repeat;
+  /* background: url("/img/logo.png") no-repeat; */
 }
 #footer p {
   margin: auto;

@@ -85,7 +85,6 @@ import StartedJobs from "../UserChildren/StartedJobs.vue";
 import FinishedJobs from "../UserChildren/FinishedJobs.vue";
 
 export default {
-  
   components: {
     StartedJobs,
     FinishedJobs,
@@ -125,10 +124,9 @@ export default {
   },
   computed: {},
   methods: {
-    editJob(props){
-      this.$store.commit("setJobForEdit",props.row);
-      this.$router.push({name: 'postj'});
-      
+    editJob(props) {
+      this.$store.commit("setJobForEdit", props.row);
+      this.$router.push({ name: "postj" });
     },
     showDetails(props, del) {
       this.delete_this = del;

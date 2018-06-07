@@ -48,7 +48,6 @@ export default {
   },
   computed: {},
   methods: {
-    
     deleteJob() {
       this.notifySuccess("Job deleted.", "Success!");
       eventBus.$emit("isVisibleMoreInfo", false);

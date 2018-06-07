@@ -4,6 +4,11 @@
     color: $h2s-color;
     font-family: "Lusitana",serif;
   }
+.ps {
+  font-weight: $p-weight;
+  font-size: $p-size;
+}
+
 .h1s
 {
   font-family: "Lusitana",serif;
@@ -33,7 +38,11 @@ button:focus{
   margin: 0 auto;
 }
 
+.profile_container
+{
+  background: linear-gradient(to bottom, #2c3340 0%, #2c3340 42%, #ffffff 42%, #ffffff 100%);
 
+}
 .comp_container {
   padding: 4%;
   background-color: white;

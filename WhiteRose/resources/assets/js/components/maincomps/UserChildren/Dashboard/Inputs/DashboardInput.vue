@@ -13,7 +13,7 @@
     v-validate="vval"
     :name="prop.id"/>
     
-    <span v-if="errors.has(prop.id)" class="incorrect_input">
+    <span v-if="errors.has(prop.id)" class="incorrect_input_">
         {{id_upper}} required!
     </span>
     
@@ -51,7 +51,7 @@ export default {
   methods: {},
   data() {
     return {
-      maxlength : 20,
+      maxlength: 20,
       passwordagain: this.pw,
       vval: { required: true },
       id_upper: _.capitalize(this.prop.label)

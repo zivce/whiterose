@@ -1,6 +1,9 @@
 <template>
-  <div class="comp_container ">
-      <h2 class="h2s" ref="dashboard_client">Dashboard</h2>
+  <div :class="{
+    'profile_container': isProfile
+    ,'comp_container' : true}">
+
+      <!-- <h2 class="h2s" ref="dashboard_client" v-if="isSetup">Dashboard</h2> -->
 <!--       
       <b-nav class="d-flex justify-content-center user_nav_main"  pills>
         <b-nav-item 
@@ -49,9 +52,18 @@ export default {
   mounted() {
     this.user_id = this.$store.getters.returnId;
     this.user_role = this.$store.getters.returnRole;
+    let route = this.$store.getters.returnRoute;
+    this.isSetup = route.includes("setup");
+    //this.isProfile = route.indexOf("profile") !== -1 ;
+  },
+  computed: {
+    isProfile() {
+      return this.$store.getters.returnRoute.indexOf("profile") !== -1;
+    }
   },
   data() {
     return {
+      isSetup: false,
       user_id: "",
       user_role: ""
     };

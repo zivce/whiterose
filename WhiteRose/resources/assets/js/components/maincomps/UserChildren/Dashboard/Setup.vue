@@ -93,11 +93,25 @@
                         Verify site
                     </h3>
 
-                <dashboard-input 
-                v-if="isInputSitePart"
-                :prop.sync="site_for_verification"
-                >
-                </dashboard-input>
+
+                <div class="fform_input_job">
+        
+                    <input  
+                    v-if="isInputSitePart"
+                    :placeholder="site_for_verification.label"
+                    :class="{'has-error':errSiteVerif}"
+                    :type="site_for_verification.type" 
+                    :id="site_for_verification.id" 
+                    v-model="site_for_verification.value" 
+                    required="true"
+                    v-validate="{required:true,is:site_for_verification.value}"
+                    :name="site_for_verification.id"/>
+                    
+                    <span v-if="errors.has(site_for_verification.id)" class="incorrect_input_">
+                        Site required!
+                    </span>
+                    
+                </div>
                 
                 <!-- <div class="fform_input_job">
         
@@ -248,11 +262,24 @@
                         Reset password
                     </h3>
 
-                <dashboard-input 
-                :prop.sync="newpw"
-                >
+                <div class="fform_input_job">
+        
 
-                </dashboard-input>
+                    <input  
+                    :placeholder="newpw.label"
+                    :class="{'has-error':errPw}"
+                    :type="newpw.type" 
+                    :id="newpw.id" 
+                    v-model="newpw.value" 
+                    required="true"
+                    v-validate="{required:true,is:newpw.value}"
+                    :name="newpw.id"/>
+                    
+                    <span v-if="errors.has(newpw.id)" class="incorrect_input">
+                        New password required!
+                    </span>
+                    
+                </div>
 
                 <div class="fform_input_job">
         
@@ -271,7 +298,7 @@
                         Same password required!
                     </span>
                     
-                    </div>
+                </div>
 
                 <b-button class="btn btn-info btn-secondary actionbtn" @click="resetHandler()">
                     Reset 
@@ -342,33 +369,32 @@ import VerifySiteApi from "../../../../services/api/user_api/verifySite.api";
 import PostAvatarApi from "../../../../services/api/user_api/postAvatar.api";
 import ResetPwApi from "../../../../services/api/user_api/resetPw.api";
 
-
 // import ClientSitesHardcode from './client_sites.hardcode';
-import { mapGetters, mapState } from 'vuex';
-
+import { mapGetters, mapState } from "vuex";
 
 export default {
-  name : "SETUP",
+  name: "SETUP",
   created() {
     // this.client_sites = this.$store.state.returnSites;
   },
   mounted() {
-    
     eventBus.$on("field_ok", val => {
       this.all_fields_ok &= val;
     });
 
-    //to go the end screen of verification 
+    //to go the end screen of verification
     // eventBus.$on("row-click")
     // {
     //   this.redirectToVerifySite();
     // }
-
   },
   computed: {
-    ...mapGetters({client_sites : 'returnSites'}),
+    ...mapGetters({ client_sites: "returnSites" }),
     errAvatar() {
       return this.errors.has("avatar");
+    },
+    errPw() {
+      return this.errors.has(this.newpw.id);
     },
     errSiteVerif() {
       return this.errors.has(this.site_for_verification.id);
@@ -376,6 +402,7 @@ export default {
     errDesc() {
       return this.errors.has(this.descinput.id);
     },
+    
     errSamePw() {
       return this.errors.has("newpwagain");
     }
@@ -385,16 +412,15 @@ export default {
     Icon
   },
   methods: {
-    makeGetKeyUrl(site){
-      return `getkey/${site}`
+    makeGetKeyUrl(site) {
+      return `getkey/${site}`;
     },
-    getKey(props){
-      VerifySiteApi.getKey(props.row.domain,this)
-      .then(()=>{
+    getKey(props) {
+      VerifySiteApi.getKey(props.row.domain, this).then(() => {
         this.verifySite();
-      })
+      });
     },
-    
+
     redirectToVerifySite(site) {
       this.for_verify_site = site;
 
@@ -402,7 +428,7 @@ export default {
       this.isKeyVerifPart = false;
       this.isVerifySitePart = true;
     },
-    
+
     viewSites() {
       this.isInputSitePart = false;
       this.isKeyVerifPart = true;
@@ -418,7 +444,6 @@ export default {
       this.isKeyVerifPart = true;
       this.isVerifySitePart = false;
     },
-
 
     // keyDownloaded() {
     //   this.isInputSitePart = false;
@@ -470,28 +495,23 @@ export default {
       }
     },
 
-
-
     processFile(event) {
       this.avatar_file.append("avatar", event.target.files[0]);
     },
 
     //HANDLERS FORMS
     newSiteHandler() {
-      if (this.site_for_verification.value.length !== 0 ) {
-        VerifySiteApi
-        .addNewSite(this,this.site_for_verification.value)
-        .then((resolved) => {
-
+      if (this.site_for_verification.value.length !== 0) {
+        VerifySiteApi.addNewSite(this, this.site_for_verification.value).then(
+          resolved => {
             //site already exists
-            if(!resolved)
-              return;
+            if (!resolved) return;
 
             this.isInputSitePart = false;
             this.isKeyVerifPart = true;
             this.isVerifySitePart = false;
           }
-        )
+        );
       } else {
         this.errorToast("Please insert site", "Error!");
       }
@@ -504,7 +524,6 @@ export default {
 
       PostDescApi.postDescription(valid, vm, this.descinput.value);
     },
-
 
     verifySiteHandler() {
       let vm = this;
@@ -534,7 +553,7 @@ export default {
   },
   data() {
     return {
-      for_verify_site : null,
+      for_verify_site: null,
 
       //Visibility variables
       isVisibleReset: true,
@@ -547,8 +566,6 @@ export default {
 
       //Validation helper
       all_fields_ok: false,
-
-
 
       //Site verification
       columns_sites: ["domain", "confirmed", "verify"],
@@ -600,6 +617,15 @@ export default {
 </script>
 
 <style scoped>
+.incorrect_input_ {
+  /* float: left; */
+  width: 100%;
+  color: red;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
 .strong {
   color: rgb(7, 8, 15);
   font-weight: 600;

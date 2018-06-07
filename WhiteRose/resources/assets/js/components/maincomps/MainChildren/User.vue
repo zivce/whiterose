@@ -102,8 +102,6 @@ import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/info";
 import "vue-awesome/icons/wrench";
 
-
-
 //txt files
 import PostJobTxt from "./Data/post_job.txt";
 import ToolsTxt from "./Data/tools.txt";
@@ -119,7 +117,7 @@ import SetupTxt from "./Data/setup.txt";
 import eventBus from "../../../utils/eventBus";
 
 export default {
-  name:'user__MAIN__COMPONENT',
+  name: "user__MAIN__COMPONENT",
   mixins: [],
   destroyed() {
     clearInterval(this.int1);

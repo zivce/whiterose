@@ -28,6 +28,7 @@ let routes = [
                         meta:{
                             fail: `client/:id/`
                         },
+                        name:"client_messages",
                         path: "messages",
                         component: require('../components/maincomps/UserChildren/Dashboard/Messages.vue')
                     },
@@ -45,6 +46,7 @@ let routes = [
                         meta:{
                             fail: `client/:id/`
                         },
+                        name:"setup_client",
                         path: "setup",
                         component: require('../components/maincomps/UserChildren/Dashboard/Setup.vue')
                     },

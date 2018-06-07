@@ -103,7 +103,7 @@ if (home_exists) {
 
       _user = JSON.parse(_user);
 
-      
+
       // if(_user !== null)
       // {
       //   this.store.commit("setUser", _user);
@@ -177,6 +177,7 @@ if (home_exists) {
     data() {
       return {
         user_id: "",
+        role : undefined,
         unsync: new Function()
       };
     },

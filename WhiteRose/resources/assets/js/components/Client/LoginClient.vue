@@ -72,10 +72,10 @@ export default {
               if (wrong_info) {
                 vm.errorToast("Wrong info.", "Error!");
               } else {
-                vm.notifySuccess("User registered","Success");
-                
+                vm.notifySuccess("User registered", "Success");
+
                 //this.loggedIn = true;
-                
+
                 let data_store = JSON.stringify(response.data);
                 console.log(data_store);
 
@@ -85,7 +85,6 @@ export default {
             } else {
               //does not exist
               vm.errorToast("User does not exist!", "Error!");
-
             }
           })
           .catch(function(error) {
