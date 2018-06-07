@@ -3,6 +3,7 @@
 // use Symfony\Component\Routing\Route;
 use App\Client;
 use Illuminate\Support\Facades\Auth;
+use App\Discusion;
 
 
 /*
@@ -35,7 +36,10 @@ Route::get('/lander',function(){
     return view('lender');
 });
 Auth::routes();
-
+Route::get('testMessages',function(){
+    $disc=Discusion::where('id',5)->first();
+    return json_encode($disc->messages()->latest()->first());
+});
 Route::get('/testlog',function(){
     Auth::guard('client')->logout();
 });
