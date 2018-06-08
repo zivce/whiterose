@@ -9,17 +9,18 @@ export default {
 
     fetchTokens()
     {
-        //sendingArr sadrzi niz propertija forme
-        //moze da se mapira.. 
-
-        axios
+        return new Promise((resolve) => {
+            axios
             .get("/returntokens")
-            .then(function(response) {
-            vm.successToast("Description added.", "Success.");
-            })
+            .then(
+                (response) =>  resolve(response.data) 
+            )
             .catch(function(error) {
-            vm.errorToast("An error happened.", "Error.");
+            //vm.errorToast("An error happened.", "Error.");
             });
+
+        })
+        
         
 
     }

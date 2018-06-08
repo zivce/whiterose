@@ -22,6 +22,7 @@ import VeeValidate from "vee-validate";
 import landerRouter from "./routes/routes";
 import mainRouter from "./routes/routesMain";
 import StoreAPI from "./services/api/store_api/Store.api";
+import FetchTokensAPI from "./services/api/FetchTokens.api";
 
 import { ClientTable, Event } from "vue-tables-2";
 import errorToaster from "./components/toastr/FormErrorToaster";
@@ -131,23 +132,30 @@ if (home_exists) {
               
               store.commit("setUser", _user);
     
-              //TODO: dodaj fetchovanje tokena
-        
-              if (store.getters.returnTokens === null)
-                store.commit("setTokens", { tokens: TOKENS_HARDCODE });
-        
+             
+              FetchTokensAPI.fetchTokens().then(
+                
+                numOfTok => {
+                  if (store.getters.returnTokens === null)
+                  store.commit("setTokens", { tokens: numOfTok });
+                }
+                
+                )
+
+              
               //TODO: dodaj sajtove u store
               
         
               StoreAPI.getSites()
               .then((res)=>{
-                  store.commit("setSites",res.data)
+                console.log(res);
+                store.commit("setSites",res.data)
               })
         
               // StoreAPI.getAllUserScans().then((res)=>{
               //     store.commit("setScans",res.data)
               // })
-        
+              
               
         
               //TODO: fetch rating of user
