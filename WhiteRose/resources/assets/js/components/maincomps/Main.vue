@@ -167,7 +167,8 @@ export default {
     }),
     home() {},
     activeColorChecker() {
-      return this.isHacker ? "#ff0000" : "#ffd055";
+      return this.isHacker 
+      ? this.hacker_stars_color : this.user_stars_color;
     }
   },
   methods: {
@@ -209,9 +210,9 @@ export default {
         size: 20,
         show_rating: false
       },
-
+      hacker_stars_color: "#D80032",
+      user_stars_color : "#ffd055",
       clicked_user: false,
-
       tokens: undefined,
       tokens_url: "",
       isActiveTokenCharger: false,
@@ -259,26 +260,6 @@ export default {
   right: 27vw;
   top: 5vh;
   cursor: pointer;
-}
-
-/* if hacker added this styles */
-
-.hacker >>> button {
-  color: #ff1a00;
-}
-.hacker >>> .dropdown-menu.show {
-  background-color: #2c3340 !important;
-}
-.hacker >>> a {
-  font-weight: 800;
-  color: #ff1a00 !important;
-}
-
-.hacker >>> a:hover {
-  background-color: #020919;
-}
-.hacker >>> a:focus {
-  background-color: #020919;
 }
 
 #header >>> #user {

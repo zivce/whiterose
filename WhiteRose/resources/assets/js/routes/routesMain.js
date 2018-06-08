@@ -212,6 +212,7 @@ let routes = [
                 },
                 {
                     path:'cvpost',
+                    name: 'cvpost',
                     component: require('../components/maincomps/PentesterChildren/CvPost.vue')
                 },
                 

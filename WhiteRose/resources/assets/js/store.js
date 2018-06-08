@@ -15,7 +15,11 @@ const store = new Vuex.Store({
     tokens: null,
     stars: 0,
     test: 1,
-    job_for_edit : null
+    job_for_edit : null,
+
+    //UI state
+    
+
   },
   mutations: {
     setTest (state,payload) {

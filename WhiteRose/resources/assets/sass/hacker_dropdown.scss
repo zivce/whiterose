@@ -1,0 +1,28 @@
+// variables
+
+$hacker-text-color : #D80032;
+$bg-color-whole-dropdown : #2c3340;
+$anchor-color : #D80032;
+$bg-color-dropdown : #020919;
+
+
+/* if hacker added this styles */
+
+.hacker /deep/ button {
+    color: $hacker-text-color;
+  }
+  .hacker /deep/ .dropdown-menu.show {
+    background-color: $bg-color-whole-dropdown !important;
+  }
+  .hacker /deep/ a {
+    font-weight: 800;
+    color: $anchor-color !important;
+  }
+  
+  .hacker /deep/ a:hover {
+    background-color: $bg-color-dropdown;
+  }
+  .hacker /deep/ a:focus {
+    background-color: $bg-color-dropdown;
+  }
+  

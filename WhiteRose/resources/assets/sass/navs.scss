@@ -1,3 +1,10 @@
+// variables 
+$hacker-nav-color : #D80032;
+
+
+
+
+
 .nav_item_user a
 {
     color : white !important;
@@ -17,7 +24,7 @@
 .hacker_nav_main a
 {
 
-    color : rgb(255, 0, 0);
+    color : $hacker-nav-color;
 
 }
 
@@ -43,6 +50,6 @@
   }
 .active_item_hacker{
     color: white !important;
-    background-color: #551B14 !important;
+    background-color: $hacker-nav-color !important;
     border-radius: 0 !important;
 }

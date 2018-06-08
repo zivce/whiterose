@@ -154,6 +154,7 @@
 
       <div class="flex_data_first">
         <profile-data-wrapper
+        @click="changeUIAction"
         goToRoute = "setup_client"
         >
           <icon 
@@ -202,6 +203,10 @@ export default {
     StarRating,ProfileDataWrapper,Icon
   },
   methods: {
+   
+    navigateToChangeAvatar() {
+
+    },
     pretty_print(date) {
       return moment(date).format("DD.MM.YYYY");
     }

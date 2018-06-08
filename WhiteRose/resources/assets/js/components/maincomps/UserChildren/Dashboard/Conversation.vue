@@ -1,6 +1,23 @@
 <template>
     <div class="comp_container">
-          <h2 class="h2s">Convo with {{whole_convo.pentester}}</h2>
+          <div 
+          style="
+          display:flex;
+          flex-direction:row;">
+
+            <h2 class="h2s">Convo with {{whole_convo.pentester}}</h2>
+            <b-button
+            class="btn btn-success"
+            @click = "markJobAsCompleted()"
+            style="
+            margin-left: auto;
+            border-radius:0;"
+            
+            > 
+            Mark as completed
+            </b-button>
+
+          </div>
 
           <span 
           class="del_msg"
@@ -44,7 +61,7 @@
             class="client d-flex"
             v-if="msg.clientToPentester==1"
             >
-                <div class="col-2">
+                <div class="col-2 convo_avatars">
                     <img 
                     src="http://i.pravatar.cc/100?img=3" 
                     class="client_avatar"
@@ -52,8 +69,17 @@
                 </div>
 
                 <div class="col-8">
-                    <div class = "msg_cont_header_client">
-                        <p><strong>{{msg.updated_at}}</strong></p>           
+                    <div class = "msg_cont_header_client flex_header">
+                        <p
+                        class="msg_container_time"
+                        v-b-tooltip.hover.top="toolTipDate(msg.updated_at)"
+                        >
+
+                          <strong>
+                            {{timeOfMessage(msg.updated_at)}}
+                          </strong>
+                          
+                        </p>           
                     </div>
 
                     <p
@@ -68,7 +94,7 @@
             class="pentester d-flex"
               v-else 
             >
-                <div class="col-2">
+                <div class="col-2 convo_avatars">
 
                     <img 
                     src="http://i.pravatar.cc/100?img=4" 
@@ -77,8 +103,11 @@
 
                 </div>
                 <div class="col-8">
-                    <div class = "msg_cont_header_pent">
-                        <p><strong>{{msg.updated_at}}</strong></p>           
+                    <div class = "msg_cont_header_pent flex_header">
+                        <p
+                        class="msg_container_time_pentester"
+                        v-b-tooltip.hover.top="toolTipDate(msg.updated_at)"
+                        ><strong>{{timeOfMessage(msg.updated_at)}}</strong></p>           
                     </div>
                     
                    <p
@@ -100,7 +129,7 @@
             class="client msg_cont d-flex"
         >
          
-         <div class="col-2">
+         <div class="col-2 convo_avatars">
             <img 
             src="http://i.pravatar.cc/100?img=3" 
             class="client_avatar"
@@ -108,8 +137,21 @@
          </div>
          
          <div class="col-8">
+                            
+
             <div class = "msg_cont_header_client">
-                <p><strong>{{msgs_for_send[0].date_time}}</strong></p>           
+                
+                <p
+                class="msg_container_time flex_header"
+                v-b-tooltip.hover.top="toolTipDate(client_msg_time)"
+                >
+
+                  <strong>
+                    {{timeOfMessage(client_msg_time)}}
+                  </strong>
+                  
+                </p>     
+
             </div>
             
             <!-- <p>
@@ -159,7 +201,6 @@ import ConvoSendMessagesAPI from "../../../../services/api/user_api/ConvoSendMes
 import StarRating from "vue-star-rating";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/paper-plane";
-import ConvoApi from "../../../../services/api/user_api/Convo.api";
 
 export default {
   destroyed() {},
@@ -186,6 +227,15 @@ export default {
   },
 
   methods: {
+    timeOfMessage(time){
+      return moment(time).format("hh:mm");
+    },
+    toolTipDate(date){
+      return moment(date).format("dddd DD-MM");
+    },
+    markJobAsCompleted() {
+      ClientConvoAPI.markAsCompleted(this.job_id,this);
+    },
     deleteConvo() {
       //TODO: implementacija
       // DeleteConvoAPI.deleteConvo();
@@ -208,6 +258,8 @@ export default {
         message: this.one_msg,
         date_time: moment().format("YYYY-MM-DD hh:mm:ss")
       };
+      this.client_msg_time = new_msg.date_time;
+
       this.one_msg = "";
       this.msg_send_id++;
 
@@ -227,6 +279,7 @@ export default {
   },
   data() {
     return {
+      client_msg_time : moment(),
       rating: 0,
       one_msg: "",
       msgs_for_send: [],
@@ -237,7 +290,23 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+$borderica-pentesterica  :rgba(170, 4, 60, 0.878);
+$borderica-clientica : #233dbb;
+
+.msg_container_time {
+  cursor:pointer;
+}
+.msg_container_time_pentester
+{
+  cursor:pointer;
+}
+
+.flex_header{
+  display: flex;
+  flex-direction: column;
+}
+
 .client_avatar {
   border-radius: 50%;
   float: right;
@@ -264,8 +333,10 @@ export default {
 }
 
 .msg_cont_header_client {
-  text-align: right;
-  border-bottom: 1px solid #233dbb;
+    margin-left: auto;
+    width: -moz-fit-content;
+    width: fit-content;
+  border-bottom: 1px solid $borderica-clientica;
 }
 .msg_cont_header_pent > p {
   margin-bottom: 0;
@@ -276,7 +347,8 @@ export default {
 
 .msg_cont_header_pent {
   text-align: left;
-  border-bottom: 1px solid rgba(170, 4, 60, 0.878);
+  border-bottom: 1px solid $borderica-pentesterica;
+  width:fit-content;
 }
 
 .msg_cont_header {

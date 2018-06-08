@@ -10,7 +10,19 @@ import errorToast from '../../../components/toastr/welcometoastr';
  */
 
 export default {
-
+    markAsCompleted(job_id,vm)
+    {
+      return new Promise((resolve) => {
+        axios.post("/markCompleted",{job_id})
+        .then(()=> {
+          vm.notifySuccess("Marked as completed","Success!");
+          resolve();
+        })
+        .catch( (err) => {
+          console.error(err);
+        })
+      })
+    },
     getConversation(j_id)
     {
       return new Promise((resolve) => {

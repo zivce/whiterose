@@ -1,0 +1,20 @@
+
+.btn-hacker {
+    color: $hacker-icon-color !important;
+    background-color:  $bg-btn-hacker !important;
+    border-color: $bg-btn-hacker !important;
+    width: 3vw;
+    height: 3vw;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.btn-hacker.active {
+    color: $hacker-icon-color-active !important;
+    background-color: $bg-btn-hacker !important;
+    border-color: $bg-btn-hacker!important;
+    width: 3vw;
+    height: 3vw;
+    display: flex !important;
+    align-items: center !important;
+}
