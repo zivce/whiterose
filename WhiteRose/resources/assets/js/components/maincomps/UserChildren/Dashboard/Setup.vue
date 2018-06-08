@@ -21,14 +21,6 @@
                 </span>
             </b-nav-item>
 
-            
-            <b-nav-item  @click="switchComponentNum('verifysite')">
-                <span :class="{'strong':isVisibleVerifySite}">
-                  Verify Sites
-                </span>
-            </b-nav-item>
-            
-            
             <b-nav-item  @click="switchComponentNum('avatar')">
                 <span :class="{'strong':isVisibleChangeImage}">
                   Add Avatar
@@ -385,14 +377,7 @@ export default {
     Icon
   },
   methods: {
-    makeGetKeyUrl(site) {
-      return `getkey/${site}`;
-    },
-    getKey(props) {
-      VerifySiteApi.getKey(props.row.domain, this).then(() => {
-        this.verifySite();
-      });
-    },
+   
 
     redirectToVerifySite(site) {
       this.for_verify_site = site;
@@ -621,10 +606,5 @@ export default {
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
 }
-.check_ico {
-  color: rgba(0, 128, 0, 0.726);
-}
-.times_ico {
-  color: rgb(173, 6, 6);
-}
+
 </style>

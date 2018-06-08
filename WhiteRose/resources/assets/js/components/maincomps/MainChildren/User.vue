@@ -80,8 +80,17 @@
         active-class ="active_item_user"
         class="nav_item_user"
          :to="{name:'jobs',params:{id:user_id}}">
-        My Jobs
+        Jobs
         </b-nav-item>
+
+        <b-nav-item
+        active-class ="active_item_user"
+        class="nav_item_user"
+        :to="{name:'sites_all'}">
+        Sites
+        </b-nav-item>
+        
+        
         <b-nav-item 
         active-class ="active_item_user"
         class="nav_item_user"

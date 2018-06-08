@@ -70,6 +70,13 @@
                   <slot name="button-content"><icon name="check"></icon> Buy tokens</slot>
               </b-dropdown-item>
 
+
+              <b-dropdown-item 
+              v-if="!isHacker" 
+              :to="{name:'sites_all'}">
+                  <slot name="button-content"><icon name="globe"></icon> Sites </slot>
+              </b-dropdown-item>
+
               <b-dropdown-item  @click="handleLogout()">
                   <slot name="button-content"><icon name="logout"></icon> Logout</slot>
               </b-dropdown-item>
@@ -120,6 +127,7 @@ import Home from "./Home.vue";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/user";
 import "vue-awesome/icons/comment";
+import "vue-awesome/icons/globe";
 
 import "../../Icons/logout";
 import "../../Icons/logo";

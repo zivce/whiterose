@@ -1,14 +1,16 @@
 <template>
- <div class="d-flex col-5 comp_container" >
+ <div class="comp_container" >
 
             <div class="dashboard_setup_container">
                 
-                    <h3 class="h3s">
+                    <h2 class="h2s">
                         Verify site
-                    </h3>
+                    </h2>
 
 
-                <div class="fform_input_job">
+                <div 
+                style="margin: auto;"
+                class="fform_input_job col-6">
         
                     <input  
                     v-if="isInputSitePart"
@@ -31,7 +33,7 @@
                 <!-- SECOND PART -->
                 
                 <v-client-table
-                class="col-12"
+                class="col-12 table_sites"
                 ref="sites"
                 v-if="isKeyVerifPart"
                 :data='client_sites'
@@ -75,7 +77,12 @@
 
                 <!-- BUTTONS SECTION -->
 
-                <div style="display:flex;">
+                <div 
+                style="
+                display:flex;
+                margin: auto;"
+                
+                class="col-6 ">
 
                   <b-button 
                     v-if="isInputSitePart"
@@ -142,11 +149,93 @@
     </div>
     </template>
 <script>
+import VerifySiteApi from "../../../services/api/user_api/verifySite.api";
+import { mapGetters } from "vuex";
+import Icon from "vue-awesome/components/Icon";
+import "vue-awesome/icons/file";
+import "vue-awesome/icons/times";
+
 export default {
+    components: {
+        Icon
+    },
+    computed: {
+
+        ...mapGetters({ client_sites: "returnSites" }),
+        errSiteVerif() {
+            return this.errors.has(this.site_for_verification.id);
+        }
+    },
+    methods : {
+        makeGetKeyUrl(site) {
+            return `getkey/${site}`;
+        },
+        getKey(props) {
+        VerifySiteApi.getKey(props.row.domain, this).then(() => {
+            this.verifySite();
+        });
+        },
+
+        //HANDLERS FORMS
+        newSiteHandler() {
+            if (this.site_for_verification.value.length !== 0) {
+                VerifySiteApi.addNewSite(this, this.site_for_verification.value).then(
+                resolved => {
+                    //site already exists
+                    if (!resolved) return;
+
+                    this.isInputSitePart = false;
+                    this.isKeyVerifPart = true;
+                    this.isVerifySitePart = false;
+                }
+                );
+            } else {
+                this.errorToast("Please insert site", "Error!");
+            }
+        },
+        redirectToVerifySite(site) {
+            this.for_verify_site = site;
+
+            this.isInputSitePart = false;
+            this.isKeyVerifPart = false;
+            this.isVerifySitePart = true;
+        },
+
+        viewSites() {
+            this.isInputSitePart = false;
+            this.isKeyVerifPart = true;
+            this.isVerifySitePart = false;
+        },
+        getBackToFirstScreen() {
+            this.isInputSitePart = true;
+            this.isKeyVerifPart = false;
+            this.isVerifySitePart = false;
+        },
+        getBackToSecondScreen() {
+            this.isInputSitePart = false;
+            this.isKeyVerifPart = true;
+            this.isVerifySitePart = false;
+        },
+    },
     data() {
         return {
+             //Site verification
+            columns_sites: ["domain", "confirmed", "verify"],
+            options_sites: {
+                columnsClasses: {
+                verified: "cursorable",
+                domain: "cursorable"
+                },
+                filterable: ["domain"],
+                filterByColumn: true,
+                pagination: {
+                dropdown: true,
+                nav: "scroll"
+                }
+            },
+
+
             //Visibility variables
-            
             isInputSitePart: true,
             isKeyVerifPart: false,
             isVerifySitePart: false,
@@ -166,5 +255,23 @@ export default {
 </script>
 
 <style scoped>
+.table_sites >>> td {
+    text-align: center;
+}
 
+.check_ico {
+  color: rgba(0, 128, 0, 0.726);
+}
+.times_ico {
+  color: rgb(173, 6, 6);
+}
+.has-error {
+  border: 1px solid rgba(255, 0, 0, 1);
+}
+.incorrect_input_ {
+  width: 100%;
+  color: red;
+  font-size: 10px;
+  font-weight: 700;
+}
 </style>

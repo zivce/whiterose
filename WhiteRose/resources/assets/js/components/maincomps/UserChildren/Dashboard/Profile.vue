@@ -154,7 +154,7 @@
 
       <div class="flex_data_first">
         <profile-data-wrapper
-        goToRoute = "setup_client"
+        goToRoute = "sites_all"
         >
           <icon 
           slot="data_icon" 
