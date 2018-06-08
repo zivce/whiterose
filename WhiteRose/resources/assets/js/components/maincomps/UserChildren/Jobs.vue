@@ -8,21 +8,21 @@
         v-b-tooltip.hover.right="'All jobs'"
         class="btn btn-client " 
         :to="{name:'myjobs'}">
-          <icon name="tasks" ></icon>
+          <icon name="tasks" :width="icon_fix_width" ></icon>
         </b-button>
         
         <b-button 
         v-b-tooltip.hover.right="'Started jobs'"
         class="btn btn-client"
         :to="{name:'startedjobs'}">
-          <icon name="hourglass-start" ></icon>
+          <icon name="hourglass-start" :width="icon_fix_width" ></icon>
         </b-button>
         
         <b-button 
         v-b-tooltip.hover.right="'Finished jobs'"
         class="btn btn-client"
         :to="{name:'finjobs'}">
-          <icon name="flag-checkered" ></icon>
+          <icon name="flag-checkered" :width="icon_fix_width" ></icon>
         </b-button>
 
     </div>
@@ -108,6 +108,10 @@ export default {
   },
   data() {
     return {
+
+      //width fixes
+      icon_fix_width : 57,
+
       details: {},
       isVisibleBid: false,
       columns: ["title", "startingPrice", "preview"],

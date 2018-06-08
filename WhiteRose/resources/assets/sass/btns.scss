@@ -1,4 +1,14 @@
 
+//btn-bg-hacker 
+$hacker-icon-color : #D80032;
+$bg-btn-hacker:  #2c3340;
+$hacker-icon-color-active : white;
+
+//btn-client-colors 
+$client-icon-color : #f6f6f6;
+$bg-btn-client:  #2c3340;
+$client-icon-color-active : #2c3340;
+
 .btn-hacker {
     color: $hacker-icon-color !important;
     background-color:  $bg-btn-hacker !important;
@@ -18,3 +28,25 @@
     display: flex !important;
     align-items: center !important;
 }
+.btn-client {
+    color: $client-icon-color;
+    background-color: $bg-btn-client;
+    border-color: $client-icon-color-active;
+
+    width: 3vw;
+    height: 3vw;
+    display: flex !important;
+    align-items: center !important;
+}
+
+
+.btn-client.active {
+    color: $hacker-icon-color-active !important;
+    background-color: $bg-btn-hacker !important;
+    border-color: $bg-btn-hacker!important;
+    width: 3vw;
+    height: 3vw;
+    display: flex !important;
+    align-items: center !important;
+}
+
