@@ -81,10 +81,11 @@
                           
                         </p>           
                     </div>
-
                     <p
+                    v-for="(message,index) in renderMessages(msg.text)"
+                    :key = index
                     >
-                    {{msg.text}}
+                    {{message}}
                     </p>
                 </div>
 
@@ -109,10 +110,11 @@
                         v-b-tooltip.hover.top="toolTipDate(msg.updated_at)"
                         ><strong>{{timeOfMessage(msg.updated_at)}}</strong></p>           
                     </div>
-                    
                    <p
+                    v-for="(message,index) in renderMessages(msg.text)"
+                    :key = index
                     >
-                    {{msg.text}}
+                    {{message}}
                     </p>
                 </div>
 
@@ -212,7 +214,7 @@ export default {
     //TODO: posalji rating ovde
     this.job_id = this.$store.getters.returnParams;
     ClientConvoAPI.getConversation(this.job_id).then(
-      resp => (this.whole_convo = resp)
+      resp => {this.whole_convo = resp;}
     );
     console.log(this.whole_convo);
   },
@@ -266,6 +268,11 @@ export default {
       this.msgs_for_send.push(new_msg);
       console.log(new_msg);
       ConvoSendMessagesAPI.sendMsg(new_msg);
+    },
+    renderMessages(msg) {
+      // console.log(msg);
+      var array = JSON.parse("[" + msg + "]");
+      return array[0];
     }
 
     //find client that sent msg

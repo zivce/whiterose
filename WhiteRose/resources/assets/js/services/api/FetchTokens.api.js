@@ -11,11 +11,9 @@ export default {
     {
         //sendingArr sadrzi niz propertija forme
         //moze da se mapira.. 
-                    
-        
 
         axios
-            .get("/fetchtokens")
+            .get("/returntokens")
             .then(function(response) {
             vm.successToast("Description added.", "Success.");
             })

@@ -63,7 +63,7 @@ class DiscusionController extends Controller
         }
         else{
              
-        $client=CLient::where('id',$discusion->client_id)->first()->username;
+        $client=Client::where('id',$discusion->client_id)->first()->username;
         $discusion->sender = $client;
         
         $discusion = $discusion->with('messages')->get();
@@ -81,23 +81,25 @@ class DiscusionController extends Controller
 
     public function postMessage(Request $request)
     {
+        $dis=Discusion::where('id',$request->discusionID)->first();
+        $lastmessage=$dis->messages()->latest()->first();
         if(Auth::guard('client')->check())
         {
-            $dis=Discusion::where('id',$request->discusionID)->first();
-            $lastmessage=$dis->messages()->latest()->first();
             if($lastmessage->clientToPentester===1)
             {
                 $text=json_decode($lastmessage->text);
+                // $text=$lastmessage->text;
                 array_push($text,$request->message);
-                $text->save();
+                $lastmessage->text = json_encode($text);
+                $lastmessage->save();
             }
             else{
                 $message=new Message;
-                $message->text=$request->message;
-               
-                    $message->clientToPentester=1;
-               
-                   
+                $text = array();
+                array_push($text,$request->message);
+                $message->text=json_encode($text);
+            
+                $message->clientToPentester=1;
         
                 $message->discusion_id=$request->discusionID;
                 $message->save();
@@ -105,28 +107,25 @@ class DiscusionController extends Controller
         }
         else
         {
-            $dis=Discusion::where('id',$request->discusionID)->first();
-            $lastmessage=$dis->messages()->latest()->first();
             if($lastmessage->pentesterToClient===1)
             {
                 $text=json_decode($lastmessage->text);
-                array_push($text,$request->message);
-                $text->save();
+                array_push($text,$request->message);        
+                $lastmessage->text = json_encode($text);
+                $lastmessage->save();
             }
             else{
                 $message=new Message;
-                $message->text=$request->message;
-                
-                    
-                
+                $text = array();
+                array_push($text,$request->message);
+                $message->text=json_encode($text);
+
                 $message->pentesterToClient=1;
         
                 $message->discusion_id=$request->discusionID;
                 $message->save();
             }
         }
-        
-        e();
         
     }
 }

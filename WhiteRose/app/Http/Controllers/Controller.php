@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Request;
 use App\Pentester;
 use App\Job;
+use Illuminate\Support\Facades\Auth;
+
 
 class Controller extends BaseController
 {
@@ -16,12 +18,12 @@ class Controller extends BaseController
 
     public function returnTokens(Request $request)
     {
-        if($request->role==='pentester')
-            return Pentester::where('id',$request->id)
-                              ->get()
+        if(Auth::guard('pentester')->check())
+            return Pentester::where('id',Auth::guard('pentester')->user()->id)
+                              ->first()
                               ->tokens;
-        return  Client::where('id',$request->id)
-                        ->get()
+        return  Client::where('id',Auth::guard('client')->user()->id)
+                        ->first()
                         ->tokens;
     }
 
