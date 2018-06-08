@@ -48,7 +48,7 @@
 
     <div class="d-flex col-5" v-if="isVisibleChangeImage">
 
-            <div class="dashboard_setup_container">
+            <form class="dashboard_setup_container">
                 
                     <h3 class="h3s">
                         Insert new image.
@@ -77,14 +77,14 @@
                 <b-button class="btn btn-info btn-secondary actionbtn" @click="insertImageHandler()">
                     Insert  
                 </b-button>
-            </div>
+            </form>
         </div>
       <!-- </transition> -->
 
 
     <!-- VERIFY SITE  -->
     <!-- <transition name="setup" mode="out-in"> -->
-
+<!-- dk 
     <div class="d-flex col-5" v-if="isVisibleVerifySite">
 
             <div class="dashboard_setup_container">
@@ -113,32 +113,8 @@
                     
                 </div>
                 
-                <!-- <div class="fform_input_job">
-        
-                    TODO : dodaj regex za sajt 
+             
 
-                    <input  
-                    v-if="isInputSitePart"
-                    :placeholder="site_for_verification.label"
-                    :class="{'has-error':errSiteVerif}"
-                    :type="site_for_verification.type"
-                    id="site" 
-                    v-model="site_for_verification.value" 
-                    required="true"
-                    v-validate="{rules:{
-                      required:true
-                      }}"
-                      
-                    :maxlength="10"
-                    name="site"/>
-                    
-                    <span v-if="errors.has('site')" class="incorrect_input">
-                        Site required!
-                    </span>
-                    
-                </div> -->
-
-                <!-- SECOND PART -->
                 
                 <v-client-table
                 class="col-12"
@@ -168,7 +144,6 @@
 
 
 
-                  <!-- @click="getKey(props)" -->
                 </v-client-table >
                 
                 <p 
@@ -179,11 +154,9 @@
                   directory and then click verify.                  
                 </p>
 
-                <!-- THIRD PART -->
+               
 
 
-
-                <!-- BUTTONS SECTION -->
 
                 <div style="display:flex;">
 
@@ -207,14 +180,14 @@
                 
                 </div>
                 
-                 <!-- <b-button 
+               <b-button 
                   v-if="isKeyVerifPart"
                  class="btn btn-info btn-secondary actionbtn" 
                  @click="keyDownloaded()">
                  
                     Next step > 
                 
-                </b-button> -->
+                </b-button> 
                  <b-button 
                   v-if="isKeyVerifPart"
                  class="btn btn-info btn-secondary actionbtn" 
@@ -249,7 +222,7 @@
           
           
           </div>
-    </div>
+    </div> -->
     <!-- </transition> -->
     <!-- RESET PW  -->
     <!-- <transition name="setup" mode="out-in"> -->

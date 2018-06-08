@@ -9,16 +9,13 @@ export default {
 
     postAvatar(validator,vm,send)
     {
-        //sendingArr sadrzi niz propertija forme
-        //moze da se mapira.. 
-       
-        
+      
         validator.validateAll().then((form_ok)=>{
                 if (form_ok) {
                     axios
-                      .post("/postAvatar", {
-                        send
-                      }, {
+                      .post("/postAvatar", 
+                      send,
+                      {
                         headers : {
                           'Content-Type' : 'multipart/form-data'
                         }

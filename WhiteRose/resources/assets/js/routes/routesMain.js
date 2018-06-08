@@ -17,6 +17,11 @@ let routes = [
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
                 {
+                    name:'sites_all',
+                    path:'allsites',
+                    component: require('../components/maincomps/UserChildren/VerifySites.vue')
+                },
+                {
                     name:'tokens',
                     path:'purchasetokens',
                     component: require('../components/maincomps/TokenCharger.vue')
