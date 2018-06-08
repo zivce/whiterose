@@ -184,11 +184,11 @@ export default {
 
             this.notifySuccess("Tokens added.", "Success");
             //TODO: uncomment
-            // TokenChargerAPI
-            //   .sendTokenAndAmount(token,this.prop.value)
-            //   .then((amount)=>{
+            TokenChargerAPI
+              .sendTokenAndAmount(token,this.prop.value)
+              // .then((amount)=>{
 
-            //   });
+              // });
           });
         } else this.errorToast("Please fill out the form", "Error!");
       });

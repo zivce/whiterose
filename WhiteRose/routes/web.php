@@ -73,7 +73,7 @@ Route::get('getkey/{site}','ClientController@downloadKey')->name('getkey');
 Route::post('confirmed','ClientController@confirmSite')->name('confirm');
 Route::get('getAllSites','ClientController@allSites');
 //buying and selling tokens
-Route::get('purchasetokens','ClientController@buyTokens')->name('purchasetokens');
+Route::post('purchasetokens','ClientController@buyTokens')->name('purchasetokens');
 Route::post('transaction','TransactionController@transferTokens')->name('transactions');
 Route::post('payout','PentesterController@cashOutPentester')->name('payout'); //undone
 Route::get('returntokens','Controller@returnTokens')->name('returntokens');
