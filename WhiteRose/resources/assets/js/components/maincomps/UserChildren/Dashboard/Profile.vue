@@ -269,16 +269,6 @@ export default {
   box-shadow: 0px 0px 0px 8px #fff;
 }
 
-/* .proj_container { 
-  margin-top: 2%;
-  background-color: $bg-project-color;
-  margin-bottom: 20px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: rgba(0, 6, 16, 0.31) 3px 3px 7px 2px;
-  padding: 5%;
-}*/
 
 .user_stars >>> polygon {
   stroke: transparent !important;

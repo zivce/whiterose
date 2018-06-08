@@ -6,7 +6,11 @@
         ref = "info_btn"
         v-b-tooltip.hover.right="'Info'"
         class="btn btn-client " @click="hideShowInfo">
-          <icon name="info" ></icon>
+          <icon 
+          name="info" 
+          :width="icon_fix_width"
+          >
+          </icon>
         </b-button>
         
         <b-button 
@@ -14,21 +18,27 @@
         v-b-tooltip.hover.right="'Messages'"
         class="btn btn-client"
         :to="messages_url">
-          <icon name="comment" ></icon>
+          <icon name="comment" 
+          :width="icon_fix_width"
+           ></icon>
         </b-button>
         
         <b-button 
         v-b-tooltip.hover.right="'Profile'"
         class="btn btn-client"
         :to="profile_url">
-          <icon name="user" ></icon>
+          <icon name="user" 
+          :width="icon_fix_width"
+           ></icon>
         </b-button>
 
          <b-button  
         v-b-tooltip.hover.right="'Setup'"
         class="btn btn-client"
         :to="setup_url">
-          <icon name="wrench" ></icon>
+          <icon name="wrench" 
+          :width="icon_fix_width"
+           ></icon>
         </b-button>
 
 
@@ -179,6 +189,10 @@ export default {
 
       isVisibleUserInfo: false,
       main_client_visible: false,
+      
+      //width fixes
+      icon_fix_width : 57,
+      
       //Current route
       route: "",
       user_id: "",
@@ -260,11 +274,7 @@ export default {
 .flip-leave-active {
   transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.btn-client {
-  color: #f6f6f6;
-  background-color: #2c3340;
-  border-color: #2c3340;
-}
+
 .flip-enter,
 .flip-leave-to {
   transform: scaleY(0) translateZ(0);
