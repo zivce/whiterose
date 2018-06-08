@@ -80,7 +80,8 @@ export default {
       return obj.visible_long_msg;
     },
     pretty_print(msg) {
-      return msg.slice(0, 100);
+      var array = JSON.parse("[" + msg + "]");      
+      return array.slice(0, 100)+'...';
     },
     expand(index) {
       // let index = _.findIndex(this.messages, { id: msg_id });
