@@ -11,19 +11,16 @@ export default {
     {
         //sendingArr sadrzi niz propertija forme
         //moze da se mapira.. 
-
-
                     axios
-                      .post("/postdescription", {
+                      .post("/purchasetokens", {
                         token,amount
                       })
                       .then(function(response) {
-                        vm.successToast("Description added.", "Success.");
+                        vm.successToast("Tokens added.", "Success.");
                       })
                       .catch(function(error) {
                         vm.errorToast("An error happened.", "Error.");
                       });
-                  
 
     }
 }

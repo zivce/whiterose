@@ -120,17 +120,18 @@ class ClientController extends Controller
     public function buyTokens(Request $request)
     {
         $token = $request->token;
-        $amount=$request->amoutnt;
+        $amount=$request->amount;
         $price=$amount*5*100;
-        $charge = \Stripe\Charge::create([
-            'amount' =>  $price,
-            'currency' => 'usd',
-            'description' => 'Buying'.$amount.'tokens'.'Price is'.$price.'$',
-            'source' => $request->token,
-        ]);
-        $client=Client::where('id',$request->id)->first();
-        $client->tokens=$amount;
+        // $charge = \Stripe\Charge::create([
+        //     'amount' =>  $price,
+        //     'currency' => 'usd',
+        //     'description' => 'Buying'.$amount.'tokens'.'Price is'.$price.'$',
+        //     'source' => $request->token,
+        // ]);
+        $client=Client::where('id',Auth::guard('client')->user()->id)->first();
+        $client->tokens+=$amount;
         $client->save();
+        return $client->tokens;
                
     }
 
