@@ -13,9 +13,9 @@ export default {
     markAsCompleted(job_id,vm)
     {
       return new Promise((resolve) => {
-        axios.post("/markCompleted",{job_id})
+        axios.post("/acceptJob",{job_id})
         .then(()=> {
-          vm.notifySuccess("Marked as completed","Success!");
+          // vm.notifySuccess("Marked as completed!","Success!");
           resolve();
         })
         .catch( (err) => {
@@ -28,7 +28,7 @@ export default {
       return new Promise((resolve) => {
         axios.post("/declineJob",{job_id})
         .then(()=> {
-          vm.notifySuccess("Marked as completed","Success!");
+          // vm.notifySuccess("You have declined a posted job!","Success!");
           resolve();
         })
         .catch( (err) => {

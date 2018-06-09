@@ -21,12 +21,7 @@ use App\Bid;
 use GuzzleHttp\Client as fakingGazl;
 use App\Started_job;
 use App\Discusion;
-
-
-
-
-
-
+use Illuminate\Support\Facades\DB;
 
 
 class ClientController extends Controller
@@ -99,11 +94,9 @@ class ClientController extends Controller
                         
     }
 
-    public function uploadAvatar()
+    public function uploadAvatar(Request $request)
     {
-        
-        
- 
+
          $image=$request->avatar;
          $client=Auth::guard('client')->user();
          $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
@@ -111,8 +104,11 @@ class ClientController extends Controller
          $fileName=Carbon::now()->toDateTimeString().'.'.$image->getClientOriginalExtension();
          $fileName=str_replace(' ','_',$fileName);
          $fileName=str_replace(':','_',$fileName);
-         Storage::putFileAs($dirName,$image,$fileName);
-         $client->image_path=storage_path('app\\'.$dirName.'\\'.$fileName);
+        //  Storage::disk('public')->put($fileName, $image);
+        $url = Storage::url('2018-06-08_23_34_50.png');
+        return $url;
+        Storage::putFileAs($pub,$image,$fileName);
+        $client->image_path=storage_path('app\\'.$dirName.'\\'.$fileName);
          $client->save();
     }
 
@@ -378,5 +374,27 @@ class ClientController extends Controller
         $discusion->save();
         return "job accepted";
         
+    }
+
+    public function acceptJob(Request $request)
+    {
+        $job = Job::where('id',$request->job_id)->first();
+        $job = $job->pentesters()->first();
+
+        DB::table('job_histories')->insert([
+            ['pentester_id' => $job->pivot->pentester_id ,'job_id'=> $job->pivot->job_id, 'price' => $job->pivot->amount,'created_at' => Carbon::now()],
+        ]);
+        $job->finished = 0;
+        $job_completed = Job::where('id',$request->job_id)->first();        
+        $job_completed->completed = 1;
+        $job_completed->save();
+        
+        // return $job->pentesters()->first();
+        
+    }
+
+    public function declineJob(Request $request)
+    {
+        $job = Job::where('id',$request->job_id)->first();
     }
 }

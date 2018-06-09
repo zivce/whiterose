@@ -11,7 +11,7 @@
         margin: auto;
         ">
             <b-button 
-            @click="markAsCompletede()"
+            @click="markAsCompleted()"
             class="btn btn-success"
             >
             Accept

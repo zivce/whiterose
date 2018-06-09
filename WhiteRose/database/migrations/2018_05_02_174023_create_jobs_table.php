@@ -23,6 +23,7 @@ class CreateJobsTable extends Migration
             $table->integer('client_id');
             $table->string('file_path')->nullable();
             $table->integer('inprogress')->default(0);
+            $table->integer('completed')->default(0);
             $table->timestamps();
         });
     }

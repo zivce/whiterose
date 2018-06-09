@@ -129,6 +129,11 @@ Route::post('accept','ClientController@acceptTheBid')->name('accept');
 Route::post('postMesaages','DiscusionController@postMessage');
 Route::get('getMessages/{jobID}','DiscusionController@getMessages')->name('getMessages');
 Route::get('getAllFirstMessages','DiscusionController@returnLastMessages');
+Route::post('completeJob','PentesterController@completeJob');
+Route::post('acceptJob','ClientController@acceptJob');
+Route::post('declineJob','ClientController@declineJob');
+
+
 // Route::group(['prefix' => 'client'], function () {
 //   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
 //   Route::post('/login', 'ClientAuth\LoginController@login');

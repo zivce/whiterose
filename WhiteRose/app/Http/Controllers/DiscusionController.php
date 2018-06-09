@@ -47,7 +47,10 @@ class DiscusionController extends Controller
         
         $job=Job::where('id',$jobID)->first();
         $discusion=$job->discusion()->first();
-        if(Auth::guard('pentester')->check())
+        $job_pivot = $job->pentesters()->where('pentesters_jobs.job_id',$jobID)->first()->pivot;
+        $finished = $job_pivot->finished;
+
+        if(!Auth::guard('pentester')->check())
         {
 
         
@@ -58,7 +61,9 @@ class DiscusionController extends Controller
 
         return $ret = [
             "discusion" => $discusion,
-            "pentester" => $pentester
+            "pentester" => $pentester,
+            "finished"  => $finished,
+            "completed" => $job->completed
         ];
         }
         else{
@@ -70,7 +75,9 @@ class DiscusionController extends Controller
 
         return $ret = [
             "discusion" => $discusion,
-            "client" => $client
+            "client" => $client,
+            "finished"  => $finished,
+            "completed" => $job->completed                        
         ];
         }
         

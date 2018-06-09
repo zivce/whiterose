@@ -113,7 +113,7 @@
           </div>
         </div>
 
-        <accept-decline-form>
+        <accept-decline-form v-if="whole_convo.finished===1 && whole_convo.completed!==1">
         </accept-decline-form>
         <!-- RENDER NEW MESSAGES -->
         
@@ -164,7 +164,10 @@
 
 
 
-        <div class="cont_input_msg">
+        <div 
+          class="cont_input_msg"
+          v-if="whole_convo.completed!=1"
+        >
         
             <input 
             name="msg_client" 
@@ -212,6 +215,7 @@ export default {
     this.user_name = this.$store.getters.returnUser;
     this.user_name = this.user_name.name;
     this.msg_send_id = 0;
+
   },
   components: {
     Icon,AcceptDeclineForm,
@@ -281,7 +285,8 @@ export default {
       one_msg: "",
       msgs_for_send: [],
       whole_convo: [],
-      msg_send_id: undefined
+      msg_send_id: undefined,
+      job_finished: undefined,
     };
   }
 };

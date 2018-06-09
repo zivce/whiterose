@@ -88,7 +88,8 @@ export default {
             password: vm.inputs.pw.value,
             sameaspw: vm.inputs.pwagain.value,
             firstname: vm.inputs.firstname.value,
-            lastname: vm.inputs.lastname.value
+            lastname: vm.inputs.lastname.value,
+            username: vm.inputs.username.value
           })
           .then(function(response) {
             if (response.data === "This mail already exist") {
