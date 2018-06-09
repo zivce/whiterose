@@ -22,6 +22,9 @@ const store = new Vuex.Store({
 
   },
   mutations: {
+    setAvatar(state, avatar) {
+      state.user.avatar = avatar;
+    },
     setTest (state,payload) {
       state.test = payload.test;
     },
@@ -55,7 +58,9 @@ const store = new Vuex.Store({
     }
   },
   getters: {
+    returnAvatar : state => state.user.avatar,
     returnSites: state => state.sites,
+    returnUsername : state => state.user.username,
     returnMappedVerifiedSites : state => {
       
       let sites = state.sites

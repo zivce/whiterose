@@ -56,7 +56,7 @@ import "vue-awesome/icons/envelope";
 export default {
   created() {
     MessagesApi.getMessages().then(resp => (this.messages = resp));
-    console.log(this.messages);
+   
     this.user_id = this.$store.getters.returnId;
 
     this.conv_url = `/user/${this.user_id}/dashboard/convo/`;

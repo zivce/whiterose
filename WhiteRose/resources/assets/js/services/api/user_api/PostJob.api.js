@@ -44,7 +44,7 @@ export default {
     {
         return new Promise((resolve) => {
             axios
-              .post("editjob",obj
+              .post("editJob",obj
               ,{
                   headers : {
                       'Content-Type': 'multipart/form-data'

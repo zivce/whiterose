@@ -21,7 +21,13 @@ use App\Bid;
 use GuzzleHttp\Client as fakingGazl;
 use App\Started_job;
 use App\Discusion;
-use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
+
+
+
+//Client::setStripeKey('pk_test_dFVBeyPGEdmiqOpIv5lovgeE');
+
+
 
 
 class ClientController extends Controller
@@ -99,30 +105,29 @@ class ClientController extends Controller
 
          $image=$request->avatar;
          $client=Auth::guard('client')->user();
-         $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
-         Storage::makeDirectory($dirName);
+         //$dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
+         //Storage::makeDirectory($dirName);
          $fileName=Carbon::now()->toDateTimeString().'.'.$image->getClientOriginalExtension();
          $fileName=str_replace(' ','_',$fileName);
          $fileName=str_replace(':','_',$fileName);
-        //  Storage::disk('public')->put($fileName, $image);
-        $url = Storage::url('2018-06-08_23_34_50.png');
-        return $url;
-        Storage::putFileAs($pub,$image,$fileName);
-        $client->image_path=storage_path('app\\'.$dirName.'\\'.$fileName);
+         //Storage::putFileAs($dirName,$image,$fileName);
+         Image::make($image)->resize(300,300)->save(public_path('uploads\\images\\'.$fileName));
+         $client->image_path='public\\uploads\\images\\'.$fileName;
          $client->save();
+         return 'public\\uploads\\images\\'.$fileName;
     }
 
     //buying and transfering tokens
     public function buyTokens(Request $request)
     {
-        $token = $request->token;
+        //$token = $request->token->token;
         $amount=$request->amount;
         $price=$amount*5*100;
         // $charge = \Stripe\Charge::create([
         //     'amount' =>  $price,
         //     'currency' => 'usd',
         //     'description' => 'Buying'.$amount.'tokens'.'Price is'.$price.'$',
-        //     'source' => $request->token,
+        //     'source' => $request->id,
         // ]);
         $client=Client::where('id',Auth::guard('client')->user()->id)->first();
         $client->tokens+=$amount;
@@ -131,6 +136,20 @@ class ClientController extends Controller
                
     }
 
+    //delete job
+    public function deleteJob(Request $request)
+    {
+        Job::where('id',$request->id)->first()->delete();
+    }
+    //edit job
+    public function editJob(Request $request)
+    {
+      $job=Job::where('id',$request->id)->first();
+      $job->description=$request->description;
+      $job->price=$job->price;
+      $job->save();
+                
+    }
     //posting job
     public function postJob(Request $request)
     {
@@ -143,6 +162,11 @@ class ClientController extends Controller
         $job->description=$request->desc;
         $document=$request->file;
 
+        $client=Auth::guard('client')->user();
+        if($client->tokens<$request->price+2)
+        return "You dont have tokens for this job post";
+        $client->tokens=$client->tokens-2;
+        $client->save();
         $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
         if($document!==null || !empty($document)){
             Storage::makeDirectory($dirName);
@@ -276,6 +300,7 @@ class ClientController extends Controller
                         'username'=>$client->username,
                         'lastname'=>$client->lastname,
                         'tokens'=>$client->tokens,
+                        'avatar'=>$client->image_path,
 
             ];
             

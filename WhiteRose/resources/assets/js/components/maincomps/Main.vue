@@ -20,8 +20,11 @@
       </h1>
         
         <div id="profile_container">
-         
+          <img 
+          :src="avatar_url"
+          />
           <b-dropdown
+          right
           :text="username" 
           :class = "{'hacker':isHacker}"
           @show = "clicked_user = !clicked_user"
@@ -144,8 +147,11 @@ export default {
     Icon
   },
   mounted() {
-    this.username = this.$store.getters.returnEmail;
-    // this.tokens = this.$store.getters.returnTokens;
+    this.username = this.$store.getters.returnUsername;
+    
+    
+    this.avatar_url = this.$store.getters.returnAvatar;
+    this.avatar_url = this.avatar_url.substring(this.avatar_url.indexOf("/uploads"))
 
     /**
      * for dropdown animation
@@ -218,16 +224,27 @@ export default {
         size: 20,
         show_rating: false
       },
+      
+      avatar_url:undefined,
+
+      //coloring dropdown
       hacker_stars_color: "#D80032",
       user_stars_color : "#ffd055",
+
+
       clicked_user: false,
       tokens: undefined,
       tokens_url: "",
+
+      //visibility vars
       isActiveTokenCharger: false,
       isHacker: false,
+      
       messages_url: "",
+      
       user_role: "",
       user_id: "",
+      
       profile_url: ``,
       username: "",
       main_comp: false
@@ -237,8 +254,18 @@ export default {
 </script>
 
 <style  scoped>
+#profile_container > img {
+  margin: auto;
+  width: 40px;
+  border-radius: 50%;
+}
 #profile_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
   flex-direction: row;
 }
 #main_main {
@@ -271,9 +298,9 @@ export default {
 }
 
 #header >>> #user {
-  position: absolute;
+  /* position: absolute;
   right: 5vw;
-  top: 4vh;
+  top: 4vh; */
 }
 #header >>> #user__BV_toggle_:focus {
   outline: none;
@@ -281,8 +308,8 @@ export default {
   box-shadow: none;
 }
 #header h1 {
-  margin: 0 auto;
-  margin-top: 1%;
+  margin: auto;
+  margin-left: 34px;
 }
 #main_vue {
   background-position-x: 2%;
