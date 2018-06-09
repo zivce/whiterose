@@ -148,7 +148,12 @@ let routes = [
             path:'pentester/:id',
             redirect : {name: 'cvpost'},
             component : require('../components/maincomps/MainChildren/Pentester.vue'),
-            children:[  
+            children:[ 
+                {
+                    name: 'find_jobs_pentester',
+                    path: 'findjobs',
+                    component: require('../components/maincomps/PentesterChildren/FindJob.vue')
+                }, 
                 {
                 name:'tokens',
                 path:'purchasetokens',

@@ -23,6 +23,19 @@ export default {
         })
       })
     },
+    declineJobCompletion(job_id,vm)
+    {
+      return new Promise((resolve) => {
+        axios.post("/declineJob",{job_id})
+        .then(()=> {
+          vm.notifySuccess("Marked as completed","Success!");
+          resolve();
+        })
+        .catch( (err) => {
+          console.error(err);
+        })
+      })
+    },
     getConversation(j_id)
     {
       return new Promise((resolve) => {

@@ -1,5 +1,5 @@
 <template>
-    <div class="comp_container">
+    <div class="comp_container" v-cloak> 
           <div 
           style="
           display:flex;
@@ -49,7 +49,7 @@
           >
             <div
             class="client d-flex"
-            v-if="msg.clientToPentester==1"
+            v-if="msg.clientToPentester === 1"
             >
                 <div class="col-2 convo_avatars">
                     <img 
@@ -83,7 +83,7 @@
 
             <div
             class="pentester d-flex"
-              v-else 
+              v-else
             >
                 <div class="col-2 convo_avatars">
 
@@ -107,14 +107,14 @@
                     {{message}}
                     </p>
                 </div>
-
-
-
             </div>
+
 
           </div>
         </div>
 
+        <accept-decline-form>
+        </accept-decline-form>
         <!-- RENDER NEW MESSAGES -->
         
         <div v-if="msgs_for_send.length"
@@ -160,7 +160,7 @@
 
          </div>
 
-            </div>
+        </div>
 
 
 
@@ -186,7 +186,7 @@
 
 <script>
 import DeleteConvoAPI from "../../../../services/api/user_api/DeleteConvo.api";
-
+import AcceptDeclineForm from './AcceptDeclineForm.vue';
 import ConvoHardcode from "../convo_client_2_pentester.hardcode";
 import ClientConvoAPI from "../../../../services/api/user_api/Convo.api";
 import ConvoSendMessagesAPI from "../../../../services/api/user_api/ConvoSendMessages.api";
@@ -214,7 +214,7 @@ export default {
     this.msg_send_id = 0;
   },
   components: {
-    Icon,
+    Icon,AcceptDeclineForm,
     StarRating
   },
 

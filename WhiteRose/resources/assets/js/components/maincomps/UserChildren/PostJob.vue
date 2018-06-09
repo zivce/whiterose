@@ -1,9 +1,17 @@
 <template>
   <div id="job_poster" class="comp_container">
+    
+    
     <h2 
+    v-if="itIsEditJobForm"
+    ref="post_job_header"
+    class="h2s">Edit your job.</h2>
+    
+    <h2 
+    v-else
     ref="post_job_header"
     class="h2s">Post your new job.</h2>
-
+    
 
     <div class="group_input_title group_input_title_first">
         
@@ -15,7 +23,7 @@
         ref="verified_sites"
         :class="{'has-error':errSite}"
         v-model="selected_site"
-        :options="options" 
+        :options="verified_sites_only" 
         v-validate="{
         rules:{
             required:true
@@ -43,7 +51,6 @@
       </h3>
 
       <job-form-input 
-      
       :prop.sync="titleinput" 
       >
       
@@ -127,8 +134,22 @@
       </b-form-file>
     </div>
 
-    <span>This submission will cost 
-      <strong> {{COST_OF_SUBMISSION}} </strong> 
+    <span
+    v-if="itIsEditJobForm">
+    Editing will cost 
+      <strong>0</strong> 
+      <icon 
+      style="vertical-align:middle;" 
+      width="20" 
+      height="20" 
+      name="bandcamp"></icon>
+    
+    </span>
+    
+    <span
+    v-else
+    >This submission will cost 
+      <strong> {{ COST_OF_SUBMISSION + new Number(priceinput.value) }}  </strong> 
       <icon 
       style="vertical-align:middle;" 
       width="20" 
@@ -138,6 +159,14 @@
     </span>
 
     <b-button 
+    v-if="itIsEditJobForm"
+    ref ="submit_btn"
+    class="btn_submit btn btn-info btn-secondary actionbtn" @click="editJob()">
+      Edit  <icon id="edit_icon" name="edit"></icon>
+    </b-button>
+
+    <b-button 
+    v-else
     ref ="submit_btn"
     class="btn_submit btn btn-info btn-secondary actionbtn" @click="submitHandler()">
       Submit  <icon name="handshake" id="hands_icon" scale="2"></icon>
@@ -152,13 +181,13 @@ import eventBus from "../../../utils/eventBus";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/handshake";
-import SitesHardcode from "../../../client_sites.hardcode";
 
 import welcomeToastr from "../../toastr/welcometoastr";
 import JobFormInput from "../../utilcomps/JobPosterInput.vue";
 
 //Services part
 import PostJobAPI from "../../../services/api/user_api/PostJob.api";
+import { mapGetters } from 'vuex';
 
 export default {
   created() {
@@ -170,6 +199,7 @@ export default {
     // )
   },
   computed: {
+    ...mapGetters({verified_sites_only: "returnMappedVerifiedSites" }),
     errDesc() {
       return this.errors.has(this.descinput.id);
     },
@@ -183,19 +213,6 @@ export default {
   },
   mixins: [welcomeToastr],
   mounted() {
-    //get only verified sites.
-    //HACK: ONLY FOR TESTING REMOVE THIS
-    this.$store.commit("setSites", SitesHardcode);
-
-    let sites = this.$store.state.sites
-      .filter(site => site.verified)
-      .map(site => {
-        return {
-          value: site.domain,
-          text: site.domain
-        };
-      });
-
     /**
      * Get job for edit if such
      *
@@ -203,6 +220,9 @@ export default {
     let job_for_edit = this.$store.state.job_for_edit;
 
     if (job_for_edit) {
+      this.itIsEditJobForm = true;
+
+
       this.titleinput.value = job_for_edit.title;
       this.priceinput.value = job_for_edit.startingPrice;
       this.descinput.value = job_for_edit.description;
@@ -210,7 +230,6 @@ export default {
       this.$store.commit("setJobForEdit", null);
     }
 
-    this.options = sites;
 
     eventBus.$on("field_ok", val => {
       this.all_fields_ok &= val;
@@ -220,18 +239,36 @@ export default {
     processFile(event) {
       this.formData.append("file", event.target.files[0]);
     },
+    editJob() {
+      let vm = this;
+      eventBus.$emit("validateAllFields");
+      this.$validator.validateAll().then(form_ok => {
+          if (form_ok && vm.all_fields_ok) {
+
+            this.formData.append("selected_scan", this.selected_scan);
+            this.formData.append("selected_site", this.selected_site);
+
+            this.formData.append("title", this.titleinput.value);
+            this.formData.append("desc", this.descinput.value);
+            this.formData.append("price", this.priceinput.value);
+
+            //api call to send form data
+            PostJobAPI.editJob(this.formData,vm)
+            .then(res => {
+              console.log(res);
+            });
+        } else {
+          //reset
+          vm.all_fields_ok = true;
+        }
+      });
+    },
     submitHandler() {
       let vm = this;
       eventBus.$emit("validateAllFields");
       this.$validator.validateAll().then(form_ok => {
         if (form_ok && vm.all_fields_ok) {
-          //  //api call to send document
-          //  PostJobAPI
-          //  .postDoc(this.formData)
-          //  .then(res => {
-          //    console.log(res);
-          //  });
-
+         
           let whole_cost_of_transaction =
             Number(this.COST_OF_SUBMISSION) + Number(this.priceinput.value);
 
@@ -248,7 +285,7 @@ export default {
           this.formData.append("price", this.priceinput.value);
 
           //api call to send form data
-          PostJobAPI.postForm(this.formData).then(res => {
+          PostJobAPI.postForm(this.formData,vm).then(res => {
             console.log(res);
           });
         } else {
@@ -263,6 +300,10 @@ export default {
       //consts
       COST_OF_SUBMISSION: 5,
 
+
+      //visibility part 
+      itIsEditJobForm : false,
+
       all_fields_ok: true,
       validator: this.$validator,
       scan_pdf: null,
@@ -276,16 +317,11 @@ export default {
         { value: "scan2", text: "Scan2-Date2" },
         { value: "scan3", text: "Scan3-Date3" }
       ],
-      //TODO: Napuni ovaj niz..
-      options: [
-        { value: "www.gooogle.com", text: "Google" },
-        { value: "www.facebook.com", text: "Face" },
-        { value: "www.gooogle.com", text: "Google" }
-      ],
       titleinput: {
         id: "title",
         label: "title",
         type: "text",
+        maxlen_input : 100,
         value: ""
       },
       descinput: {
@@ -299,7 +335,9 @@ export default {
         id: "price",
         label: "price",
         type: "number",
-        value: ""
+        value: "",
+        maxlen_input : 5,
+        disableEsAndMinus : true,
       }
     };
   }
@@ -308,6 +346,10 @@ export default {
 
 <style scoped>
 #hands_icon {
+  vertical-align: middle;
+}
+
+#edit_icon {
   vertical-align: middle;
 }
 #job_poster {
