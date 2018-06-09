@@ -4,6 +4,7 @@
     
 
     <input  
+    ref = "input_job_post"
     :placeholder="prop.label"
     :class="{'has-error':errHandler}"
     :type="prop.type" 
@@ -11,7 +12,7 @@
     v-model="prop.value" 
     required="true"
     v-validate="vval"
-    :maxlength="10"
+    :max="prop.maxlen_input"
     :name="prop.id"/>
     
     <span v-if="errors.has(prop.id)" class="incorrect_input">
@@ -43,6 +44,16 @@ export default {
     }
   },
   mounted() {
+    /**
+     * This code adds logic to disable input of 
+     * `E` and `-` into price input.
+     */
+    if(this.prop.disableEsAndMinus)
+    {
+      this.$refs.input_job_post
+      .addEventListener("keydown",this.disableEsAndMinus);
+    }
+
     eventBus.$on("validateAllFields", () => {
       this.$validator.validateAll().then(res => {
         eventBus.$emit("field_ok", res);

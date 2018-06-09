@@ -10,7 +10,7 @@ const store = new Vuex.Store({
     role: "",
     email: "",
     id: "",
-    sites: "",
+    sites: [],
     scans: "",
     tokens: null,
     stars: 0,
@@ -56,6 +56,20 @@ const store = new Vuex.Store({
   },
   getters: {
     returnSites: state => state.sites,
+    returnMappedVerifiedSites : state => {
+      
+      let sites = state.sites
+      .filter(site => site.confirmed === 1)
+      .map(site => {
+        return {
+          value: site.domain,
+          text: site.domain
+        };
+      });
+
+      return sites;
+
+    },
     returnTest : state => state.test,
     returnJobForEdit : state => state.job_for_edit,
     returnRating: state => state.stars,

@@ -40,9 +40,27 @@ export default {
                 });
           });    
     },
-    
+    editJob(obj,vm)
+    {
+        return new Promise((resolve) => {
+            axios
+              .post("editjob",obj
+              ,{
+                  headers : {
+                      'Content-Type': 'multipart/form-data'
+                    }
+              })
+              .then((res)=>{
+                  vm.notifySuccess("Job has been edited.","Success!");
+                  resolve();
+              })
+              .catch(function(error) {
+                vm.errorToast("Error happened.", "Error!");
+              });
+        });    
+    },
 
-    postForm(obj)
+    postForm(obj,vm)
     {
       return new Promise((resolve) => {
               axios
@@ -53,7 +71,7 @@ export default {
                       }
                 })
                 .then((res)=>{
-
+                    vm.notifySuccess("Job has been posted.","Success!");
                     resolve();
                 })
                 .catch(function(error) {
