@@ -20,6 +20,7 @@ class CreateClientsTable extends Migration
             $table->string('username')->nullable();
             $table->string('lastname');
             $table->integer('tokens');
+            $table->string('image_path')->nullable();            
             $table->string('confirmation_code')->nullable();
             $table->integer('confirmed')->default(0);
             $table->rememberToken();

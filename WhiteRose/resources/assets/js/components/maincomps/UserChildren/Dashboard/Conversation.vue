@@ -220,7 +220,7 @@ export default {
   },
   computed : {
     ...mapGetters({
-      my_avatar : returnAvatar
+      my_avatar : 'returnAvatar'
     })
   },
   components: {
