@@ -21,7 +21,7 @@ use App\Bid;
 use GuzzleHttp\Client as fakingGazl;
 use App\Started_job;
 use App\Discusion;
-
+use Intervention\Image\Facades\Image;
 
 
 
@@ -99,21 +99,23 @@ class ClientController extends Controller
                         
     }
 
-    public function uploadAvatar()
+    public function uploadAvatar(Request $request)
     {
         
         
  
          $image=$request->avatar;
          $client=Auth::guard('client')->user();
-         $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
-         Storage::makeDirectory($dirName);
+         //$dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
+         //Storage::makeDirectory($dirName);
          $fileName=Carbon::now()->toDateTimeString().'.'.$image->getClientOriginalExtension();
          $fileName=str_replace(' ','_',$fileName);
          $fileName=str_replace(':','_',$fileName);
-         Storage::putFileAs($dirName,$image,$fileName);
-         $client->image_path=storage_path('app\\'.$dirName.'\\'.$fileName);
+         //Storage::putFileAs($dirName,$image,$fileName);
+         Image::make($image)->resize(300,300)->save(public_path('uploads/avatars/'.$fileName));
+         $client->image_path=storage_path('public/uploads/images/'.$fileName);
          $client->save();
+         return 'public/uploads/images/'.$fileName;
     }
 
     //buying and transfering tokens
