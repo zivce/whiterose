@@ -13,7 +13,7 @@
     class="h2s">Post your new job.</h2>
     
 
-    <div class="group_input_title group_input_title_first">
+    <div v-if="!itIsEditJobForm" class="group_input_title group_input_title_first">
         
       <h3 class="h3s">
         Select your site.
@@ -45,7 +45,9 @@
     
     </div>
 
-    <div class="group_input_title">
+    <div 
+    v-if="!itIsEditJobForm" 
+    class="group_input_title">
       <h3 class="h3s">
         Insert title.
       </h3>
@@ -57,7 +59,9 @@
       </job-form-input>
     </div>
 
-    <div class="group_input_title">
+    <div 
+    v-if="itIsEditJobForm || itIsPostJobForm" 
+    class="group_input_title">
 
       <h3 class="h3s">
         Insert description.
@@ -86,7 +90,9 @@
     </div>
 
     
-    <div class="group_input_title">
+    <div 
+     v-if="itIsEditJobForm || itIsPostJobForm" 
+    class="group_input_title">
       <h3 class="h3s">
         Insert amount of tokens for this job.
       </h3>
@@ -98,7 +104,9 @@
     </div>
 
     
-    <div class="group_input_title group_input_title_first">
+    <div 
+    v-if="!itIsEditJobForm" 
+    class="group_input_title group_input_title_first">
         
       <h3 class="h3s">
         Select your scan. <span>(optional)</span>
@@ -120,7 +128,9 @@
       </b-form-select>
     </div>
 
-    <div class="group_input_title">
+    <div 
+     v-if="!itIsEditJobForm" 
+    class="group_input_title">
       <h3 class="h3s">
         Insert document. <span>(optional)</span>
       </h3>
@@ -161,7 +171,8 @@
     <b-button 
     v-if="itIsEditJobForm"
     ref ="submit_btn"
-    class="btn_submit btn btn-info btn-secondary actionbtn" @click="editJob()">
+    class="btn_submit btn btn-info btn-secondary actionbtn" 
+    @click="editJob()">
       Edit  <icon id="edit_icon" name="edit"></icon>
     </b-button>
 
@@ -221,7 +232,10 @@ export default {
 
     if (job_for_edit) {
       this.itIsEditJobForm = true;
+      this.itIsPostJobForm = false;
 
+
+      this.edit_id = job_for_edit.job_edit_id;
 
       this.titleinput.value = job_for_edit.title;
       this.priceinput.value = job_for_edit.startingPrice;
@@ -244,11 +258,8 @@ export default {
       eventBus.$emit("validateAllFields");
       this.$validator.validateAll().then(form_ok => {
           if (form_ok && vm.all_fields_ok) {
+            this.formData.append("edit_job_id", this.edit_id);
 
-            this.formData.append("selected_scan", this.selected_scan);
-            this.formData.append("selected_site", this.selected_site);
-
-            this.formData.append("title", this.titleinput.value);
             this.formData.append("desc", this.descinput.value);
             this.formData.append("price", this.priceinput.value);
 
@@ -299,10 +310,15 @@ export default {
     return {
       //consts
       COST_OF_SUBMISSION: 5,
-
+      
+      
+      //util for edite
+      edit_id : undefined,
 
       //visibility part 
       itIsEditJobForm : false,
+      itIsPostJobForm : true,
+
 
       all_fields_ok: true,
       validator: this.$validator,
