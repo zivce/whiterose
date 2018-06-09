@@ -22,6 +22,7 @@ export default {
                       })
                       .then(function(response) {
                         vm.successToast("Description added.", "Success.");
+                        vm.$store.commit("setAvatar",response.data)
                       })
                       .catch(function(error) {
                         vm.errorToast("An error happened.", "Error.");

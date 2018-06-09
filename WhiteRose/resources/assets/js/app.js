@@ -103,26 +103,8 @@ if (home_exists) {
       let loggedInPromise = null;
 
       _user = JSON.parse(_user);
-
-
-      // if(_user !== null)
-      // {
-      //   this.store.commit("setUser", _user);
-        
-      //   let user_role = this.$store.getters.returnRole;
-    
-      //   this.user_id = this.$store.getters.returnId;
-  
-      //   this.$router.push({
-      //     path: `/${user_role}/${this.user_id}/`
-      //   });
-
-      // }
-      // if(_user !== null)
-      // {
-      //   localStorage.clear();
-      // }
-      // else {
+      _user.avatar = _user.avatar.replace("public\\","");
+      console.log(_user.avatar);
        
       //TODO: Resi... 
      

@@ -256,6 +256,8 @@ export default {
 <style  scoped>
 #profile_container > img {
   margin: auto;
+  width: 40px;
+  border-radius: 50%;
 }
 #profile_container {
   display: -webkit-box;

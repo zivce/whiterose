@@ -53,7 +53,7 @@
             >
                 <div class="col-2 convo_avatars">
                     <img 
-                    src="http://i.pravatar.cc/100?img=3" 
+                    :src="my_avatar" 
                     class="client_avatar"
                     alt="">
                 </div>
@@ -123,7 +123,7 @@
          
          <div class="col-2 convo_avatars">
             <img 
-            src="http://i.pravatar.cc/100?img=3" 
+            :src="my_avatar" 
             class="client_avatar"
             alt="">
          </div>
@@ -193,6 +193,7 @@ import ConvoSendMessagesAPI from "../../../../services/api/user_api/ConvoSendMes
 import StarRating from "vue-star-rating";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/paper-plane";
+import { mapGetters } from 'vuex';
 
 export default {
   destroyed() {},
@@ -212,6 +213,11 @@ export default {
     this.user_name = this.$store.getters.returnUser;
     this.user_name = this.user_name.name;
     this.msg_send_id = 0;
+  },
+  computed : {
+    ...mapGetters({
+      my_avatar : returnAvatar
+    })
   },
   components: {
     Icon,AcceptDeclineForm,
