@@ -25,6 +25,7 @@ use Intervention\Image\Facades\Image;
 
 
 
+//Client::setStripeKey('pk_test_dFVBeyPGEdmiqOpIv5lovgeE');
 
 
 
@@ -121,20 +122,26 @@ class ClientController extends Controller
     //buying and transfering tokens
     public function buyTokens(Request $request)
     {
-        $token = $request->token;
+        //$token = $request->token->token;
         $amount=$request->amount;
         $price=$amount*5*100;
         // $charge = \Stripe\Charge::create([
         //     'amount' =>  $price,
         //     'currency' => 'usd',
         //     'description' => 'Buying'.$amount.'tokens'.'Price is'.$price.'$',
-        //     'source' => $request->token,
+        //     'source' => $request->id,
         // ]);
         $client=Client::where('id',Auth::guard('client')->user()->id)->first();
         $client->tokens+=$amount;
         $client->save();
         return $client->tokens;
                
+    }
+
+    //delete job
+    public function deleteJob(Request $request)
+    {
+        Job::where('id',$request->id)->first()->delete();
     }
     //edit job
     public function editJob(Request $request)

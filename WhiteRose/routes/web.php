@@ -84,6 +84,7 @@ Route::post('postAvatarPentester','PentesterCotroller@uploadAvatar');
 //Client posting a job
 Route::post('editJob','ClientController@editJob');
 Route::post('postjob','ClientController@postJob')->name('postjob');
+Route::post('deleteJob','ClientController@deleteJob');
 
 //Returnng all jobs to clients or pentester
 Route::get('returnalljobs','Controller@allJobs')->name('returnalljobs');
