@@ -258,8 +258,10 @@ export default {
       eventBus.$emit("validateAllFields");
       this.$validator.validateAll().then(form_ok => {
           if (form_ok && vm.all_fields_ok) {
-            this.formData.append("edit_job_id", this.edit_id);
+            
+            //tokeni se smanjuju ovde ponovo ? 
 
+            this.formData.append("edit_job_id", this.edit_id);
             this.formData.append("desc", this.descinput.value);
             this.formData.append("price", this.priceinput.value);
 
