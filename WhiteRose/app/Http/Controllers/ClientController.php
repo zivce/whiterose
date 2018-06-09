@@ -113,7 +113,7 @@ class ClientController extends Controller
          $fileName=str_replace(' ','_',$fileName);
          $fileName=str_replace(':','_',$fileName);
          //Storage::putFileAs($dirName,$image,$fileName);
-         Image::make($image)->resize(300,300)->save(public_path('uploads/avatars/'.$fileName));
+         Image::make($image)->resize(300,300)->save(public_path('uploads\\images\\'.$fileName));
          $client->image_path='public\\uploads\\images\\'.$fileName;
          $client->save();
          return 'public\\uploads\\images\\'.$fileName;
