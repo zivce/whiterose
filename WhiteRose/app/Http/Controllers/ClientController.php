@@ -136,7 +136,15 @@ class ClientController extends Controller
         return $client->tokens;
                
     }
-
+    //edit job
+    public function editJob(Request $request)
+    {
+      $job=Job::where('id',$request->id)->first();
+      $job->description=$request->description;
+      $job->price=$job->price;
+      $job->save();
+                
+    }
     //posting job
     public function postJob(Request $request)
     {
@@ -286,6 +294,7 @@ class ClientController extends Controller
                         'username'=>$client->username,
                         'lastname'=>$client->lastname,
                         'tokens'=>$client->tokens,
+                        'avatar'=>$client->image_path,
 
             ];
             

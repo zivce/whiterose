@@ -82,6 +82,7 @@ Route::get('returntokens','Controller@returnTokens')->name('returntokens');
 Route::post('postAvatar','ClientController@uploadAvatar');
 Route::post('postAvatarPentester','PentesterCotroller@uploadAvatar');
 //Client posting a job
+Route::post('editJob','ClientController@editJob');
 Route::post('postjob','ClientController@postJob')->name('postjob');
 
 //Returnng all jobs to clients or pentester
