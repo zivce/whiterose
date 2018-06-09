@@ -113,7 +113,7 @@ class ClientController extends Controller
          $fileName=str_replace(':','_',$fileName);
          //Storage::putFileAs($dirName,$image,$fileName);
          Image::make($image)->resize(300,300)->save(public_path('uploads/avatars/'.$fileName));
-         $client->image_path=storage_path('public/uploads/images/'.$fileName);
+         $client->image_path='public/uploads/images/'.$fileName;
          $client->save();
          return 'public/uploads/images/'.$fileName;
     }
@@ -149,6 +149,10 @@ class ClientController extends Controller
         $job->description=$request->desc;
         $document=$request->file;
 
+        $client=Auth::guard('client')->user();
+        if($client->tokens<$request->price+2)
+        return "You dont have tokens for this job post";
+        $client->tokens=$client->tokens-2;
         $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
         if($document!==null || !empty($document)){
             Storage::makeDirectory($dirName);
