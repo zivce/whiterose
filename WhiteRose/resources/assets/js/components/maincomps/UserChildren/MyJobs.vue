@@ -125,7 +125,15 @@ export default {
   computed: {},
   methods: {
     editJob(props) {
-      this.$store.commit("setJobForEdit", props.row);
+      console.log(props);
+      let job_edit_id = props.index;
+
+      let job_for_edit = {
+        ...props.row, job_edit_id
+      }
+    
+
+      this.$store.commit("setJobForEdit", job_for_edit);
       this.$router.push({ name: "postj" });
     },
     showDetails(props, del) {
