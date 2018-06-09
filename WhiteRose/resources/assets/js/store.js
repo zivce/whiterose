@@ -55,7 +55,9 @@ const store = new Vuex.Store({
     }
   },
   getters: {
+    returnAvatar : state => state.user.avatar,
     returnSites: state => state.sites,
+    returnUsername : state => state.user.username,
     returnMappedVerifiedSites : state => {
       
       let sites = state.sites
