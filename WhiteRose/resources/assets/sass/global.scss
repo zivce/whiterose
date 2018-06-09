@@ -117,6 +117,14 @@ button:focus{
 
 }
 
+* /deep/ .table-bordered th, .table-bordered td {
+  border : 0 !important;
+}
+
+* /deep/ .VueTables__heading
+{
+  border-bottom : 1px solid #2c3340;
+}
 
 .preview_from_table_container
 {

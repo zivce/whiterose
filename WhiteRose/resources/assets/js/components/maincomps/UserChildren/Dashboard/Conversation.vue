@@ -6,16 +6,6 @@
           flex-direction:row;">
 
             <h2 class="h2s">Convo with {{whole_convo.pentester}}</h2>
-            <b-button
-            class="btn btn-success"
-            @click = "markJobAsCompleted()"
-            style="
-            margin-left: auto;
-            border-radius:0;"
-            
-            > 
-            Mark as completed
-            </b-button>
 
           </div>
 

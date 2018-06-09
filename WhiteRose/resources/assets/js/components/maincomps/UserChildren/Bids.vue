@@ -6,6 +6,7 @@
     <transition name="flip" mode="out-in">
       <v-client-table
       ref="bids_table"
+      class="bids_table"
       v-if="!isVisibleBid"
       :data='table_data'
       :columns='columns'
@@ -60,6 +61,8 @@ export default {
   mixins: [welcomeToastr],
   created() {
     //TODO : fetch bids here
+    
+
 
     axios
       .post("viewbidsclient")
@@ -72,7 +75,8 @@ export default {
             pentester_username: bid_info.pentester_username,
             rating: bid_info.pentester_rating,
             title: bid_info.job_name,
-            bid_info: bid_info.bid
+            bid_info: bid_info.bid,
+            accepted : bid_info.accepted
           });
         });
       })
@@ -115,11 +119,25 @@ export default {
       // table_data: hardcodepentst,
       table_data: [],
       options: {
+        sortIcon:{
+            base:'glyphicon',
+            is:'glyphicon-sort',
+            up: 'glyphicon-chevron-up',
+            down: 'glyphicon-chevron-down'
+          },
         columnsClasses: {
           rating: "cursorable"
         },
         filterByColumn: true,
         filterable: ["pentester", "rating", "title"],
+        rowClassCallback(row) 
+        {
+          const accepted_suffix = 
+          row.bid_info.accepted === 1 ? "_accepted" : "_not_accepted";
+          
+          return "row" + accepted_suffix;
+
+        },
         sortable: ["rating"],
         pagination: {
           dropdown: true,
@@ -131,7 +149,30 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+$accepted_bg_color : #3BC14A;
+$accepted_color_text : #000923;
+$not_accepted_bg_color : #A22C29;
+
+
+
+.bids_table /deep/ .row_accepted td {
+  background-color: $accepted_bg_color !important;
+  color: $accepted_color_text !important;
+  #eye_ico {
+    color: $accepted_color_text !important; 
+  }
+  
+  #eye_ico:hover {
+    color: lighten( $accepted_color_text, 30% ) !important; 
+  }
+}
+
+.bids_table /deep/ .row_not_accepted td {
+  background-color: $not_accepted_bg_color !important;
+}
+
+
 #eye_ico {
   color: var(--cyan);
   vertical-align: middle;
