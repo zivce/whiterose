@@ -339,7 +339,7 @@ export default {
         id: "title",
         label: "title",
         type: "text",
-        maxlen_input : 100,
+        maxlen_input : 20,
         value: ""
       },
       descinput: {

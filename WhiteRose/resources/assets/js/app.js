@@ -130,7 +130,6 @@ if (home_exists) {
         
               StoreAPI.getSites()
               .then((res)=>{
-                console.log(res);
                 store.commit("setSites",res.data)
               })
         

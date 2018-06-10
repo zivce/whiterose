@@ -149,11 +149,19 @@
     </div>
     </template>
 <script>
+/**API  */
+import StoreAPI from '../../../services/api/store_api/Store.api';
 import VerifySiteApi from "../../../services/api/user_api/verifySite.api";
+
+/**Vuex getters */
 import { mapGetters } from "vuex";
+
+
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/file";
 import "vue-awesome/icons/times";
+
+
 
 export default {
     components: {
@@ -187,6 +195,18 @@ export default {
                     this.isInputSitePart = false;
                     this.isKeyVerifPart = true;
                     this.isVerifySitePart = false;
+
+
+                    /**Logika za popunjavanje tabele
+                     * sledeci korak
+                     */
+                    
+                    StoreAPI.getSites()
+                    .then((res)=>{
+                        this.$store.commit("setSites",res.data)
+                    })
+                    
+
                 }
                 );
             } else {
