@@ -23,6 +23,13 @@ const store = new Vuex.Store({
   },
   mutations: {
     setAvatar(state, payload) {
+
+      let _user = localStorage.getItem("r");
+      _user = JSON.parse(_user);
+      _user.avatar = payload; 
+      _user = JSON.stringify(_user);
+      localStorage.setItem("r",_user);
+
       state.user.avatar = payload;
     },
     setTest (state,payload) {
@@ -61,7 +68,9 @@ const store = new Vuex.Store({
     returnAvatar : state => {
 
       if(state.user.avatar)
-        return state.user.avatar.replace("public\\","")
+      {
+        return state.user.avatar.replace("public\\","")        
+      }
       else 
         return ''
 
