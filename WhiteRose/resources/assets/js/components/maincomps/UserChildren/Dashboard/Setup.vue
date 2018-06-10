@@ -347,6 +347,12 @@ export default {
       this.all_fields_ok &= val;
     });
 
+    eventBus.$on("getToAvatar",(val)=>{
+      if(val)
+      {
+        this.switchComponentNum("avatar");
+      }
+    })
     //to go the end screen of verification
     // eventBus.$on("row-click")
     // {

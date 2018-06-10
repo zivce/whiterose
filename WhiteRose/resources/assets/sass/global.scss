@@ -117,6 +117,10 @@ button:focus{
 
 }
 
+#close_btn /deep/ svg {
+  vertical-align: middle;
+}
+
 * /deep/ .table-bordered th, .table-bordered td {
   border : 0 !important;
 }

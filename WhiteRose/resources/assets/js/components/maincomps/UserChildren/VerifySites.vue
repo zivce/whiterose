@@ -231,7 +231,7 @@ export default {
             columns_sites: ["domain", "confirmed", "verify"],
             options_sites: {
                 columnsClasses: {
-                verified: "cursorable",
+                confirmed: "cursorable",
                 domain: "cursorable"
                 },
                 filterable: ["domain"],

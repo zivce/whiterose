@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 let routes = [
     {
-        path:'/home',
+        path:'/',
         component: require('../components/maincomps/Home.vue')
     },
     {
@@ -175,6 +175,7 @@ let routes = [
                     meta:{
                         fail: `pentester/:id/`
                     },
+                    name:'setup_pent',
                     path: "setup",
                     component: require('../components/maincomps/PentesterChildren/Dashboard/Setup.vue')
                 },

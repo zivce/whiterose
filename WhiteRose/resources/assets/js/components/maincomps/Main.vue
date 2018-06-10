@@ -111,7 +111,7 @@
         </transition>
       </div>
         <div id="footer" class="row">
-          <p class="d-flex">You've reached rock bottom. Who lives in the pineapple under the sea...</p>
+          <p class="d-flex">© Whiterose 2017</p>
       </div>
       
       <vue-snotify/>
@@ -171,7 +171,7 @@ export default {
       this.isHacker = true;
     }
 
-    this.profile_url = `/${this.user_role}/${this.user_id}/dashboard/setup`;
+    this.profile_url = `/${this.user_role}/${this.user_id}/dashboard/profile`;
     this.tokens_url = `/${this.user_role}/${this.user_id}/purchasetokens`;
   },
   computed: {

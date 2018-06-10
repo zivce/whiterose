@@ -8,7 +8,7 @@
         
             :class="{'has-error':errSite}"
             v-model="selected_site"
-            :options="sites" 
+            :options="verified_sites_only" 
             v-validate="'required:true'"
             name="selectsite"
             >
@@ -151,7 +151,11 @@ f -->
 <script>
 //import bFormCheckboxGroup from "bootstrap-vue/es/components/form-checkbox/form-checkbox-group";
 import eventBus from "../../../../utils/eventBus";
-import SitesHardcode from "../../../../client_sites.hardcode";
+
+import { mapGetters } from 'vuex';
+
+
+
 //IMPORT TABS
 import NmapCommon from "./NmapUDPTabs/NmapCommon.vue";
 import NmapRange from "./NmapUDPTabs/NmapRange.vue";
@@ -170,23 +174,6 @@ export default {
     //TODO: do ajax call here to get verified sites
   },
   mounted() {
-    //listeneri za komponente
-    this.$store.commit("setSites", SitesHardcode);
-
-    let sites = this.$store.state.sites
-      .filter(site => {
-        if (site) return site.verified;
-      })
-      .map(site => {
-        if (site) {
-          return {
-            value: site.domain,
-            text: site.domain
-          };
-        }
-      });
-
-    this.sites = sites;
 
     eventBus.$on("portOk", value => {
       this.isPortListOk = value;
@@ -201,6 +188,7 @@ export default {
     });
   },
   computed: {
+    ...mapGetters({verified_sites_only: "returnMappedVerifiedSites" }),    
     errIp() {
       return this.errors.has("ip");
     },

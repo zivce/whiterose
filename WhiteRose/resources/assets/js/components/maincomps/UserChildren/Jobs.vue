@@ -47,9 +47,7 @@ import Icon from "vue-awesome/components/Icon";
 
 import welcomeToastr from "../../toastr/welcometoastr";
 
-//TODO: hardcode pentest izbaci
 
-import hardcodemyjobs from "./hardcodemyjobs";
 import MoreInfo from "./UserParts/JobsMoreInfo.vue";
 import eventBus from "../../../utils/eventBus";
 import "vue-awesome/icons/eye";
@@ -114,21 +112,7 @@ export default {
 
       details: {},
       isVisibleBid: false,
-      columns: ["title", "startingPrice", "preview"],
-      my_jobs: hardcodemyjobs,
-      options: {
-        columnsClasses: {
-          rating: "cursorable"
-        },
-        filterByColumn: true,
-        filterable: ["title", "startingPrice"],
-        sortable: ["pricing"],
-        pagination: {
-          dropdown: true,
-          nav: "scroll"
-        }
-      },
-      jobs: []
+     
     };
   }
 };

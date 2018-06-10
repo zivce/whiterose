@@ -13,9 +13,8 @@
       :class="{
         avatar:true
       }" 
-      
-      @mouseover=" isChangeableAvatar = !isChangeableAvatar"
-      @mouseout="isChangeableAvatar = !isChangeableAvatar"
+      style="cursor:pointer;"
+      @click="goToChangeAvatar()"
       >
         <a>
           <img :src="avatar_url">
@@ -185,6 +184,8 @@ import ProfileDataWrapper from './ProfileDataWrapper.vue';
 import InfoHardcode from "./user.hardcode";
 import Icon from "vue-awesome/components/Icon";
 
+import eventBus from './../../../../utils/eventBus';
+
 
 import "vue-awesome/icons/hourglass-start";
 import "vue-awesome/icons/flag-checkered";
@@ -208,7 +209,11 @@ export default {
     StarRating,ProfileDataWrapper,Icon
   },
   methods: {
-   
+    goToChangeAvatar() {
+      eventBus.$emit("getToAvatar",true);
+
+      this.$router.push({name: 'setup_client'})
+    },
     pretty_print(date) {
       return moment(date).format("DD.MM.YYYY");
     }
