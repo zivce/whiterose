@@ -294,6 +294,11 @@ class ClientController extends Controller
         {
            
             $client=Auth::guard('client')->user();
+            if($client->image_path===null){
+                $avatar = 'public\uploads\images\avatar_client.png';
+            }else{
+                $avatar = $client->image_path;
+            }
             $toReturn=['role'=>'client',
                         'id'=>$client->id,
                         'name'=>$client->name,
