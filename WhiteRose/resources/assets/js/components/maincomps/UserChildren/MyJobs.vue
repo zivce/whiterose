@@ -125,7 +125,7 @@ export default {
   computed: {},
   methods: {
     editJob(props) {
-      console.log(props);
+      // console.log(props);
       let job_edit_id = props.index;
 
       let job_for_edit = {

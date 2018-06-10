@@ -64,7 +64,7 @@ export default {
     axios
       .get("startedJobs")
       .then(response => {
-        console.log(response.data[0]);
+        // console.log(response.data[0]);
         // this adapts response for show in vue tables 2
         this.jobs[0] = response.data[0];
         response.data.forEach(job_info => {

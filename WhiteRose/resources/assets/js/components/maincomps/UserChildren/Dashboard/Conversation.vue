@@ -190,7 +190,6 @@
 <script>
 import DeleteConvoAPI from "../../../../services/api/user_api/DeleteConvo.api";
 import AcceptDeclineForm from './AcceptDeclineForm.vue';
-import ConvoHardcode from "../convo_client_2_pentester.hardcode";
 import ClientConvoAPI from "../../../../services/api/user_api/Convo.api";
 import ConvoSendMessagesAPI from "../../../../services/api/user_api/ConvoSendMessages.api";
 import StarRating from "vue-star-rating";

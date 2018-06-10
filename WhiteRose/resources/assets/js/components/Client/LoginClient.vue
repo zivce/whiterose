@@ -77,7 +77,7 @@ export default {
                 //this.loggedIn = true;
 
                 let data_store = JSON.stringify(response.data);
-                console.log(data_store);
+                // console.log(data_store);
 
                 window.localStorage.setItem("r", data_store);
                 window.location.reload();
