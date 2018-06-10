@@ -22,6 +22,7 @@ use GuzzleHttp\Client as fakingGazl;
 use App\Started_job;
 use App\Discusion;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -240,7 +241,7 @@ class ClientController extends Controller
     if (!strcmp($request->password, $request->sameaspw )) {
         $client= new Client;
         $client->tokens=0;
-        //$client->username=$request->username;
+        $client->username=$request->username;
         $client->name=$request->firstname;
         $client->lastname=$request->lastname;
         $client->email = $request->email;
@@ -391,12 +392,12 @@ class ClientController extends Controller
 
         $job->inprogress=1;
 
-        $discusion=new Discusion;
-        $discusion->client_id=$job->client_id;
-        $discusion->pentester_id=$bid->pentester_id;
-        $discusion->job_id=$bid->job_id;
+        // $discusion=new Discusion;
+        // $discusion->client_id=$job->client_id;
+        // $discusion->pentester_id=$bid->pentester_id;
+        // $discusion->job_id=$bid->job_id;
         $job->save();
-        $discusion->save();
+        // $discusion->save();
         return "job accepted";
         
     }

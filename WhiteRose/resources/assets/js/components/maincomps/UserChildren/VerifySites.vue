@@ -216,6 +216,14 @@ export default {
             this.isKeyVerifPart = true;
             this.isVerifySitePart = false;
         },
+        
+    verifySiteHandler() {
+      let vm = this;
+      let valid = this.$validator;
+      let send = { site: this.for_verify_site };
+
+      VerifySiteApi.verifySite(valid, vm, send);
+    },
     },
     data() {
         return {

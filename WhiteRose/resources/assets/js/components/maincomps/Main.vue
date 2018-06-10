@@ -151,7 +151,7 @@ export default {
     
     
     this.avatar_url = this.$store.getters.returnAvatar;
-    this.avatar_url = this.avatar_url.substring(this.avatar_url.indexOf("/uploads"))
+    // this.avatar_url = this.avatar_url.substring(this.avatar_url.indexOf("/uploads"))
 
     /**
      * for dropdown animation
