@@ -56,30 +56,32 @@ class DiscusionController extends Controller
         {
 
         
-        $pentester=Pentester::where('id',$discusion->pentester_id)->first()->username;
+        $pentester=Pentester::where('id',$discusion->pentester_id)->first();
         $discusion->sender = $pentester;
         
         $discusion = $discusion->with('messages')->get();
 
         return $ret = [
             "discusion" => $discusion,
-            "pentester" => $pentester,
+            "pentester" => $pentester->username,
             "finished"  => $finished,
-            "completed" => $job->completed
+            "completed" => $job->completed,
+            "avatar" => $pentester->image_path,            
         ];
         }
         else{
              
-        $client=Client::where('id',$discusion->client_id)->first()->username;
+        $client=Client::where('id',$discusion->client_id)->first();
         $discusion->sender = $client;
         
         $discusion = $discusion->with('messages')->get();
 
         return $ret = [
             "discusion" => $discusion,
-            "client" => $client,
+            "client" => $client->username,
             "finished"  => $finished,
-            "completed" => $job->completed                        
+            "completed" => $job->completed,
+            "avatar" => $client->image_path,                                          
         ];
         }
         
