@@ -299,7 +299,7 @@ export default {
 
           //api call to send form data
           PostJobAPI.postForm(this.formData,vm).then(res => {
-            console.log(res);
+            // console.log(res);
           });
         } else {
           //reset

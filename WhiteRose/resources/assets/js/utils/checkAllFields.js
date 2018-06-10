@@ -20,7 +20,7 @@ var checkFields = {
           }
         
           }
-        console.log("from tester function check all fields" + this.all_fields_ok);
+        // console.log("from tester function check all fields" + this.all_fields_ok);
       }
     }
   }

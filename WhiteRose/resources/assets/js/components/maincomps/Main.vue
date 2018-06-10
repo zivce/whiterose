@@ -146,6 +146,9 @@ export default {
     Home,
     Icon
   },
+  destroyed () {
+    window.localStorage.clear();
+  },
   mounted() {
     this.username = this.$store.getters.returnUsername;
     
