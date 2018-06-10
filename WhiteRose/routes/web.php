@@ -80,7 +80,7 @@ Route::get('returntokens','Controller@returnTokens')->name('returntokens');
 
 //upload avatar
 Route::post('postAvatar','ClientController@uploadAvatar');
-Route::post('postAvatarPentester','PentesterCotroller@uploadAvatar');
+Route::post('postAvatarPentester','PentesterController@uploadAvatar');
 //Client posting a job
 Route::post('editJob','ClientController@editJob');
 Route::post('postjob','ClientController@postJob')->name('postjob');
