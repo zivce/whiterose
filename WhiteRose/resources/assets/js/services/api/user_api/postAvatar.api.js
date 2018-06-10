@@ -12,6 +12,7 @@ export default {
       
         validator.validateAll().then((form_ok)=>{
                 if (form_ok) {
+                    const vm_scope = vm;
                     axios
                       .post("/postAvatar", 
                       send,
@@ -21,11 +22,14 @@ export default {
                         }
                       })
                       .then(function(response) {
-                        vm.successToast("Description added.", "Success.");
-                        vm.$store.commit("setAvatar",response.data)
+                        //vm.successToast("Description added.", "Success.");
+                        let avatar_url =  response.data.replace("public\\","");
+                        console.log(avatar_url);  
+                        // debugger;
+                        vm_scope.$store.commit("setAvatar",avatar_url);                      
                       })
                       .catch(function(error) {
-                        vm.errorToast("An error happened.", "Error.");
+                        //vm.errorToast("An error happened.", "Error.");
                       });
                   } else {
                     //reset

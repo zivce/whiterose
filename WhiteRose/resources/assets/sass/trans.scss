@@ -29,6 +29,21 @@
   &-enter { transform : scale(0.9) }
 }
 
+
+/* Testing transitions for jobs */
+.mark-completed {
+  &-enter-active {
+    transition: all 600ms ease-in-out;
+  }
+  &-leave-active {
+    transition: all 100ms ease-in-out;
+  }
+
+  &-enter,
+  &-leave-to { opacity: 0;}
+  &-enter { transform : scale(0.9) }
+}
+
 /* Transitions for profile setup components */
 .setup {
   &-enter-active {

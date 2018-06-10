@@ -72,7 +72,7 @@ export default {
               if (wrong_info) {
                 vm.errorToast("Wrong info.", "Error!");
               } else {
-                vm.notifySuccess("User registered", "Success");
+                vm.notifySuccess("User logged in", "Success");
 
                 //this.loggedIn = true;
 

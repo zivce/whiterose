@@ -22,8 +22,9 @@ const store = new Vuex.Store({
 
   },
   mutations: {
-    setAvatar(state, avatar) {
-      state.user.avatar = avatar;
+    setAvatar(state, payload) {
+      
+      state.user.avatar = payload;
     },
     setTest (state,payload) {
       state.test = payload.test;

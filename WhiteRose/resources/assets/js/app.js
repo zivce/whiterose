@@ -103,8 +103,8 @@ if (home_exists) {
       let loggedInPromise = null;
 
       _user = JSON.parse(_user);
-      _user.avatar = _user.avatar.replace("public\\","");
-      console.log(_user.avatar);
+      // _user.avatar = _user.avatar.replace("public\\","");
+      // console.log(_user.avatar);
        
       //TODO: Resi... 
      

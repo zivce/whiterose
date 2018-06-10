@@ -9,7 +9,6 @@ let routes = [
     {
         name:'main',
         path: '/',
-        redirect : 'home',
         children: [
         {
             path:`client/:id`,

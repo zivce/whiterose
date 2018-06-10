@@ -150,7 +150,7 @@ export default {
     this.username = this.$store.getters.returnUsername;
     
     
-    this.avatar_url = this.$store.getters.returnAvatar;
+    // this.avatar_url = this.$store.getters.returnAvatar;
     // this.avatar_url = this.avatar_url.substring(this.avatar_url.indexOf("/uploads"))
 
     /**
@@ -176,6 +176,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      avatar_url : "returnAvatar",
       tokens1: "returnTokens",
       stars1: "returnRating"
     }),
@@ -225,7 +226,6 @@ export default {
         show_rating: false
       },
       
-      avatar_url:undefined,
 
       //coloring dropdown
       hacker_stars_color: "#D80032",

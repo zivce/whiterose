@@ -18,7 +18,7 @@
       @mouseout="isChangeableAvatar = !isChangeableAvatar"
       >
         <a>
-          <img src="http://i.pravatar.cc/200?img=3">
+          <img :src="avatar_url">
         </a>
         
       </div>
@@ -182,7 +182,6 @@
 <script>
 import StarRating from "vue-star-rating";
 import ProfileDataWrapper from './ProfileDataWrapper.vue';
-// import AllInfo from "../../../../services/api/pentester_api/AllInfo.api";
 import InfoHardcode from "./user.hardcode";
 import Icon from "vue-awesome/components/Icon";
 
@@ -193,8 +192,15 @@ import "vue-awesome/icons/tasks";
 import "vue-awesome/icons/globe";
 
 
+import { mapGetters } from 'vuex';
+
 //TODO: napuni info
 export default {
+  computed : {
+    ...mapGetters({
+      avatar_url : 'returnAvatar'
+    })
+  },
   created() {
     // this.info =  AllInfo.getAllInfo();
   },
