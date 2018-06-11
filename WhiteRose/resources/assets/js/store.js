@@ -16,12 +16,17 @@ const store = new Vuex.Store({
     stars: 0,
     test: 1,
     job_for_edit : null,
-    jobs:[]
+    jobs:[],
+    avatar_convo_path : undefined,
+
     //UI state
     
 
   },
   mutations: {
+    setAvatarConvoPath(state, payload){
+      state.avatar_convo_path = payload;
+    },
     setJobs(state, payload) {
       state.jobs = payload;
     },
@@ -68,6 +73,9 @@ const store = new Vuex.Store({
     }
   },
   getters: {
+    returnAvatarPath : state => {
+      return state.avatar_convo_path;
+    },
     returnJobs : state => {
       return state.jobs;
     },
