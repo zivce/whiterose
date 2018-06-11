@@ -17,23 +17,28 @@ class DiscusionController extends Controller
     public function returnLastMessages()
     {
         $firstMessages=[];
-        if(Auth::guard('client')->check())
-         $user=Client::where('id',Auth::guard('client')->user()->id)->first();
-        else 
-        $user=Pentester::where('id',Auth::guard('pentester')->user()->id)->first();
+        if(Auth::guard('client')->check()){
+            $user=Client::where('id',Auth::guard('client')->user()->id)->first();          
+        }else{
+            $user=Pentester::where('id',Auth::guard('pentester')->user()->id)->first();
+        }
 
      
         $discusions=$user->discusions()->get();
        //return $discusions;
         foreach($discusions as $disc)
         {
-            
+            if(Auth::guard('client')->check()){
+                $avatar =  $disc->pentester()->first()->image_path;     
+            }else{
+                $avatar =  $disc->client()->first()->image_path;                     
+            }
             
             $toArray=['message'=>$disc->messages()->orderBy('created_at')->first(),
                         'job_id'=>$disc->job_id,
                         'client_name'=>$disc->client()->first()->name,
                         'pentester_name'=>$disc->pentester()->first()->name,
-                        'avatar'=>$user->image_path
+                        'avatar'=>$avatar
                     ];
             array_push($firstMessages,$toArray);
             
