@@ -260,21 +260,7 @@ let routes = [
             ],
             component : require('../components/maincomps/MainChildren/Admin.vue'),
         },
-        {
-            path:'moderator',
-            children:[
-                //Load moderator vues
-                {
-                    path:'messagereplier',
-                    component: require('../components/maincomps/ModeratorChildren/MessageReplier.vue')
-                },
-                {
-                    path:'postviewer',
-                    component: require('../components/maincomps/ModeratorChildren/PostViewer.vue')
-                },
-            ],
-            component : require('../components/maincomps/MainChildren/Moderator.vue'),
-        }
+        
         
 
         ],

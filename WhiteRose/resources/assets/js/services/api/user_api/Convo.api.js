@@ -10,10 +10,12 @@ import errorToast from '../../../components/toastr/welcometoastr';
  */
 
 export default {
-    markAsCompleted(job_id,vm)
+    markAsCompleted(send,vm)
     {
+      //TODO: Promeni sad se salje ceo objekat
+      
       return new Promise((resolve) => {
-        axios.post("/acceptJob",{job_id})
+        axios.post("/acceptJob",{send})
         .then(()=> {
           // vm.notifySuccess("Marked as completed!","Success!");
           resolve();

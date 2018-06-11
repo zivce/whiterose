@@ -79,7 +79,8 @@ export default {
             startingPrice: job_info.maximum_price,
             description: job_info.description,
             inprogress: job_info.inprogress,
-            completed: job_info.completed
+            completed: job_info.completed,
+            job_id : job_info.id
             //job_info
           });
           // eventBus.$emit('myJobsClient',this.jobs);

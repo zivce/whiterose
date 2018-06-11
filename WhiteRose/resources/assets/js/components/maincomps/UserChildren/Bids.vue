@@ -70,6 +70,7 @@ export default {
         console.log(response.data);
         //this adapts response for show in vue tables 2
         response.data.forEach(bid_info => {
+          console.log(bid_info);
           this.table_data.push({
             pentester: bid_info.pentester_email,
             pentester_username: bid_info.pentester_username,

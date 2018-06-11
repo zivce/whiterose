@@ -12,7 +12,7 @@
       :options='options'
       >
     
-    <a  slot="more info" 
+    <a  slot="preview" 
         slot-scope="props"
         ref="show_details"
         class="cursorable"
@@ -87,10 +87,13 @@ export default {
     return {
       details: {},
       isVisibleBid: false,
-      columns: ["title", "price", "more info"],
+      columns: ["title", "startingPrice", "preview"],
       options: {
         columnsClasses: {
           price: "cursorable"
+        },
+        headings: {
+          startingPrice:"Price"
         },
         filterByColumn: true,
         filterable: ["title", "price"],

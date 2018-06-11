@@ -5,7 +5,7 @@
           display:flex;
           flex-direction:row;">
 
-            <h2 class="h2s">Convo with {{whole_convo.pentester}}</h2>
+            <h2 class="h2s">Conversation with {{whole_convo.pentester}}</h2>
 
           </div>
 
@@ -22,20 +22,8 @@
           
   
 
-    
-        <star-rating 
-  
-        style="
-          float: left;
-          width: fit-content;"
-  
-        v-model="rating"
-        :increment="0.5"
-        :show-rating = "false"
-        :star-size="20"
-        >
-        </star-rating>
- 
+       
+
         
         
         <div 
@@ -113,8 +101,12 @@
           </div>
         </div>
 
-        <accept-decline-form v-if="whole_convo.finished===1 && whole_convo.completed!==1">
+        <accept-decline-form 
+        v-if="
+        whole_convo.finished===1 && 
+        whole_convo.completed !==1">
         </accept-decline-form>
+        
         <!-- RENDER NEW MESSAGES -->
         
         <div v-if="msgs_for_send.length"
@@ -183,19 +175,38 @@
             </b-button>
         
         </div>
+
+        <!-- IF COMPLETED JOB -->
+        <div 
+          class="cont_input_msg"
+          v-if="whole_convo.completed == 1 || accepted_job"
+        >
+          <h2 class="h2s">
+            This job ended.
+          </h2>
+        
+        </div>
+
     </div>
 
 </template>
 
 <script>
+
+/**API imports */
 import DeleteConvoAPI from "../../../../services/api/user_api/DeleteConvo.api";
-import AcceptDeclineForm from './AcceptDeclineForm.vue';
 import ClientConvoAPI from "../../../../services/api/user_api/Convo.api";
 import ConvoSendMessagesAPI from "../../../../services/api/user_api/ConvoSendMessages.api";
-import StarRating from "vue-star-rating";
+
+import AcceptDeclineForm from './AcceptDeclineForm.vue';
+
+/**Icons */
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/paper-plane";
+
+/**Utils */
 import { mapGetters } from 'vuex';
+import eventBus from '../../../../utils/eventBus';
 
 export default {
   destroyed() {},
@@ -212,6 +223,19 @@ export default {
     console.log(this.whole_convo);
   },
   mounted() {
+    eventBus.$on("jobFinished", jobFinished => {
+      if(!jobFinished)
+        this.whole_convo.finished = 0
+    })
+    
+    eventBus.$on("acceptedJob", jobAccepted => {
+      if(jobAccepted)
+      {
+        this.accepted_job = true;
+        this.notifySuccess("Job accepted.","Success");
+      }
+    })
+
     this.user_name = this.$store.getters.returnUser;
     this.user_name = this.user_name.name;
     this.msg_send_id = 0;
@@ -225,7 +249,7 @@ export default {
   },
   components: {
     Icon,AcceptDeclineForm,
-    StarRating
+    
   },
 
   methods: {
@@ -293,6 +317,9 @@ export default {
       whole_convo: [],
       msg_send_id: undefined,
       job_finished: undefined,
+
+
+      accepted_job : false,
     };
   }
 };

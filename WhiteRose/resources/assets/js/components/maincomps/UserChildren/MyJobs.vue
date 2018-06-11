@@ -4,7 +4,7 @@
     <!-- My Jobs -->
     <div class="col-12">
       
-      <h2 class="h2s">Preview your jobs.</h2>
+      <h2 class="h2s">Preview all your jobs.</h2>
       <transition name="flip" mode="out-in">
       
         <v-client-table

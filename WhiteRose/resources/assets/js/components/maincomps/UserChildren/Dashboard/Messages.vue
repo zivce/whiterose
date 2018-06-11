@@ -1,41 +1,44 @@
 <template>
-<v-bar id="message_wrapper" wrapper="message_wrapper">
-  <div class="d-flex flex-column justify-content-center">
-    <div class="message_container col-8" 
-    @click="openConversation(msg.job_id, fixPublic(msg.avatar))" 
-    style="cursor:pointer;"
-    v-for="(msg,index) in messages" 
-    :key="index">
-         <div style="
-          display:flex;
-          flex-direction:row;">
+<div v-cloak>
+  <h2 class="h2s">Inbox ( {{messages.length}} )</h2>
 
-          <img 
-          :src="fixPublic(msg.avatar)"
-          width="50"
-          height="50"
-          style="
-          border-radius:50%;"/>
+  <v-bar id="message_wrapper" wrapper="message_wrapper">
+    <div class="d-flex flex-column justify-content-center">
+      <div class="message_container col-8" 
+      @click="openConversation(msg.job_id, fixPublic(msg.avatar))" 
+      style="cursor:pointer;"
+      v-for="(msg,index) in messages" 
+      :key="index">
+          <div style="
+            display:flex;
+            flex-direction:row;">
 
-          <h3 class="message_h3" 
-          style="margin-top: auto;">{{msg.pentester_name}}</h3>    
+            <img 
+            :src="fixPublic(msg.avatar)"
+            width="50"
+            height="50"
+            style="
+            border-radius:50%;"/>
 
-        </div>
+            <h3 class="message_h3" 
+            style="margin-top: auto;">{{msg.pentester_name}}</h3>    
 
-        <transition name="message-pop">
-            <div v-if="!longMsg(index)">
-                <p class="message_p">{{pretty_print(msg.message.text)}}</p>
-                <!-- <p class="expand message_p"  @click="expand(index)"><strong>...</strong></p> -->
-            </div>
-        </transition>
+          </div>
 
+          <transition name="message-pop">
+              <div v-if="!longMsg(index)">
+                  <p class="message_p">{{pretty_print(msg.message.text)}}</p>
+                  <!-- <p class="expand message_p"  @click="expand(index)"><strong>...</strong></p> -->
+              </div>
+          </transition>
+
+        
       
-    
+      </div>
+
     </div>
-
-  </div>
-</v-bar>
-
+  </v-bar>
+</div>
 </template>
 
 <script>
