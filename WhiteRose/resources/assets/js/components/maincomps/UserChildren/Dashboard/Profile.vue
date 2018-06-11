@@ -25,7 +25,7 @@
       
       <span class="header_text">
           <p>
-            {{info.name}} {{info.username}}
+            {{info.name}} 
           </p>
           
           <star-rating
@@ -57,7 +57,7 @@
           </div>
           
           <div slot="quantity">
-            <p>40</p>
+            <p>{{all_jobs_number}}</p>
           </div>
 
         </profile-data-wrapper> 
@@ -78,7 +78,7 @@
           </div>
           
           <div slot="quantity">
-            <p>40</p>
+            <p>{{started_jobs_number}}</p>
           </div>
 
         </profile-data-wrapper> 
@@ -98,7 +98,7 @@
           </div>
           
           <div slot="quantity">
-            <p>40</p>
+            <p>{{finished_jobs_number}}</p>
           </div>
 
         </profile-data-wrapper> 
@@ -124,7 +124,7 @@
           </div>
           
           <div slot="quantity">
-            <p>5000</p>
+            <p>{{tokens}}</p>
           </div>
 
         </profile-data-wrapper> 
@@ -165,7 +165,7 @@
           </div>
           
           <div slot="quantity">
-            <p>30</p>
+            <p>{{sitesNumber}}</p>
           </div>
 
         </profile-data-wrapper> 
@@ -203,7 +203,51 @@ export default {
     })
   },
   created() {
-    // this.info =  AllInfo.getAllInfo();
+    this.info.name = this.$store.getters.returnUsername;
+    this.info.rating = 3;
+
+    this.tokens = this.$store.getters.returnTokens;
+    this.sitesNumber = this.$store.getters.returnSitesNumber;
+    
+    if(this.$store.getters.returnJobsNumber == 0)
+    {
+      
+      axios
+        .get("returnmyjobs")
+        .then(response => {
+          // this adapts response for show in vue tables 2
+          // this.jobs[0] = response.data[0];
+          response.data.forEach(job_info => {
+            //ovde sam hardkodirao da bi se uklopilo u tabelu
+            //treba ovo sto je zakomentarisano pa da promenis tabelu
+            this.jobs.push({
+              title: job_info.title,
+              startingPrice: job_info.maximum_price,
+              description: job_info.description,
+              inprogress: job_info.inprogress,
+              completed: job_info.completed,
+              job_id : job_info.id
+              //job_info
+            });
+            // eventBus.$emit('myJobsClient',this.jobs);
+            this.$store.commit('setJobs',this.jobs);
+            this.all_jobs_number = this.$store.getters.returnJobsNumber;
+            this.started_jobs_number = this.$store.getters.returnStartedJobsNumber;
+            this.finished_jobs_number = this.$store.getters.returnFinishedJobsNumber;
+          });
+        })
+        .catch(err => {
+          //error snotify here.
+        });
+    }
+    //Postoje poslovi
+    else {
+      this.all_jobs_number = this.$store.getters.returnJobsNumber;
+      this.started_jobs_number = this.$store.getters.returnStartedJobsNumber;
+      this.finished_jobs_number = this.$store.getters.returnFinishedJobsNumber;
+    }
+
+   
   },
   components: {
     StarRating,ProfileDataWrapper,Icon
@@ -221,7 +265,15 @@ export default {
   data() {
     return {
       isChangeableAvatar : false,
-      info: InfoHardcode
+      
+      tokens : undefined,
+      sitesNumber : undefined,
+
+      info:{},
+
+      all_jobs_number : undefined,
+      started_jobs_number : undefined,
+      finished_jobs_number : undefined
     };
   }
 };

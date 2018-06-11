@@ -41,6 +41,7 @@
             >
                 <div class="col-2 convo_avatars">
                     <img 
+                    v-b-tooltip.hover.top="'Pentester'"
                     :src="my_avatar" 
                     class="client_avatar"
                     alt="">
@@ -76,6 +77,7 @@
                 <div class="col-2 convo_avatars">
 
                     <img 
+                    v-b-tooltip.hover.top="'You'"
                     :src="not_my_avatar" 
                     class="pentester_avatar"
                     alt=""> 
@@ -115,6 +117,7 @@
          
          <div class="col-2 convo_avatars">
             <img 
+            v-b-tooltip.hover.top="'You'"
             :src="my_avatar" 
             class="client_avatar"
             alt="">

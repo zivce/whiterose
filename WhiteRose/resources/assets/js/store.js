@@ -76,6 +76,23 @@ const store = new Vuex.Store({
     returnAvatarPath : state => {
       return state.avatar_convo_path;
     },
+    returnJobsNumber : state => {
+      return state.jobs.length
+    },
+
+    returnStartedJobsNumber : state => {
+      return 
+      state.jobs
+      .filter(elem => elem.inprogress===1)
+      .length
+    },
+
+    returnFinishedJobsNumber : state => {
+      return state.jobs
+      .filter(elem => elem.completed===1)
+      .length
+    },
+
     returnJobs : state => {
       return state.jobs;
     },
@@ -95,6 +112,7 @@ const store = new Vuex.Store({
         return ''
 
     },
+    returnSitesNumber : state => state.sites.length,
     returnSites: state => state.sites,
     returnUsername : state => state.user.username,
     returnMappedVerifiedSites : state => {
