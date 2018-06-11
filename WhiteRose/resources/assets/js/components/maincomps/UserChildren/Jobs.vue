@@ -61,35 +61,34 @@ import FinishedJobs from "../UserChildren/FinishedJobs.vue";
 
 export default {
   components: {
-    StartedJobs,
-    FinishedJobs,
-    MoreInfo,
     Icon
   },
   mixins: [welcomeToastr],
   created() {
-    //TODO: napuni my_jobs
-    //TODO: izbrisi hardcode dodelu
-    // axios
-    //   .get("returnmyjobs")
-    //   .then(response => {
-    //     console.log(response.data[0]);
-    //     // this adapts response for show in vue tables 2
-    //     // this.jobs[0] = response.data[0];
-    //     response.data.forEach(job_info => {
-    //       //ovde sam hardkodirao da bi se uklopilo u tabelu
-    //       //treba ovo sto je zakomentarisano pa da promenis tabelu
-    //       this.jobs.push({
-    //         title: job_info.title,
-    //         startingPrice: job_info.maximum_price,
-    //         description: job_info.description
-    //         //job_info
-    //       });
-    //     });
-    //   })
-    //   .catch(err => {
-    //     //error snotify here.
-    //   });
+
+    axios
+      .get("returnmyjobs")
+      .then(response => {
+        // this adapts response for show in vue tables 2
+        // this.jobs[0] = response.data[0];
+        response.data.forEach(job_info => {
+          //ovde sam hardkodirao da bi se uklopilo u tabelu
+          //treba ovo sto je zakomentarisano pa da promenis tabelu
+          this.jobs.push({
+            title: job_info.title,
+            startingPrice: job_info.maximum_price,
+            description: job_info.description,
+            inprogress: job_info.inprogress,
+            completed: job_info.completed
+            //job_info
+          });
+          // eventBus.$emit('myJobsClient',this.jobs);
+          this.$store.commit('setJobs',this.jobs);
+        });
+      })
+      .catch(err => {
+        //error snotify here.
+      });
   },
   computed: {},
   mounted() {
@@ -112,6 +111,7 @@ export default {
 
       details: {},
       isVisibleBid: false,
+      jobs:[],
      
     };
   }

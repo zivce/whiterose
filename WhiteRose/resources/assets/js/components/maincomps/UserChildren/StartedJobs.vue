@@ -49,6 +49,8 @@ import hardcodepentst from "./hardcodestartedjobs";
 import StartedMoreInfo from "./UserParts/StartedJobInfo.vue";
 import eventBus from "../../../utils/eventBus";
 import "vue-awesome/icons/eye";
+import {mapGetters} from 'vuex';
+
 
 export default {
   components: {
@@ -61,31 +63,20 @@ export default {
     //TODO: skini hardcode
     //TODO: izbrisi import gore
 
-    axios
-      .get("startedJobs")
-      .then(response => {
-        // console.log(response.data[0]);
-        // this adapts response for show in vue tables 2
-        this.jobs[0] = response.data[0];
-        response.data.forEach(job_info => {
-          //ovde sam hardkodirao da bi se uklopilo u tabelu
-          //treba ovo sto je zakomentarisano pa da promenis tabelu
-          this.jobs.push({
-            job_info
-          });
-        });
-      })
-      .catch(err => {
-        //error snotify here.
-      });
   },
-  computed: {},
+  computed: {
+    ...mapGetters({started_jobs:'returnStartedJobs'})
+  },
   mounted() {
     eventBus.$on("isVisibleStartedInfo", val => {
       this.isVisibleBid = val;
     });
+    eventBus.$on("myJobsClient", myJobs => {
+      this.started_jobs = myJobs;
+      // console.log(myJobs);
+      console.log(this.started_jobs);      
+    });
   },
-  computed: {},
   methods: {
     showDetails(props) {
       this.details = props.row;
@@ -97,7 +88,6 @@ export default {
       details: {},
       isVisibleBid: false,
       columns: ["title", "price", "more info"],
-      started_jobs: hardcodepentst,
       options: {
         columnsClasses: {
           price: "cursorable"
