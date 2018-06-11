@@ -203,26 +203,36 @@ class ClientController extends Controller
        $clientID=Auth::guard('client')->user()->id;
        $client=Auth::guard('client')->user();
        
-    //    $jobID=$request->jobID;
-       $jobs = $client->jobs()->get();
+       $jobs = $client->jobs();
+       $jobs_bids = $jobs->with('bids')->get();
 
-       $returnBids=array();
-
-       foreach($jobs as $job){
-            $bids=$job->bids()->get();
-            foreach($bids as $bid)
-            {
-            array_push($returnBids,[
-                'bid'=>$bid,
-                'pentester_username'=>Pentester::where('id',$bid->pentester_id)->first()->username,
-                'pentester_email'=>Pentester::where('id',$bid->pentester_id)->first()->email,
-                'pentester_rating'=>Pentester::where('id',$bid->pentester_id)->first()->rating,
-                'job_name'=>$job->title
-            ]);
-            }
+       foreach($jobs_bids as $jb){
+           foreach($jb->bids as $bid){
+               $bid->pentester_username = Pentester::where('id',$bid->pentester_id)->first()->username;
+               $bid->pentester_email = Pentester::where('id',$bid->pentester_id)->first()->email;
+               $bid->pentester_rating = Pentester::where('id',$bid->pentester_id)->first()->rating;
+           }
        }
+       return $jobs_bids;
 
-        return $returnBids;
+
+    //    $returnBids=array();
+
+    //    foreach($jobs as $job){
+    //         $bids=$job->bids()->get();
+    //         foreach($bids as $bid)
+    //         {
+    //         array_push($returnBids,[
+    //             'bid'=>$bid,
+    //             'pentester_username'=>Pentester::where('id',$bid->pentester_id)->first()->username,
+    //             'pentester_email'=>Pentester::where('id',$bid->pentester_id)->first()->email,
+    //             'pentester_rating'=>Pentester::where('id',$bid->pentester_id)->first()->rating,
+    //             'job_name'=>$job->title
+    //         ]);
+    //         }
+    //    }
+
+    //     return $returnBids;
    }
 
 
