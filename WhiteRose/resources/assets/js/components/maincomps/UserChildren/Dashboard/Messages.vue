@@ -2,7 +2,7 @@
 <v-bar id="message_wrapper" wrapper="message_wrapper">
   <div class="d-flex flex-column justify-content-center">
     <div class="message_container col-8" 
-    @click="openConversation(msg.job_id, msg.avatar)" 
+    @click="openConversation(msg.job_id, fixPublic(msg.avatar))" 
     style="cursor:pointer;"
     v-for="(msg,index) in messages" 
     :key="index">
