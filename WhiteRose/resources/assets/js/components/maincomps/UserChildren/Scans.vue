@@ -50,11 +50,13 @@ export default {
       .get("myScans")
       .then(response => {
         //this adapts response for show in vue tables 2
-        response.data.forEach(scan_info => {
-          this.table_data.push({
+        response.data.forEach(site => {
+          site.scans.forEach(scan_info => {
+            this.table_data.push({
             date: moment(scan_info.created_at),
             scan: scan_info.scanName,
             uri: scan_info.path
+            });
           });
         });
       })

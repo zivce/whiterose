@@ -106,7 +106,6 @@ export default {
       this.isVisibleBid = val;
     });
     // this.jobs = this.$store.getters.returnJobs;
-    console.log(this.jobs);
   },
   methods: {
     editJob(props) {
