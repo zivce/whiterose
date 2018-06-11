@@ -8,7 +8,7 @@
     
       <v-client-table
       v-if="!isVisibleBid"
-      :data='jobs'
+      :data='finished_jobs'
       :columns='columns'
       :options='options'
       >
@@ -49,6 +49,8 @@ import hardcodepentst from "./hardcodestartedjobs";
 import StartedMoreInfo from "./UserParts/StartedJobInfo.vue";
 import eventBus from "../../../utils/eventBus";
 import "vue-awesome/icons/eye";
+import {mapGetters} from 'vuex';
+
 
 export default {
   components: {
@@ -78,13 +80,14 @@ export default {
         //error snotify here.
       });
   },
-  computed: {},
+  computed: {
+    ...mapGetters({finished_jobs:'returnFinishedJobs'})
+  },
   mounted() {
     eventBus.$on("isVisibleStartedInfo", val => {
       this.isVisibleBid = val;
     });
   },
-  computed: {},
   methods: {
     showDetails(props) {
       this.details = props.row;
@@ -96,7 +99,6 @@ export default {
       details: {},
       isVisibleBid: false,
       columns: ["pentester", "title", "price", "more info"],
-      jobs: [],
       options: {
         columnsClasses: {
           price: "cursorable"
@@ -109,7 +111,6 @@ export default {
           nav: "scroll"
         }
       },
-      jobs: []
     };
   }
 };

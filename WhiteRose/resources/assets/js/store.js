@@ -16,12 +16,15 @@ const store = new Vuex.Store({
     stars: 0,
     test: 1,
     job_for_edit : null,
-
+    jobs:[]
     //UI state
     
 
   },
   mutations: {
+    setJobs(state, payload) {
+      state.jobs = payload;
+    },
     setAvatar(state, payload) {
 
       let _user = localStorage.getItem("r");
@@ -65,6 +68,15 @@ const store = new Vuex.Store({
     }
   },
   getters: {
+    returnJobs : state => {
+      return state.jobs;
+    },
+    returnStartedJobs : state => {
+      return state.jobs.filter(elem => elem.inprogress===1);
+    },
+    returnFinishedJobs : state => {
+      return state.jobs.filter(elem => elem.completed===1);
+    },
     returnAvatar : state => {
 
       if(state.user.avatar)

@@ -51,12 +51,13 @@ class DiscusionController extends Controller
         $discusion=$job->discusion()->first();
         $job_pivot = $job->pentesters()->where('pentesters_jobs.job_id',$jobID)->first()->pivot;
         $finished = $job_pivot->finished;
+        $pentester=Pentester::where('id',$discusion->pentester_id)->first();    
+        $client=Client::where('id',$discusion->client_id)->first();            
 
         if(!Auth::guard('pentester')->check())
         {
 
         
-        $pentester=Pentester::where('id',$discusion->pentester_id)->first();
         $discusion->sender = $pentester;
         
         $discusion = $discusion->with('messages')->get();
@@ -66,12 +67,11 @@ class DiscusionController extends Controller
             "pentester" => $pentester->username,
             "finished"  => $finished,
             "completed" => $job->completed,
-            "avatar" => $pentester->image_path,            
+            "avatar" => $client->image_path,            
         ];
         }
         else{
              
-        $client=Client::where('id',$discusion->client_id)->first();
         $discusion->sender = $client;
         
         $discusion = $discusion->with('messages')->get();
@@ -81,7 +81,7 @@ class DiscusionController extends Controller
             "client" => $client->username,
             "finished"  => $finished,
             "completed" => $job->completed,
-            "avatar" => $client->image_path,                                          
+            "avatar" => $pentester->image_path,                                          
         ];
         }
         
