@@ -258,15 +258,14 @@ export default {
       eventBus.$emit("validateAllFields");
       this.$validator.validateAll().then(form_ok => {
           if (form_ok && vm.all_fields_ok) {
-            
-            //tokeni se smanjuju ovde ponovo ? 
-
-            this.formData.append("edit_job_id", this.edit_id);
-            this.formData.append("desc", this.descinput.value);
-            this.formData.append("price", this.priceinput.value);
+            this.sending = {
+              "new_tokens" : this.priceinput.value,
+              "new_desc" : this.descinput.value
+            }
+          
 
             //api call to send form data
-            PostJobAPI.editJob(this.formData,vm)
+            PostJobAPI.editJob(this.sending,vm)
             .then(res => {
               console.log(res);
             });
@@ -313,6 +312,8 @@ export default {
       //consts
       COST_OF_SUBMISSION: 5,
       
+      sending :undefined,
+
       
       //util for edite
       edit_id : undefined,
