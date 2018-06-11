@@ -78,7 +78,7 @@ Route::post('transaction','TransactionController@transferTokens')->name('transac
 Route::post('payout','PentesterController@cashOutPentester')->name('payout'); //undone
 Route::get('returntokens','Controller@returnTokens')->name('returntokens');
 
-//upload avatar
+//upload avatar                                             
 Route::post('postAvatar','ClientController@uploadAvatar');
 Route::post('postAvatarPentester','PentesterController@uploadAvatar');
 //Client posting a job

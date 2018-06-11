@@ -32,7 +32,7 @@ class Controller extends BaseController
     {
         // return Job::all()
         //             ->sortBy('created_at');
-        $jobs = Job::all();
+        $jobs = Job::all()->where('inprogress',0)->where('completed',0);
         foreach($jobs as $job){
             $client = $job->client()->first();
             $job->client = $client;

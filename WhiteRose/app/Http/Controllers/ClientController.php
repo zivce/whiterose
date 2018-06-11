@@ -243,6 +243,7 @@ class ClientController extends Controller
         $client->tokens=0;
         $client->username=$request->username;
         $client->name=$request->firstname;
+        $client->name=$request->firstname;
         $client->lastname=$request->lastname;
         $client->email = $request->email;
         $client->password = Hash::make($request->password);
