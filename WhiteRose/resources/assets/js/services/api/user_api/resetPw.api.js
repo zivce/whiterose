@@ -16,7 +16,7 @@ export default {
         validator.validateAll().then((form_ok)=>{
                 if (form_ok) {
                     axios
-                      .post("/resetpw", {
+                      .post("/resetPwClient", {
                         send
                       })
                       .then(function(response) {

@@ -2,40 +2,40 @@
   <div class="comp_container">
     
     <h2 class="h2s">Preview your bids.</h2>
+    <v-bar id="bids_wrapper" 
+    wrapper="bids_wrapper">
+      <div class="d-flex flex-column justify-content-center">
+          <div 
+          @click="openBidsView(job.id)"
+          class="bid_container"
+          v-for="job in jobs"
+          :key="job.id">
+            <div
+            style="display:flex;
+            flex-direction:column;"
+            >
+              <!-- gets the number of bids -->
+              <h3 class="bid_h3" 
+                style="margin-top: auto;">{{job.title}} - {{job.bids.length == 0 ? 'No bids' 
+                : job.bids.length === 1 ? job.bids.length + ' Bid' : job.bids.length + ' Bids'}}</h3>  
+              
+              <p class="bid_p" style="
+              display: flex;
+              flex-direction:  column;
+              ">
+                
+                <span style="font-weight:bold;"> {{job.domain}} </span>
 
-    <transition name="flip" mode="out-in">
-      <v-client-table
-      ref="bids_table"
-      class="bids_table"
-      v-if="!isVisibleBid"
-      :data='table_data'
-      :columns='columns'
-      :options='options'
-      >
-    
-    <!-- <a  slot="preview" 
-        ref="preview_btn"
-        slot-scope="props"
-        class="cursorable"
-        @click="showDetails(props)"
-        >
-        <icon id="eye_ico" name="eye"></icon>
-      </a> -->
-
+                 {{job.description}}
+                
+              </p>
+              <!-- number of bids for job -->
+            </div>
+        
+          </div>
+        </div>
       
-      </v-client-table >
-    
-    </transition>
-    <transition name="flip" mode="out-in">
-    
-      <pentester-bid 
-      ref="pentester_bid"
-      :det.sync="details"
-      v-if="isVisibleBid">
-
-      </pentester-bid>
-
-    </transition>
+    </v-bar>
 
   </div>
 
@@ -62,28 +62,36 @@ export default {
   created() {
     //TODO : fetch bids here
     
+    GetBidsAPI.getBidsClient().then(
+      (jobs_bids_combined) => {
+        this.jobs = jobs_bids_combined.data;
+      }
+
+    )
+
+    // axios
+    //   .post("viewbidsclient")
+    //   .then(response => {
+    //     console.log(response.data);
+    //     //this adapts response for show in vue tables 2
+    //     response.data.forEach(bid_info => {
+    //       console.log(bid_info);
+    //       this.table_data.push({
+    //         pentester: bid_info.pentester_email,
+    //         pentester_username: bid_info.pentester_username,
+    //         rating: bid_info.pentester_rating,
+    //         title: bid_info.job_name,
+    //         bid_info: bid_info.bid,
+    //         accepted : bid_info.accepted
+    //       });
+    //     });
+    //   })
+    //   .catch(err => {
+    //     //error snotify here.
+    //   });
 
 
-    axios
-      .post("viewbidsclient")
-      .then(response => {
-        console.log(response.data);
-        //this adapts response for show in vue tables 2
-        response.data.forEach(bid_info => {
-          console.log(bid_info);
-          this.table_data.push({
-            pentester: bid_info.pentester_email,
-            pentester_username: bid_info.pentester_username,
-            rating: bid_info.pentester_rating,
-            title: bid_info.job_name,
-            bid_info: bid_info.bid,
-            accepted : bid_info.accepted
-          });
-        });
-      })
-      .catch(err => {
-        //error snotify here.
-      });
+  
   },
   computed: {},
   mounted() {
@@ -91,18 +99,18 @@ export default {
       this.isVisibleBid = val;
       console.log(this.details);
 
-      //change the accepted
-      if (this.details.accepted) {
-        this.table_data.forEach(elem => {
-          let job_got_accepted = elem.show.info === this.details.info;
+      // //change the accepted
+      // if (this.details.accepted) {
+      //   this.table_data.forEach(elem => {
+      //     let job_got_accepted = elem.show.info === this.details.info;
 
-          if (job_got_accepted) {
-            //dodaj da je postao accepted u bazu nekako
+      //     if (job_got_accepted) {
+      //       //dodaj da je postao accepted u bazu nekako
 
-            elem.show.accepted = true;
-          }
-        });
-      }
+      //       elem.show.accepted = true;
+      //     }
+      //   });
+      // }
     });
   },
   computed: {},
@@ -118,7 +126,7 @@ export default {
       isVisibleBid: false,
       columns: ["pentester", "rating", "title", "preview"],
       // table_data: hardcodepentst,
-      table_data: [],
+      jobs: [],
       options: {
         sortIcon:{
             base:'glyphicon',
@@ -173,7 +181,10 @@ $not_accepted_bg_color : #A22C29;
   background-color: $not_accepted_bg_color !important;
 }
 
-
+.bids_wrapper {
+  height: 73vh;
+  margin-top: 3%;
+}
 #eye_ico {
   color: var(--cyan);
   vertical-align: middle;
