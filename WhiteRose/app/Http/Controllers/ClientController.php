@@ -53,8 +53,6 @@ class ClientController extends Controller
 
     public function allSites()
     {
-        
-        
         if(Website::where('client_id',Auth::guard('client')->user()->id)!==null)
         return Website::where('client_id',Auth::guard('client')->user()->id)->get();
         return "You dont have any websites";
@@ -383,6 +381,14 @@ class ClientController extends Controller
      }
 
      return $outputToRet;
+    }
+
+    public function getScans()
+    {
+        $user = Auth::guard('client')->user();
+        $websites = $user->websites();
+        $scans = $websites->with('scans')->get();
+        return $scans;
     }
 
     public function downloadScan($dir,$fileName)

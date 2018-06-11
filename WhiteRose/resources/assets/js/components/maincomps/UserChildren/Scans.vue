@@ -45,8 +45,9 @@ export default {
     spy() {}
   },
   created() {
+
     axios
-      .get("allscans")
+      .get("myScans")
       .then(response => {
         //this adapts response for show in vue tables 2
         response.data.forEach(scan_info => {
@@ -67,7 +68,7 @@ export default {
       sortIcon: "fa fa-caret",
 
       columns: ["date", "scan", "download"],
-      table_data: hardcode,
+      table_data: [],
       options: {
         columnsClasses: {
           date: "cursorable"

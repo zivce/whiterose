@@ -11,4 +11,9 @@ class Website extends Model
         return $this->belongsTo('App\Client');
     }
 
+    public function scans()
+    {
+        return $this->hasMany('App\Scan');
+    }
+
 }

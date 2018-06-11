@@ -16,7 +16,7 @@ class CreateScansTable extends Migration
         Schema::create('scans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('scanName');
-            $table->integer('client_id');
+            $table->integer('website_id');
             $table->string('path');
             $table->timestamps();
         });
