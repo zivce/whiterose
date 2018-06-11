@@ -95,6 +95,8 @@ Route::post('finishedJobs','Controller@finishedJobs')->name('finishedJobs');
 Route::get('returnmyjobs','ClientController@myJobs')->name('returnmyjobs');
 Route::post('returnmyjob','ClientController@myJob')->name('returnmyjob');//undonde
 
+Route::get('returnmyjobsPentester','PentesterController@myJobs')->name('returnmyjobs');
+
 //Biding on job
 Route::post('postbid','PentesterController@bidOnJob')->name('bid');
 
