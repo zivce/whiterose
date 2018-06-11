@@ -77,7 +77,12 @@ Route::post('purchasetokens','ClientController@buyTokens')->name('purchasetokens
 Route::post('transaction','TransactionController@transferTokens')->name('transactions');
 Route::post('payout','PentesterController@cashOutPentester')->name('payout'); //undone
 Route::get('returntokens','Controller@returnTokens')->name('returntokens');
+//resetPW
+Route::post('resetPwPentester','PentesterController@resetPw');
+Route::post('resetPwClient','ClientController@resetPw');
 
+Route::post('postDescPentester','PentesterController@postDesc');
+Route::post('postDesc','ClientController@postDesc');
 //upload avatar                                             
 Route::post('postAvatar','ClientController@uploadAvatar');
 Route::post('postAvatarPentester','PentesterController@uploadAvatar');

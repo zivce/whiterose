@@ -100,7 +100,12 @@ class ClientController extends Controller
 
                         
     }
-
+    public function postDesc(Request $request)
+    {
+        $client=Auth::guard('client')->user()->first();
+        $client->description=$request->desc;
+        $client->save();
+    }
     public function uploadAvatar(Request $request)
     {
 
@@ -136,7 +141,12 @@ class ClientController extends Controller
         return $client->tokens;
                
     }
-
+    public function resetPw(Request $request)
+    {
+        $client=Auth::guard('client')->user()->first();
+        $client->password=Hash::make($request->pw);
+        $client->save();
+    }
     //delete job
     public function deleteJob(Request $request)
     {
@@ -145,8 +155,10 @@ class ClientController extends Controller
     //edit job
     public function editJob(Request $request)
     {
+        
       $job=Job::where('id',$request->id)->first();
-      $job->description=$request->description;
+      
+      $job->description=$request->desc;
       $job->price=$job->price;
       $job->save();
                 
