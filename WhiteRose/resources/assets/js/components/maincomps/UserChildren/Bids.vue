@@ -16,9 +16,26 @@
             >
               <!-- gets the number of bids -->
               <h3 class="bid_h3" 
-                style="margin-top: auto;">{{job.title}} - {{job.bids.length == 0 ? 'No bids' 
-                : job.bids.length === 1 ? job.bids.length + ' Bid' : job.bids.length + ' Bids'}}</h3>  
+              style="margin-top: auto;">
+              {{job.title}} 
+              - 
+              {{job.bids.length === 0 ? 'No bids' 
+              : job.bids.length === 1 ? job.bids.length + ' Bid' : job.bids.length + ' Bids'}} 
               
+              </h3>  
+              <span
+              style="margin-right:auto;"
+                :class="{
+                'completed_bid' : job.completed === 1,
+                'inprogress_bid' : job.inprogress === 1}"
+                
+                >
+
+                {{job.completed ===  1 ? 'Completed' : ''}}
+                {{job.inprogress === 1 ? 'In progress' : ''}}
+                
+              </span>
+
               <p class="bid_p" style="
               display: flex;
               flex-direction:  column;
@@ -162,7 +179,17 @@ export default {
 $accepted_bg_color : #3BC14A;
 $accepted_color_text : #000923;
 $not_accepted_bg_color : #A22C29;
+$in_progress_color : #2E86AB;
 
+.completed_bid {
+  font-weight: 500;
+  color : $accepted_bg_color;
+}
+
+.inprogress_bid {
+  font-weight: 500;
+  color : $in_progress_color;
+}
 
 
 .bids_table /deep/ .row_accepted td {
