@@ -88,7 +88,7 @@
                 <div class="col-2 convo_avatars">
 
                     <img 
-                    src="http://i.pravatar.cc/100?img=4" 
+                    :src="not_my_avatar" 
                     class="pentester_avatar"
                     alt=""> 
 
@@ -219,7 +219,8 @@ export default {
   },
   computed : {
     ...mapGetters({
-      my_avatar : "returnAvatar"
+      my_avatar : "returnAvatar",
+      not_my_avatar : "returnAvatarPath"
     })
   },
   components: {

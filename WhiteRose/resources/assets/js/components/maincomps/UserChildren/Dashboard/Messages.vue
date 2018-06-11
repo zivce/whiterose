@@ -2,7 +2,7 @@
 <v-bar id="message_wrapper" wrapper="message_wrapper">
   <div class="d-flex flex-column justify-content-center">
     <div class="message_container col-8" 
-    @click="openConversation(msg.job_id)" 
+    @click="openConversation(msg.job_id, msg.avatar)" 
     style="cursor:pointer;"
     v-for="(msg,index) in messages" 
     :key="index">
@@ -69,9 +69,15 @@ export default {
   methods: {
     fixPublic(img_path)
     {
-      return img_path.replace("public\\","");
+    
+      if(img_path)
+        return img_path.replace("public\\","");
+      else 
+        return "";
+    
     },
-    openConversation(job_id) {
+    openConversation(job_id, avatar) {
+      this.$store.commit("setAvatarConvoPath",avatar);
       this.$router.push({ name: "convo_client", params: { job_id: job_id } });
     },
     longMsg(index) {
