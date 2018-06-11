@@ -67,7 +67,7 @@ class DiscusionController extends Controller
             "pentester" => $pentester->username,
             "finished"  => $finished,
             "completed" => $job->completed,
-            "avatar" => $client->image_path,            
+            "avatar" => $pentester->image_path,            
         ];
         }
         else{
@@ -81,7 +81,7 @@ class DiscusionController extends Controller
             "client" => $client->username,
             "finished"  => $finished,
             "completed" => $job->completed,
-            "avatar" => $pentester->image_path,                                          
+            "avatar" => $client->image_path,                                          
         ];
         }
         
