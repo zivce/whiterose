@@ -6,8 +6,22 @@
     style="cursor:pointer;"
     v-for="(msg,index) in messages" 
     :key="index">
-    
-        <h3 class="message_h3">{{msg.pentester_name}}</h3>
+         <div style="
+          display:flex;
+          flex-direction:row;">
+
+          <img 
+          :src="fixPublic(msg.avatar)"
+          width="50"
+          height="50"
+          style="
+          border-radius:50%;"/>
+
+          <h3 class="message_h3" 
+          style="margin-top: auto;">{{msg.pentester_name}}</h3>    
+
+        </div>
+
         <transition name="message-pop">
             <div v-if="!longMsg(index)">
                 <p class="message_p">{{pretty_print(msg.message.text)}}</p>
@@ -15,26 +29,7 @@
             </div>
         </transition>
 
-        <!-- <transition name="message-pop">
-
-        <div v-if="longMsg(index)">
-            
-            <p  class="message_p">{{msg.message.text}}</p>
-            <div >
-                <b-button   
-                class="btn btn-success btn-secondary"  
-                 @click="openConversation(msg.message.discusion_id)" >
-                Reply <icon name="envelope"></icon>
-                </b-button>
-            
-                <b-button class="btn btn-danger btn-secondary" @click="not_expand(index)">
-                    Close <icon name="window-close"></icon>
-                </b-button>
-            </div>
-            
-        </div>
-
-        </transition> -->
+      
     
     </div>
 
@@ -72,6 +67,10 @@ export default {
     Icon
   },
   methods: {
+    fixPublic(img_path)
+    {
+      return img_path.replace("public\\","");
+    },
     openConversation(job_id) {
       this.$router.push({ name: "convo_client", params: { job_id: job_id } });
     },
