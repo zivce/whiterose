@@ -19,6 +19,9 @@ class CreateMessagesTable extends Migration
             $table->integer('clientToPentester')->default(0);
             $table->integer('pentesterToClient')->default(0);
             $table->mediumText('text')->nullable();
+            $table->integer('first')->default(0);
+            $table->integer('last')->default(0);
+            $table->string('file_url',100)->nullable();
             $table->timestamps();
         });
     }

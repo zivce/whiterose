@@ -58,5 +58,12 @@ class Client extends Authenticatable
     {
         return $this->hasMany('App\Discusion');
     }
+
+    public function ratedPentesters()
+    {
+        return $this->belongsToMany('App\Pentester','job_histories')
+        ->withPivot('job_id','price','rating','review')
+        ->withTimestamps();
+    }
  
 }

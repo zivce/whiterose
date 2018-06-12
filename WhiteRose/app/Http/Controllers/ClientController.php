@@ -21,6 +21,7 @@ use App\Bid;
 use GuzzleHttp\Client as fakingGazl;
 use App\Started_job;
 use App\Discusion;
+use App\Message;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 
@@ -428,23 +429,60 @@ class ClientController extends Controller
 
     public function acceptJob(Request $request)
     {
-        $job = Job::where('id',$request->job_id)->first();
+        $job = Job::where('id',$request->send['job_id'])->first();
+        $c_id = $job->client_id;
         $job = $job->pentesters()->first();
 
         DB::table('job_histories')->insert([
-            ['pentester_id' => $job->pivot->pentester_id ,'job_id'=> $job->pivot->job_id, 'price' => $job->pivot->amount,'created_at' => Carbon::now()],
+            ['pentester_id' => $job->pivot->pentester_id ,
+             'job_id'=> $job->pivot->job_id, 
+             'client_id' => $c_id,
+             'price' => $job->pivot->amount,
+             'review' => $request->send['review'],
+             'rating' => $request->send['rating'],
+             'created_at' => Carbon::now()],
         ]);
-        $job->finished = 0;
-        $job_completed = Job::where('id',$request->job_id)->first();        
+
+        $pentester = Pentester::where('id',$job->pivot->pentester_id)->first();
+        $ratings = $pentester->ratingsFromClients()->get();
+        $total_rating = 0;
+        $n = 0;
+
+        foreach($ratings as $rating){
+            $total_rating += $rating->pivot->rating;
+            $n++;
+        }
+        $pentester = Pentester::where('id',$job->pivot->pentester_id)->first();     
+        $pentester->rating = $total_rating/$n;
+        $pentester->save();
+
+        $job_completed = Job::where('id',$request->send['job_id'])->first();        
         $job_completed->completed = 1;
+        $job_completed->inprogress = 0;
         $job_completed->save();
         
-        // return $job->pentesters()->first();
+        return $job_completed;
         
     }
 
     public function declineJob(Request $request)
     {
         $job = Job::where('id',$request->job_id)->first();
+        $client = Client::where('id',$job->client_id)->first();
+
+        $job_pivot = $job->pentesters()->where('pentesters_jobs.job_id',$request->job_id)->first()->pivot;
+        $job_pivot->finished = 0;
+        $job_pivot->save();
+
+        $message = new Message();
+        $msg_arr = array();
+        $msg = $client->username . " has declined your work!";
+        array_push($msg_arr,$msg);
+        $message->text = json_encode($msg_arr);
+        $message->last = 1;
+        $message->clientToPentester = 1;
+        $message->discusion_id = $job->discusion->id;
+        $message->save();
+        return $message;        
     }
 }

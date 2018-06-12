@@ -29,12 +29,14 @@ class DiscusionController extends Controller
         foreach($discusions as $disc)
         {
             if(Auth::guard('client')->check()){
-                $avatar =  $disc->pentester()->first()->image_path;     
+                $avatar =  $disc->pentester()->first()->image_path;  
+                $message = $disc->messages()->where('pentesterToClient',1)->latest()->first();   
             }else{
-                $avatar =  $disc->client()->first()->image_path;                     
+                $avatar =  $disc->client()->first()->image_path;  
+                $message = $disc->messages()->where('clientToPentester',1)->latest()->first();                                      
             }
             
-            $toArray=['message'=>$disc->messages()->orderBy('created_at')->first(),
+            $toArray=['message'=>$message,
                         'job_id'=>$disc->job_id,
                         'client_name'=>$disc->client()->first()->name,
                         'pentester_name'=>$disc->pentester()->first()->name,

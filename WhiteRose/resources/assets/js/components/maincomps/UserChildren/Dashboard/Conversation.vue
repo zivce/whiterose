@@ -182,7 +182,7 @@
         <!-- IF COMPLETED JOB -->
         <div 
           class="cont_input_msg"
-          v-if="whole_convo.completed == 1 || accepted_job"
+          v-if="whole_convo.completed == 1"
         >
           <h2 class="h2s">
             This job ended.

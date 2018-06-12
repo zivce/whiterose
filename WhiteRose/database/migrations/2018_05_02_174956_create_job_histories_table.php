@@ -15,9 +15,12 @@ class CreateJobHistoriesTable extends Migration
     {
         Schema::create('job_histories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('pentester_id')->nullable();
-            $table->integer('job_id')->nullable();
+            $table->integer('pentester_id');
+            $table->integer('client_id');
+            $table->integer('job_id');
             $table->integer('price');
+            $table->integer('rating')->nullable();
+            $table->string('review',500)->nullable();
             $table->timestamps();
         });
     }
