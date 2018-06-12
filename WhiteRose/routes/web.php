@@ -123,6 +123,7 @@ Route::get('hackerlogout','PentesterController@logout')->name('logout');
 
 //Scan
 Route::post('scan','ClientController@scan')->name('scan');
+Route::get('myScans','ClientController@getScans')->name('getScans');
 
 //Download scan
 Route::get('/download/{dir}/{fileName}','ClientController@downloadScan')->name('DownloadScan');

@@ -13,14 +13,14 @@
       :options='options'
       >
     
-    <a  slot="preview" 
+    <!-- <a  slot="preview" 
         ref="preview_btn"
         slot-scope="props"
         class="cursorable"
         @click="showDetails(props)"
         >
         <icon id="eye_ico" name="eye"></icon>
-      </a>
+      </a> -->
 
       
       </v-client-table >

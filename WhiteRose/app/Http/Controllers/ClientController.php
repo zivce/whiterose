@@ -21,6 +21,7 @@ use App\Bid;
 use GuzzleHttp\Client as fakingGazl;
 use App\Started_job;
 use App\Discusion;
+use App\Message;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 
@@ -53,8 +54,6 @@ class ClientController extends Controller
 
     public function allSites()
     {
-        
-        
         if(Website::where('client_id',Auth::guard('client')->user()->id)!==null)
         return Website::where('client_id',Auth::guard('client')->user()->id)->get();
         return "You dont have any websites";
@@ -215,26 +214,36 @@ class ClientController extends Controller
        $clientID=Auth::guard('client')->user()->id;
        $client=Auth::guard('client')->user();
        
-    //    $jobID=$request->jobID;
-       $jobs = $client->jobs()->get();
+       $jobs = $client->jobs();
+       $jobs_bids = $jobs->with('bids')->get();
 
-       $returnBids=array();
-
-       foreach($jobs as $job){
-            $bids=$job->bids()->get();
-            foreach($bids as $bid)
-            {
-            array_push($returnBids,[
-                'bid'=>$bid,
-                'pentester_username'=>Pentester::where('id',$bid->pentester_id)->first()->username,
-                'pentester_email'=>Pentester::where('id',$bid->pentester_id)->first()->email,
-                'pentester_rating'=>Pentester::where('id',$bid->pentester_id)->first()->rating,
-                'job_name'=>$job->title
-            ]);
-            }
+       foreach($jobs_bids as $jb){
+           foreach($jb->bids as $bid){
+               $bid->pentester_username = Pentester::where('id',$bid->pentester_id)->first()->username;
+               $bid->pentester_email = Pentester::where('id',$bid->pentester_id)->first()->email;
+               $bid->pentester_rating = Pentester::where('id',$bid->pentester_id)->first()->rating;
+           }
        }
+       return $jobs_bids;
 
-        return $returnBids;
+
+    //    $returnBids=array();
+
+    //    foreach($jobs as $job){
+    //         $bids=$job->bids()->get();
+    //         foreach($bids as $bid)
+    //         {
+    //         array_push($returnBids,[
+    //             'bid'=>$bid,
+    //             'pentester_username'=>Pentester::where('id',$bid->pentester_id)->first()->username,
+    //             'pentester_email'=>Pentester::where('id',$bid->pentester_id)->first()->email,
+    //             'pentester_rating'=>Pentester::where('id',$bid->pentester_id)->first()->rating,
+    //             'job_name'=>$job->title
+    //         ]);
+    //         }
+    //    }
+
+    //     return $returnBids;
    }
 
 
@@ -388,6 +397,14 @@ class ClientController extends Controller
      return $outputToRet;
     }
 
+    public function getScans()
+    {
+        $user = Auth::guard('client')->user();
+        $websites = $user->websites();
+        $scans = $websites->with('scans')->get();
+        return $scans;
+    }
+
     public function downloadScan($dir,$fileName)
     {
         $absolutePath='app/'.$dir.'/'.$fileName;
@@ -424,23 +441,60 @@ class ClientController extends Controller
 
     public function acceptJob(Request $request)
     {
-        $job = Job::where('id',$request->job_id)->first();
+        $job = Job::where('id',$request->send['job_id'])->first();
+        $c_id = $job->client_id;
         $job = $job->pentesters()->first();
 
         DB::table('job_histories')->insert([
-            ['pentester_id' => $job->pivot->pentester_id ,'job_id'=> $job->pivot->job_id, 'price' => $job->pivot->amount,'created_at' => Carbon::now()],
+            ['pentester_id' => $job->pivot->pentester_id ,
+             'job_id'=> $job->pivot->job_id, 
+             'client_id' => $c_id,
+             'price' => $job->pivot->amount,
+             'review' => $request->send['review'],
+             'rating' => $request->send['rating'],
+             'created_at' => Carbon::now()],
         ]);
-        $job->finished = 0;
-        $job_completed = Job::where('id',$request->job_id)->first();        
+
+        $pentester = Pentester::where('id',$job->pivot->pentester_id)->first();
+        $ratings = $pentester->ratingsFromClients()->get();
+        $total_rating = 0;
+        $n = 0;
+
+        foreach($ratings as $rating){
+            $total_rating += $rating->pivot->rating;
+            $n++;
+        }
+        $pentester = Pentester::where('id',$job->pivot->pentester_id)->first();     
+        $pentester->rating = $total_rating/$n;
+        $pentester->save();
+
+        $job_completed = Job::where('id',$request->send['job_id'])->first();        
         $job_completed->completed = 1;
+        $job_completed->inprogress = 0;
         $job_completed->save();
         
-        // return $job->pentesters()->first();
+        return $job_completed;
         
     }
 
     public function declineJob(Request $request)
     {
         $job = Job::where('id',$request->job_id)->first();
+        $client = Client::where('id',$job->client_id)->first();
+
+        $job_pivot = $job->pentesters()->where('pentesters_jobs.job_id',$request->job_id)->first()->pivot;
+        $job_pivot->finished = 0;
+        $job_pivot->save();
+
+        $message = new Message();
+        $msg_arr = array();
+        $msg = $client->username . " has declined your work!";
+        array_push($msg_arr,$msg);
+        $message->text = json_encode($msg_arr);
+        $message->last = 1;
+        $message->clientToPentester = 1;
+        $message->discusion_id = $job->discusion->id;
+        $message->save();
+        return $message;        
     }
 }

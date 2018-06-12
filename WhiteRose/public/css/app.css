@@ -10899,20 +10899,23 @@ a.text-dark:focus {
 /* da se pomeri na dole kad predje na sledecu komponentu  */
 
 .flip-enter-active {
-  -webkit-transition: all 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53);
-  transition: all 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  -webkit-transition: all 600ms ease-in-out;
+  transition: all 600ms ease-in-out;
 }
 
 .flip-leave-active {
-  -webkit-transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -webkit-transition: all 100ms ease-in-out;
+  transition: all 100ms ease-in-out;
 }
 
 .flip-enter,
 .flip-leave-to {
-  -webkit-transform: scaleY(0) translateZ(0);
-          transform: scaleY(0) translateZ(0);
   opacity: 0;
+}
+
+.flip-enter {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
 }
 
 /* Testing transitions for jobs */
@@ -10933,6 +10936,28 @@ a.text-dark:focus {
 }
 
 .job-enter {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
+
+/* Testing transitions for jobs */
+
+.mark-completed-enter-active {
+  -webkit-transition: all 600ms ease-in-out;
+  transition: all 600ms ease-in-out;
+}
+
+.mark-completed-leave-active {
+  -webkit-transition: all 100ms ease-in-out;
+  transition: all 100ms ease-in-out;
+}
+
+.mark-completed-enter,
+.mark-completed-leave-to {
+  opacity: 0;
+}
+
+.mark-completed-enter {
   -webkit-transform: scale(0.9);
           transform: scale(0.9);
 }
@@ -12051,6 +12076,10 @@ button:focus {
   padding: 3%;
   background-color: white;
   margin: 0 auto;
+}
+
+#close_btn /deep/ svg {
+  vertical-align: middle;
 }
 
 * /deep/ .table-bordered th,
