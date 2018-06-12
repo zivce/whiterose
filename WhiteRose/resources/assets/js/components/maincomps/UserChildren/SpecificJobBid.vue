@@ -21,17 +21,18 @@
         
         </v-client-table >
         
-        <!-- <transition name="flip" mode="out-in">
+        <transition name="flip" mode="out-in">
         
-        <pentester-bid 
-        ref="pentester_bid"
-        :det.sync="details"
-        v-if="isVisibleBid">
+            <pentester-bid 
+            ref="pentester_bid"
+            :title ="title"
+            :det.sync="details"
+            v-if="isVisibleBid">
 
-        </pentester-bid>
+            </pentester-bid>
 
         </transition>
-     -->
+    
     </div>
 </template>
 
@@ -51,6 +52,7 @@ export default {
     },
     methods : {
         showDetails(props) {
+            
             this.details = props.row;
             this.isVisibleBid = true;
         }
@@ -58,38 +60,51 @@ export default {
     props: {
     },
     mounted () {
+        eventBus.$on("isVisiblePentesterBid",(val) => {
+            this.isVisibleBid = val;
+        })
+    },
+    created () {
         const props = this.$route.params;
         /**different view if job completed */
+        // if(props.completed)
+        // {
+        //     /**Logic to get accepted bid to top of table */
+        //     const new_bids = _.sortBy(props.bids, (item) => {
+        //         return item.accepted === 1 ? 0  : 1;
+        //     })
+            
+
+        //     this.bids_filter = props.bids;
         
-        console.log(props);
+        //     /**Logic for accepting already inprogress */
+        //     /**add inprogress to each */
+        //     this.bids_filter = this.bids_filter.map(( bid ) => {
+        //        return {
+        //            ...bid,
+        //            declined_flag : bid.accepted != 1
+        //        } 
+        //     })
+        //     // console.log("declined",this.bids_filter);
+        // }
+        // else
+        // {
+        //     this.bids_filter = props.bids;
+        // }
+        
+        this.bids_filter = props.bids_modified;
+        this.title = props.title
 
-        if(props.completed)
-        {
-            /**Logic to get accepted bid to top of table */
-            // let index = props.bids.findIndex((bid) => {
-            //     return bid.accepted === 1;
-            // })
-
-            // let accepted_bid = props.bids.splice(index,1);
-
-            // props.bids.unshift(accepted_bid);
-
-            // this.bids_filter  = this.props.bids;
-            const new_bids = _.sortBy(props.bids, (item) => {
-                return item.accepted === 1 ? 0  : 1;
-            })
-            console.log(new_bids);
-            this.bids_filter = props.bids;
-        }
-        else
-        {
-            this.bids_filter = props.bids;
-        }
     },
     data() {
         return {
             //Visibility variables
             isVisibleBid : false,
+            
+            //Pentester bid props
+            details: {},
+            title : undefined,
+            inprogress : undefined,
 
             //table details
             bids_filter : [],
@@ -101,6 +116,9 @@ export default {
                     up: 'glyphicon-chevron-up',
                     down: 'glyphicon-chevron-down'
                 },
+                headings : {
+                    pentester_username : 'Pentester'
+                },
                 columnsClasses: {
                 rating: "cursorable"
                 },
@@ -109,7 +127,7 @@ export default {
                 rowClassCallback(row) 
                 {
                 const accepted_suffix = 
-                row.bid_info.accepted === 1 ? "_accepted" : "_not_accepted";
+                row.accepted === 1 ? "_accepted" : "_not_accepted";
                 
                 return "row" + accepted_suffix;
 

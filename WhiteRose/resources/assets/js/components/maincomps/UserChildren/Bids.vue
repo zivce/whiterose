@@ -2,11 +2,10 @@
   <div class="comp_container">
     
     <h2 class="h2s">Preview your bids.</h2>
-    <v-bar id="bids_wrapper" 
-    wrapper="bids_wrapper">
       <div class="d-flex flex-column justify-content-center">
           <div 
-          @click="openBidsView(job.id,job.bids,job.completed)"
+          style="cursor:pointer;"
+          @click="openBidsView(job)"
           class="bid_container"
           v-for="job in jobs"
           :key="job.id">
@@ -24,6 +23,7 @@
               
               </h3>  
               <span
+              v-if="job.completed ===  1 || job.inprogress == 1"
               style="margin-right:auto;"
                 :class="{
                 'completed_bid' : job.completed === 1,
@@ -33,8 +33,18 @@
 
                 {{job.completed ===  1 ? 'Completed' : ''}}
                 {{job.inprogress === 1 ? 'In progress' : ''}}
-                
+          
               </span>
+              
+              <span
+              style="margin-right:auto;"
+              v-else 
+              class="opened_job">
+              
+                Open job
+              
+              </span>
+
 
               <p class="bid_p" style="
               display: flex;
@@ -52,8 +62,6 @@
           </div>
         </div>
       
-    </v-bar>
-
   </div>
 
 </template>
@@ -105,15 +113,45 @@ export default {
   },
   computed: {},
   methods: {
-    openBidsView(id,bids,completed)
-    {
+    openBidsView(job)
+    { 
+        let bids_modified = null;
+
+        if(job.completed === 1 || 
+        job.inprogress  === 1)
+        {
+            /**Logic to get accepted bid to top of table */
+            bids_modified = _.sortBy(job.bids, (item) => {
+                return item.accepted === 1 ? 0  : 1;
+            })
+            
+
+            // this.bids_filter = props.bids;
+        
+            /**Logic for accepting already inprogress */
+            /**add inprogress to each */
+
+            bids_modified = bids_modified.map(( bid ) => {
+               return {
+                   ...bid,
+                   declined_flag : bid.accepted != 1
+               } 
+            })
+        }
+        else
+        {
+           bids_modified = job.bids;
+        }
+      
+
 
       this.$router.push({
         name: 'spec_bid',
         params : {
-          job_id : id,
-          bids,
-          completed
+          job_id : job.id,
+          bids_modified,
+          completed: job.completed,
+          title : job.title
         }
       })
     }
@@ -122,35 +160,7 @@ export default {
     return {
       details: {},
       isVisibleBid: false,
-      columns: ["pentester", "rating", "title", "preview"],
-      // table_data: hardcodepentst,
-      jobs: [],
-      options: {
-        sortIcon:{
-            base:'glyphicon',
-            is:'glyphicon-sort',
-            up: 'glyphicon-chevron-up',
-            down: 'glyphicon-chevron-down'
-          },
-        columnsClasses: {
-          rating: "cursorable"
-        },
-        filterByColumn: true,
-        filterable: ["pentester", "rating", "title"],
-        rowClassCallback(row) 
-        {
-          const accepted_suffix = 
-          row.bid_info.accepted === 1 ? "_accepted" : "_not_accepted";
-          
-          return "row" + accepted_suffix;
-
-        },
-        sortable: ["rating"],
-        pagination: {
-          dropdown: true,
-          nav: "scroll"
-        }
-      }
+      jobs : []
     };
   }
 };
@@ -169,7 +179,10 @@ $in_progress_color : #2E86AB;
   font-weight: 500;
   color : $accepted_bg_color;
 }
-
+.opened_job {
+  font-weight: 500;
+  color : $accepted_bg_color;
+}
 .inprogress_bid {
   font-weight: 500;
   color : $in_progress_color;
