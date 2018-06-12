@@ -67,7 +67,7 @@
         Insert description.
       </h3>
       
-      <textarea  class="textarea_everyone-post-job"
+      <textarea  class="textarea_everyone"
       :placeholder="descinput.label"
       :class="{'has-error':errDesc}"
       :type="descinput.type"

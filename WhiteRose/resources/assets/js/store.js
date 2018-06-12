@@ -81,8 +81,7 @@ const store = new Vuex.Store({
     },
 
     returnStartedJobsNumber : state => {
-      return 
-      state.jobs
+      return state.jobs
       .filter(elem => elem.inprogress===1)
       .length
     },

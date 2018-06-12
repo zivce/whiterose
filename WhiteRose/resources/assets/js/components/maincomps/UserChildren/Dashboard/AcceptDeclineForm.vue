@@ -33,7 +33,7 @@
         
             <p> Write review </p>
 
-            <textarea  class="textarea_everyone"
+            <textarea  class="textarea_accept_decline"
             :placeholder="descinput.label"
             :class="{'has-error':errDesc}"
             :type="descinput.type"

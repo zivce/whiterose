@@ -66,12 +66,24 @@ button:focus{
   border-bottom: 1px solid rgba(0, 8, 53, 0.603);
   background-color: transparent;
   border: 0px;
-  width: 40%;
-  &-post-job {
-    width: 100% !important;
-  }
+  width: 100%;
+  
   min-height: 80px;
 }
+
+.textarea_accept_decline {
+  box-shadow: 0px 0px 2px #949494;
+  text-align: center;
+  outline: none !important;
+  border-bottom: 1px solid rgba(0, 8, 53, 0.603);
+  background-color: transparent;
+  border: 0px;
+  width: 100%;
+  
+  min-height: 80px;
+}
+
+
 .portfolio_job_container
 {
   padding: 4%;
