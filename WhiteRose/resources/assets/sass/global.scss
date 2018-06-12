@@ -66,7 +66,10 @@ button:focus{
   border-bottom: 1px solid rgba(0, 8, 53, 0.603);
   background-color: transparent;
   border: 0px;
-  width: 100%;
+  width: 40%;
+  &-post-job {
+    width: 100% !important;
+  }
   min-height: 80px;
 }
 .portfolio_job_container
@@ -104,6 +107,33 @@ button:focus{
 }
 
 .message_p {
+  font-size: 1rem;
+  color: azure;
+}
+
+
+.bid_container {
+  margin-top: 2%;
+  background-color: #2c3340;
+  margin-bottom: 0.1%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: fit-content;
+  width:60%;
+  padding: 1%;
+}
+
+.bid_h3 {
+  text-align: left;
+  color: white;
+  font-family: "Lusitana",serif;
+  font-size : $h3-size;
+  font-weight:  $h3-weight;
+
+}
+
+.bid_p {
   font-size: 1rem;
   color: azure;
 }

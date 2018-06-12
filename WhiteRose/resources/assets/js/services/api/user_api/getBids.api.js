@@ -8,6 +8,8 @@ import errorToast from '../../../components/toastr/welcometoastr';
  */
 
 export default {
+
+
   getAllUserScans(){
     return new Promise((resolve) => {
     axios
@@ -41,7 +43,19 @@ export default {
           });    
     },
     
+    getBidsClient() {
+        return new Promise((resolve) => {
+            axios
+              .post("viewbidsclient")
+              .then((res)=>{
 
+                  resolve(res);
+              })
+              .catch(function(error) {
+                // vm.errorToast("Error happened.", "Error!");
+              });
+        });    
+    },
     postForm(obj)
     {
       return new Promise((resolve) => {
