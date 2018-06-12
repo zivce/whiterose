@@ -60,23 +60,30 @@ export default {
     mounted () {
         const props = this.$route.params;
         /**different view if job completed */
+        
+        console.log(props);
+
         if(props.completed)
         {
             /**Logic to get accepted bid to top of table */
-            let index = this.props.bids.findIndex((bid) => {
-                return bid.accepted === 1;
+            // let index = props.bids.findIndex((bid) => {
+            //     return bid.accepted === 1;
+            // })
+
+            // let accepted_bid = props.bids.splice(index,1);
+
+            // props.bids.unshift(accepted_bid);
+
+            // this.bids_filter  = this.props.bids;
+            const new_bids = _.sortBy(props.bids, (item) => {
+                return item.accepted === 1 ? 0  : 1;
             })
-
-            let accepted_bid = this.props.bids.splice(index,1);
-
-            this.props.bids.unshift(accepted_bid);
-
-            this.bids_filter  = this.props.bids;
-
+            console.log(new_bids);
+            this.bids_filter = props.bids;
         }
         else
         {
-            this.bids_filter = this.props.bids;
+            this.bids_filter = props.bids;
         }
     },
     data() {
@@ -86,7 +93,7 @@ export default {
 
             //table details
             bids_filter : [],
-            columns: ["pentester", "rating", "title", "preview"],
+            columns: ["pentester_username", "amount", "deadline", "preview"],
              options: {
                 sortIcon:{
                     base:'glyphicon',
