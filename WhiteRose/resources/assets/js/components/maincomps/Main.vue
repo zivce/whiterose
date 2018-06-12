@@ -147,7 +147,7 @@ export default {
     Icon
   },
   destroyed () {
-    window.localStorage.clear();
+    //window.localStorage.clear();
   },
   mounted() {
     this.username = this.$store.getters.returnUsername;
