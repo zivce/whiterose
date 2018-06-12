@@ -6,7 +6,7 @@
     wrapper="bids_wrapper">
       <div class="d-flex flex-column justify-content-center">
           <div 
-          @click="openBidsView(job.id)"
+          @click="openBidsView(job.id,job.bids,job.completed)"
           class="bid_container"
           v-for="job in jobs"
           :key="job.id">
@@ -59,23 +59,11 @@
 </template>
 
 <script>
-import logger from "../../../utils/groupLogger";
-import Icon from "vue-awesome/components/Icon";
 
-import welcomeToastr from "../../toastr/welcometoastr";
-
-import hardcodepentst from "./hardcodepntst";
-import PentesterBid from "./UserParts/PentesterBid.vue";
-import eventBus from "../../../utils/eventBus";
-import "vue-awesome/icons/eye";
 import GetBidsAPI from "../../../services/api/user_api/getBids.api";
 
 export default {
-  components: {
-    PentesterBid,
-    Icon
-  },
-  mixins: [welcomeToastr],
+
   created() {
     //TODO : fetch bids here
     
@@ -112,29 +100,22 @@ export default {
   },
   computed: {},
   mounted() {
-    eventBus.$on("isVisiblePentesterBid", val => {
-      this.isVisibleBid = val;
-      console.log(this.details);
+  
 
-      // //change the accepted
-      // if (this.details.accepted) {
-      //   this.table_data.forEach(elem => {
-      //     let job_got_accepted = elem.show.info === this.details.info;
-
-      //     if (job_got_accepted) {
-      //       //dodaj da je postao accepted u bazu nekako
-
-      //       elem.show.accepted = true;
-      //     }
-      //   });
-      // }
-    });
   },
   computed: {},
   methods: {
-    showDetails(props) {
-      this.details = props.row;
-      this.isVisibleBid = true;
+    openBidsView(id,bids,completed)
+    {
+
+      this.$router.push({
+        name: 'spec_bid',
+        params : {
+          job_id : id,
+          bids,
+          completed
+        }
+      })
     }
   },
   data() {
@@ -181,44 +162,4 @@ $accepted_color_text : #000923;
 $not_accepted_bg_color : #A22C29;
 $in_progress_color : #2E86AB;
 
-.completed_bid {
-  font-weight: 500;
-  color : $accepted_bg_color;
-}
-
-.inprogress_bid {
-  font-weight: 500;
-  color : $in_progress_color;
-}
-
-
-.bids_table /deep/ .row_accepted td {
-  background-color: $accepted_bg_color !important;
-  color: $accepted_color_text !important;
-  #eye_ico {
-    color: $accepted_color_text !important; 
-  }
-  
-  #eye_ico:hover {
-    color: lighten( $accepted_color_text, 30% ) !important; 
-  }
-}
-
-.bids_table /deep/ .row_not_accepted td {
-  background-color: $not_accepted_bg_color !important;
-}
-
-.bids_wrapper {
-  height: 73vh;
-  margin-top: 3%;
-}
-#eye_ico {
-  color: var(--cyan);
-  vertical-align: middle;
-}
-
-#eye_ico:hover {
-  color: #000619d4;
-  vertical-align: middle;
-}
 </style>

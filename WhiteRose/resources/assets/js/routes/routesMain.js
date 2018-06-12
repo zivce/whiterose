@@ -16,6 +16,12 @@ let routes = [
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
                 {
+                    name:'spec_bid',
+                    path:'bids/:job_id',
+                    props:true,
+                    component :require('../components/maincomps/UserChildren/SpecificJobBid.vue')
+                },
+                {
                     name:'sites_all',
                     path:'allsites',
                     component: require('../components/maincomps/UserChildren/VerifySites.vue')
@@ -138,7 +144,7 @@ let routes = [
                 {
                     path:'bids',
                     component: require('../components/maincomps/UserChildren/Bids.vue')
-
+                    
                 }
                
             ]
