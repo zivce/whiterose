@@ -1,5 +1,5 @@
 <template>
-     <div>
+     <div class="comp_container">
     
         <v-client-table
         ref="bids_table"

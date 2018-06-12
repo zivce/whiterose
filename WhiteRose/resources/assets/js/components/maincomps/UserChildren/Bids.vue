@@ -162,4 +162,47 @@ $accepted_color_text : #000923;
 $not_accepted_bg_color : #A22C29;
 $in_progress_color : #2E86AB;
 
+
+
+
+.completed_bid {
+  font-weight: 500;
+  color : $accepted_bg_color;
+}
+
+.inprogress_bid {
+  font-weight: 500;
+  color : $in_progress_color;
+}
+
+
+.bids_table /deep/ .row_accepted td {
+  background-color: $accepted_bg_color !important;
+  color: $accepted_color_text !important;
+  #eye_ico {
+    color: $accepted_color_text !important; 
+  }
+  
+  #eye_ico:hover {
+    color: lighten( $accepted_color_text, 30% ) !important; 
+  }
+}
+
+.bids_table /deep/ .row_not_accepted td {
+  background-color: $not_accepted_bg_color !important;
+}
+
+.bids_wrapper {
+  height: 73vh;
+  margin-top: 3%;
+}
+#eye_ico {
+  color: var(--cyan);
+  vertical-align: middle;
+}
+
+#eye_ico:hover {
+  color: #000619d4;
+  vertical-align: middle;
+}
 </style>
