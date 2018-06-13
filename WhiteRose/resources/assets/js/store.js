@@ -45,6 +45,13 @@ const store = new Vuex.Store({
     },
     setUser(state, payload) {
       state.role = payload.role;
+      state.user = payload.user;
+      state.email = payload.user.email;
+      state.id = payload.user.id;
+    },
+    
+    setUserLoggedIn(state, payload) {
+      state.role = payload.role;
       state.user = payload;
       state.email = payload.email;
       state.id = payload.id;

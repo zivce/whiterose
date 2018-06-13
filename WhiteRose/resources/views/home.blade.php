@@ -16,7 +16,10 @@
 
 <body>
 
-    <div id="home" class="container-fluid" :role="role">
+    <div 
+    id="home" 
+    v-if="fetched_user"
+    class="container-fluid">
         <router-view></router-view>
     </div>
     <script src="https://js.stripe.com/v3/"></script>
