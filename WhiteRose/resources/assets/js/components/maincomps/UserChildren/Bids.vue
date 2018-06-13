@@ -140,7 +140,17 @@ export default {
         }
         else
         {
-           bids_modified = job.bids;
+          
+          /**Job is opened logic */
+
+            bids_modified = job.bids.map(( bid ) => {
+               return {
+                  ...bid,
+                  open_job_flag : true
+               } 
+            })
+
+          //  bids_modified = job.bids;
         }
       
 

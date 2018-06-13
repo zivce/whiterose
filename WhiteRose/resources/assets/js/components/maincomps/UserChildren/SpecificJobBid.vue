@@ -126,10 +126,12 @@ export default {
                 filterable: ["pentester", "rating", "title"],
                 rowClassCallback(row) 
                 {
-                const accepted_suffix = 
-                row.accepted === 1 ? "_accepted" : "_not_accepted";
-                
-                return "row" + accepted_suffix;
+                    if(row.open_job_flag)
+                        return "";
+                    const accepted_suffix = 
+                    row.accepted === 1 ? "_accepted" : "_not_accepted";
+                    
+                    return "row" + accepted_suffix;
 
                 },
                 sortable: ["rating"],

@@ -1,30 +1,23 @@
 <template>
     <div class="comp_container" v-cloak> 
-          <div 
-          style="
-          display:flex;
-          flex-direction:row;">
+        <div 
+        style="
+        display:flex;
+        flex-direction:row;">
 
-            <h2 class="h2s">Conversation with {{whole_convo.pentester}}</h2>
+          <h2 class="h2s">Conversation with {{whole_convo.pentester}}</h2>
 
-          </div>
+        </div>
 
-          <span 
-          class="del_msg"
-          v-b-tooltip.hover.right="'Delete messages'"
-          style="cursor:pointer;"
-          @click="deleteConvo()">
-            <icon
-              name="trash-alt">
-            </icon>
-          </span>
-
-          
-  
-
-       
-
-        
+        <span 
+        class="del_msg"
+        v-b-tooltip.hover.right="'Delete messages'"
+        style="cursor:pointer;"
+        @click="deleteConvo()">
+          <icon
+            name="trash-alt">
+          </icon>
+        </span>
         
         <div 
         class = "msg_cont "
@@ -41,7 +34,7 @@
             >
                 <div class="col-2 convo_avatars">
                     <img 
-                    v-b-tooltip.hover.top="'Pentester'"
+                    v-b-tooltip.hover.top="'You'"
                     :src="my_avatar" 
                     class="client_avatar"
                     alt="">
@@ -77,7 +70,7 @@
                 <div class="col-2 convo_avatars">
 
                     <img 
-                    v-b-tooltip.hover.top="'You'"
+                    v-b-tooltip.hover.top="'Pentester'"
                     :src="not_my_avatar" 
                     class="pentester_avatar"
                     alt=""> 
@@ -90,8 +83,9 @@
                         v-b-tooltip.hover.top="toolTipDate(msg.updated_at)"
                         ><strong>{{timeOfMessage(msg.updated_at)}}</strong></p>           
                     </div>
+                    
                    <p
-                    v-for="(message,index) in renderMessages(msg.text)"
+                    v-for="(message,index) in renderMessages(msg.text, msg.first)"
                     :key = index
                     >
                     {{message}}
@@ -293,13 +287,26 @@ export default {
       this.msg_send_id++;
 
       this.msgs_for_send.push(new_msg);
-      console.log(new_msg);
+      // console.log(new_msg);
       ConvoSendMessagesAPI.sendMsg(new_msg);
     },
-    renderMessages(msg) {
-      // console.log(msg);
-      var array = JSON.parse("[" + msg + "]");
-      return array[0];
+    renderMessages(msg,first) {
+      
+      let array = JSON.parse("[" + msg + "]");
+      let message_text = array[0];
+      // message_text = message_text[0];
+
+      if(first)
+      {
+        message_text = message_text[0];
+      
+        const ind = message_text.indexOf("job");
+        let first_message = message_text.slice(0, ind + 3);
+        console.log("poruka",first_message);
+        return [first_message];
+      }
+
+      return message_text;
     }
 
     //find client that sent msg

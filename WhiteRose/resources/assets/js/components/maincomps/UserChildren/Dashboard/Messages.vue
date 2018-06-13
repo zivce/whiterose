@@ -25,10 +25,9 @@
             style="margin-top: auto;">{{msg.pentester_name}}</h3>    
 
           </div>
-
           <transition name="message-pop">
               <div v-if="!longMsg(index)">
-                  <p class="message_p">{{pretty_print(msg.message.text)}}</p>
+                  <p class="message_p">{{pretty_print(msg.message.text,msg.message.first)}}</p>
                   <!-- <p class="expand message_p"  @click="expand(index)"><strong>...</strong></p> -->
               </div>
           </transition>
@@ -88,9 +87,23 @@ export default {
       let obj = this.messages[index];
       return obj.visible_long_msg;
     },
-    pretty_print(msg) {
+    pretty_print(msg,first) {
+       
+
       var array = JSON.parse("[" + msg + "]");      
-      return array.slice(0, 100)+'...';
+      
+      if(first === 1)
+      {
+        //MRTIVJOSONPARSE
+        let str = array[0];
+        str = str[0];
+        const ind = str.indexOf("job");
+        let first_message = str.slice(0,ind+3);
+        return first_message;
+      
+      }
+      else
+        return array.slice(0, 100)+'...';
     },
     expand(index) {
       // let index = _.findIndex(this.messages, { id: msg_id });
