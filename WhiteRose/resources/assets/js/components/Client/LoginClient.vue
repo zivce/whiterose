@@ -71,7 +71,7 @@ export default {
               if (wrong_info) {
                 vm.errorToast("Wrong info.", "Error!");
               } else {
-                vm.notifySuccess("User logged in", "Success");
+                // vm.notifySuccess("User logged in", "Success");
                 window.location.reload();
               }
             } else {

@@ -32,13 +32,13 @@ const store = new Vuex.Store({
     },
     setAvatar(state, payload) {
 
-      let _user = localStorage.getItem("r");
-      _user = JSON.parse(_user);
-      _user.avatar = payload; 
-      _user = JSON.stringify(_user);
-      localStorage.setItem("r",_user);
+      // let _user = localStorage.getItem("r");
+      // _user = JSON.parse(_user);
+      // _user.avatar = payload; 
+      // _user = JSON.stringify(_user);
+      // localStorage.setItem("r",_user);
 
-      state.user.avatar = payload;
+      state.user.image_path = payload;
     },
     setTest (state,payload) {
       state.test = payload.test;
@@ -110,9 +110,9 @@ const store = new Vuex.Store({
     },
     returnAvatar : state => {
 
-      if(state.user.avatar)
+      if(state.user.image_path)
       {
-        return state.user.avatar.replace("public\\","")        
+        return state.user.image_path.replace("public\\","")        
       }
       else 
         return ''

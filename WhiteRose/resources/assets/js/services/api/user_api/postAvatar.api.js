@@ -25,7 +25,6 @@ export default {
                         //vm.successToast("Description added.", "Success.");
                         let avatar_url =  response.data.replace("public\\","");
                         console.log(avatar_url);  
-                        // debugger;
                         vm_scope.$store.commit("setAvatar",avatar_url);                      
                       })
                       .catch(function(error) {

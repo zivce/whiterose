@@ -147,7 +147,6 @@ export default {
     Icon
   },
   destroyed() {
-    //window.localStorage.clear();
   },
   mounted() {
     this.username = this.$store.getters.returnUsername;
@@ -194,12 +193,12 @@ export default {
     handleLogout() {
       if (this.user_role === "pentester") {
         axios.get("/hackerlogout").then(res => {
+          
           if (res.status === 200) {
-            this.notifySuccess("Logged out!", "Success!");
-
-            window.setTimeout(() => {
-              window.location.reload();
-            }, 1500);
+            
+            // this.notifySuccess("Logged out!", "Success!");
+            window.location.reload();
+          
           } else {
             this.errorToast("Error happened", "Error!");
           }
@@ -207,11 +206,10 @@ export default {
       } else if (this.user_role === "client") {
         axios.get("/clientlogout").then(res => {
           if (res.status === 200) {
-            this.notifySuccess("Logged out!", "Success!");
-
-            window.setTimeout(() => {
-              window.location.reload();
-            }, 1500);
+          
+            // this.notifySuccess("Logged out!", "Success!");
+            window.location.reload();
+          
           } else {
             this.errorToast("Error happened", "Error!");
           }
