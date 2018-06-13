@@ -39,16 +39,14 @@
 
 
 <script>
-import logger from "../../utils/groupLogger";
 import FormInput from "../utilcomps/FormInput.vue";
 
-import eventBusRegC from "../../utils/eventBusRegC";
-import errorToastr from "../toastr/FormErrorToaster";
+import eventBus from "../../utils/eventBus";
 import checkFields from "../../utils/checkAllFields";
 
 export default {
   mounted() {
-    eventBusRegC.$on("field_ok", val => {
+    eventBus.$on("field_ok", val => {
       let id = val.id;
 
       if (typeof this.inputs[id] === "undefined") return;
@@ -67,8 +65,6 @@ export default {
       return this.errors.has("pwagain");
     }
   },
-  mounted() {},
-  mixins: [errorToastr, checkFields],
   data() {
     return {
       all_fields_ok: false,

@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import logger from "../../../../utils/groupLogger";
-import welcomeToastr from "../../../toastr/welcometoastr";
 import eventBus from "../../../../utils/eventBus";
 
 import Icon from "vue-awesome/components/Icon";
@@ -30,7 +28,6 @@ export default {
   components: {
     Icon
   },
-  mixins: [welcomeToastr],
   props: {
     det: {
       type: Object,

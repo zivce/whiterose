@@ -146,13 +146,12 @@ export default {
     Home,
     Icon
   },
-  destroyed () {
+  destroyed() {
     //window.localStorage.clear();
   },
   mounted() {
     this.username = this.$store.getters.returnUsername;
-    
-    
+
     // this.avatar_url = this.$store.getters.returnAvatar;
     // this.avatar_url = this.avatar_url.substring(this.avatar_url.indexOf("/uploads"))
 
@@ -179,14 +178,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      avatar_url : "returnAvatar",
+      avatar_url: "returnAvatar",
       tokens1: "returnTokens",
       stars1: "returnRating"
     }),
     home() {},
     activeColorChecker() {
-      return this.isHacker 
-      ? this.hacker_stars_color : this.user_stars_color;
+      return this.isHacker ? this.hacker_stars_color : this.user_stars_color;
     }
   },
   methods: {
@@ -228,12 +226,10 @@ export default {
         size: 20,
         show_rating: false
       },
-      
 
       //coloring dropdown
       hacker_stars_color: "#D80032",
-      user_stars_color : "#ffd055",
-
+      user_stars_color: "#ffd055",
 
       clicked_user: false,
       tokens: undefined,
@@ -242,12 +238,12 @@ export default {
       //visibility vars
       isActiveTokenCharger: false,
       isHacker: false,
-      
+
       messages_url: "",
-      
+
       user_role: "",
       user_id: "",
-      
+
       profile_url: ``,
       username: "",
       main_comp: false

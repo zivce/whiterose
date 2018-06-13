@@ -1,5 +1,5 @@
-import successToast from '../../../components/toastr/FormErrorToaster';
-import errorToast from '../../../components/toastr/welcometoastr';
+
+
 
 /**
  * Used for verifying site in user setup profile

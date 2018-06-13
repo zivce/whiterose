@@ -101,8 +101,10 @@
       </b-nav>
       
       <transition name="main_user">
+
         <router-view>
         </router-view>
+      
       </transition>
 
 
@@ -198,10 +200,10 @@ export default {
 
       isVisibleUserInfo: false,
       main_client_visible: false,
-      
+
       //width fixes
-      icon_fix_width : 57,
-      
+      icon_fix_width: 57,
+
       //Current route
       route: "",
       user_id: "",

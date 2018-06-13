@@ -180,26 +180,24 @@
 
 <script>
 import StarRating from "vue-star-rating";
-import ProfileDataWrapper from './ProfileDataWrapper.vue';
+import ProfileDataWrapper from "./ProfileDataWrapper.vue";
 import InfoHardcode from "./user.hardcode";
 import Icon from "vue-awesome/components/Icon";
 
-import eventBus from './../../../../utils/eventBus';
-
+import eventBus from "./../../../../utils/eventBus";
 
 import "vue-awesome/icons/hourglass-start";
 import "vue-awesome/icons/flag-checkered";
 import "vue-awesome/icons/tasks";
 import "vue-awesome/icons/globe";
 
-
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 //TODO: napuni info
 export default {
-  computed : {
+  computed: {
     ...mapGetters({
-      avatar_url : 'returnAvatar'
+      avatar_url: "returnAvatar"
     })
   },
   created() {
@@ -208,10 +206,8 @@ export default {
 
     this.tokens = this.$store.getters.returnTokens;
     this.sitesNumber = this.$store.getters.returnSitesNumber;
-    
-    if(this.$store.getters.returnJobsNumber == 0)
-    {
-      
+
+    if (this.$store.getters.returnJobsNumber == 0) {
       axios
         .get("returnmyjobs")
         .then(response => {
@@ -226,11 +222,11 @@ export default {
               description: job_info.description,
               inprogress: job_info.inprogress,
               completed: job_info.completed,
-              job_id : job_info.id
+              job_id: job_info.id
               //job_info
             });
             // eventBus.$emit('myJobsClient',this.jobs);
-            this.$store.commit('setJobs',this.jobs);
+            this.$store.commit("setJobs", this.jobs);
             this.all_jobs_number = this.$store.getters.returnJobsNumber;
             this.started_jobs_number = this.$store.getters.returnStartedJobsNumber;
             this.finished_jobs_number = this.$store.getters.returnFinishedJobsNumber;
@@ -246,17 +242,17 @@ export default {
       this.started_jobs_number = this.$store.getters.returnStartedJobsNumber;
       this.finished_jobs_number = this.$store.getters.returnFinishedJobsNumber;
     }
-
-   
   },
   components: {
-    StarRating,ProfileDataWrapper,Icon
+    StarRating,
+    ProfileDataWrapper,
+    Icon
   },
   methods: {
     goToChangeAvatar() {
-      eventBus.$emit("getToAvatar",true);
+      eventBus.$emit("getToAvatar", true);
 
-      this.$router.push({name: 'setup_client'})
+      this.$router.push({ name: "setup_client" });
     },
     pretty_print(date) {
       return moment(date).format("DD.MM.YYYY");
@@ -264,29 +260,27 @@ export default {
   },
   data() {
     return {
-      isChangeableAvatar : false,
-      
-      tokens : undefined,
-      sitesNumber : undefined,
+      isChangeableAvatar: false,
 
-      info:{},
+      tokens: undefined,
+      sitesNumber: undefined,
 
-      all_jobs_number : undefined,
-      started_jobs_number : undefined,
-      finished_jobs_number : undefined
+      info: {},
+
+      all_jobs_number: undefined,
+      started_jobs_number: undefined,
+      finished_jobs_number: undefined
     };
   }
 };
 </script>
 
 <style scoped>
-.flex_data_first{
-  flex:1;
+.flex_data_first {
+  flex: 1;
 }
 
-
-.main_profile_container
-{
+.main_profile_container {
   display: flex;
   flex-direction: row;
   margin-top: 4%;
@@ -304,7 +298,7 @@ export default {
 }
 .header_text * {
   margin: 0;
- }
+}
 .header_text {
   width: 50%;
   font-weight: bold;
@@ -327,7 +321,6 @@ export default {
   width: 7vw;
   box-shadow: 0px 0px 0px 8px #fff;
 }
-
 
 .user_stars >>> polygon {
   stroke: transparent !important;

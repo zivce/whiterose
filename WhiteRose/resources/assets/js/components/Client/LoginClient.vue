@@ -3,7 +3,7 @@
         <form-input ref="email" :prop.sync="inputs.email"/>
         <form-input ref = "pw" :prop.sync="inputs.password"/> 
 
-        <b-button ref="btn" class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
+        <b-button ref="btn" class="btn btn-info btn-secondary actionbtn" @click.once="submitHandler()">
           Log In!
         </b-button>
 
@@ -13,14 +13,13 @@
 
 
 <script>
-import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
-import eventBus1 from "../../utils/eventBus1";
+import eventBus from "../../utils/eventBus";
 
 export default {
   mounted() {
-    eventBus1.$on("field_ok", val => {
+    eventBus.$on("field_ok", val => {
       let id = val.id;
 
       if (typeof this.inputs[id] === "undefined") return;
@@ -73,13 +72,6 @@ export default {
                 vm.errorToast("Wrong info.", "Error!");
               } else {
                 vm.notifySuccess("User logged in", "Success");
-
-                //this.loggedIn = true;
-
-                let data_store = JSON.stringify(response.data);
-                // console.log(data_store);
-
-                // window.localStorage.setItem("r", data_store);
                 window.location.reload();
               }
             } else {

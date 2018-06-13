@@ -25,11 +25,10 @@
 </template>
 
 <script>
-import logger from "../../../utils/groupLogger";
-import welcomeToastr from "../../toastr/welcometoastr";
+
 
 export default {
-  mixins: [welcomeToastr],
+  mixins: [],
   mounted() {
     this.user_id = this.$store.getters.returnId;
   },

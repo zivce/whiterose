@@ -3,7 +3,7 @@
         <form-input :prop.sync="inputs.email"/>
         <form-input :prop.sync="inputs.password"/> 
 
-        <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
+        <b-button class="btn btn-info btn-secondary actionbtn" @click.once="submitHandler()">
           Log In!
         </b-button>
 
@@ -13,7 +13,6 @@
 
 
 <script>
-import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
 import eventBus from "../../utils/eventBus";
@@ -62,8 +61,6 @@ export default {
 
               return;
             } else if (user_exists) {
-              let data_store = JSON.stringify(response.data);
-              // window.localStorage.setItem("r", data_store);
               window.location.reload();
             } else {
               //does not exist

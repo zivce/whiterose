@@ -40,32 +40,29 @@
 </template>
 
 <script>
-import logger from "../../../utils/groupLogger";
 import Icon from "vue-awesome/components/Icon";
 
-import welcomeToastr from "../../toastr/welcometoastr";
+
 
 import hardcodepentst from "./hardcodestartedjobs";
 import StartedMoreInfo from "./UserParts/StartedJobInfo.vue";
 import eventBus from "../../../utils/eventBus";
 import "vue-awesome/icons/eye";
-import {mapGetters} from 'vuex';
-
+import { mapGetters } from "vuex";
 
 export default {
   components: {
     StartedMoreInfo,
     Icon
   },
-  mixins: [welcomeToastr],
+  mixins: [],
   created() {
     //TODO: napuni started_jobs
     //TODO: skini hardcode
     //TODO: izbrisi import gore
-
   },
   computed: {
-    ...mapGetters({started_jobs:'returnStartedJobs'})
+    ...mapGetters({ started_jobs: "returnStartedJobs" })
   },
   mounted() {
     eventBus.$on("isVisibleStartedInfo", val => {
@@ -74,7 +71,7 @@ export default {
     eventBus.$on("myJobsClient", myJobs => {
       this.started_jobs = myJobs;
       // console.log(myJobs);
-      console.log(this.started_jobs);      
+      console.log(this.started_jobs);
     });
   },
   methods: {
@@ -93,7 +90,7 @@ export default {
           price: "cursorable"
         },
         headings: {
-          startingPrice:"Price"
+          startingPrice: "Price"
         },
         filterByColumn: true,
         filterable: ["title", "price"],

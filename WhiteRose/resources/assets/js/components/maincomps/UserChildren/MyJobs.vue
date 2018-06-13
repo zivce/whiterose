@@ -67,10 +67,9 @@
 </template>
 
 <script>
-import logger from "../../../utils/groupLogger";
 import Icon from "vue-awesome/components/Icon";
 
-import welcomeToastr from "../../toastr/welcometoastr";
+
 
 //TODO: hardcode pentest izbaci
 
@@ -78,7 +77,7 @@ import welcomeToastr from "../../toastr/welcometoastr";
 import MoreInfo from "./UserParts/JobsMoreInfo.vue";
 import eventBus from "../../../utils/eventBus";
 import "vue-awesome/icons/eye";
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 
 import "vue-awesome/icons/edit";
 
@@ -92,14 +91,13 @@ export default {
     MoreInfo,
     Icon
   },
-  mixins: [welcomeToastr],
+  mixins: [],
   created() {
     //TODO: napuni my_jobs
     //TODO: izbrisi hardcode dodelu
-
   },
   computed: {
-    ...mapGetters({jobs:'returnJobs'})
+    ...mapGetters({ jobs: "returnJobs" })
   },
   mounted() {
     eventBus.$on("isVisibleMoreInfo", val => {
@@ -113,9 +111,9 @@ export default {
       let job_edit_id = props.index;
 
       let job_for_edit = {
-        ...props.row, job_edit_id
-      }
-    
+        ...props.row,
+        job_edit_id
+      };
 
       this.$store.commit("setJobForEdit", job_for_edit);
       this.$router.push({ name: "postj" });
@@ -146,12 +144,12 @@ export default {
           startingPrice: "Starting price"
         },
         filterable: ["title", "startingPrice"],
-        sortable: ["title","startingPrice"],
+        sortable: ["title", "startingPrice"],
         pagination: {
           dropdown: true,
           nav: "scroll"
         }
-      },
+      }
       // jobs: []
     };
   }

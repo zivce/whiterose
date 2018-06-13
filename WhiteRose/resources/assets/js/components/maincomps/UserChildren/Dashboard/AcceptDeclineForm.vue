@@ -78,85 +78,77 @@
 </template>
 
 <script>
-import ConvoAPI from '../../../../services/api/user_api/Convo.api';
-
+import ConvoAPI from "../../../../services/api/user_api/Convo.api";
 
 import StarRating from "vue-star-rating";
 
-import eventBus from '../../../../utils/eventBus';
-
+import eventBus from "../../../../utils/eventBus";
 
 export default {
-    computed : {
-        errDesc (){
-            return this.errors.has(this.descinput.id);
-        }
-    },
-    components: {
-        StarRating
-    },
-    mounted() {
-        this.params = this.$store.getters.returnParams; 
-    },
-    methods: {
-        declineCompletion() {
-            
-            eventBus.$emit("jobFinished",false);
-
-            ConvoAPI.declineJobCompletion(this.params.job_id,this);
-        },
-        openModal()
-        {
-            this.isVisibleModalAcceptCompletion = true
-        },
-        markAsCompleted() {
-            let send = {
-                "review" :  this.descinput.value,
-                "rating" :  this.rating,
-                "job_id":   this.params.job_id
-            }
-            this.$validator.validateAll().then((form_ok) => {
-                if(form_ok)
-                    ConvoAPI.markAsCompleted(send,this).then(()=> {
-                        eventBus.$emit("acceptedJob",true);
-                    });
-                else 
-                    this.errorToast("Fill out the form","Error");
-            })
-           
-        }
-    },
-    data() {
-        return {
-            params : null,
-
-            //Description input 
-            descinput: 
-            {
-                id: "desc",
-                label: "description",
-                type: "text",
-                value: "",
-                id_upper: "Description"
-            },
-            rating:2,
-
-            //Visibility variables
-            isVisibleModalAcceptCompletion : false
-        }
+  computed: {
+    errDesc() {
+      return this.errors.has(this.descinput.id);
     }
-}
+  },
+  components: {
+    StarRating
+  },
+  mounted() {
+    this.params = this.$store.getters.returnParams;
+  },
+  methods: {
+    declineCompletion() {
+      eventBus.$emit("jobFinished", false);
+
+      ConvoAPI.declineJobCompletion(this.params.job_id, this);
+    },
+    openModal() {
+      this.isVisibleModalAcceptCompletion = true;
+    },
+    markAsCompleted() {
+      let send = {
+        review: this.descinput.value,
+        rating: this.rating,
+        job_id: this.params.job_id
+      };
+      this.$validator.validateAll().then(form_ok => {
+        if (form_ok)
+          ConvoAPI.markAsCompleted(send, this).then(() => {
+            eventBus.$emit("acceptedJob", true);
+          });
+        else this.errorToast("Fill out the form", "Error");
+      });
+    }
+  },
+  data() {
+    return {
+      params: null,
+
+      //Description input
+      descinput: {
+        id: "desc",
+        label: "description",
+        type: "text",
+        value: "",
+        id_upper: "Description"
+      },
+      rating: 2,
+
+      //Visibility variables
+      isVisibleModalAcceptCompletion: false
+    };
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-
-.review_job_completed{
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    margin-bottom: 8%;
-    text-align: center;
+.review_job_completed {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-bottom: 8%;
+  text-align: center;
 }
 
 .has-error {

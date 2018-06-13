@@ -54,7 +54,7 @@ import "vue-awesome/icons/envelope";
 export default {
   created() {
     MessagesApi.getMessages().then(resp => (this.messages = resp));
-   
+
     this.user_id = this.$store.getters.returnId;
 
     this.conv_url = `/user/${this.user_id}/dashboard/convo/`;
@@ -70,40 +70,29 @@ export default {
     Icon
   },
   methods: {
-    fixPublic(img_path)
-    {
-    
-      if(img_path)
-        return img_path.replace("public\\","");
-      else 
-        return "";
-    
+    fixPublic(img_path) {
+      if (img_path) return img_path.replace("public\\", "");
+      else return "";
     },
     openConversation(job_id, avatar) {
-      this.$store.commit("setAvatarConvoPath",avatar);
+      this.$store.commit("setAvatarConvoPath", avatar);
       this.$router.push({ name: "convo_client", params: { job_id: job_id } });
     },
     longMsg(index) {
       let obj = this.messages[index];
       return obj.visible_long_msg;
     },
-    pretty_print(msg,first) {
-       
+    pretty_print(msg, first) {
+      var array = JSON.parse("[" + msg + "]");
 
-      var array = JSON.parse("[" + msg + "]");      
-      
-      if(first === 1)
-      {
+      if (first === 1) {
         //MRTIVJOSONPARSE
         let str = array[0];
         str = str[0];
         const ind = str.indexOf("job");
-        let first_message = str.slice(0,ind+3);
+        let first_message = str.slice(0, ind + 3);
         return first_message;
-      
-      }
-      else
-        return array.slice(0, 100)+'...';
+      } else return array.slice(0, 100) + "...";
     },
     expand(index) {
       // let index = _.findIndex(this.messages, { id: msg_id });

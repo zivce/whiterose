@@ -347,12 +347,11 @@ export default {
       this.all_fields_ok &= val;
     });
 
-    eventBus.$on("getToAvatar",(val)=>{
-      if(val)
-      {
+    eventBus.$on("getToAvatar", val => {
+      if (val) {
         this.switchComponentNum("avatar");
       }
-    })
+    });
     //to go the end screen of verification
     // eventBus.$on("row-click")
     // {
@@ -373,7 +372,7 @@ export default {
     errDesc() {
       return this.errors.has(this.descinput.id);
     },
-    
+
     errSamePw() {
       return this.errors.has("newpwagain");
     }
@@ -383,8 +382,6 @@ export default {
     Icon
   },
   methods: {
-   
-
     redirectToVerifySite(site) {
       this.for_verify_site = site;
 
@@ -589,7 +586,6 @@ export default {
   font-weight: 700;
 }
 
-
 .strong {
   color: rgb(7, 8, 15);
   font-weight: 600;
@@ -612,5 +608,4 @@ export default {
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
 }
-
 </style>

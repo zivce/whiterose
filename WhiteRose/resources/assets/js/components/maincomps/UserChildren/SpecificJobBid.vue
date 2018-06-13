@@ -40,143 +40,126 @@
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/eye";
 
-
 import PentesterBid from "./UserParts/PentesterBid.vue";
 import eventBus from "../../../utils/eventBus";
 
-
 export default {
-    components: {
-        PentesterBid,
-        Icon
-    },
-    methods : {
-        showDetails(props) {
-            
-            this.details = props.row;
-            this.isVisibleBid = true;
-        }
-    },
-    props: {
-    },
-    mounted () {
-        eventBus.$on("isVisiblePentesterBid",(val) => {
-            this.isVisibleBid = val;
-        })
-    },
-    created () {
-        const props = this.$route.params;
-        /**different view if job completed */
-        // if(props.completed)
-        // {
-        //     /**Logic to get accepted bid to top of table */
-        //     const new_bids = _.sortBy(props.bids, (item) => {
-        //         return item.accepted === 1 ? 0  : 1;
-        //     })
-            
-
-        //     this.bids_filter = props.bids;
-        
-        //     /**Logic for accepting already inprogress */
-        //     /**add inprogress to each */
-        //     this.bids_filter = this.bids_filter.map(( bid ) => {
-        //        return {
-        //            ...bid,
-        //            declined_flag : bid.accepted != 1
-        //        } 
-        //     })
-        //     // console.log("declined",this.bids_filter);
-        // }
-        // else
-        // {
-        //     this.bids_filter = props.bids;
-        // }
-        
-        this.bids_filter = props.bids_modified;
-        this.title = props.title
-
-    },
-    data() {
-        return {
-            //Visibility variables
-            isVisibleBid : false,
-            
-            //Pentester bid props
-            details: {},
-            title : undefined,
-            inprogress : undefined,
-
-            //table details
-            bids_filter : [],
-            columns: ["pentester_username", "amount", "deadline", "preview"],
-             options: {
-                sortIcon:{
-                    base:'glyphicon',
-                    is:'glyphicon-sort',
-                    up: 'glyphicon-chevron-up',
-                    down: 'glyphicon-chevron-down'
-                },
-                headings : {
-                    pentester_username : 'Pentester'
-                },
-                columnsClasses: {
-                rating: "cursorable"
-                },
-                filterByColumn: true,
-                filterable: ["pentester", "rating", "title"],
-                rowClassCallback(row) 
-                {
-                    if(row.open_job_flag)
-                        return "";
-                    const accepted_suffix = 
-                    row.accepted === 1 ? "_accepted" : "_not_accepted";
-                    
-                    return "row" + accepted_suffix;
-
-                },
-                sortable: ["rating"],
-                pagination: {
-                dropdown: true,
-                nav: "scroll"
-                }
-            }
-            
-        }
+  components: {
+    PentesterBid,
+    Icon
+  },
+  methods: {
+    showDetails(props) {
+      this.details = props.row;
+      this.isVisibleBid = true;
     }
+  },
+  props: {},
+  mounted() {
+    eventBus.$on("isVisiblePentesterBid", val => {
+      this.isVisibleBid = val;
+    });
+  },
+  created() {
+    const props = this.$route.params;
+    /**different view if job completed */
+    // if(props.completed)
+    // {
+    //     /**Logic to get accepted bid to top of table */
+    //     const new_bids = _.sortBy(props.bids, (item) => {
+    //         return item.accepted === 1 ? 0  : 1;
+    //     })
 
-    
-    
-}
+    //     this.bids_filter = props.bids;
+
+    //     /**Logic for accepting already inprogress */
+    //     /**add inprogress to each */
+    //     this.bids_filter = this.bids_filter.map(( bid ) => {
+    //        return {
+    //            ...bid,
+    //            declined_flag : bid.accepted != 1
+    //        }
+    //     })
+    //     // console.log("declined",this.bids_filter);
+    // }
+    // else
+    // {
+    //     this.bids_filter = props.bids;
+    // }
+
+    this.bids_filter = props.bids_modified;
+    this.title = props.title;
+  },
+  data() {
+    return {
+      //Visibility variables
+      isVisibleBid: false,
+
+      //Pentester bid props
+      details: {},
+      title: undefined,
+      inprogress: undefined,
+
+      //table details
+      bids_filter: [],
+      columns: ["pentester_username", "amount", "deadline", "preview"],
+      options: {
+        sortIcon: {
+          base: "glyphicon",
+          is: "glyphicon-sort",
+          up: "glyphicon-chevron-up",
+          down: "glyphicon-chevron-down"
+        },
+        headings: {
+          pentester_username: "Pentester"
+        },
+        columnsClasses: {
+          rating: "cursorable"
+        },
+        filterByColumn: true,
+        filterable: ["pentester", "rating", "title"],
+        rowClassCallback(row) {
+          if (row.open_job_flag) return "";
+          const accepted_suffix =
+            row.accepted === 1 ? "_accepted" : "_not_accepted";
+
+          return "row" + accepted_suffix;
+        },
+        sortable: ["rating"],
+        pagination: {
+          dropdown: true,
+          nav: "scroll"
+        }
+      }
+    };
+  }
+};
 </script>
 <style lang="scss" scoped>
-$accepted_bg_color : #3BC14A;
-$accepted_color_text : #000923;
-$not_accepted_bg_color : #A22C29;
-$in_progress_color : #2E86AB;
-
-
-
+$accepted_bg_color: #3bc14a;
+$accepted_color_text: #000923;
+$not_accepted_bg_color: #a22c29;
+$in_progress_color: #2e86ab;
 
 .completed_bid {
   font-weight: 500;
-  color : $accepted_bg_color;
+  color: $accepted_bg_color;
 }
 
 .inprogress_bid {
   font-weight: 500;
-  color : $in_progress_color;
+  color: $in_progress_color;
 }
-
 
 .bids_table /deep/ .row_accepted td {
   background-color: $accepted_bg_color !important;
   color: $accepted_color_text !important;
   #eye_ico {
-    color: $accepted_color_text !important; 
+    color: $accepted_color_text !important;
   }
-  
+
   #eye_ico:hover {
-    color: lighten( $accepted_color_text, 30% ) !important; 
+    color: lighten($accepted_color_text, 30%) !important;
   }
 }
 
@@ -198,5 +181,3 @@ $in_progress_color : #2E86AB;
   vertical-align: middle;
 }
 </style>
-
-

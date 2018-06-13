@@ -45,7 +45,6 @@ export default {
     spy() {}
   },
   created() {
-
     axios
       .get("myScans")
       .then(response => {
@@ -53,9 +52,9 @@ export default {
         response.data.forEach(site => {
           site.scans.forEach(scan_info => {
             this.table_data.push({
-            date: moment(scan_info.created_at),
-            scan: scan_info.scanName,
-            uri: scan_info.path
+              date: moment(scan_info.created_at),
+              scan: scan_info.scanName,
+              uri: scan_info.path
             });
           });
         });

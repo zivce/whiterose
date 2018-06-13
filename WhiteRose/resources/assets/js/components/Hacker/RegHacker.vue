@@ -83,7 +83,6 @@
 <script>
 //TODO: verifikacija forme
 
-import logger from "../../utils/groupLogger";
 import bTabs from "bootstrap-vue/es/components/tabs/tabs";
 import bTab from "bootstrap-vue/es/components/tabs/tab";
 import SkillsInput from "../utilcomps/SkillsInput.vue";

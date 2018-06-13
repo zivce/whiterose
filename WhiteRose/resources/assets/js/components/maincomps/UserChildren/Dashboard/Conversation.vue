@@ -189,21 +189,20 @@
 </template>
 
 <script>
-
 /**API imports */
 import DeleteConvoAPI from "../../../../services/api/user_api/DeleteConvo.api";
 import ClientConvoAPI from "../../../../services/api/user_api/Convo.api";
 import ConvoSendMessagesAPI from "../../../../services/api/user_api/ConvoSendMessages.api";
 
-import AcceptDeclineForm from './AcceptDeclineForm.vue';
+import AcceptDeclineForm from "./AcceptDeclineForm.vue";
 
 /**Icons */
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/paper-plane";
 
 /**Utils */
-import { mapGetters } from 'vuex';
-import eventBus from '../../../../utils/eventBus';
+import { mapGetters } from "vuex";
+import eventBus from "../../../../utils/eventBus";
 
 export default {
   destroyed() {},
@@ -214,50 +213,47 @@ export default {
     //ConvoHardcode.getConv(job_id,user_id)..
     //TODO: posalji rating ovde
     this.job_id = this.$store.getters.returnParams;
-    ClientConvoAPI.getConversation(this.job_id).then(
-      resp => {this.whole_convo = resp;}
-    );
+    ClientConvoAPI.getConversation(this.job_id).then(resp => {
+      this.whole_convo = resp;
+    });
     console.log(this.whole_convo);
   },
   mounted() {
     eventBus.$on("jobFinished", jobFinished => {
-      if(!jobFinished)
-        this.whole_convo.finished = 0
-    })
-    
+      if (!jobFinished) this.whole_convo.finished = 0;
+    });
+
     eventBus.$on("acceptedJob", jobAccepted => {
-      if(jobAccepted)
-      {
+      if (jobAccepted) {
         this.accepted_job = true;
-        this.notifySuccess("Job accepted.","Success");
+        this.notifySuccess("Job accepted.", "Success");
       }
-    })
+    });
 
     this.user_name = this.$store.getters.returnUser;
     this.user_name = this.user_name.name;
     this.msg_send_id = 0;
-
   },
-  computed : {
+  computed: {
     ...mapGetters({
-      my_avatar : "returnAvatar",
-      not_my_avatar : "returnAvatarPath"
+      my_avatar: "returnAvatar",
+      not_my_avatar: "returnAvatarPath"
     })
   },
   components: {
-    Icon,AcceptDeclineForm,
-    
+    Icon,
+    AcceptDeclineForm
   },
 
   methods: {
-    timeOfMessage(time){
+    timeOfMessage(time) {
       return moment(time).format("hh:mm");
     },
-    toolTipDate(date){
+    toolTipDate(date) {
       return moment(date).format("dddd DD-MM");
     },
     markJobAsCompleted() {
-      ClientConvoAPI.markAsCompleted(this.job_id,this);
+      ClientConvoAPI.markAsCompleted(this.job_id, this);
     },
     deleteConvo() {
       //TODO: implementacija
@@ -290,19 +286,17 @@ export default {
       // console.log(new_msg);
       ConvoSendMessagesAPI.sendMsg(new_msg);
     },
-    renderMessages(msg,first) {
-      
+    renderMessages(msg, first) {
       let array = JSON.parse("[" + msg + "]");
       let message_text = array[0];
       // message_text = message_text[0];
 
-      if(first)
-      {
+      if (first) {
         message_text = message_text[0];
-      
+
         const ind = message_text.indexOf("job");
         let first_message = message_text.slice(0, ind + 3);
-        console.log("poruka",first_message);
+        console.log("poruka", first_message);
         return [first_message];
       }
 
@@ -320,7 +314,7 @@ export default {
   },
   data() {
     return {
-      client_msg_time : moment(),
+      client_msg_time: moment(),
       rating: 0,
       one_msg: "",
       msgs_for_send: [],
@@ -328,26 +322,24 @@ export default {
       msg_send_id: undefined,
       job_finished: undefined,
 
-
-      accepted_job : false,
+      accepted_job: false
     };
   }
 };
 </script>
 
 <style lang="scss" scoped>
-$borderica-pentesterica  :rgba(170, 4, 60, 0.878);
-$borderica-clientica : #233dbb;
+$borderica-pentesterica: rgba(170, 4, 60, 0.878);
+$borderica-clientica: #233dbb;
 
 .msg_container_time {
-  cursor:pointer;
+  cursor: pointer;
 }
-.msg_container_time_pentester
-{
-  cursor:pointer;
+.msg_container_time_pentester {
+  cursor: pointer;
 }
 
-.flex_header{
+.flex_header {
   display: flex;
   flex-direction: column;
 }
@@ -378,9 +370,9 @@ $borderica-clientica : #233dbb;
 }
 
 .msg_cont_header_client {
-    margin-left: auto;
-    width: -moz-fit-content;
-    width: fit-content;
+  margin-left: auto;
+  width: -moz-fit-content;
+  width: fit-content;
   border-bottom: 1px solid $borderica-clientica;
 }
 .msg_cont_header_pent > p {
@@ -393,7 +385,7 @@ $borderica-clientica : #233dbb;
 .msg_cont_header_pent {
   text-align: left;
   border-bottom: 1px solid $borderica-pentesterica;
-  width:fit-content;
+  width: fit-content;
 }
 
 .msg_cont_header {

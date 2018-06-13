@@ -1,7 +1,5 @@
 
 
-import successToast from '../../../components/toastr/FormErrorToaster';
-import errorToast from '../../../components/toastr/welcometoastr';
 
 /**
  * Used for for sending document and form data from postjob
@@ -71,6 +69,10 @@ export default {
                       }
                 })
                 .then((res)=>{
+                    
+                    if(res.data === "You dont have tokens for this job post")
+                        resolve();
+                    
                     vm.notifySuccess("Job has been posted.","Success!");
                     resolve();
                 })

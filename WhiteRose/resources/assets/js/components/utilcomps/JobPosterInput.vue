@@ -45,13 +45,14 @@ export default {
   },
   mounted() {
     /**
-     * This code adds logic to disable input of 
+     * This code adds logic to disable input of
      * `E` and `-` into price input.
      */
-    if(this.prop.disableEsAndMinus)
-    {
-      this.$refs.input_job_post
-      .addEventListener("keydown",this.disableEsAndMinus);
+    if (this.prop.disableEsAndMinus) {
+      this.$refs.input_job_post.addEventListener(
+        "keydown",
+        this.disableEsAndMinus
+      );
     }
 
     eventBus.$on("validateAllFields", () => {

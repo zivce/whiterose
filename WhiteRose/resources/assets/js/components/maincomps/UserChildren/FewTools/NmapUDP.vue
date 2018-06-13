@@ -152,9 +152,7 @@ f -->
 //import bFormCheckboxGroup from "bootstrap-vue/es/components/form-checkbox/form-checkbox-group";
 import eventBus from "../../../../utils/eventBus";
 
-import { mapGetters } from 'vuex';
-
-
+import { mapGetters } from "vuex";
 
 //IMPORT TABS
 import NmapCommon from "./NmapUDPTabs/NmapCommon.vue";
@@ -174,7 +172,6 @@ export default {
     //TODO: do ajax call here to get verified sites
   },
   mounted() {
-
     eventBus.$on("portOk", value => {
       this.isPortListOk = value;
     });
@@ -188,7 +185,7 @@ export default {
     });
   },
   computed: {
-    ...mapGetters({verified_sites_only: "returnMappedVerifiedSites" }),    
+    ...mapGetters({ verified_sites_only: "returnMappedVerifiedSites" }),
     errIp() {
       return this.errors.has("ip");
     },

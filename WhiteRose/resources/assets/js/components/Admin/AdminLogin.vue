@@ -22,7 +22,6 @@
 
 
 <script>
-import logger from "../../utils/groupLogger";
 import { SnotifyPosition } from "vue-snotify";
 import FormInput from "../utilcomps/FormInput.vue";
 

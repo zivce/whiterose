@@ -150,141 +150,130 @@
     </template>
 <script>
 /**API  */
-import StoreAPI from '../../../services/api/store_api/Store.api';
+import StoreAPI from "../../../services/api/store_api/Store.api";
 import VerifySiteApi from "../../../services/api/user_api/verifySite.api";
 
 /**Vuex getters */
 import { mapGetters } from "vuex";
 
-
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/file";
 import "vue-awesome/icons/times";
 
-
-
 export default {
-    components: {
-        Icon
+  components: {
+    Icon
+  },
+  computed: {
+    ...mapGetters({ client_sites: "returnSites" }),
+    errSiteVerif() {
+      return this.errors.has(this.site_for_verification.id);
+    }
+  },
+  methods: {
+    makeGetKeyUrl(site) {
+      return `getkey/${site}`;
     },
-    computed: {
-
-        ...mapGetters({ client_sites: "returnSites" }),
-        errSiteVerif() {
-            return this.errors.has(this.site_for_verification.id);
-        }
+    getKey(props) {
+      VerifySiteApi.getKey(props.row.domain, this).then(() => {
+        this.verifySite();
+      });
     },
-    methods : {
-        makeGetKeyUrl(site) {
-            return `getkey/${site}`;
-        },
-        getKey(props) {
-        VerifySiteApi.getKey(props.row.domain, this).then(() => {
-            this.verifySite();
-        });
-        },
 
-        //HANDLERS FORMS
-        newSiteHandler() {
-            if (this.site_for_verification.value.length !== 0) {
-                VerifySiteApi.addNewSite(this, this.site_for_verification.value).then(
-                resolved => {
-                    //site already exists
-                    if (!resolved) return;
+    //HANDLERS FORMS
+    newSiteHandler() {
+      if (this.site_for_verification.value.length !== 0) {
+        VerifySiteApi.addNewSite(this, this.site_for_verification.value).then(
+          resolved => {
+            //site already exists
+            if (!resolved) return;
 
-                    this.isInputSitePart = false;
-                    this.isKeyVerifPart = true;
-                    this.isVerifySitePart = false;
-
-
-                    /**Logika za popunjavanje tabele
-                     * sledeci korak
-                     */
-                    
-                    StoreAPI.getSites()
-                    .then((res)=>{
-                        this.$store.commit("setSites",res.data)
-                    })
-                    
-
-                }
-                );
-            } else {
-                this.errorToast("Please insert site", "Error!");
-            }
-        },
-        redirectToVerifySite(site) {
-            this.for_verify_site = site;
-
-            this.isInputSitePart = false;
-            this.isKeyVerifPart = false;
-            this.isVerifySitePart = true;
-        },
-
-        viewSites() {
             this.isInputSitePart = false;
             this.isKeyVerifPart = true;
             this.isVerifySitePart = false;
-        },
-        getBackToFirstScreen() {
-            this.isInputSitePart = true;
-            this.isKeyVerifPart = false;
-            this.isVerifySitePart = false;
-        },
-        getBackToSecondScreen() {
-            this.isInputSitePart = false;
-            this.isKeyVerifPart = true;
-            this.isVerifySitePart = false;
-        },
-        
+
+            /**Logika za popunjavanje tabele
+             * sledeci korak
+             */
+
+            StoreAPI.getSites().then(res => {
+              this.$store.commit("setSites", res.data);
+            });
+          }
+        );
+      } else {
+        this.errorToast("Please insert site", "Error!");
+      }
+    },
+    redirectToVerifySite(site) {
+      this.for_verify_site = site;
+
+      this.isInputSitePart = false;
+      this.isKeyVerifPart = false;
+      this.isVerifySitePart = true;
+    },
+
+    viewSites() {
+      this.isInputSitePart = false;
+      this.isKeyVerifPart = true;
+      this.isVerifySitePart = false;
+    },
+    getBackToFirstScreen() {
+      this.isInputSitePart = true;
+      this.isKeyVerifPart = false;
+      this.isVerifySitePart = false;
+    },
+    getBackToSecondScreen() {
+      this.isInputSitePart = false;
+      this.isKeyVerifPart = true;
+      this.isVerifySitePart = false;
+    },
+
     verifySiteHandler() {
       let vm = this;
       let valid = this.$validator;
       let send = { site: this.for_verify_site };
 
       VerifySiteApi.verifySite(valid, vm, send);
-    },
-    },
-    data() {
-        return {
-             //Site verification
-            columns_sites: ["domain", "confirmed", "verify"],
-            options_sites: {
-                columnsClasses: {
-                confirmed: "cursorable",
-                domain: "cursorable"
-                },
-                filterable: ["domain"],
-                filterByColumn: true,
-                pagination: {
-                dropdown: true,
-                nav: "scroll"
-                }
-            },
-
-
-            //Visibility variables
-            isInputSitePart: true,
-            isKeyVerifPart: false,
-            isVerifySitePart: false,
-
-            site_for_verification: {
-                id: "site",
-                label: "Site for verification",
-                type: "text",
-                value: "",
-                id_upper: "Site"
-            }, 
-
-        }
-
     }
-}
+  },
+  data() {
+    return {
+      //Site verification
+      columns_sites: ["domain", "confirmed", "verify"],
+      options_sites: {
+        columnsClasses: {
+          confirmed: "cursorable",
+          domain: "cursorable"
+        },
+        filterable: ["domain"],
+        filterByColumn: true,
+        pagination: {
+          dropdown: true,
+          nav: "scroll"
+        }
+      },
+
+      //Visibility variables
+      isInputSitePart: true,
+      isKeyVerifPart: false,
+      isVerifySitePart: false,
+
+      site_for_verification: {
+        id: "site",
+        label: "Site for verification",
+        type: "text",
+        value: "",
+        id_upper: "Site"
+      }
+    };
+  }
+};
 </script>
 
 <style scoped>
 .table_sites >>> td {
-    text-align: center;
+  text-align: center;
 }
 
 .check_ico {

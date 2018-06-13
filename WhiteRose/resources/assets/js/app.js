@@ -10,7 +10,6 @@ import BootstrapVue from "bootstrap-vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
-import logger from "./utils/groupLogger";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -28,7 +27,6 @@ import { ClientTable, Event } from "vue-tables-2";
 import errorToaster from "./components/toastr/FormErrorToaster";
 import notifyInfo from "./components/toastr/infotoastr";
 
-import logg from "./utils/groupLogger";
 import successToastr from "./components/toastr/welcometoastr";
 import VBar from "v-bar";
 
@@ -48,7 +46,6 @@ Vue.component("v-bar", VBar);
  * Mixins
  */
 
-Vue.mixin(logg);
 Vue.mixin(errorToaster);
 Vue.mixin(checkFields);
 Vue.mixin(successToastr);
@@ -90,7 +87,6 @@ if (lander_exists) {
 import store from "./store";
 
 let home_exists = document.getElementById("home") ? true : false;
-const TOKENS_HARDCODE = 5000;
 if (home_exists) {
   const home = new Vue({
     store,

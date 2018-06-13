@@ -1,5 +1,5 @@
-import successToast from '../../../components/toastr/FormErrorToaster';
-import errorToast from '../../../components/toastr/welcometoastr';
+
+
 
 /**
  * Used for getting messages in user setup profile

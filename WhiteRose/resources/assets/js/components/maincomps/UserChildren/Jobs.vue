@@ -42,10 +42,8 @@
 </template>
 
 <script>
-import logger from "../../../utils/groupLogger";
 import Icon from "vue-awesome/components/Icon";
 
-import welcomeToastr from "../../toastr/welcometoastr";
 
 
 import MoreInfo from "./UserParts/JobsMoreInfo.vue";
@@ -63,9 +61,8 @@ export default {
   components: {
     Icon
   },
-  mixins: [welcomeToastr],
+  mixins: [],
   created() {
-
     axios
       .get("returnmyjobs")
       .then(response => {
@@ -77,18 +74,17 @@ export default {
             description: job_info.description,
             inprogress: job_info.inprogress,
             completed: job_info.completed,
-            job_id : job_info.id
+            job_id: job_info.id
             //job_info
           });
           // eventBus.$emit('myJobsClient',this.jobs);
-          this.$store.commit('setJobs',this.jobs);
+          this.$store.commit("setJobs", this.jobs);
         });
       })
       .catch(err => {
         //error snotify here.
       });
   },
-  computed: {},
   mounted() {
     eventBus.$on("isVisibleMoreInfo", val => {
       this.isVisibleBid = val;
@@ -103,14 +99,12 @@ export default {
   },
   data() {
     return {
-
       //width fixes
-      icon_fix_width : 57,
+      icon_fix_width: 57,
 
       details: {},
       isVisibleBid: false,
-      jobs:[],
-     
+      jobs: []
     };
   }
 };

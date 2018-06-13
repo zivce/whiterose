@@ -1,7 +1,5 @@
 
 
-import successToast from '../../../components/toastr/FormErrorToaster';
-import errorToast from '../../../components/toastr/welcometoastr';
 
 /**
  * Used for for sending document and form data from postjob

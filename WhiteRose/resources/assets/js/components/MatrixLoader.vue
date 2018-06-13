@@ -4,8 +4,6 @@
 </template>
 
 <script>
-import logger from "../utils/groupLogger";
-
 export default {
   mounted() {
     this.m = document.getElementById("mat");

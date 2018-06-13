@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import logger from "../../../../utils/groupLogger";
-import welcomeToastr from "../../../toastr/welcometoastr";
 import eventBus from "../../../../utils/eventBus";
 
 import Icon from "vue-awesome/components/Icon";
@@ -36,7 +34,7 @@ export default {
   components: {
     Icon
   },
-  mixins: [welcomeToastr],
+  mixins: [],
   props: {
     det: {
       type: Object,

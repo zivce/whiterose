@@ -193,24 +193,17 @@ import eventBus from "../../../utils/eventBus";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/handshake";
 
-import welcomeToastr from "../../toastr/welcometoastr";
+
 import JobFormInput from "../../utilcomps/JobPosterInput.vue";
 
 //Services part
 import PostJobAPI from "../../../services/api/user_api/PostJob.api";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
-  created() {
-    //TODO: povuci sve verifikovane sajtove...
-    // PostJobAPI.getAllUserScans().then(
-    //   (response) => {
-    //     this.scans = response.data;
-    //   }
-    // )
-  },
+  created() {},
   computed: {
-    ...mapGetters({verified_sites_only: "returnMappedVerifiedSites" }),
+    ...mapGetters({ verified_sites_only: "returnMappedVerifiedSites" }),
     errDesc() {
       return this.errors.has(this.descinput.id);
     },
@@ -222,7 +215,7 @@ export default {
     JobFormInput,
     Icon
   },
-  mixins: [welcomeToastr],
+  mixins: [],
   mounted() {
     /**
      * Get job for edit if such
@@ -234,7 +227,6 @@ export default {
       this.itIsEditJobForm = true;
       this.itIsPostJobForm = false;
 
-
       this.edit_id = job_for_edit.job_edit_id;
 
       this.titleinput.value = job_for_edit.title;
@@ -243,7 +235,6 @@ export default {
 
       this.$store.commit("setJobForEdit", null);
     }
-
 
     eventBus.$on("field_ok", val => {
       this.all_fields_ok &= val;
@@ -257,18 +248,16 @@ export default {
       let vm = this;
       eventBus.$emit("validateAllFields");
       this.$validator.validateAll().then(form_ok => {
-          if (form_ok && vm.all_fields_ok) {
-            this.sending = {
-              "new_tokens" : this.priceinput.value,
-              "new_desc" : this.descinput.value
-            }
-          
+        if (form_ok && vm.all_fields_ok) {
+          this.sending = {
+            new_tokens: this.priceinput.value,
+            new_desc: this.descinput.value
+          };
 
-            //api call to send form data
-            PostJobAPI.editJob(this.sending,vm)
-            .then(res => {
-              console.log(res);
-            });
+          //api call to send form data
+          PostJobAPI.editJob(this.sending, vm).then(res => {
+            console.log(res);
+          });
         } else {
           //reset
           vm.all_fields_ok = true;
@@ -280,7 +269,6 @@ export default {
       eventBus.$emit("validateAllFields");
       this.$validator.validateAll().then(form_ok => {
         if (form_ok && vm.all_fields_ok) {
-         
           let whole_cost_of_transaction =
             Number(this.COST_OF_SUBMISSION) + Number(this.priceinput.value);
 
@@ -297,7 +285,7 @@ export default {
           this.formData.append("price", this.priceinput.value);
 
           //api call to send form data
-          PostJobAPI.postForm(this.formData,vm).then(res => {
+          PostJobAPI.postForm(this.formData, vm).then(res => {
             // console.log(res);
           });
         } else {
@@ -311,17 +299,15 @@ export default {
     return {
       //consts
       COST_OF_SUBMISSION: 5,
-      
-      sending :undefined,
 
-      
+      sending: undefined,
+
       //util for edite
-      edit_id : undefined,
+      edit_id: undefined,
 
-      //visibility part 
-      itIsEditJobForm : false,
-      itIsPostJobForm : true,
-
+      //visibility part
+      itIsEditJobForm: false,
+      itIsPostJobForm: true,
 
       all_fields_ok: true,
       validator: this.$validator,
@@ -340,7 +326,7 @@ export default {
         id: "title",
         label: "title",
         type: "text",
-        maxlen_input : 20,
+        maxlen_input: 20,
         value: ""
       },
       descinput: {
@@ -355,8 +341,8 @@ export default {
         label: "price",
         type: "number",
         value: "",
-        maxlen_input : 5,
-        disableEsAndMinus : true,
+        maxlen_input: 5,
+        disableEsAndMinus: true
       }
     };
   }

@@ -97,7 +97,7 @@ export default {
       this.removed = true;
     },
     sendInfo() {
-      console.log(this.det);
+      let vm = this;
       this.$validator.validateAll().then(form_ok => {
         if (form_ok) {
           axios

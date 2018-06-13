@@ -33,69 +33,63 @@
 
 <script>
 export default {
-    props : {
-        goToRoute : {
-            type : String,
-            required : true
-        }
-    },
-methods : {
+  props: {
+    goToRoute: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
     navigate() {
-        this.$router.push({name:this.goToRoute})
+      this.$router.push({ name: this.goToRoute });
     }
-},
-data() {
-    return {
-
-    }
-}
-
+  },
+  data() {
+    return {};
+  }
 };
 </script>
 
 
 <style scoped>
-
 .flexed_row {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
-.flexed_column  p {
-    margin-bottom : 0 !important;
+.flexed_column p {
+  margin-bottom: 0 !important;
 }
 
 .flexed_column {
-    margin-left: 5%;
-    display: flex;
-    flex-direction: column;
+  margin-left: 5%;
+  display: flex;
+  flex-direction: column;
 }
-.quant_style{
-    font-weight: bold;
+.quant_style {
+  font-weight: bold;
 }
 .data_icon >>> svg {
-    display: block;
-    margin:  0 auto;
+  display: block;
+  margin: 0 auto;
 }
-.data_icon
-{
-    cursor: pointer;
-    cursor : hand;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    width: 4vw;
-    height: 4vw;
-    border-radius: 50%;
-    background-color: rgb(44, 51, 64);
-    color: white;
+.data_icon {
+  cursor: pointer;
+  cursor: hand;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  width: 4vw;
+  height: 4vw;
+  border-radius: 50%;
+  background-color: rgb(44, 51, 64);
+  color: white;
 }
 
-.profile_data_wrapper
-{
-    display: flex;
-    flex-direction: row;
-    width:100%;
-    height: fit-content;    
+.profile_data_wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: fit-content;
 }
 </style>
