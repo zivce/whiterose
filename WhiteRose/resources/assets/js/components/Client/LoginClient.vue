@@ -79,7 +79,7 @@ export default {
                 let data_store = JSON.stringify(response.data);
                 // console.log(data_store);
 
-                window.localStorage.setItem("r", data_store);
+                // window.localStorage.setItem("r", data_store);
                 window.location.reload();
               }
             } else {
