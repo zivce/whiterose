@@ -98,74 +98,60 @@ if (home_exists) {
     router: mainRouter,
     created() {
       this.unsync = sync(this.$store, this.$router);
+      axios
+      .get("getLoggedUser")
+      .then((user) => {
+        
+        let payload = user.data;
+        
+        store.commit("setUser", payload);
 
-      let _user = localStorage.getItem("r");
-      let loggedInPromise = null;
+        FetchTokensAPI.fetchTokens().then(
+          numOfTok => {
+            if (store.getters.returnTokens === null)
+            store.commit("setTokens", { tokens: numOfTok });
+          })
 
-      _user = JSON.parse(_user);
-      // _user.avatar = _user.avatar.replace("public\\","");
-      // console.log(_user.avatar);
-       
-      //TODO: Resi... 
-     
-          // axios
-          //   .get("getLoggedUser")
-          //   .then((user) => {
-              
-              store.commit("setUser", _user);
+        
+          
     
-             
-              FetchTokensAPI.fetchTokens().then(
-                
-                numOfTok => {
-                  if (store.getters.returnTokens === null)
-                  store.commit("setTokens", { tokens: numOfTok });
-                }
-                
-                )
+          StoreAPI.getSites()
+          .then((res)=>{
+            store.commit("setSites",res.data)
+          })
+    
+          
+    
+          //TODO: fetch rating of user
+          const RATING = 4;
+    
+          store.commit("setRating", { rating: RATING });
+    
+          let user_role = this.$store.getters.returnRole;
+    
+          this.user_id = this.$store.getters.returnId;
 
-              
-              //TODO: dodaj sajtove u store
-              
-        
-              StoreAPI.getSites()
-              .then((res)=>{
-                store.commit("setSites",res.data)
-              })
-        
-              // StoreAPI.getAllUserScans().then((res)=>{
-              //     store.commit("setScans",res.data)
-              // })
-              
-              
-        
-              //TODO: fetch rating of user
-              const RATING = 4;
-        
-              store.commit("setRating", { rating: RATING });
-        
-              let user_role = this.$store.getters.returnRole;
-        
-              this.user_id = this.$store.getters.returnId;
+          //all loading is done put the 
+          //vue in front of user
+          //eyes
 
-              
-              this.$router.push({
-                path: `/${user_role}/${this.user_id}/`
-              });
-             
-
-
-            // })
+          this.fetched_user = true;
+        
+          
+          this.$router.push({
+            path: `/${user_role}/${this.user_id}/`
+          });
+      })
 
     
     },
     destroyed() {
       this.unsync();
-      //window.localStorage.clear();
-      //window.localStorage.setItem(r,null);
+      
     },
     data() {
       return {
+        fetched_user: false,
         user_id: "",
         role : undefined,
         unsync: new Function()
@@ -175,4 +161,91 @@ if (home_exists) {
       this.user_id = "";
     }
   });
+
+  //Adding frontend guards
+  
+
+//forbid client routes for others.
+home.$router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.client)) {
+    
+    let role = home.$store.getters.returnRole;
+    let id = home.$store.getters.returnUser.id;
+
+    if (role !== 'client') {
+      home.$snotify.error("Not available for you", "Error", {
+        position: SnotifyPosition.centerTop,
+        backdrop: 0.5
+      });
+
+      next({
+        path: `/${role}/${id}`
+      });
+
+    } else {
+      next();
+    }
+  } else {
+    //not the route needed login
+    next();
+  }
+});
+
+//forbid pentester routes for others.
+home.$router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.pentester)) {
+    
+    let role = home.$store.getters.returnRole;
+    let id = home.$store.getters.returnUser.id;
+
+    if (role !== 'pentester') {
+      home.$snotify.error("Not available for you", "Error", {
+        position: SnotifyPosition.centerTop,
+        backdrop: 0.5
+      });
+
+      next({
+        path: `/${role}/${id}`
+      });
+
+    } else {
+      next();
+    }
+  } else {
+    //not the route needed login
+    next();
+  }
+});
+
+
+
+//forbid admin routes for others.
+home.$router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.admin)) {
+    
+    let role = home.$store.getters.returnRole;
+    let id = home.$store.getters.returnUser.id;
+
+    if (role !== 'admin') {
+      home.$snotify.error("Not available for you", "Error", {
+        position: SnotifyPosition.centerTop,
+        backdrop: 0.5
+      });
+
+      next({
+        path: `/${role}/${id}`
+      });
+
+    } else {
+      next();
+    }
+  } else {
+    //not the route needed login
+    next();
+  }
+});
+
+
+
+
 }

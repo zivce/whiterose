@@ -9,10 +9,14 @@ let routes = [
     {
         name:'main',
         path: '/',
+       
         children: [
         {
             path:`client/:id`,
             redirect : {name: 'postj'},
+            meta: {
+                client : true
+            },
             component : require('../components/maincomps/MainChildren/User.vue'),
             children:[
                 {
@@ -152,6 +156,9 @@ let routes = [
         {
             path:'pentester/:id',
             redirect : {name: 'cvpost'},
+            meta: {
+                pentester : true
+            },
             component : require('../components/maincomps/MainChildren/Pentester.vue'),
             children:[ 
                 {
@@ -250,6 +257,9 @@ let routes = [
         },
         {
             path:'admin/:id',
+            meta: {
+                admin : true
+            },
             redirect : {name : 'banuser'},
             children:[
                 //Load admin comps
@@ -277,10 +287,10 @@ let routes = [
         redirect:'/'
     }
 ]
+
+
 const router = new VueRouter({
     routes
 })
-
-
 
 export default router;
