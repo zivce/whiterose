@@ -18,10 +18,24 @@
 
     <div 
     id="home" 
-    v-if="fetched_user"
     class="container-fluid">
-        <router-view></router-view>
+        
+        <transition-group name="setup">
+
+            <matrix 
+            key="matrix"
+            v-if="!fetched_user"
+            ></matrix>
+
+            <router-view
+            key="main"
+            v-if="fetched_user"
+            ></router-view>     
+        
+        </transition-group>
+    
     </div>
+    
     <script src="https://js.stripe.com/v3/"></script>
     <script src="{{ asset('js/app.js') }}"> </script>
 

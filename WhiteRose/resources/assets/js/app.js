@@ -32,15 +32,14 @@ import VBar from "v-bar";
 
 import checkFields from "./utils/checkAllFields";
 import fixInputs from './mixins/fixNumberInput';
-
-//hardcode
-import SitesHardcode from "./client_sites.hardcode";
+import Matrix from './components/MatrixLoader.vue';
 
 /**
  * Comps
  */
 
 Vue.component("v-bar", VBar);
+
 
 /**
  * Mixins
@@ -130,8 +129,10 @@ if (home_exists) {
           //all loading is done put the 
           //vue in front of user
           //eyes
-
-          this.fetched_user = true;
+          
+          window.setTimeout(( ) => {
+            this.fetched_user = true;
+          },2000)
         
           
           this.$router.push({
@@ -140,6 +141,9 @@ if (home_exists) {
       })
 
     
+    },
+    components :{
+      Matrix
     },
     destroyed() {
       this.unsync();

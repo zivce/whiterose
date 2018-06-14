@@ -108,9 +108,9 @@
       </transition>
 
 
-      <div v-if="main_client_visible">
+      <!-- <div v-if="main_client_visible">
         <p>Main CLient</p>
-      </div>
+      </div> -->
 
   </div>
 

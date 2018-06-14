@@ -1,5 +1,4 @@
 import Vue from "vue";
-import errorNotify from "../js/components/toastr/FormErrorToaster";
 
 import Vuex from "vuex";
 Vue.use(Vuex);
