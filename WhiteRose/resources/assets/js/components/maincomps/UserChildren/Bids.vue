@@ -1,12 +1,12 @@
 <template>
-  <div class="comp_container">
+  <div class="comp_container ">
     
     <h2 class="h2s">Preview your bids.</h2>
       <div class="d-flex flex-column justify-content-center">
           <div 
           style="cursor:pointer;"
           @click="openBidsView(job)"
-          class="bid_container"
+          class="bid_container col-8"
           v-for="job in jobs"
           :key="job.id">
             <div

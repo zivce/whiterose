@@ -2,7 +2,7 @@
     font-weight: $h2-weight;
     font-size: $h2-size;
     color: $h2s-color;
-    font-family: "Lusitana",serif;
+    font-family: $font-family-sans-serif;
   }
 .ps {
   font-weight: $p-weight;
@@ -11,7 +11,7 @@
 
 .h1s
 {
-  font-family: "Lusitana",serif;
+  font-family:  $font-family-sans-serif;
   letter-spacing: 2px;
 }
   .btn-info:not(:disabled):not(.disabled):active:focus, .btn-info:not(:disabled):not(.disabled).active:focus, .show > .btn-info.dropdown-toggle:focus {
@@ -99,9 +99,10 @@ button:focus{
 
 }
 .message_container {
+  border: 2px solid;
   margin-top: 2%;
-  background-color: #2c3340;
   margin-bottom: 0.1%;
+  color: #2c3340;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -109,10 +110,11 @@ button:focus{
   padding: 1%;
 }
 
+
 .message_h3 {
   text-align: left;
-  color: white;
-  font-family: "Lusitana",serif;
+  color: #2c3340;
+  font-family:  $font-family-sans-serif;
   font-size : $h3-size;
   font-weight:  $h3-weight;
 
@@ -120,26 +122,26 @@ button:focus{
 
 .message_p {
   font-size: 1rem;
-  color: azure;
+  color: #2c3340;;
 }
 
 
 .bid_container {
+  border: 2px solid;
   margin-top: 2%;
-  background-color: #2c3340;
   margin-bottom: 0.1%;
+  color: #2c3340;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  height: fit-content;
-  width:60%;
+  height: 1%;
   padding: 1%;
 }
 
 .bid_h3 {
   text-align: left;
-  color: white;
-  font-family: "Lusitana",serif;
+  color: #2c3340;
+  font-family: $font-family-sans-serif;
   font-size : $h3-size;
   font-weight:  $h3-weight;
 
@@ -147,7 +149,7 @@ button:focus{
 
 .bid_p {
   font-size: 1rem;
-  color: azure;
+  color: #2c3340;;
 }
 
 .dashboard_setup_container
