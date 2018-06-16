@@ -19,13 +19,14 @@
           </icon>
         </span>
         
-        <div 
+        <!-- <div 
         class = "msg_cont "
         v-for="(disc) in whole_convo.discusion"
         :key = disc.id
-        >
+        > -->
           <div
-          v-for="(msg) in disc.messages"
+          class = "msg_cont "
+          v-for="(msg) in whole_convo.discusion.messages"
           :key = msg.id
           >
             <div
@@ -94,7 +95,7 @@
             </div>
 
 
-          </div>
+          <!-- </div> -->
         </div>
 
         <accept-decline-form 
@@ -215,8 +216,9 @@ export default {
     this.job_id = this.$store.getters.returnParams;
     ClientConvoAPI.getConversation(this.job_id).then(resp => {
       this.whole_convo = resp;
+      console.log(this.whole_convo);
+
     });
-    console.log(this.whole_convo);
   },
   mounted() {
     eventBus.$on("jobFinished", jobFinished => {
@@ -273,7 +275,7 @@ export default {
         client_to_pentester: 1,
         pentester_to_client: 0,
         sender: this.user_name,
-        discusionID: this.whole_convo.discusion[0].id,
+        discusionID: this.whole_convo.discusion.id,
         message: this.one_msg,
         date_time: moment().format("YYYY-MM-DD hh:mm:ss")
       };
@@ -318,7 +320,7 @@ export default {
       rating: 0,
       one_msg: "",
       msgs_for_send: [],
-      whole_convo: [],
+      whole_convo: undefined,
       msg_send_id: undefined,
       job_finished: undefined,
 
