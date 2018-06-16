@@ -135,6 +135,12 @@ import DataTxt from "./Data/data.txt";
 import MessagesTxt from "./Data/messages.txt";
 import SearchTxt from "./Data/search.txt";
 import SetupTxt from "./Data/setup.txt";
+import AllSitesTxt from "./Data/allsites.txt";
+import ProfileTxt from "./Data/profile.txt";
+import PurchaseTokensTxt from "./Data/purchasetokens.txt";
+
+
+
 import eventBus from "../../../utils/eventBus";
 
 export default {
@@ -171,6 +177,7 @@ export default {
         return obj.route === this.route;
       });
       if (txt_info) {
+
         this.textinside = txt_info.textinside;
         this.title = txt_info.title;
       }
@@ -267,9 +274,24 @@ export default {
           title: SearchTxt.title
         },
         {
+          route : "/allsites",
+          textinside : AllSitesTxt.textinside,
+          title : AllSitesTxt.title
+        },
+        {
           route: "/setup",
           textinside: SetupTxt.textinside,
           title: SetupTxt.title
+        },
+        {
+          route: "/profile",
+          textinside: ProfileTxt.textinside,
+          title: ProfileTxt.title
+        },
+        {
+          route: "/purchasetokens",
+          textinside: PurchaseTokensTxt.textinside,
+          title: PurchaseTokensTxt.title
         }
       ]
     };

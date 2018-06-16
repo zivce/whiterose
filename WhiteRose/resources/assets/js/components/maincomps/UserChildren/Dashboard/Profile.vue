@@ -145,7 +145,7 @@
           </div>
           
           <div slot="quantity">
-            <p>40 unread</p>
+            <p>{{num_messages}}</p>
           </div>
 
         </profile-data-wrapper> 
@@ -186,6 +186,8 @@ import Icon from "vue-awesome/components/Icon";
 
 import eventBus from "./../../../../utils/eventBus";
 
+import MessagesAPI from '../../../../services/api/user_api/messagesClient.api';
+
 import "vue-awesome/icons/hourglass-start";
 import "vue-awesome/icons/flag-checkered";
 import "vue-awesome/icons/tasks";
@@ -206,16 +208,14 @@ export default {
 
     this.tokens = this.$store.getters.returnTokens;
     this.sitesNumber = this.$store.getters.returnSitesNumber;
+      
+      MessagesAPI.getMessages()
+      .then(resp => this.num_messages = resp.length);
 
-    if (this.$store.getters.returnJobsNumber == 0) {
       axios
         .get("returnmyjobs")
         .then(response => {
-          // this adapts response for show in vue tables 2
-          // this.jobs[0] = response.data[0];
           response.data.forEach(job_info => {
-            //ovde sam hardkodirao da bi se uklopilo u tabelu
-            //treba ovo sto je zakomentarisano pa da promenis tabelu
             this.jobs.push({
               title: job_info.title,
               startingPrice: job_info.maximum_price,
@@ -223,9 +223,7 @@ export default {
               inprogress: job_info.inprogress,
               completed: job_info.completed,
               job_id: job_info.id
-              //job_info
             });
-            // eventBus.$emit('myJobsClient',this.jobs);
             this.$store.commit("setJobs", this.jobs);
             this.all_jobs_number = this.$store.getters.returnJobsNumber;
             this.started_jobs_number = this.$store.getters.returnStartedJobsNumber;
@@ -233,15 +231,9 @@ export default {
           });
         })
         .catch(err => {
-          //error snotify here.
+          console.error(err);
         });
-    }
-    //Postoje poslovi
-    else {
-      this.all_jobs_number = this.$store.getters.returnJobsNumber;
-      this.started_jobs_number = this.$store.getters.returnStartedJobsNumber;
-      this.finished_jobs_number = this.$store.getters.returnFinishedJobsNumber;
-    }
+    
   },
   components: {
     StarRating,
@@ -266,7 +258,8 @@ export default {
       sitesNumber: undefined,
 
       info: {},
-
+      jobs : [],
+      num_messages : 0,
       all_jobs_number: undefined,
       started_jobs_number: undefined,
       finished_jobs_number: undefined

@@ -144,9 +144,9 @@ if (home_exists) {
           },2000)
         
           
-          // this.$router.push({
-          //   path: `/${user_role}/${this.user_id}/`
-          // });
+          this.$router.push({
+            path: `/${user_role}/${this.user_id}/`
+          });
       })
 
     

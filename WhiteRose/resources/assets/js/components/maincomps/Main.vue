@@ -2,8 +2,9 @@
   <div id="main_vue">
       <div class="row" id="header">
         <h1 >
-        <router-link 
-        to="/home"
+        <div 
+        style="cursor:pointer;"
+        @click="rel()"
         >
 
           <!-- :class = "{'red_ico':isHacker}" -->
@@ -16,7 +17,7 @@
             
           </icon>
 
-        </router-link>
+        </div>
       </h1>
         
         <div id="profile_container">
@@ -187,6 +188,9 @@ export default {
     }
   },
   methods: {
+    rel(){
+      window.location.reload();
+    },
     goToMsg() {
       this.$router.push({ path: this.messages_url });
     },

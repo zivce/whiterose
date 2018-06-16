@@ -2,10 +2,10 @@ import VueRouter from 'vue-router';
 
 
 let routes = [
-    {
-        path:'/',
-        component: require('../components/maincomps/Home.vue')
-    },
+    // {
+    //     path:'/home',
+    //     component: require('../components/maincomps/Home.vue')
+    // },
     {
         name:'main',
         path: '/',
@@ -146,6 +146,7 @@ let routes = [
 
                 },
                 {
+                    name : 'bids_table',
                     path:'bids',
                     component: require('../components/maincomps/UserChildren/Bids.vue')
                     
