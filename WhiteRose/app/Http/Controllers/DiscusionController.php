@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Client;
 use App\Pentester;
 use App\Message;
+use Symfony\Component\HttpKernel\Log\Logger;
 
 
 
@@ -55,7 +56,7 @@ class DiscusionController extends Controller
         
         
         $job=Job::where('id',$jobID)->first();
-        $discusion=$job->discusion()->first();
+        $discusion=$job->discusion()->where('job_id',$jobID)->first();
         $job_pivot = $job->pentesters()->where('pentesters_jobs.job_id',$jobID)->first()->pivot;
         $finished = $job_pivot->finished;
         $pentester=Pentester::where('id',$discusion->pentester_id)->first();    
@@ -67,8 +68,9 @@ class DiscusionController extends Controller
         
         $discusion->sender = $pentester;
         
-        $discusion = $discusion->with('messages')->get();
-
+        //$discusion = $discusion->with('messages')->get();
+        $discusion->messages=$discusion->messages()->get();
+        
         return $ret = [
             "discusion" => $discusion,
             "pentester" => $pentester->username,
