@@ -5,7 +5,7 @@
         </matrix> -->
       <div id="wrapper">
 
-          <h1 class="col-md-4 offset-md-4 headers">
+          <!-- <h1 class="col-md-4 offset-md-4 headers">
               Welcome client.
           </h1>
 
@@ -18,9 +18,9 @@
             <b-button ref="reg" size="lg" @click="regTrue()"  variant="outline-primary" id="reg">
               Register
             </b-button>
-          </div>
+          </div> -->
 
-        <div class="row col-md-4 offset-md-4">
+        <div class="row col-md-4 offset-md-4" style="height:100%;">
 
           <transition 
           name="lander" 

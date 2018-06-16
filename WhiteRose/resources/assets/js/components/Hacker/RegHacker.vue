@@ -1,5 +1,5 @@
 <template>
-     <form class="fform">
+     <form class="fform" id="reg_hacker_form">
 
             <!-- username reg form -->
           <b-tabs pills card>
@@ -18,7 +18,7 @@
 
             </b-tab>
 
-            <b-tab title="Info 1"  class="my-tab">
+            <b-tab title="Info"  class="my-tab">
                 <form-input :prop.sync="inputs.username" >
                 </form-input>
 
@@ -328,6 +328,10 @@ export default {
 
 
 <style scoped>
+#reg_hacker_form{
+  margin:auto;
+}
+
 #lander {
   height: 120vh !important;
 }

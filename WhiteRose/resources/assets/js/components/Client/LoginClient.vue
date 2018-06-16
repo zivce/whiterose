@@ -1,5 +1,5 @@
 <template>
-    <form class="fform" ref="log_form_client">
+    <form class="fform" ref="log_form_client" id="login_form_client">
         <form-input ref="email" :prop.sync="inputs.email"/>
         <form-input ref = "pw" :prop.sync="inputs.password"/> 
 
@@ -7,6 +7,9 @@
           Log In!
         </b-button>
 
+        <router-link :to="{name : 'client_reg'}"> 
+          Create an account here. 
+        </router-link>
 
     </form>
 </template>
@@ -118,6 +121,10 @@ export default {
 
 
 <style scoped>
+#login_form_client
+{
+  margin:auto;
+}
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
 }

@@ -1,5 +1,5 @@
 <template>
-        <form class="fform" ref="reg_form_client">
+        <form class="fform" ref="reg_form_client" id="regi_form_client">
           <form-input :prop.sync="inputs.firstname"/>
           <form-input :prop.sync="inputs.username"/>
           <form-input :prop.sync="inputs.lastname"/>
@@ -187,6 +187,11 @@ export default {
 
 
 <style scoped>
+
+#regi_form_client
+{
+  margin:auto;
+}
 /* da se pomeri na dole kad predje na sledecu komponentu  */
 .fade-enter-active,
 .fade-leave-active {
