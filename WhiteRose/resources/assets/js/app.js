@@ -71,11 +71,20 @@ let lander_exists = document.getElementById("lander") ? true : false;
 
 if (lander_exists) {
   const lander = new Vue({
-    
+    components :{
+      Matrix
+    },
     el: "#lander",
     router: landerRouter,
     created() {},
-    mounted() {}
+    mounted() {
+     
+    },
+    data() {
+      return {
+       
+      }
+    }
   });
 }
 

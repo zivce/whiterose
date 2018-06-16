@@ -3,9 +3,9 @@
        
       <div id="wrapper">
 
-          <h1 class="col-md-4 offset-md-4 headers">
+          <!-- <h1 class="col-md-4 offset-md-4 headers">
               Welcome hacker.
-          </h1>
+          </h1> 
 
           <div class="col-md-4 offset-md-4" id="btns">
             
@@ -16,9 +16,9 @@
             <b-button size="lg" @click="regTrue()"  variant="outline-primary" id="reg">
               Register
             </b-button>
-          </div>
+          </div>-->
 
-        <div class="row col-md-4 offset-md-4">
+        <div class="row col-md-4 offset-md-4" style="height:100%;">
 
           <transition 
           name="lander" 
@@ -115,6 +115,7 @@ h1 {
 }
 
 #lander_hacker_main {
+  
   background-color: transparent;
   height: 100vh;
 }

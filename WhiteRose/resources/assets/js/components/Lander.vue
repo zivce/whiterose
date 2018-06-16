@@ -1,26 +1,43 @@
 <template>
-  <div id="lander_main" class="row">
-    <main id="inner_buttons">
-      <h1>
+  <div id="lander_main" 
+  class="row"
+  style="display:flex;flex-direction:row;">
+    <!-- <h1>
         Follow the white rabbit.
-      </h1>
-      
+    </h1> -->
+
+    <!-- <main id="inner_buttons"> -->
       <router-link :to="{name:'land_hacker'}">
-      
-        <b-button size="lg"  variant="outline-danger" id="hck">
-          Hacker?
-        </b-button>
-      
+        <div class="left_half">
+
+          <h1 class="h1s_lander">
+            Pentester  
+          </h1>
+
+          <p>
+            Log in to find jobs and other clients
+          </p>
+
+        </div>
       </router-link>
- 
+      
       <router-link :to="{name: 'land_client'}">
+        <div class="right_half">
+          
+          <h1 class="h1s_lander">
+            User  
+          </h1>
 
-        <b-button size="lg" variant="outline-primary" id="usr">
-          User?
-        </b-button>
+          <p>
+            Log in to get your site tested and find other pentesters.
+          </p>
 
+        </div>
+        
       </router-link>
-    </main>
+
+ 
+    <!-- </main> -->
 
     
   </div>
@@ -49,6 +66,36 @@ export default {
 
 
 <style scoped>
+a {
+  text-decoration: none;
+}
+p {
+  color : white;
+}
+.left_half:hover {
+  background-color: rgba(209, 3, 46, 0.609);
+  text-decoration: none;
+}
+
+.left_half
+{
+  text-align: center;
+  background-color: rgba(209, 3, 46, 0.452);
+  width: 50vw;
+  height: 100%;
+}
+.right_half:hover {
+  background-color: rgba(6, 26, 64, 0.931);
+  text-decoration: none;
+}
+.right_half
+{
+  text-align: center;
+  background-color: rgba(6, 26, 64, 0.685);
+  width: 50vw;
+  height: 100%;
+}
+
 #hck {
   margin-left: 25%;
 }

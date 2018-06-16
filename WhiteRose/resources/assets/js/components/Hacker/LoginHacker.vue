@@ -1,5 +1,5 @@
 <template>
-    <form class="fform">
+    <form class="fform" id="login_form_hacker">
         <form-input :prop.sync="inputs.email"/>
         <form-input :prop.sync="inputs.password"/> 
 
@@ -7,6 +7,9 @@
           Log In!
         </b-button>
 
+        <router-link :to="{name : 'hacker_reg'}"> 
+          Create an account here. 
+        </router-link>
 
     </form>
 </template>
@@ -106,6 +109,10 @@ export default {
 
 
 <style scoped>
+#login_form_hacker{
+  margin: auto;
+}
+
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
 }
