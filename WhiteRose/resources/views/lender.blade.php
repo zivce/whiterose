@@ -16,21 +16,8 @@
 
 <body>
 
-    <div id="lander" >
-        
-        <transition-group name="setup">
-
-            <matrix 
-            key="matrix"
-            v-if="show_matrix"
-            ></matrix>
-
-            <router-view
-            key="main"
-            v-if="!show_matrix"
-            ></router-view>     
-
-        </transition-group>
+    <div id="lander" class="container-fluid">
+        <router-view></router-view>
     </div>
     <script src="{{ asset('js/app.js') }}"> </script>
 

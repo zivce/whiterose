@@ -78,15 +78,11 @@ if (lander_exists) {
     router: landerRouter,
     created() {},
     mounted() {
-      let t1 = window.setTimeout(()=> {
-        window.clearTimeout(t1);
-        this.show_matrix = false;
-      },4000)
-
+     
     },
     data() {
       return {
-        show_matrix : true
+       
       }
     }
   });

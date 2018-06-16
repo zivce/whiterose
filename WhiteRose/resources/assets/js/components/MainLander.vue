@@ -1,8 +1,8 @@
 <template>
     <div id="lander_before_main">
-      <!-- <transition name="lander">
+      <transition name="lander">
         <matrix v-if="isVisibleMatrix"></matrix>
-      </transition>  -->
+      </transition>  
 
 
       <transition name="lander" mode="out-in">
@@ -25,11 +25,11 @@ export default {
   mounted() {
     //CHANGED!
     //CHANGE LATER FOR LOADER TO 4000
-    // let delay = 4;
+    let delay = 4000;
 
-    // this.timer = setTimeout(() => {
-    //   this.isVisibleMatrix = false;
-    // }, delay);
+    this.timer = setTimeout(() => {
+      this.isVisibleMatrix = false;
+    }, delay);
   },
   destroyed() {
     clearTimeout(this.timer);

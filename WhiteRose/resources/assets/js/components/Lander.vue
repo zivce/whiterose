@@ -1,5 +1,6 @@
 <template>
   <div id="lander_main" 
+  class="row"
   style="display:flex;flex-direction:row;">
     <!-- <h1>
         Follow the white rabbit.
