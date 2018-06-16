@@ -1,5 +1,5 @@
 <template>
-    <div id="lander_hacker_main" class="row">
+    <div id="lander_client_main" class="row">
        
         <!-- <matrix class="matrx">
         </matrix> -->
@@ -109,7 +109,7 @@ h1 {
   margin: auto;
 }
 
-#lander_hacker_main {
+#lander_client_main {
   background-color: transparent;
   height: 100vh;
 }

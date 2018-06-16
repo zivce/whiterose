@@ -115,6 +115,7 @@ h1 {
 }
 
 #lander_hacker_main {
+  
   background-color: transparent;
   height: 100vh;
 }
