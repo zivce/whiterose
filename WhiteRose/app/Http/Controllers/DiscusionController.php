@@ -70,12 +70,12 @@ class DiscusionController extends Controller
         
         //$discusion = $discusion->with('messages')->get();
         $discusion->messages=$discusion->messages()->get();
-        $disc=array();
-        $disc[0]=$discusion;
+        //$disc=array();
+       // $disc[0]=$discusion;
        /// array_push($disc,$discusion);
         
         return $ret = [
-            "discusion" => $disc,
+            "discusion" => $discusion,
             "pentester" => $pentester->username,
             "finished"  => $finished,
             "completed" => $job->completed,
@@ -88,11 +88,11 @@ class DiscusionController extends Controller
         
        // $discusion = $discusion->with('messages')->get();
        $discusion->messages=$discusion->messages()->get();
-       $disc=array();
-       $disc[0]=$discusion;
+      // $disc=array();
+      // $disc[0]=$discusion;
 
         return $ret = [
-            "discusion" => $disc,
+            "discusion" => $discusion,
             "client" => $client->username,
             "finished"  => $finished,
             "completed" => $job->completed,
