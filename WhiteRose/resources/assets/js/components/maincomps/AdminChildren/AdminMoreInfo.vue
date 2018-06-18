@@ -10,10 +10,10 @@
      <transition name="flip" mode="out-in">
       <div v-if="!removed">
 
-        <h2 class="h2s">Job by {{det.user}}</h2>
+        <h2 class="h2s">Job by {{det.client}}</h2>
 
-        <h3 class="h3s">Rating:</h3>
-        <p>{{det.user_rating}}</p>
+        <!-- <h3 class="h3s">Rating:</h3>
+        <p>{{det.user_rating}}</p> -->
 
         <h3 class="h3s">Title:</h3>
         <p>{{det.title}}</p>
@@ -80,7 +80,7 @@ export default {
   methods: {
     forSureRemoveJob() {
       //TODO: api call to remove job
-      // RemoveJobAPI.removeJob(this.det.id);
+      RemoveJobAPI.removeJob(this.det.id);
 
       this.notifySuccess("Job removed", "Success");
       this.removed = false;

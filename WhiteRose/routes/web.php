@@ -148,6 +148,7 @@ Route::post('declineJob','ClientController@declineJob');
 
 Route::post('adminlogin','AdminController@login')->name('adminlogin');
 Route::get('getAllUsers','AdminController@getAllUsers')->name('getAllUsers');
+Route::get('getAllJobs','AdminController@getAllJobs')->name('getAllJobs');
 Route::post('banUser','AdminController@banUser')->name('banUser');
 
 

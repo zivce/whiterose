@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Client as Client;
 use App\Pentester as Pentester;
+use App\Job as Job;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -81,5 +82,15 @@ class AdminController extends Controller
             $user->confirmed = 0;
             return "Pentester successfully banned!";            
         }
+    }
+
+    public function getAllJobs()
+    {
+        $jobs = Job::all();
+        foreach($jobs as $job){
+            $client = $job->client()->first();
+            $job->client = $client;
+        }
+        return $jobs->sortBy('created_at');
     }
 }

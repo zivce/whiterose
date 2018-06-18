@@ -42,10 +42,10 @@
 import Icon from "vue-awesome/components/Icon";
 import hardc from "./alljobs.hardcode";
 import eventBus from "../../../utils/eventBus";
-// import AllJobsAPI from '../../../services/api/admin_api/AllJobs.api';
+import AllJobsAPI from '../../../services/api/admin_api/AllJobs.api';
+// import AllJobsAPI from '../../../services/api/pentester_api/AllJobs.api';
 import MoreInfo from "./AdminMoreInfo.vue";
 import "vue-awesome/icons/eye";
-// import AllJobsApi from '../../../services/api/admin_api/AllJobs.api';
 
 export default {
   components: {
@@ -58,7 +58,9 @@ export default {
     //TODO: izbrisi hardcode dodelu
 
     let vm = this;
-    // AllJobsApi.getAllJobs().then(jobs => vm.all_jobs = jobs);
+    const jobs = AllJobsAPI.getAllJobs();
+
+    jobs.then(jobs => vm.all_jobs = jobs);
   },
   computed: {},
   mounted() {
@@ -78,8 +80,8 @@ export default {
     return {
       details: {},
       isVisibleBid: false,
-      columns: ["domain", "maximum_price", "preview"],
-      all_jobs: hardc,
+      columns: ["domain", "maximum_price", "inprogress","completed","client","preview"],
+      all_jobs: null,
       options: {
         columnsClasses: {
           rating: "cursorable"
