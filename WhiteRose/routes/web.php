@@ -144,6 +144,8 @@ Route::post('completeJob','PentesterController@completeJob');
 Route::post('acceptJob','ClientController@acceptJob');
 Route::post('declineJob','ClientController@declineJob');
 
+Route::post('adminlogin','AdminController@login')->name('adminlogin');
+
 
 // Route::group(['prefix' => 'client'], function () {
 //   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
