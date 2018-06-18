@@ -442,6 +442,15 @@ class ClientController extends Controller
     public function acceptJob(Request $request)
     {
         $job = Job::where('id',$request->send['job_id'])->first();
+        $bid=$job->bid()->get();
+        $cliet=$job->client()->get();
+        $pentester=$job->pentester()->get();
+
+        $client->tokens=$client->tokens-$bid->amount;
+        $pentester->tokens=$pentester->tokens+$bid->amount;
+        $client->save();
+        $pentester->sabe();
+        
         $c_id = $job->client_id;
         $job = $job->pentesters()->first();
 
