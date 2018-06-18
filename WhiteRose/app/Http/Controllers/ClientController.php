@@ -150,6 +150,7 @@ class ClientController extends Controller
     public function deleteJob(Request $request)
     {
         Job::where('id',$request->id)->first()->delete();
+        return "Job has been deleted!";
     }
     //edit job
     public function editJob(Request $request)
