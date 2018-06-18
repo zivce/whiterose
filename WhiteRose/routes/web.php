@@ -52,12 +52,14 @@ Route::get('/',function(){
 });
 Route::get('getLoggedUser',function()
 {
-    if(Auth::guard('pentester')->user())
-    
-        return $user=['role'=>'pentester','user'=>Auth::guard('pentester')->user()];
-    
-        
-        return $user=['role'=>'client','user'=>Auth::guard('client')->user()];
+    if(Auth::guard('pentester')->user()){
+        return $user=['role'=>'pentester','user'=>Auth::guard('pentester')->user()];        
+    }elseif(Auth::guard('client')->user()->email === "admin@whiterose.com"){
+        return $user=['role'=>'admin','user'=>Auth::guard('client')->user()];                
+    }else{
+        return $user=['role'=>'client','user'=>Auth::guard('client')->user()];        
+    }
+
 });
 
 
@@ -145,6 +147,8 @@ Route::post('acceptJob','ClientController@acceptJob');
 Route::post('declineJob','ClientController@declineJob');
 
 Route::post('adminlogin','AdminController@login')->name('adminlogin');
+Route::get('getAllUsers','AdminController@getAllUsers')->name('getAllUsers');
+Route::post('banUser','AdminController@banUser')->name('banUser');
 
 
 // Route::group(['prefix' => 'client'], function () {

@@ -1,11 +1,9 @@
 <template>
-  <div class="comp_container">
-    
-    <transition name="flip" mode="out-in">
-      
+  <div class="comp_container">    
+    <!-- <transition-group name="flip" mode="out-in"> -->
       <v-client-table
       v-if="!isVisibleModal"
-      :data='all_users'
+      :data='all_users[0]'
       :columns='columns'
       :options='options'
       >
@@ -20,9 +18,26 @@
 
       
       </v-client-table >
+      
+      
+      <v-client-table
+      v-if="!isVisibleModal"
+      :data='all_users[1]'
+      :columns='columns'
+      :options='options'     
+      >
     
-    </transition>
-    <transition name="flip" mode="out-in">
+    <a  slot="ban" 
+        slot-scope="props"
+        class="cursorable"
+        @click="showModal(props)"
+        >
+        <icon class="ban_ico" name="ban"></icon>
+      </a>
+
+      
+      </v-client-table >
+
     
       <div
       class="center_it"
@@ -37,7 +52,7 @@
 
       </div>
 
-    </transition>
+    <!-- </transition-group> -->
 
   </div>
 </template>
@@ -49,6 +64,14 @@ import "vue-awesome/icons/ban";
 import usersHardcode from "./users.hardcode";
 
 export default {
+  created() {
+
+    BanUserAPI.getAllUsers().then(users => {
+      // console.log(users.data[0]);
+      // console.log(users.data[1]);
+      this.all_users = users.data;
+    });
+  },
   components: {
     Icon
   },
@@ -60,7 +83,7 @@ export default {
     },
     banUser() {
       //TODO : napravi ban
-      // BanUserAPI.banUser(this.for_ban_details.id);
+      BanUserAPI.banUser(this.for_ban_details.id,this.for_ban_details.role);
 
       this.isVisibleModal = false;
       this.notifySuccess("User banned.", "Success!");
@@ -76,7 +99,8 @@ export default {
 
       columns: ["username", "role", "ban"],
       isVisibleModal: false,
-      all_users: usersHardcode,
+      // all_users: usersHardcode,
+      all_users: [],
       options: {
         columnsClasses: {
           role: "cursorable"
