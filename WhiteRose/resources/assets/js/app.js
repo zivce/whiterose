@@ -141,14 +141,18 @@ if (home_exists) {
           
           window.setTimeout(( ) => {
             this.fetched_user = true;
-          },2000)
+          },0)
         
           
           this.$router.push({
             path: `/${user_role}/${this.user_id}/`
           });
       })
-
+      .catch((err)=> {
+      
+        window.location.reload();
+      
+      })
     
     },
     components :{
