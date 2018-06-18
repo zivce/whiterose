@@ -3,7 +3,7 @@
         <form-input ref="email" :prop.sync="inputs.email"/>
         <form-input ref = "pw" :prop.sync="inputs.password"/> 
 
-        <b-button ref="btn" class="btn btn-info btn-secondary actionbtn" @click.once="submitHandler()">
+        <b-button ref="btn" class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
           Log In!
         </b-button>
 
