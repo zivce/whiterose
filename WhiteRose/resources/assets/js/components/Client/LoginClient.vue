@@ -1,16 +1,20 @@
 <template>
     <form class="fform" ref="log_form_client" id="login_form_client">
+        <h2 class="h2s">
+          Whiterose</h2>
+        <p class="text-muted">Login to continue to dashboard.</p>
+
         <form-input ref="email" :prop.sync="inputs.email"/>
         <form-input ref = "pw" :prop.sync="inputs.password"/> 
+        <div class="d-flex flex-column">
+          <b-button ref="btn" class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
+            Login
+          </b-button>
 
-        <b-button ref="btn" class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
-          Log In!
-        </b-button>
-
-        <router-link :to="{name : 'client_reg'}"> 
-          Create an account here. 
-        </router-link>
-
+          <router-link :to="{name : 'client_reg'}"> 
+            Create an account here. 
+          </router-link>
+        </div>
     </form>
 </template>
 

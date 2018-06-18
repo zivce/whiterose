@@ -25,7 +25,7 @@ export default {
   mounted() {
     //CHANGED!
     //CHANGE LATER FOR LOADER TO 4000
-    let delay = 4000;
+    let delay = 0;
 
     this.timer = setTimeout(() => {
       this.isVisibleMatrix = false;

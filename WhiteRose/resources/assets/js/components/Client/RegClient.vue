@@ -1,5 +1,9 @@
 <template>
         <form class="fform" ref="reg_form_client" id="regi_form_client">
+           <h2 class="h2s">
+          Whiterose</h2>
+          <p class="text-muted">Register your account here.</p>
+
           <form-input :prop.sync="inputs.firstname"/>
           <form-input :prop.sync="inputs.username"/>
           <form-input :prop.sync="inputs.lastname"/>
@@ -10,7 +14,7 @@
 
         <div  class="fform_input">
         
-          <label :for="inputs.pwagain.id">{{inputs.pwagain.label}}</label>
+          <!-- <label :for="inputs.pwagain.id">{{inputs.pwagain.label}}</label> -->
 
           <input  
           autocomplete="on"
@@ -31,9 +35,16 @@
           </span>
         
         </div>
-        <b-button class="fixbtn btn btn-info btn-secondary actionbtn" @click="submitHandler()">
-          Register!
-        </b-button>
+        <div class="d-flex flex-column">
+          <b-button class="fixbtn btn btn-info btn-secondary actionbtn" @click="submitHandler()">
+            Register!
+          </b-button>
+          
+          <router-link :to="{name : 'client_log'}"> 
+            I already have an account.
+          </router-link>
+
+        </div>
          </form>
 </template>
 

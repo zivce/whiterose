@@ -2,9 +2,10 @@
 <template>
     <div  class="fform_input">
     
-    <label :for="prop.id">{{prop.label}}</label>
+    <!-- <label :for="prop.id">{{prop.label}}</label> -->
 
     <input  
+    @keypress.enter="logIn()"
     ref = "input_p"
     :placeholder="prop.label"
     :class="{'has-error':errHandler}"
@@ -15,7 +16,7 @@
     v-validate="vval"
     :name="prop.id"/>
     
-    <span v-if="errors.has(prop.id)" class="incorrect_input">
+    <span v-show="errors.has(prop.id)" class="incorrect_input">
         {{id_upper}} required!
     </span>
     
@@ -27,6 +28,12 @@
 import eventBus from "../../utils/eventBus";
 
 export default {
+  methods : {
+    logIn() {
+      console.log("works");
+      this.submit();
+    }
+  },
   mounted() {
     //console.log(this.$validator)   ;
     // eventBus.$on("validateAllFields", () => {
@@ -37,6 +44,9 @@ export default {
     // });
   },
   props: {
+    submit : {
+      type : Function
+    },
     prop: {
       type: Object,
       twoWay: true
@@ -92,10 +102,10 @@ export default {
 }
 
 .incorrect_input {
-  float: left;
+  /* float: left;
   width: 100%;
   color: red;
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 700; */
 }
 </style>
