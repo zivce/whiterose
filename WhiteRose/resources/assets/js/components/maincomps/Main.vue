@@ -21,10 +21,44 @@
       </h1>
         
         <div id="profile_container">
+          
           <img 
           :src="avatar_url"
-          />
+          /> 
+          <div 
+          id = "admin_container"
+          style="margin:auto;
+          margin-right: 1vw;"
+          class="d-flex flex-row"
+          v-if="isAdmin"> 
+          
+            <p
+            style="    
+            margin-right: 7px;
+            margin-left: 7px;"
+            > 
+              {{username}} 
+            </p>
+            
+            <div 
+            style="cursor:pointer;"
+            @click="handleLogout()">
+            
+              <icon 
+              style="
+              fill:red;
+              vertical-align:middle;
+              "
+              name="logout"></icon>
+            
+            </div>
+          
+          </div>
+
+
+
           <b-dropdown
+          v-if="!isAdmin"
           right
           :text="username" 
           :class = "{'hacker':isHacker}"
@@ -169,8 +203,12 @@ export default {
       this.main_comp = false;
     }
     this.user_role = this.$store.getters.returnRole;
+    
     if (this.user_role === "pentester") {
       this.isHacker = true;
+    }
+    if (this.user_role === "admin") {
+      this.isAdmin = true;
     }
 
     this.profile_url = `/${this.user_role}/${this.user_id}/dashboard/profile`;
@@ -207,7 +245,11 @@ export default {
             this.errorToast("Error happened", "Error!");
           }
         });
-      } else if (this.user_role === "client") {
+      } else if (this.user_role === "client" 
+                || this.user_role === "admin" )  {
+        
+        //TODO: promeni u adminlogout? 
+
         axios.get("/clientlogout").then(res => {
           if (res.status === 200) {
           
@@ -240,6 +282,7 @@ export default {
       //visibility vars
       isActiveTokenCharger: false,
       isHacker: false,
+      isAdmin : false,
 
       messages_url: "",
 
@@ -255,6 +298,11 @@ export default {
 </script>
 
 <style  scoped>
+#admin_container * {
+  margin: 0;
+}
+
+
 #profile_container > img {
   margin: auto;
   width: 40px;

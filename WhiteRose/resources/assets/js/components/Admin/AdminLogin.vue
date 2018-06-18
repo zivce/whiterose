@@ -11,7 +11,11 @@
 
         <form-input :prop.sync="inputs.email"/>
 
-        <form-input :prop.sync="inputs.pw"/> 
+        <form-input 
+        :submit = "submitHandler"
+        :prop.sync="inputs.pw"/> 
+
+
         <div class="d-flex flex-column" >
         
           <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
