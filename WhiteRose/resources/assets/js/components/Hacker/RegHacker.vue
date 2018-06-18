@@ -1,6 +1,10 @@
 <template>
      <form class="fform" id="reg_hacker_form">
-
+          <h2 class="h2s">
+          Whiterose
+          </h2>
+          
+          <p class="text-muted">Register your account here.</p>
             <!-- username reg form -->
           <b-tabs pills card>
 
