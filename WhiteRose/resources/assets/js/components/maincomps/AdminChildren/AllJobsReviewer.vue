@@ -81,13 +81,16 @@ export default {
       details: {},
       isVisibleBid: false,
       columns: ["domain", "maximum_price", "inprogress","completed","client","preview"],
-      all_jobs: null,
+      all_jobs: [],
       options: {
         columnsClasses: {
           rating: "cursorable"
         },
+        headings : {
+          maximum_price : "Price"
+        },
         filterByColumn: true,
-        filterable: ["maximum_price"],
+        filterable: ["domain"],
         sortable: ["maximum_price"],
         pagination: {
           dropdown: true,

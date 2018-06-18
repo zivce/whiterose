@@ -227,7 +227,7 @@ export default {
       this.itIsEditJobForm = true;
       this.itIsPostJobForm = false;
 
-      this.edit_id = job_for_edit.job_edit_id;
+      this.edit_id = job_for_edit.job_id;
 
       this.titleinput.value = job_for_edit.title;
       this.priceinput.value = job_for_edit.startingPrice;
@@ -248,12 +248,15 @@ export default {
       let vm = this;
       eventBus.$emit("validateAllFields");
       this.$validator.validateAll().then(form_ok => {
+
         if (form_ok && vm.all_fields_ok) {
           this.sending = {
+            job_id : this.edit_id,
             new_tokens: this.priceinput.value,
             new_desc: this.descinput.value
           };
-
+          console.log(this.sending);
+          
           //api call to send form data
           PostJobAPI.editJob(this.sending, vm).then(res => {
             console.log(res);

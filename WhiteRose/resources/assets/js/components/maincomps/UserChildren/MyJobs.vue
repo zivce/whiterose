@@ -108,11 +108,11 @@ export default {
   methods: {
     editJob(props) {
       // console.log(props);
-      let job_edit_id = props.index;
-
+      // let job_edit_id  = props.index;
+      console.log(props.row);
       let job_for_edit = {
         ...props.row,
-        job_edit_id
+        // job_edit_id
       };
 
       this.$store.commit("setJobForEdit", job_for_edit);
