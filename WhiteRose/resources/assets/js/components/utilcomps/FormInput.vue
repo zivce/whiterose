@@ -30,7 +30,6 @@ import eventBus from "../../utils/eventBus";
 export default {
   methods : {
     logIn() {
-      console.log("works");
       this.submit();
     }
   },

@@ -22,7 +22,7 @@
 
             </b-tab>
 
-            <b-tab title="Info"  class="my-tab">
+            <b-tab title="Details"  class="my-tab">
                 <form-input :prop.sync="inputs.username" >
                 </form-input>
 
@@ -35,12 +35,13 @@
             </b-tab>
 
 
-            <b-tab title="Info" class="my-tab">
+            <b-tab title="Finish" class="my-tab">
               <form-input :prop.sync="inputs.email" >
               </form-input>
               
               
-              <form-input :prop.sync="inputs.password" >
+              <form-input 
+              :prop.sync="inputs.password" >
               </form-input>
             
 
@@ -51,11 +52,11 @@
 
                 <div  class="fform_input">
                 
-                  <label :for="inputs.pwagain.id">{{inputs.pwagain.label}}</label>
+                  <!-- <label :for="inputs.pwagain.id">{{inputs.pwagain.label}}</label> -->
 
                   <input  
                   autocomplete="on"
-
+                  @keypress.enter="submitHandler"
                   :placeholder="inputs.pwagain.label"
                   :class="{'has-error':errorPwAgain}"
                   :type="inputs.pwagain.type" 
@@ -76,17 +77,22 @@
             
             <div class="d-flex flex-column">
             
-              <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
-                Register!
+              <b-button 
+              class="btn btn-info btn-secondary actionbtn" 
+              @click="submitHandler()">
+                Register
               </b-button>
-
+              
+             
 
             </div>
           
           
           </b-tab>
         </b-tabs>
-          
+          <router-link :to="{name : 'hacker_log'}"> 
+              I already have an account.
+          </router-link>
          </form>
 </template>
 
@@ -185,14 +191,9 @@ export default {
 
               return;
             } else if (response.status === 200) {
-              // window.setTimeout(() => {
-              //   window.location.href = "/";
-              // });
+            
+              vm.notifySuccess("User registered!", "Success!");
 
-              vm.$snotify.success("User registered!", "Success!", {
-                position: SnotifyPosition.centerTop,
-                backdrop: 0.5
-              });
               return;
             }
           })
@@ -339,6 +340,10 @@ export default {
 
 
 <style scoped>
+* >>> .card-header {
+  background-color : transparent !important;
+}
+
 #reg_hacker_form{
   margin:auto;
 }

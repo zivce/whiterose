@@ -32,7 +32,9 @@
         class="cursorable"
         @click="showModal(props)"
         >
-        <icon class="ban_ico" name="ban"></icon>
+        <icon 
+        
+        class="ban_ico" name="ban"></icon>
       </a>
 
       
@@ -43,11 +45,25 @@
       class="center_it"
       v-if="isVisibleModal">
         
-        <h3 class="h3s">Ban user?</h3>
+        <h3 class="h3s">Are you sure you want to ban user 
+          <strong> 
+            {{ for_ban_details.username }} 
+          </strong> ? </h3>
 
-        <div class="btns">
-          <b-button class="btn btn-danger btn-secondary" @click="banUser()">Yes</b-button>
-          <b-button class="btn btn-success btn-secondary" @click="closeModal()">No</b-button>
+        <div class="btns_ban_user">
+          <b-button class="btn btn-success" @click="banUser()">
+            Yes<icon 
+            style="
+            vertical-align:middle;
+            margin-left: 5px;"
+            name="ban"></icon>
+
+          </b-button>
+          <b-button class="btn btn-danger" @click="closeModal()">No 
+            <icon 
+            style="vertical-align:middle;"
+            name="window-close">
+            </icon></b-button>
         </div>
 
       </div>
@@ -60,7 +76,11 @@
 <script>
 import BanUserAPI from "../../../services/api/admin_api/UserBan.api";
 import Icon from "vue-awesome/components/Icon";
+
 import "vue-awesome/icons/ban";
+import "vue-awesome/icons/window-close";
+
+
 import usersHardcode from "./users.hardcode";
 
 export default {
@@ -105,8 +125,8 @@ export default {
         columnsClasses: {
           role: "cursorable"
         },
+        filterable: ['username'],
         filterByColumn: true,
-        filterable: ["role"],
         pagination: {
           dropdown: true,
           nav: "scroll"
@@ -118,6 +138,12 @@ export default {
 </script>
 
 <style scoped>
+.btns_ban_user
+{
+  margin : auto;
+  width: fit-content;
+}
+
 .ban_ico {
   color: rgb(234, 0, 0);
 }
