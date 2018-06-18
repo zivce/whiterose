@@ -1,6 +1,6 @@
 <template>
         <form class="fform" ref="reg_form_client" id="regi_form_client">
-           <h2 class="h2s">
+          <h2 class="h2s">
           Whiterose</h2>
           <p class="text-muted">Register your account here.</p>
 

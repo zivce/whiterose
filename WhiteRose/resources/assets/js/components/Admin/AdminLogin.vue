@@ -1,18 +1,28 @@
 <template>
     <div>
 
-    <h1 class="row justify-content-center align-items-center headers">
-        Welcome admin.
-    </h1>
 
-    <form class="fform">
+    <form class="fform" id="login_form_admin">
+        <h2 class="h2s">
+        Whiterose
+        </h2>
+
+        <p class="text-muted">Login to your admin dashboard.</p>
+
         <form-input :prop.sync="inputs.email"/>
 
-        <form-input :prop.sync="inputs.pw"/> 
+        <form-input 
+        :submit = "submitHandler"
+        :prop.sync="inputs.pw"/> 
 
-        <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
-          Log In!
-        </b-button>
+
+        <div class="d-flex flex-column" >
+        
+          <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
+            Log In!
+          </b-button>
+          
+        </div>
 
 
     </form>
@@ -89,6 +99,10 @@ export default {
 
 
 <style scoped>
+#login_form_admin {
+  margin: auto;
+}
+
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
 }
