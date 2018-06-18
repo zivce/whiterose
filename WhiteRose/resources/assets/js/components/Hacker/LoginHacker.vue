@@ -1,16 +1,29 @@
 <template>
     <form class="fform" id="login_form_hacker">
-        <form-input :prop.sync="inputs.email"/>
-        <form-input :prop.sync="inputs.password"/> 
+        
+        <h2 class="h2s">
+          Whiterose
+        </h2>
+        
+        <p class="text-muted">Login to continue to dashboard.</p>
 
-        <b-button class="btn btn-info btn-secondary actionbtn" @click.once="submitHandler()">
-          Log In!
-        </b-button>
+        <form-input 
+        :prop.sync="inputs.email"/>
+        <form-input 
+        :submit = "submitHandler"
+        :prop.sync="inputs.password"/> 
 
-        <router-link :to="{name : 'hacker_reg'}"> 
-          Create an account here. 
-        </router-link>
+        <div class="d-flex flex-column">
+        
+          <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
+            Log In!
+          </b-button>
 
+          <router-link :to="{name : 'hacker_reg'}"> 
+            Create an account here. 
+          </router-link>
+        
+        </div>
     </form>
 </template>
 

@@ -105,7 +105,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: transparent;
-  box-shadow: 1px 1px inset;
+  /* box-shadow: 1px 1px inset; */
 }
 
 h1 {

@@ -10,7 +10,7 @@
 
         <form-input :prop.sync="inputs.pw"/> 
 
-        <b-button class="btn btn-info btn-secondary actionbtn" @click.once="submitHandler()">
+        <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
           Log In!
         </b-button>
 
@@ -44,26 +44,9 @@ export default {
           .then(function(response) {
             let user_exists = response.data !== "User does not exist";
 
-            let email_not_verified =
-              response.data === "Please verify your account";
-
-            if (email_not_verified) {
-              vm.$snotify.info("Verify your email.", "Verification", {
-                position: SnotifyPosition.centerTop,
-                backdrop: 0.5
-              });
-
-              return;
-            } else if (user_exists) {
+            if (user_exists) {
               //after login go to home and header should change
-
-              axios.get("/home").then(() => {
-                window.setTimeout(() => {
-                  window.location.href = "/";
-                }, 5);
-
-                return;
-              });
+              window.location.reload();
             } else {
               //does not exist
               vm.$snotify.error("User does not exist!", "Error!", {

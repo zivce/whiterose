@@ -69,10 +69,17 @@
                 
                 </div>
 
+            
+            <div class="d-flex flex-column">
+            
+              <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
+                Register!
+              </b-button>
 
-            <b-button class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
-              Register!
-            </b-button>
+
+            </div>
+          
+          
           </b-tab>
         </b-tabs>
           
