@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Client as Client;
+use Illuminate\Support\Facades\Auth;
+
 
 class AdminController extends Controller
 {
@@ -29,7 +32,7 @@ class AdminController extends Controller
                 }else{
                     $avatar = $client->image_path;
                 }
-                $toReturn=['role'=>'client',
+                $toReturn=['role'=>'admin',
                             'id'=>$client->id,
                             'name'=>$client->name,
                             'email'=>$client->email,
