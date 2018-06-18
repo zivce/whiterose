@@ -37,10 +37,11 @@
             margin-right: 7px;
             margin-left: 7px;"
             > 
-              {{username}} 
+              {{name}} 
             </p>
             
             <div 
+             v-b-tooltip.hover.left="'Logout'"
             style="cursor:pointer;"
             @click="handleLogout()">
             
@@ -185,7 +186,7 @@ export default {
   },
   mounted() {
     this.username = this.$store.getters.returnUsername;
-
+    this.name = this.$store.getters.returnUser.name;
     // this.avatar_url = this.$store.getters.returnAvatar;
     // this.avatar_url = this.avatar_url.substring(this.avatar_url.indexOf("/uploads"))
 
@@ -278,6 +279,7 @@ export default {
       clicked_user: false,
       tokens: undefined,
       tokens_url: "",
+      name:"",
 
       //visibility vars
       isActiveTokenCharger: false,
