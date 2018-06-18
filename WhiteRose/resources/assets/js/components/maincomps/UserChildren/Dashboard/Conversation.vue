@@ -156,7 +156,7 @@
 
         <div 
           class="cont_input_msg"
-          v-if="whole_convo.completed!=1"
+          v-if="whole_convo.completed !== 1"
         >
         
             <input 
