@@ -25,6 +25,8 @@ use App\Message;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 
+use phpseclib\Net\SSH2 as ssh;
+
 
 
 //Client::setStripeKey('pk_test_dFVBeyPGEdmiqOpIv5lovgeE');
@@ -359,9 +361,25 @@ class ClientController extends Controller
         
         
     }
+    public function testScan()
+    {
+        
 
+        $ssh = new ssh('45.33.31.236');
+        if (!$ssh->login('root', 'L0g1n99')) {
+            exit('Login Failed');
+        }
+        
+       return $ssh->exec('ping www.google.com');
+        
+    }
     public function scan(Request $request)
     {
+        $ssh = new ssh('45.33.31.236');
+        if (!$ssh->login('root', 'L0g1n99')) {
+            exit('Login Failed');
+        }
+
         $scanN=$request->scan;
         $domain=$request->domain;
         if(!Website::where('domain',$domain)->count>0)
@@ -370,8 +388,8 @@ class ClientController extends Controller
         $execute=$command.' '.$domain;
         // $execute="sudo"." ".$execute ." "."2>&1";
         // $output=shell_exec($execute);
-        $output=shell_exec('ping google.com');
-        $scanN='ping';
+        $output=$ssh->exec($command);
+        
         $outputToRet=$output;
        if(Auth::guard('client')->user())
        {

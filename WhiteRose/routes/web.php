@@ -45,7 +45,7 @@ Route::get('/testlog',function(){
 });
 Route::get('/',function(){
     
-    if(Auth::guard('client')->check()||Auth::guard('pentester')->check())
+    if(Auth::guard('client')->check()||Auth::guard('pentester')->check() || Auth::check())
     return view('home');
 
     return view('lender');
@@ -54,8 +54,8 @@ Route::get('getLoggedUser',function()
 {
     if(Auth::guard('pentester')->user()){
         return $user=['role'=>'pentester','user'=>Auth::guard('pentester')->user()];        
-    }elseif(Auth::guard('client')->user()->email === "admin@whiterose.com"){
-        return $user=['role'=>'admin','user'=>Auth::guard('client')->user()];                
+    }elseif(Auth::check()){
+        return $user=['role'=>'admin','user'=>Auth::user()];                
     }else{
         return $user=['role'=>'client','user'=>Auth::guard('client')->user()];        
     }
@@ -159,7 +159,10 @@ Route::get('getAllUsers','AdminController@getAllUsers')->name('getAllUsers');
 Route::get('getAllJobs','AdminController@getAllJobs')->name('getAllJobs');
 Route::post('banUser','AdminController@banUser')->name('banUser');
 
+Route::get('testScan','ClientController@testscan');
 
+
+Route::get('adminLogout','AdminController@adminLogout');
 // Route::group(['prefix' => 'client'], function () {
 //   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
 //   Route::post('/login', 'ClientAuth\LoginController@login');
