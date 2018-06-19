@@ -126,10 +126,10 @@ if (home_exists) {
     
           
     
-          //TODO: fetch rating of user
-          const RATING = 4;
+          // //TODO: fetch rating of user
+          // const RATING = 4;
     
-          store.commit("setRating", { rating: RATING });
+          // store.commit("setRating", { rating: RATING });
     
           let user_role = this.$store.getters.returnRole;
     

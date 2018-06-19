@@ -79,6 +79,10 @@ const store = new Vuex.Store({
     }
   },
   getters: {
+    returnRating : state => {
+      console.log(state.user);
+      return state.user.rating
+    },
     returnAvatarPath : state => {
       return state.avatar_convo_path;
     },
@@ -136,7 +140,6 @@ const store = new Vuex.Store({
     },
     returnTest : state => state.test,
     returnJobForEdit : state => state.job_for_edit,
-    returnRating: state => state.stars,
     returnTokens: state => {
       return state.tokens;
     },

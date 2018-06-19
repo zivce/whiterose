@@ -89,6 +89,7 @@
               <b-dropdown-item>
 
                 <star-rating
+                :increment="0.5"
                 :class =  "{'hacker_stars':isHacker}"
                 :active-color = 'activeColorChecker'
                 :star-size = "rating_options.size"
@@ -219,7 +220,7 @@ export default {
     ...mapGetters({
       avatar_url: "returnAvatar",
       tokens1: "returnTokens",
-      stars1: "returnRating"
+      stars1: "returnRating",
     }),
     home() {},
     activeColorChecker() {
