@@ -116,7 +116,7 @@ Route::get('getProfile/{id}','PentesterController@getProfile')->name('getProfile
 
 
 //Scan
-Route::post('scan','ClientController@scan')->name('scan');
+Route::post('scanning','ClientController@scan')->name('scan');
 Route::get('myScans','ClientController@getScans')->name('getScans');
 
 //Download scan
@@ -155,3 +155,5 @@ Route::get('adminLogout','AdminController@adminLogout');
 
 
 Route::get('getQuestion','PentesterController@getQuestions');
+
+Route::post('editQuestion','AdminController@editQuestion');
