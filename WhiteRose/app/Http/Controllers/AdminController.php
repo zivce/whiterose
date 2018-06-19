@@ -12,15 +12,15 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function editQeustion(Request $request)
+    public function editQuestion(Request $request)
     {
-        $question=Question::where('id',$request->Qid)->first();
-        $question->question=$request->question;
-        $question->answ1=$request->answ1;
-        $question->answ2=$request->answ2;
-        $question->answ3=$request->answ3;
-        $question->answ4=$request->answ4;
-        $question->corransw=$request->corransw;
+        $question=Question::where('id',$request->question['id'])->first();
+        $question->question=$request->question['question'];
+        $question->answ1=$request->question['answ1'];
+        $question->answ2=$request->question['answ2'];
+        $question->answ3=$request->question['answ3'];
+        $question->answ4=$request->question['answ4'];
+        $question->corransw=$request->question['corransw'];
         $question->save();
         
     }
