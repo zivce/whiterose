@@ -246,8 +246,7 @@ export default {
             this.errorToast("Error happened", "Error!");
           }
         });
-      } else if (this.user_role === "client" 
-                || this.user_role === "admin" )  {
+      } else if (this.user_role === "client" )  {
         
         //TODO: promeni u adminlogout? 
 
