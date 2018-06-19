@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class CV extends Model
 {
     //
-    public function petester()
+    public function pentester()
     {
-       return $this->hasOne('App\Pentester');
+       return $this->belongsTo('App\Pentester');
     }
 }

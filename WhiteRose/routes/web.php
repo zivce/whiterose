@@ -123,6 +123,10 @@ Route::get('/confirmed/{token}','PentesterController@verifyAccount')->name('conf
 Route::post('/hackerlogin','PentesterController@login')->name('hackerlogin');
 Route::get('hackerlogout','PentesterController@logout')->name('logout');
 
+Route::get('getMyProfile','PentesterController@getMyProfile')->name('getMyProfile');
+Route::get('getProfile/{id}','PentesterController@getProfile')->name('getProfile');
+
+
 //Scan
 Route::post('scan','ClientController@scan')->name('scan');
 Route::get('myScans','ClientController@getScans')->name('getScans');
