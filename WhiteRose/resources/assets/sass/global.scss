@@ -4,6 +4,13 @@
     color: $h2s-color;
     font-family: $font-family-sans-serif;
   }
+.h2s_info {
+  font-weight: $h2-weight;
+  font-size: $h2-size;
+  color: $info_header;
+  font-family: $font-family-sans-serif;
+}
+
 .ps {
   font-weight: $p-weight;
   font-size: $p-size;

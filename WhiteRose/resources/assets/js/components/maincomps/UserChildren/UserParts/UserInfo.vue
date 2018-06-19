@@ -3,7 +3,7 @@
 
     <div  id="info">
     
-      <h2 class="h2s">
+      <h2 class="h2s_info">
         
         {{title}}
 
