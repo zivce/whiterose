@@ -18,18 +18,6 @@ use App\Discusion;
 */
 
 
-// $loggedIn = true;
-
-
-
-// if($loggedIn)
-//     Route::get('/',function(){
-//         return view('home');
-//     });
-// else
-//     Route::get('/', function () {
-//         return view('lender');
-//     });
 
 
 Route::get('/lander',function(){
@@ -128,7 +116,7 @@ Route::get('getProfile/{id}','PentesterController@getProfile')->name('getProfile
 
 
 //Scan
-Route::post('scan','ClientController@scan')->name('scan');
+Route::post('scanning','ClientController@scan')->name('scan');
 Route::get('myScans','ClientController@getScans')->name('getScans');
 
 //Download scan
@@ -157,36 +145,15 @@ Route::post('declineJob','ClientController@declineJob');
 Route::post('adminlogin','AdminController@login')->name('adminlogin');
 Route::get('getAllUsers','AdminController@getAllUsers')->name('getAllUsers');
 Route::get('getAllJobs','AdminController@getAllJobs')->name('getAllJobs');
+Route::get('getAllQuestions','AdminController@getAllQuestions')->name('getAllQuestions');
 Route::post('banUser','AdminController@banUser')->name('banUser');
 
 Route::get('testScan','ClientController@testscan');
 
 
 Route::get('adminLogout','AdminController@adminLogout');
-// Route::group(['prefix' => 'client'], function () {
-//   Route::get('/login', 'ClientAuth\LoginController@showLoginForm')->name('login');
-//   Route::post('/login', 'ClientAuth\LoginController@login');
-//   Route::post('/logout', 'ClientAuth\LoginController@logout')->name('logout');
 
-//   Route::get('/register', 'ClientAuth\RegisterController@showRegistrationForm')->name('register');
-//   Route::post('/register', 'ClientAuth\RegisterController@register');
 
-//   Route::post('/password/email', 'ClientAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-//   Route::post('/password/reset', 'ClientAuth\ResetPasswordController@reset')->name('password.email');
-//   Route::get('/password/reset', 'ClientAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-//   Route::get('/password/reset/{token}', 'ClientAuth\ResetPasswordController@showResetForm');
-// });
+Route::get('getQuestion','PentesterController@getQuestions');
 
-// Route::group(['prefix' => 'pentester'], function () {
-//   Route::get('/login', 'PentesterAuth\LoginController@showLoginForm')->name('login');
-//   Route::post('/login', 'PentesterAuth\LoginController@login');
-//   Route::post('/logout', 'PentesterAuth\LoginController@logout')->name('logout');
-
-//   Route::get('/register', 'PentesterAuth\RegisterController@showRegistrationForm')->name('register');
-//   Route::post('/register', 'PentesterAuth\RegisterController@register');
-
-//   Route::post('/password/email', 'PentesterAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-//   Route::post('/password/reset', 'PentesterAuth\ResetPasswordController@reset')->name('password.email');
-//   Route::get('/password/reset', 'PentesterAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-//   Route::get('/password/reset/{token}', 'PentesterAuth\ResetPasswordController@showResetForm');
-// });
+Route::post('editQuestion','AdminController@editQuestion');

@@ -63,8 +63,15 @@ let routes = [
                         name:"setup_client",
                         path: "setup",
                         component: require('../components/maincomps/UserChildren/Dashboard/Setup.vue')
+                    }, 
+                    {
+
+                        //Injected component for preview in conversation with pentester
+                        
+                        name : 'preview_pentester',
+                        path : 'pentester-preview/:pent_id',
+                        component: require('../components/maincomps/PentesterChildren/Dashboard/Profile.vue')
                     },
-                
                     {
                         
                         meta:{
@@ -72,19 +79,12 @@ let routes = [
                         },
                         path: "profile",
                         component: require('../components/maincomps/UserChildren/Dashboard/Profile.vue')
-                    },
-                    {
-                        meta:{
-                            fail: `client/:id/`
-                        },
-                        path: "/convo/:pent_id",
-                        component: require('../components/maincomps/UserChildren/Dashboard/Conversation.vue')
-                    },
-
+                    }
                     ],
                     component: require('../components/maincomps/UserChildren/DashboardClient.vue')
                 },
                 //load user comps here
+               
                 {
                     name:'convo_client',
                     path: "convo/:job_id",
@@ -273,6 +273,11 @@ let routes = [
                     name : 'alljobsreview',
                     path:'alljobsreviewer',
                     component: require('../components/maincomps/AdminChildren/AllJobsReviewer.vue')
+                },
+                {
+                    name : 'questions',
+                    path:'questions',
+                    component: require('../components/maincomps/AdminChildren/Questions.vue')
                 },
             ],
             component : require('../components/maincomps/MainChildren/Admin.vue'),

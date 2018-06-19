@@ -6,12 +6,24 @@ use Illuminate\Http\Request;
 use App\Client as Client;
 use App\Pentester as Pentester;
 use App\Job as Job;
+use App\Question as Question;
 use Illuminate\Support\Facades\Auth;
 
 
 class AdminController extends Controller
 {
-    
+    public function editQeustion(Request $request)
+    {
+        $question=Question::where('id',$request->Qid)->first();
+        $question->question=$request->question;
+        $question->answ1=$request->answ1;
+        $question->answ2=$request->answ2;
+        $question->answ3=$request->answ3;
+        $question->answ4=$request->answ4;
+        $question->corransw=$request->corransw;
+        $question->save();
+        
+    }
     public function login(Request $request)
     {
         
@@ -76,5 +88,12 @@ class AdminController extends Controller
             $job->client = $client;
         }
         return $jobs->sortBy('created_at');
+    }
+
+    public function getAllQuestions()
+    {
+        $questions = Question::all();
+        return $questions;
+        // return $questions->sortBy('updated_at');
     }
 }
