@@ -21,7 +21,6 @@
     </span>
     
     </div>
-
 </template>
 
 <script>
@@ -30,7 +29,10 @@ import eventBus from "../../utils/eventBus";
 export default {
   methods : {
     logIn() {
-      this.submit();
+    
+      if(this.last)
+        this.$parent.submitHandler();
+    
     }
   },
   mounted() {
@@ -43,8 +45,8 @@ export default {
     // });
   },
   props: {
-    submit : {
-      type : Function
+    last : {
+      type : Boolean
     },
     prop: {
       type: Object,

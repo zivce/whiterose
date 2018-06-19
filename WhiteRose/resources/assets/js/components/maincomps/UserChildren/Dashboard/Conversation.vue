@@ -89,7 +89,24 @@
                     v-for="(message,index) in renderMessages(msg.text, msg.first)"
                     :key = index
                     >
-                    {{message}}
+                    <span style="color:#0ca200bd;" v-if="msg.first">
+                      {{message}}  
+                    </span>
+                    
+                    <span  style="color:red;" v-else-if="msg.last"> 
+                    
+                      {{message}}
+                    
+                    </span>
+
+                    <span
+                    v-else
+                    >
+                    
+                      {{message}}
+                    
+                    </span>
+
                     </p>
                 </div>
             </div>
@@ -320,7 +337,7 @@ export default {
       rating: 0,
       one_msg: "",
       msgs_for_send: [],
-      whole_convo: undefined,
+      whole_convo: {},
       msg_send_id: undefined,
       job_finished: undefined,
 

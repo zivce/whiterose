@@ -18,7 +18,7 @@
 
           <input  
           autocomplete="on"
-
+          @keypress.enter="submitHandler"
           :placeholder="inputs.pwagain.label"
           :class="{'has-error':errorPwAgain}"
           :type="inputs.pwagain.type" 

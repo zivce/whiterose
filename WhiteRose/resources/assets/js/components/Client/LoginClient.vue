@@ -5,7 +5,9 @@
         <p class="text-muted">Login to continue to dashboard.</p>
 
         <form-input ref="email" :prop.sync="inputs.email"/>
-        <form-input ref = "pw" :prop.sync="inputs.password"/> 
+        <form-input ref = "pw" 
+        :last ="true"
+        :prop.sync="inputs.password"/> 
         <div class="d-flex flex-column">
           <b-button ref="btn" class="btn btn-info btn-secondary actionbtn" @click="submitHandler()">
             Login
@@ -50,8 +52,8 @@ export default {
         let vm = this;
         this.clickPassed = true;
         this.checkAllFields();
-
-        if (!vm.all_fields_ok) {
+        console.log(vm.inputs);
+        if (!this.all_fields_ok) {
           this.errorNotify();
           return;
         }

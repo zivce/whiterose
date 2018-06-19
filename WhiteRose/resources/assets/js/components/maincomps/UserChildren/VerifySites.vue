@@ -80,7 +80,8 @@
                 <div 
                 style="
                 display:flex;
-                margin: auto;"
+                margin: auto;
+                margin-top:2%;"
                 
                 class="col-6 ">
 
@@ -89,7 +90,7 @@
                   class="btn btn-info btn-secondary actionbtn" 
                   @click="newSiteHandler()">
                   
-                      Next step > 
+                      Next step 
                   
                   </b-button>
 
@@ -121,7 +122,13 @@
                 
                 </b-button>
                
-                <div style="display:flex;flex-direction:row;wrap:row;">
+                <div style="
+                display:flex;
+                flex-direction:row;
+                wrap:row;
+                margin:auto;
+                width: fit-content;">
+                  
                   <b-button 
                     v-if="isVerifySitePart"
                   class="btn btn-info btn-secondary actionbtn" 

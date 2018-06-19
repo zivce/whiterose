@@ -143,45 +143,48 @@
 
       </b-form-file>
     </div>
-
-    <span
-    v-if="itIsEditJobForm">
-    Editing will cost 
-      <strong>0</strong> 
-      <icon 
-      style="vertical-align:middle;" 
-      width="20" 
-      height="20" 
-      name="bandcamp"></icon>
+    <div class="d-flex flex-column" >
     
-    </span>
-    
-    <span
-    v-else
-    >This submission will cost 
-      <strong> {{ COST_OF_SUBMISSION + new Number(priceinput.value) }}  </strong> 
-      <icon 
-      style="vertical-align:middle;" 
-      width="20" 
-      height="20" 
-      name="bandcamp"></icon>
-    
-    </span>
+      <span
+      v-if="itIsEditJobForm">
+      Editing will cost 
+        <strong>0</strong> 
+        <icon 
+        style="vertical-align:middle;" 
+        width="20" 
+        height="20" 
+        name="bandcamp"></icon>
+      
+      </span>
+      <span
+      v-else
+      >This submission will cost 
+        <strong> {{ COST_OF_SUBMISSION + new Number(priceinput.value) }}  </strong> 
+        <icon 
+        style="vertical-align:middle;" 
+        width="20" 
+        height="20" 
+        name="bandcamp"></icon>
+      
+      </span>
 
-    <b-button 
-    v-if="itIsEditJobForm"
-    ref ="submit_btn"
-    class="btn_submit btn btn-info btn-secondary actionbtn" 
-    @click="editJob()">
-      Edit  <icon id="edit_icon" name="edit"></icon>
-    </b-button>
+      <b-button 
+      v-if="itIsEditJobForm"
+      ref ="submit_btn"
+      class="btn_submit btn btn-info btn-secondary actionbtn post_job" 
+      @click="editJob()">
+        Edit  <icon id="edit_icon" name="edit"></icon>
+      </b-button>
 
-    <b-button 
-    v-else
-    ref ="submit_btn"
-    class="btn_submit btn btn-info btn-secondary actionbtn" @click="submitHandler()">
-      Submit  <icon name="handshake" id="hands_icon" scale="2"></icon>
-    </b-button>
+      <b-button 
+      v-else
+      ref ="submit_btn"
+      class="btn_submit btn btn-info btn-secondary actionbtn post_job" @click="submitHandler()">
+        Submit  <icon name="handshake" id="hands_icon" scale="2"></icon>
+      </b-button>
+    
+    </div>
+  
   </div>
 
 
@@ -255,7 +258,6 @@ export default {
             new_tokens: this.priceinput.value,
             new_desc: this.descinput.value
           };
-          console.log(this.sending);
           
           //api call to send form data
           PostJobAPI.editJob(this.sending, vm).then(res => {
@@ -353,6 +355,12 @@ export default {
 </script>
 
 <style scoped>
+
+.post_job
+{
+  margin-top: 2%;
+}
+
 #hands_icon {
   vertical-align: middle;
 }

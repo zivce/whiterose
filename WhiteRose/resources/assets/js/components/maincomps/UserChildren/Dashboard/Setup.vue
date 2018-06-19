@@ -65,157 +65,13 @@
                     class="incorrect_input">
                         Image required!
                     </span>
-
-                <b-button class="btn btn-info btn-secondary actionbtn" @click="insertImageHandler()">
-                    Insert  
-                </b-button>
+                
+                  <b-button class="btn btn-info btn-secondary actionbtn setup_btns" @click="insertImageHandler()">
+                      Insert  
+                  </b-button>
+                  
             </form>
         </div>
-      <!-- </transition> -->
-
-
-    <!-- VERIFY SITE  -->
-    <!-- <transition name="setup" mode="out-in"> -->
-<!-- dk 
-    <div class="d-flex col-5" v-if="isVisibleVerifySite">
-
-            <div class="dashboard_setup_container">
-                
-                    <h3 class="h3s">
-                        Verify site
-                    </h3>
-
-
-                <div class="fform_input_job">
-        
-                    <input  
-                    v-if="isInputSitePart"
-                    :placeholder="site_for_verification.label"
-                    :class="{'has-error':errSiteVerif}"
-                    :type="site_for_verification.type" 
-                    :id="site_for_verification.id" 
-                    v-model="site_for_verification.value" 
-                    required="true"
-                    v-validate="{required:true,is:site_for_verification.value}"
-                    :name="site_for_verification.id"/>
-                    
-                    <span v-if="errors.has(site_for_verification.id)" class="incorrect_input_">
-                        Site required!
-                    </span>
-                    
-                </div>
-                
-             
-
-                
-                <v-client-table
-                class="col-12"
-                ref="sites"
-                v-if="isKeyVerifPart"
-                :data='client_sites'
-                :columns='columns_sites'
-                :options='options_sites'
-                >
-              
-              <a  slot="confirmed" 
-                  slot-scope="props"
-                  class="cursorable"
-              >
-                  <icon v-if="props.row.confirmed" class="check_ico" name="check"></icon>
-                  <icon v-if="!props.row.confirmed" class="times_ico" name="times"></icon>
-               
-              </a>
-                  <a  
-                  v-if="!props.row.confirmed"
-                  slot="verify" 
-                  slot-scope="props"
-                  class="cursorable"
-                  :href="makeGetKeyUrl(props.row.domain)"
-                  @click="redirectToVerifySite(props.row.domain)"
-                  >key</a>
-
-
-
-                </v-client-table >
-                
-                <p 
-                v-if="isVerifySitePart"
-                style="text-align:center">
-                  Insert the downloaded file
-                  to your <code>public</code>
-                  directory and then click verify.                  
-                </p>
-
-               
-
-
-
-                <div style="display:flex;">
-
-                  <b-button 
-                    v-if="isInputSitePart"
-                  class="btn btn-info btn-secondary actionbtn" 
-                  @click="newSiteHandler()">
-                  
-                      Next step > 
-                  
-                  </b-button>
-
-                  <b-button 
-                    v-if="isInputSitePart"
-                  class="btn btn-info btn-secondary actionbtn" 
-                  @click="viewSites()">
-                  
-                    View sites
-                  
-                  </b-button>
-                
-                </div>
-                
-               <b-button 
-                  v-if="isKeyVerifPart"
-                 class="btn btn-info btn-secondary actionbtn" 
-                 @click="keyDownloaded()">
-                 
-                    Next step > 
-                
-                </b-button> 
-                 <b-button 
-                  v-if="isKeyVerifPart"
-                 class="btn btn-info btn-secondary actionbtn" 
-                 @click="getBackToFirstScreen()">
-                 
-                    Back 
-                
-                </b-button>
-               
-                <div style="display:flex;flex-direction:row;wrap:row;">
-                  <b-button 
-                    v-if="isVerifySitePart"
-                  class="btn btn-info btn-secondary actionbtn" 
-                  @click="getBackToSecondScreen()">
-                  
-                      Back 
-                  
-                  </b-button>
-
-
-                  <b-button 
-                    v-if="isVerifySitePart"
-                  class="btn btn-info btn-secondary actionbtn" 
-                  @click="verifySiteHandler()">
-                  
-                      Verify 
-                  
-                  </b-button>
-                </div>
-               
-
-          
-          
-          </div>
-    </div> -->
-    <!-- </transition> -->
     <!-- RESET PW  -->
     <!-- <transition name="setup" mode="out-in"> -->
 
@@ -265,9 +121,10 @@
                     
                 </div>
 
-                <b-button class="btn btn-info btn-secondary actionbtn" @click="resetHandler()">
+                <b-button class="btn btn-info btn-secondary actionbtn setup_btns" @click="resetHandler()">
                     Reset 
                 </b-button>
+                
             </div>
         </div>
     <!-- </transition> -->
@@ -305,8 +162,8 @@
                     <span v-if="errors.has(descinput.id)" class="incorrect_input">
                         {{descinput.id_upper}} required!
                     </span>
-                    
-                    <b-button class="btn btn-info btn-secondary actionbtn" @click="postDescription()">
+                      
+                    <b-button class="btn btn-info btn-secondary actionbtn setup_btns" @click="postDescription()">
                         Post 
                     </b-button>
             </div>
@@ -578,6 +435,11 @@ export default {
 </script>
 
 <style scoped>
+.setup_btns
+{
+  margin-top: 2vh;
+}
+
 .incorrect_input_ {
   /* float: left; */
   width: 100%;

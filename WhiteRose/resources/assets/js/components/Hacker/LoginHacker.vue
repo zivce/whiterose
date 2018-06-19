@@ -10,7 +10,7 @@
         <form-input 
         :prop.sync="inputs.email"/>
         <form-input 
-        :submit = "submitHandler"
+        :last="true"
         :prop.sync="inputs.password"/> 
 
         <div class="d-flex flex-column">
