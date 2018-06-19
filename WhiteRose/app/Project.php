@@ -4,11 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CV extends Model
+class Project extends Model
 {
-    //
     public function pentester()
     {
-       return $this->belongsTo('App\Pentester');
+        return $this->belongsTo('App\Pentester');
     }
 }

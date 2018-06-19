@@ -123,6 +123,10 @@ Route::get('/confirmed/{token}','PentesterController@verifyAccount')->name('conf
 Route::post('/hackerlogin','PentesterController@login')->name('hackerlogin');
 Route::get('hackerlogout','PentesterController@logout')->name('logout');
 
+Route::get('getMyProfile','PentesterController@getMyProfile')->name('getMyProfile');
+Route::get('getProfile/{id}','PentesterController@getProfile')->name('getProfile');
+
+
 //Scan
 Route::post('scan','ClientController@scan')->name('scan');
 Route::get('myScans','ClientController@getScans')->name('getScans');
@@ -134,6 +138,10 @@ Route::get('/download/{dir}/{fileName}','ClientController@downloadScan')->name('
 Route::post('uploadCv','PentesterController@uploadCV')->name('uploadCv');
 Route::post('postCv1','PentesterController@postCV')->name('postCv');
 Route::post('postCv','PentesterController@postPentesterDetails')->name('postdeails');
+
+//Upload portfolio
+Route::post('postPortfolio','PentesterController@postPortfolio')->name('postPortfolio');
+
 
 //Accepting the bid/starting the job
 Route::post('accept','ClientController@acceptTheBid')->name('accept');
