@@ -224,6 +224,7 @@ export default {
               completed: job_info.completed,
               job_id: job_info.id
             });
+            
             this.$store.commit("setJobs", this.jobs);
             this.all_jobs_number = this.$store.getters.returnJobsNumber;
             this.started_jobs_number = this.$store.getters.returnStartedJobsNumber;

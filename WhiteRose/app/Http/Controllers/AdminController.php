@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Client as Client;
 use App\Pentester as Pentester;
 use App\Job as Job;
+use App\Question as Question;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -76,5 +77,12 @@ class AdminController extends Controller
             $job->client = $client;
         }
         return $jobs->sortBy('created_at');
+    }
+
+    public function getAllQuestions()
+    {
+        $questions = Question::all();
+        return $questions;
+        // return $questions->sortBy('updated_at');
     }
 }

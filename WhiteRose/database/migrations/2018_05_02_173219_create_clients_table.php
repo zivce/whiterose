@@ -16,7 +16,7 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('image_path')->nullable();
+            $table->string('image_path')->default('public\uploads\images\avatar_client.png');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('username')->nullable();
