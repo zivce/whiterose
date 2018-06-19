@@ -71,6 +71,7 @@
                 <div class="col-2 convo_avatars">
 
                     <img 
+                    @click="previewPentester()"
                     v-b-tooltip.hover.top="'Pentester'"
                     :src="not_my_avatar" 
                     class="pentester_avatar"
@@ -265,6 +266,20 @@ export default {
   },
 
   methods: {
+    previewPentester () {
+      const pentester_id =
+      this.whole_convo.discusion.pentester_id;
+
+      this.$router.push({
+        name:  'preview_pentester',
+        params : {
+          pent_id : pentester_id
+        }
+      })
+
+
+    },
+
     timeOfMessage(time) {
       return moment(time).format("hh:mm");
     },
