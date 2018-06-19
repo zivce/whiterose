@@ -15,7 +15,7 @@
         ref= "down_btn"
         class="down_btn"
         slot-scope="props"
-        :href="props.row.uri"
+        :href="props.row.link"
         @click="spy()"
     >
       <icon
@@ -42,7 +42,9 @@ export default {
   },
   mixins: [],
   methods: {
-    spy() {}
+    spy() {
+
+    }
   },
   created() {
     axios
@@ -54,7 +56,8 @@ export default {
             this.table_data.push({
               date: moment(scan_info.created_at),
               scan: scan_info.scanName,
-              uri: scan_info.path
+              uri: scan_info.path,
+              link: "download"+ scan_info.path.substring(8,200)
             });
           });
         });
