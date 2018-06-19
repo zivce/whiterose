@@ -261,7 +261,19 @@ export default {
             this.errorToast("Error happened", "Error!");
           }
         });
-      }
+      } else if (this.user_role === "admin") {
+        
+         axios.get("/adminLogout").then(res => {
+          if (res.status === 200) {
+          
+            // this.notifySuccess("Logged out!", "Success!");
+            window.location.reload();
+          
+          } else {
+            this.errorToast("Error happened", "Error!");
+          }
+        });
+      } 
     }
   },
   data() {
