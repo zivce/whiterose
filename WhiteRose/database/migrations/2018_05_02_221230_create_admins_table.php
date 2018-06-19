@@ -17,6 +17,7 @@ class CreateAdminsTable extends Migration
             $table->increments('id');
             $table->integer('moderator')->nullable();
             $table->string('username')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }
