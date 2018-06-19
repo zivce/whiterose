@@ -156,10 +156,10 @@ class ClientController extends Controller
     public function editJob(Request $request)
     {
         
-      $job=Job::where('id',$request->id)->first();
+      $job=Job::where('id',$request->job_id)->first();
       
-      $job->description=$request->desc;
-      $job->price=$job->price;
+      $job->description=$request->new_desc;
+      $job->maximum_price=$request->new_tokens;
       $job->save();
                 
     }
@@ -178,7 +178,7 @@ class ClientController extends Controller
         $client=Auth::guard('client')->user();
         if($client->tokens<$request->price+2)
         return "You dont have tokens for this job post";
-        $client->tokens=$client->tokens-2;
+        $client->tokens=$client->tokens-2-$request->price;
         $client->save();
         $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
         if($document!==null || !empty($document)){
@@ -443,14 +443,11 @@ class ClientController extends Controller
     public function acceptJob(Request $request)
     {
         $job = Job::where('id',$request->send['job_id'])->first();
-        $bid=$job->bid()->get();
-        $cliet=$job->client()->get();
-        $pentester=$job->pentester()->get();
+        // $bid=$job->bid()->get();
+        // $cliet=$job->client()->get();
+        // $pentester=$job->pentester()->get();
 
-        $client->tokens=$client->tokens-$bid->amount;
-        $pentester->tokens=$pentester->tokens+$bid->amount;
-        $client->save();
-        $pentester->sabe();
+
         
         $c_id = $job->client_id;
         $job = $job->pentesters()->first();
@@ -476,6 +473,12 @@ class ClientController extends Controller
         }
         $pentester = Pentester::where('id',$job->pivot->pentester_id)->first();     
         $pentester->rating = $total_rating/$n;
+        // $pentester->save();
+        
+        $client = Client::where('id',$c_id)->first();
+        $client->tokens=$client->tokens-$job->pivot->amount;
+        $pentester->tokens=$pentester->tokens+$job->pivot->amount;
+        $client->save();
         $pentester->save();
 
         $job_completed = Job::where('id',$request->send['job_id'])->first();        

@@ -44,9 +44,7 @@ export default {
             axios
               .post("editJob",obj
               ,{
-                  headers : {
-                      'Content-Type': 'multipart/form-data'
-                    }
+                
               })
               .then((res)=>{
                   vm.notifySuccess("Job has been edited.","Success!");
