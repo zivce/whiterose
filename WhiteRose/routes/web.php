@@ -135,6 +135,10 @@ Route::post('uploadCv','PentesterController@uploadCV')->name('uploadCv');
 Route::post('postCv1','PentesterController@postCV')->name('postCv');
 Route::post('postCv','PentesterController@postPentesterDetails')->name('postdeails');
 
+//Upload portfolio
+Route::post('postPortfolio','PentesterController@postPortfolio')->name('postPortfolio');
+
+
 //Accepting the bid/starting the job
 Route::post('accept','ClientController@acceptTheBid')->name('accept');
 
