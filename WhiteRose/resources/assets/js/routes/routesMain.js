@@ -274,6 +274,11 @@ let routes = [
                     path:'alljobsreviewer',
                     component: require('../components/maincomps/AdminChildren/AllJobsReviewer.vue')
                 },
+                {
+                    name : 'questions',
+                    path:'questions',
+                    component: require('../components/maincomps/AdminChildren/Questions.vue')
+                },
             ],
             component : require('../components/maincomps/MainChildren/Admin.vue'),
         },

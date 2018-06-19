@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePentestersTable extends Migration
+class CreateClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,16 @@ class CreatePentestersTable extends Migration
      */
     public function up()
     {
-        Schema::create('pentesters', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('image_path')->default('public\uploads\images\avatar_client.png');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('image_path')->default('public\uploads\images\avatar_pentester.png');
-            $table->string('firstname')->nullable();
-            $table->string('lastname')->nullable();
-            $table->text('description')->nullable();
-            $table->text('skills')->nullable();
-            $table->float('rating')->nullable();
-            $table->integer('tokens')->nullable();
             $table->string('username')->nullable();
+            $table->string('lastname');
+            $table->integer('tokens');
             $table->string('confirmation_code')->nullable();
             $table->integer('confirmed')->default(0);
             $table->rememberToken();
@@ -38,6 +36,6 @@ class CreatePentestersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('pentesters');
+        Schema::drop('clients');
     }
 }

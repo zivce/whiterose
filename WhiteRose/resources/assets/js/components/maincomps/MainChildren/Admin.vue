@@ -8,12 +8,22 @@
         <b-nav-item
           active-class ="active_item_user"
           class="nav_item_user"
-          :to="'/'+user_role+'/'+ user_id+ '/userbaner'">Ban user</b-nav-item>
+          :to="'/'+user_role+'/'+ user_id+ '/userbaner'">Ban user
+        </b-nav-item>
+
         <b-nav-item 
        :to="'/'+user_role+'/'+ user_id+ '/alljobsreviewer'"
         active-class ="active_item_user"
         class="nav_item_user"
-        >Preview jobs</b-nav-item>
+        >Manage Jobs
+        </b-nav-item>
+
+        <b-nav-item 
+       :to="'/'+user_role+'/'+ user_id+ '/questions'"
+        active-class ="active_item_user"
+        class="nav_item_user"
+        >Manage Questions
+        </b-nav-item>
 
       </b-nav>
       
