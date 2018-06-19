@@ -337,7 +337,9 @@ export default {
       rating: 0,
       one_msg: "",
       msgs_for_send: [],
-      whole_convo: {},
+      whole_convo: {
+        discusion : {}
+      },
       msg_send_id: undefined,
       job_finished: undefined,
 
