@@ -46,6 +46,18 @@ export default {
           .post("/confirmed", {
             site
           })
+          .then(()=> {
+            vm.notifySuccess("You have verified site","Success");
+            
+            let t = window.setTimeout(()=>{
+              window.location.reload();
+              window.clearTimeout(t);
+            },1500)
+
+          })
+          .catch(()=> {
+            vm.errorToast("You didn't verify site.","Error!");
+          })
        })
     }
 }

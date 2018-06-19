@@ -65,11 +65,14 @@
                     class="incorrect_input">
                         Image required!
                     </span>
+                <div class="d-flex flex-column">
                 
                   <b-button class="btn btn-info btn-secondary actionbtn setup_btns" @click="insertImageHandler()">
                       Insert  
                   </b-button>
-                  
+                
+                </div>
+
             </form>
         </div>
     <!-- RESET PW  -->
@@ -120,11 +123,14 @@
                     </span>
                     
                 </div>
-
-                <b-button class="btn btn-info btn-secondary actionbtn setup_btns" @click="resetHandler()">
-                    Reset 
-                </b-button>
+                  
+                <div class="d-flex flex-column">    
                 
+                  <b-button class="btn btn-info btn-secondary actionbtn setup_btns" @click="resetHandler()">
+                      Reset 
+                  </b-button>
+                  
+                </div>
             </div>
         </div>
     <!-- </transition> -->
@@ -162,10 +168,13 @@
                     <span v-if="errors.has(descinput.id)" class="incorrect_input">
                         {{descinput.id_upper}} required!
                     </span>
-                      
+                  <div class="d-flex flex-column">
                     <b-button class="btn btn-info btn-secondary actionbtn setup_btns" @click="postDescription()">
                         Post 
                     </b-button>
+
+                  </div>
+
             </div>
             </div>
         </div>
@@ -469,5 +478,8 @@ export default {
 }
 .has-error {
   border: 1px solid rgba(255, 0, 0, 1);
+}
+.incorrect_input {
+  float:none !important;
 }
 </style>
