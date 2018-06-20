@@ -314,9 +314,9 @@ class ClientController extends Controller
         $client=Client::where('email',$email)->first();
         if($client)
         {
-        if($user->confirmed===0)
+        if($client->confirmed===0)
         {
-            if($user->created_at===$user->updated_at){
+            if($client->created_at===$client->updated_at){
                 return 'Please verify your account';                
             }else{
                 return 'Your account is suspended';
