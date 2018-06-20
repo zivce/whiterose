@@ -28,8 +28,7 @@ context.globalCompositeOperation = 'lighter';
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 draw();
-
-var textStrip = ['j', 'o', 's', 'i', 'f', 'p', 'i', 'c', 'k', 'e', 't', 'i', 'n', 'a'];
+var textStrip = ['由', '甼', '甾', '畁', '畅', '界', '畊', '畊', '畐', '畑', '申', '电', '男', '畃'];
 
 var stripCount = 60, stripX = new Array(), stripY = new Array(), dY = new Array(), stripFontSize = new Array();
 
@@ -37,7 +36,7 @@ for (var i = 0; i < stripCount; i++) {
     stripX[i] = Math.floor(Math.random()*2465);
     stripY[i] = -100;
     dY[i] = Math.floor(Math.random()*7)+3;
-    stripFontSize[i] = Math.floor(Math.random()*16)+8;
+    stripFontSize[i] = Math.floor(Math.random()*16)+5;
 }
 
 var theColors = ['#cefbe4', '#81ec72', '#5cd646', '#54d13c', '#4ccc32', '#43c728'];
@@ -45,7 +44,7 @@ var theColors = ['#cefbe4', '#81ec72', '#5cd646', '#54d13c', '#4ccc32', '#43c728
 var elem, context, timer;
 
 function drawStrip(x, y) {
-    for (var k = 0; k <= 20; k++) {
+    for (var k = 0; k <= 100; k++) {
         var randChar = textStrip[Math.floor(Math.random()*textStrip.length)];
         if (context.fillText) {
             switch (k) {
@@ -90,7 +89,7 @@ function draw() {
         
         stripY[j] += dY[j];
     }
-  setTimeout(draw, 70);
+  setTimeout(draw, 60);
 }
 </script>
 </body>

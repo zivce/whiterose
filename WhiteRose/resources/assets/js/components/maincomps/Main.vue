@@ -86,7 +86,8 @@
                 </span>
               </b-dropdown-item>
 
-              <b-dropdown-item>
+              <b-dropdown-item
+              v-if="isHacker">
 
                 <star-rating
                 :increment="0.5"
