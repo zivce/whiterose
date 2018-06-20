@@ -67,7 +67,13 @@ export default {
             let wrong_info = response.data === "Wrong username or password";
             let user_exists = response.data !== "User does not exist";
             const banned_user = response.data === "Your account is suspended";
-
+        
+            if(banned_user)
+            {
+              vm.errorToast("You are banned from site!","Error!");
+              return;
+            }
+            
             let email_not_verified =
               response.data === "Please verify your account";
 
@@ -86,16 +92,10 @@ export default {
                 window.location.reload();
               }
             } 
-            else if(banned_user)
-            {
-              this.errorToast("You are banned from site!","Error!");
-            }
             else {
               //does not exist
-              this.$snotify.error("User does not exist!", "Error!", {
-                position: SnotifyPosition.centerTop,
-                backdrop: 0.5
-              });
+              this.errorToast("User does not exist!", "Error!")
+
             }
             
           })
