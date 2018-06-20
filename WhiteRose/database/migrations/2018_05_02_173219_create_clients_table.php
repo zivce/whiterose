@@ -15,7 +15,7 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->text('description')->default('Oce neko da mi testira sajt?');
             $table->string('image_path')->default('public\uploads\images\avatar_client.png');
             $table->string('email')->unique();
             $table->string('password');
