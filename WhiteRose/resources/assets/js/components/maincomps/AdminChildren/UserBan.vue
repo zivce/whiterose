@@ -81,7 +81,6 @@ import "vue-awesome/icons/ban";
 import "vue-awesome/icons/window-close";
 
 
-import usersHardcode from "./users.hardcode";
 
 export default {
   created() {

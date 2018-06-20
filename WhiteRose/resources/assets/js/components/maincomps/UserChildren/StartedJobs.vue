@@ -44,7 +44,6 @@ import Icon from "vue-awesome/components/Icon";
 
 
 
-import hardcodepentst from "./hardcodestartedjobs";
 import StartedMoreInfo from "./UserParts/StartedJobInfo.vue";
 import eventBus from "../../../utils/eventBus";
 import "vue-awesome/icons/eye";

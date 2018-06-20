@@ -45,7 +45,6 @@
 //TODO: da se napune poruke
 
 import MessagesApi from "../../../../services/api/user_api/messagesClient.api";
-import messages from "./messages.hardcode";
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/window-close";
 

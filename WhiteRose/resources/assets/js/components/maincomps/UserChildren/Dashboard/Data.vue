@@ -116,9 +116,7 @@
 <script>
 import AppLine from "../DataComps/DoughnutChart";
 
-import hardc from "../hardcode_pentesters";
 
-import DomainsHardcode from "../domains.hardcode";
 
 import MoreInfo from "../UserParts/ContactPentester.vue";
 import eventBus from "../../../../utils/eventBus";
