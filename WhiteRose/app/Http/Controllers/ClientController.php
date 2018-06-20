@@ -389,7 +389,9 @@ class ClientController extends Controller
         // $execute="sudo"." ".$execute ." "."2>&1";
         // $output=shell_exec($execute);
         $output=$ssh->exec($command);
-        
+        $client=Auth::guard('client')->user();
+        $client->tokens=$client->tokens-2;
+        $client->save();
         $outputToRet=$output;
        if(Auth::guard('client')->user())
        {
