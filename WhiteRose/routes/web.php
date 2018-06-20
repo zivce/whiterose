@@ -136,6 +136,7 @@ Route::post('accept','ClientController@acceptTheBid')->name('accept');
 
 //Message communication
 Route::post('postMesaages','DiscusionController@postMessage');
+Route::post('deleteDiscusion','DiscusionController@deleteDiscusion');
 Route::get('getMessages/{jobID}','DiscusionController@getMessages')->name('getMessages');
 Route::get('getAllFirstMessages','DiscusionController@returnLastMessages');
 Route::post('completeJob','PentesterController@completeJob');

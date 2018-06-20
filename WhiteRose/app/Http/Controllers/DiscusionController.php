@@ -154,4 +154,11 @@ class DiscusionController extends Controller
         }
         
     }
+
+    public function deleteDiscusion(Request $request)
+    {
+        $discusion = Discusion::where('id',$request->job_id)->first();
+        return $discusion;
+        $discusion->delete();
+    }
 }
