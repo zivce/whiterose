@@ -33,8 +33,15 @@
           
           </star-rating> -->
       </span>
-    </div>
+    </div>  
     
+    <div v-if="user_desc.length !== 0">
+        <h2 class="h2s">Description</h2>
+      <article>
+        {{user_desc}}
+      </article>
+    
+    </div>
     <div class="main_profile_container">
       <!-- SECTION FOR ICONS  -->
       
@@ -202,8 +209,10 @@ export default {
 
     this.tokens = this.$store.getters.returnTokens;
     this.sitesNumber = this.$store.getters.returnSitesNumber;
-      
-      MessagesAPI.getMessages()
+    this.user_desc = this.$store.getters.returnDesc;
+    
+    
+    MessagesAPI.getMessages()
       .then(resp => this.num_messages = resp.length);
 
       axios
@@ -251,7 +260,7 @@ export default {
 
       tokens: undefined,
       sitesNumber: undefined,
-
+      user_desc : undefined,
       info: {},
       jobs : [],
       num_messages : 0,

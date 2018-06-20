@@ -20,7 +20,7 @@ export default {
                         send
                       })
                       .then(function(response) {
-                        vm.successToast("Description added.", "Successs.");
+                        vm.notifyInfo("Description added.", "Info.");
                       })
                       .catch(function(error) {
                         vm.errorToast("An error happened.", "Error.");

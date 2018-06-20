@@ -25,6 +25,7 @@
           <img 
           :src="avatar_url"
           /> 
+
           <div 
           id = "admin_container"
           style="margin:auto;
@@ -37,7 +38,7 @@
             margin-right: 7px;
             margin-left: 7px;"
             > 
-              {{name}} 
+              {{username}} 
             </p>
             
             <div 
