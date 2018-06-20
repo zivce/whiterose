@@ -282,7 +282,7 @@ class ClientController extends Controller
       
         $confirmation_code=$client->confirmation_code;
        
-        Mail::send('verify',['confirmation_code'=>$confirmation_code], function($message){
+        Mail::send('verifyClie',['confirmation_code'=>$confirmation_code], function($message){
             
             $message->to($this->passwordResetEmail);
             $message->subject('Verify your email');
@@ -296,6 +296,7 @@ class ClientController extends Controller
     public function verifyAccount($token)
     {
         $client=Client::where('confirmation_code',$token)->first();
+       
         if(!$client)
         {
             return "User does not exist";
@@ -303,7 +304,7 @@ class ClientController extends Controller
         $client->confirmed=1;
         $client->confirmation_code=null;
         $client->save();
-        return redirect('home');
+        return redirect('/');
     }
 
     public function login(Request $request)
@@ -316,7 +317,7 @@ class ClientController extends Controller
         {
         if($client->confirmed===0)
         {
-            if($client->created_at===$client->updated_at){
+            if($client->created_at==$client->updated_at){
                 return 'Please verify your account';                
             }else{
                 return 'Your account is suspended';
