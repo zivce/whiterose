@@ -64,7 +64,9 @@ export default {
             pw: this.inputs.password.value
           })
           .then(function(response) {
+            let wrong_info = response.data === "Wrong username or password";
             let user_exists = response.data !== "User does not exist";
+            const banned_user = response.data === "Your account is suspended";
 
             let email_not_verified =
               response.data === "Please verify your account";
@@ -77,14 +79,25 @@ export default {
 
               return;
             } else if (user_exists) {
-              window.location.reload();
-            } else {
+               if (wrong_info) {
+                vm.errorToast("Wrong info.", "Error!");
+              } else {
+                // vm.notifySuccess("User logged in", "Success");
+                window.location.reload();
+              }
+            } 
+            else if(banned_user)
+            {
+              this.errorToast("You are banned from site!","Error!");
+            }
+            else {
               //does not exist
               this.$snotify.error("User does not exist!", "Error!", {
                 position: SnotifyPosition.centerTop,
                 backdrop: 0.5
               });
             }
+            
           })
           .catch(function(error) {
             vm.$snotify.error("Not logged in!", "Error!", {
