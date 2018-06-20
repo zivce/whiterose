@@ -50,3 +50,29 @@ $client-icon-color-active : #2c3340;
     align-items: center !important;
 }
 
+.actionbtn
+  {
+    font-size: $action_btn_size;
+    border-radius: 0!important;
+    margin : 0 10px;
+    background: #43c728 !important;
+    border: 0 !important;
+  }
+
+.removebtn
+{
+  font-size: $action_btn_size;
+  border-radius: 0!important;
+  margin : 0 10px;
+  background: #dc3545 !important;
+  border: 0 !important;
+}
+.removebtn:hover
+{
+  font-size: $action_btn_size;
+  border-radius: 0!important;
+  margin : 0 10px;
+  background: #c82333 !important;
+  border: 0 !important;
+}
+

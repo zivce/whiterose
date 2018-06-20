@@ -21,7 +21,7 @@
         <h3 class="h3s">Message:</h3>
         <p>{{det.description}}</p>
 
-        <b-button  class="btn btn-danger btn-secondary" 
+        <b-button  class="btn btn-danger removebtn" 
           @click="removeJob()">
             Remove
             <icon
@@ -39,8 +39,8 @@
             <h3 class="h3s">Remove job?</h3>
             <div class="btns">
             
-                <b-button class="btn btn-danger btn-secondary" @click="forSureRemoveJob()">Yes</b-button>
-                <b-button class="btn btn-success btn-secondary" @click="closeModal()">No</b-button>
+                <b-button class="btn btn-danger btn-secondary removebtn" @click="forSureRemoveJob()">Yes</b-button>
+                <b-button class="btn btn-success btn-secondary actionbtn" @click="closeModal()">No</b-button>
             
             </div>    
         </div>

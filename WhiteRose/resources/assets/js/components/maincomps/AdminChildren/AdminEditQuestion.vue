@@ -67,7 +67,7 @@
         </div>
 
 
-        <b-button  class="btn btn-danger btn-secondary" 
+        <b-button  class="btn btn-success actionbtn"  
           @click="editQuestion()">
             Edit
             
@@ -87,8 +87,8 @@
             <h3 class="h3s">Edit question?</h3>
             <div class="btns">
             
-                <b-button class="btn btn-danger btn-secondary" @click="forSureEditQuestion()">Yes</b-button>
-                <b-button class="btn btn-success btn-secondary" @click="closeModal()">No</b-button>
+                <b-button class="btn btn-danger removebtn" @click="forSureEditQuestion()">Yes</b-button>
+                <b-button class="btn btn-success actionbtn" @click="closeModal()">No</b-button>
             
             </div>    
         </div>

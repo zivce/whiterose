@@ -51,7 +51,7 @@
           </strong> ? </h3>
 
         <div class="btns_ban_user">
-          <b-button class="btn btn-success" @click="banUser()">
+          <b-button class="btn btn-success actionbtn" @click="banUser()">
             Yes<icon 
             style="
             vertical-align:middle;
@@ -59,7 +59,7 @@
             name="ban"></icon>
 
           </b-button>
-          <b-button class="btn btn-danger" @click="closeModal()">No 
+          <b-button class="btn btn-danger removebtn" @click="closeModal()">No 
             <icon 
             style="vertical-align:middle;"
             name="window-close">

@@ -104,6 +104,17 @@ export default {
   display:flex;
 }
 
+* >>> .VueTables__limit-field > label
+{
+  margin-right: 10%;
+}
+
+* >>> .VueTables__dropdown-pagination > label
+{
+  margin-right: 2%;
+}
+
+
 * >>> .VueTables__dropdown-pagination
 {
   display:flex;
