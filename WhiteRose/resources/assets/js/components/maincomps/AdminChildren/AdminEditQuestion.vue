@@ -159,7 +159,7 @@ export default {
               // det
             })
             .then(function(response) {
-              console.log(response);
+              (response);
             })
             .catch(function(error) {
               vm.errorToast("An error happened.", "Error!");

@@ -11,7 +11,7 @@ export default {
               axios
                 .get("getAllQuestions")
                 .then(response => {
-                  console.log(response.data);
+                  (response.data);
                   resolve(
                     response.data
                   );

@@ -261,7 +261,7 @@ export default {
           
           //api call to send form data
           PostJobAPI.editJob(this.sending, vm).then(res => {
-            console.log(res);
+            (res);
           });
         } else {
           //reset
@@ -291,7 +291,7 @@ export default {
 
           //api call to send form data
           PostJobAPI.postForm(this.formData, vm).then(res => {
-            // console.log(res);
+            // (res);
           });
         } else {
           //reset

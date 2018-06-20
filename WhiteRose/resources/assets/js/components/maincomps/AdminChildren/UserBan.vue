@@ -87,8 +87,8 @@ export default {
   created() {
 
     BanUserAPI.getAllUsers().then(users => {
-      // console.log(users.data[0]);
-      // console.log(users.data[1]);
+      // (users.data[0]);
+      // (users.data[1]);
       this.all_users = users.data;
     });
   },
