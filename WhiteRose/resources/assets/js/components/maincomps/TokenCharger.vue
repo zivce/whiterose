@@ -153,7 +153,7 @@ export default {
     
     console.log("withdraw", contains_withdraw);
     
-    if(contains_withdraw){
+    if(contains_withdraw !== -1){
       this.isWithdrawalMode = true;
     }
 
