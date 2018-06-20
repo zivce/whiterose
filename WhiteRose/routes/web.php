@@ -155,6 +155,7 @@ Route::get('testScan','ClientController@testscan');
 Route::get('adminLogout','AdminController@adminLogout');
 
 
-Route::get('getQuestion','PentesterController@getQuestions');
+Route::get('getQuestions','PentesterController@getQuestions');
+Route::get('getScore','PentesterController@getScore');
 
 Route::post('editQuestion','AdminController@editQuestion');
