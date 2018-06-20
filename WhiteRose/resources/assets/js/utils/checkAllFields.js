@@ -4,7 +4,7 @@ var checkFields = {
         for (let entry in this.inputs) {
           let object_entry = this.inputs[entry];
           
-          console.log(object_entry);
+          (object_entry);
           
           if(entry === "skills")
           {
@@ -21,7 +21,7 @@ var checkFields = {
           }
         
           }
-        // console.log("from tester function check all fields" + this.all_fields_ok);
+        // ("from tester function check all fields" + this.all_fields_ok);
       }
     }
   }

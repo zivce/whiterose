@@ -8,22 +8,68 @@
     </b-button>
 
      <transition name="flip" mode="out-in">
-      <div v-if="!removed">
+      <div v-if="!edited">
 
-        <h2 class="h2s">Job by {{det.client}}</h2>
+        <h2 class="h2s">Question: {{det.id}}</h2>
 
-        <!-- <h3 class="h3s">Rating:</h3>
-        <p>{{det.user_rating}}</p> -->
+        
+        <div class="d-flex flex-column">
+                <textarea  
+                type="text" 
+                v-model="det.question" 
+                required="true"
+                />
+        </div>
 
-        <h3 class="h3s">Title:</h3>
-        <p>{{det.title}}</p>
+        <div class="d-flex flex-column">
+        <span>Answer 1:</span>
+            <input  
+            type="text" 
+            v-model="det.answ1" 
+            required="true"
+            />
+        </div>
 
-        <h3 class="h3s">Message:</h3>
-        <p>{{det.description}}</p>
+        <div class="d-flex flex-column">
+        <span>Answer 2:</span>
+        <input  
+        type="text" 
+        v-model="det.answ2" 
+        required="true"
+        />
+        </div>
+
+        <div class="d-flex flex-column">
+        <span>Answer 3:</span>
+        <input  
+        type="text" 
+        v-model="det.answ3" 
+        required="true"
+        />
+        </div>
+
+        <div class="d-flex flex-column">
+        <span>Answer 4:</span>
+        <input  
+        type="text" 
+        v-model="det.answ4" 
+        required="true"
+        />
+        </div>
+
+        <div class="d-flex flex-column">
+        <span>Number of correct answer:</span>
+        <input  
+        type="text" 
+        v-model="det.corransw" 
+        required="true"
+        />
+        </div>
+
 
         <b-button  class="btn btn-danger btn-secondary" 
-          @click="removeJob()">
-            Remove
+          @click="editQuestion()">
+            Edit
             <icon
             id="ico"
             name ="times">
@@ -35,11 +81,11 @@
     
       <transition name="flip" mode="out-in"> 
 
-        <div v-if="removed">
-            <h3 class="h3s">Remove job?</h3>
+        <div v-if="edited">
+            <h3 class="h3s">Edit job?</h3>
             <div class="btns">
             
-                <b-button class="btn btn-danger btn-secondary" @click="forSureRemoveJob()">Yes</b-button>
+                <b-button class="btn btn-danger btn-secondary" @click="forSureEditQuestion()">Yes</b-button>
                 <b-button class="btn btn-success btn-secondary" @click="closeModal()">No</b-button>
             
             </div>    
@@ -52,7 +98,7 @@
 
 <script>
 import eventBus from "../../../utils/eventBus";
-import RemoveJobAPI from "../../../services//api/admin_api/RemoveJob.api";
+import EditQuestionAPI from "../../../services//api/admin_api/EditQuestionAPI.api";
 
 import Icon from "vue-awesome/components/Icon";
 import "vue-awesome/icons/window-close";
@@ -78,12 +124,12 @@ export default {
     }
   },
   methods: {
-    forSureRemoveJob() {
+    forSureEditQuestion() {
       //TODO: api call to remove job
-      RemoveJobAPI.removeJob(this.det.id);
+      EditQuestionAPI.editQuestion(this.det);
 
-      this.notifySuccess("Job removed", "Success");
-      this.removed = false;
+      this.notifySuccess("Question edited", "Success");
+      this.edited = false;
 
       let t = window.setTimeout(() => {
         eventBus.$emit("isVisibleMoreInfo", false);
@@ -91,10 +137,10 @@ export default {
       }, 1000);
     },
     closeModal() {
-      this.removed = false;
+      this.edited = false;
     },
-    removeJob() {
-      this.removed = true;
+    editQuestion() {
+      this.edited = true;
     },
     sendInfo() {
       let vm = this;
@@ -128,7 +174,7 @@ export default {
   mounted() {},
   data() {
     return {
-      removed: false,
+      edited: false,
       descinput: {
         id: "desc",
         label: "description",

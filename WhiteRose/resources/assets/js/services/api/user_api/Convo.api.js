@@ -43,7 +43,7 @@ export default {
               axios
                 .get("getMessages/"+job_id)
                 .then(response => {
-                  // console.log(response.data);
+                  // (response.data);
                   resolve(
                     response.data
                   );

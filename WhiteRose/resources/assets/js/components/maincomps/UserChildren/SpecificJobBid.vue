@@ -80,7 +80,7 @@ export default {
     //            declined_flag : bid.accepted != 1
     //        }
     //     })
-    //     // console.log("declined",this.bids_filter);
+    //     // ("declined",this.bids_filter);
     // }
     // else
     // {

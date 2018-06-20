@@ -1,13 +1,8 @@
 <template>
 <div v-cloak>
     
-    <!-- <h2 class="h2_profile">Profile</h2> -->
     <div class="profile">
-      <!-- TODO: add changeable  -->
-      <!-- <span v-if="isChangeableAvatar">
-        <icon name="bandcamp">
-        </icon>
-      </span> -->
+    
 
       <div 
       :class="{
@@ -28,7 +23,7 @@
             {{info.name}} 
           </p>
           
-          <star-rating
+          <!-- <star-rating
           :class =  "{'user_stars':true}"
           :star-size = "20"
           :read-only = "true"
@@ -36,7 +31,7 @@
           :show-rating = "false"
           >
           
-          </star-rating>
+          </star-rating> -->
       </span>
     </div>
     

@@ -20,7 +20,7 @@ class CreateQuestionsTable extends Migration
             $table->string('answ2');
             $table->string('answ3');
             $table->string('answ4');
-            $table->string('corransw');
+            $table->integer('corransw');
             $table->timestamps();
         });
     }

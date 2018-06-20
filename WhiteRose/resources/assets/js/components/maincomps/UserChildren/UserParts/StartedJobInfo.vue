@@ -41,7 +41,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.date_start);
+    (this.date_start);
   },
   data() {
     return {

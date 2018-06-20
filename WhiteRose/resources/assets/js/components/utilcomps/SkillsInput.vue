@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     firstSkill() {
-      // console.log(this.skill);
+      // (this.skill);
 
       return this.skill.id === "skills";
     },

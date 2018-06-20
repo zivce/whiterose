@@ -103,7 +103,7 @@ class ClientController extends Controller
     }
     public function postDesc(Request $request)
     {
-        $client=Auth::guard('client')->user()->first();
+        $client=Auth::guard('client')->user();
         $client->description=$request->desc;
         $client->save();
     }
@@ -144,9 +144,10 @@ class ClientController extends Controller
     }
     public function resetPw(Request $request)
     {
-        $client=Auth::guard('client')->user()->first();
-        $client->password=Hash::make($request->pw);
+        $client=Auth::guard('client')->user();
+        $client->password=Hash::make($request->send['newpw']);
         $client->save();
+        return $request->send['newpw'];
     }
     //delete job
     public function deleteJob(Request $request)

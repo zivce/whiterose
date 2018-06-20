@@ -36,9 +36,9 @@ export default {
     }
   },
   mounted() {
-    //console.log(this.$validator)   ;
+    //(this.$validator)   ;
     // eventBus.$on("validateAllFields", () => {
-    //   console.log(this.$validator);
+    //   (this.$validator);
     //   this.$validator.validateAll().then(res => {
     //     eventBus.$emit("field_ok", res);
     //   });

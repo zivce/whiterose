@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="height:100vh;">
 
 
     <form class="fform" id="login_form_admin">
@@ -101,6 +101,7 @@ export default {
 <style scoped>
 #login_form_admin {
   margin: auto;
+  margin-top : 17%;
 }
 
 .has-error {

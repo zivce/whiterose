@@ -26,11 +26,11 @@
     </transition>
     <transition name="flip" mode="out-in">
     
-      <more-info
+      <edit-info
       :det.sync="details"
       v-if="isVisibleBid">
 
-      </more-info>
+      </edit-info>
 
     </transition>
 
@@ -44,11 +44,12 @@ import eventBus from "../../../utils/eventBus";
 import AllQuestionsAPI from '../../../services/api/admin_api/AllQuestions.api';
 // import AllJobsAPI from '../../../services/api/pentester_api/AllJobs.api';
 import MoreInfo from "./AdminMoreInfo.vue";
+import EditInfo from "./AdminEditQuestion.vue";
 import "vue-awesome/icons/eye";
 
 export default {
   components: {
-    MoreInfo,
+    EditInfo,
     Icon
   },
   mixins: [],
