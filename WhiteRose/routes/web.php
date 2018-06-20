@@ -156,6 +156,6 @@ Route::get('adminLogout','AdminController@adminLogout');
 
 
 Route::get('getQuestions','PentesterController@getQuestions');
-Route::get('getScore','PentesterController@getScore');
+Route::post('getScore','PentesterController@getScore');
 
 Route::post('editQuestion','AdminController@editQuestion');
