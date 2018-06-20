@@ -26,7 +26,7 @@
         <div class="right_half">
            <div class="text_holder">
           <h1 class="h1s_lander">
-            User  
+            Client  
           </h1>
 
           <p>
