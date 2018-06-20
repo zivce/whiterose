@@ -381,17 +381,19 @@ class ClientController extends Controller
         if (!$ssh->login('root', 'L0g1n99')) {
             exit('Login Failed');
         }
-
+        
         $scanN=$request->scan;
-        $domain=$request->domain;
-        if(!Website::where('domain',$domain)->count>0)
+        $domain=$request->url;
+        if(Website::where('domain',$domain)->first()->confirmed==0)
             return "Website is not confirmed!";
         $command = $request->cmd;
         $execute=$command.' '.$domain;
         // $execute="sudo"." ".$execute ." "."2>&1";
         // $output=shell_exec($execute);
         $output=$ssh->exec($command);
-        
+        $client=Auth::guard('client')->user();
+        $client->tokens=$client->tokens-2;
+        $client->save();
         $outputToRet=$output;
        if(Auth::guard('client')->user())
        {
@@ -404,11 +406,11 @@ class ClientController extends Controller
            
            $pdfOut=json_encode($output);
            $pdfOut=str_replace('\n','<br>',$pdfOut);
-           $saveFileName=$dirName.'/'.$scanN.'_'.$date.'.pdf';
+           $saveFileName='app/'.$dirName.'/'.$scanN.'_'.$date.'.pdf';
             
            Storage::put($saveFileName,$pdfOut);
            $scan=new Scan;
-           $scan->client_id=Auth::guard('client')->user()->id;
+           $scan->website_id=Website::where('domain',$domain)->first()->id;
            $scan->path=Storage::url($saveFileName);
            $scan->scanName=$scanN;
            $scan->save();
@@ -428,7 +430,8 @@ class ClientController extends Controller
 
     public function downloadScan($dir,$fileName)
     {
-        $absolutePath='app/'.$dir.'/'.$fileName;
+       //$dir=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
+        $absolutePath='app\\'.$dir.'\\'.$fileName;
         $path=storage_path($absolutePath);
         $outputPDF=File::get($path);
         $pdf=\App::make('dompdf.wrapper');
