@@ -113,9 +113,9 @@ export default {
           })
           .catch(response => {
             vm.errorToast("Error happened.", "Error!");
-            window.setTimeout(() => {
-              window.location.reload();
-            }, 1500);
+            // window.setTimeout(() => {
+            //   window.location.reload();
+            // }, 1500);
           });
       },
       inputs: {

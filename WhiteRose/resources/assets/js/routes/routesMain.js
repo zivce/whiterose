@@ -168,8 +168,8 @@ let routes = [
                     component: require('../components/maincomps/PentesterChildren/FindJob.vue')
                 }, 
                 {
-                name:'tokens',
-                path:'purchasetokens',
+                name:'tokens_pentester',
+                path:'withdrawtokens',
                 component: require('../components/maincomps/TokenCharger.vue')
                 },
                 {

@@ -21,6 +21,21 @@
                 />
         </div>
 
+        <div 
+        v-for ="(answ,index) in det.answers"
+        :key ="answ"
+        class="d-flex flex-column editable_question">
+
+        <span>Answer {{index + 1 }} :</span>
+            <input  
+            type="text"
+            @change="changeAnsw($event,index)"  
+            :value="answ"
+            required="true"
+            />
+
+        </div>
+<!-- 
         <div class="d-flex flex-column editable_question">
         <span>Answer 1:</span>
             <input  
@@ -56,17 +71,30 @@
         required="true"
         />
         </div>
+  -->
 
-        <div class="d-flex flex-column editable_question">
-        <span>Number of correct answer:</span>
-        <input  
-        type="text" 
-        v-model="det.corransw" 
-        required="true"
-        />
-        </div>
-
-
+      <div class="d-flex flex-column editable_question">
+      
+        <span>Select correct answer</span>
+        <b-form-select  
+          id="select_quest"
+          v-model="correct_answer"
+          :options="arr_of_answers" 
+          v-validate="{
+          rules:{
+              required:true
+          }}"
+          name="selectsite"
+          >
+          <template slot="first">
+            <option :value ="null" 
+            disabled>
+              Please select correct answer
+            </option>
+          </template>
+        </b-form-select>
+      
+      </div>
         <b-button  class="btn btn-success actionbtn"  
           @click="editQuestion()">
             Edit
@@ -118,6 +146,15 @@ export default {
     }
   },
   computed: {
+    arrOfAnswers () {
+      this.det.answers.map((answ, index) => {
+        return {
+          'text' : answ,
+          'value' : index + 1
+        }
+      })
+    },
+
     errPrice() {
       return this.errors.has(this.priceinput.id);
     },
@@ -126,14 +163,27 @@ export default {
     }
   },
   methods: {
+    changeAnsw(event, indexx)
+    {
+      const ans = `answ${indexx + 1}`;
+
+      const changed_value_input = event.target.value;
+
+      this.det.answers[indexx] = changed_value_input;
+      this.det[ans] = changed_value_input;
+
+    },
     forSureEditQuestion() {
-      EditQuestionAPI.editQuestion(this.det);
+      const for_send = {...this.det, 'corransw' : this.correct_answer}
+
+      EditQuestionAPI.editQuestion(for_send);
 
       this.notifySuccess("Question edited", "Success");
       this.edited = false;
 
       let t = window.setTimeout(() => {
         eventBus.$emit("isVisibleMoreInfo", false);
+
         window.clearTimeout(t);
         window.location.reload();
       }, 1000);
@@ -144,38 +194,26 @@ export default {
     editQuestion() {
       this.edited = true;
     },
-    sendInfo() {
-      let vm = this;
-      this.$validator.validateAll().then(form_ok => {
-        if (form_ok) {
-          axios
-            .post("/postbid", {
-              id: this.det.id,
-              title: this.det.title,
-              maximum_price: this.det.maximum_price,
-              domain: this.det.domain,
-              description: this.det.description,
-              user: "hardcode"
-              // desc: this.descinput.value,
-              // price: this.priceinput.value,
-              // det
-            })
-            .then(function(response) {
-              (response);
-            })
-            .catch(function(error) {
-              vm.errorToast("An error happened.", "Error!");
-            });
-        }
-      });
-    },
     disableMoreInfo() {
       eventBus.$emit("isVisibleMoreInfo", false);
     }
   },
-  mounted() {},
+  mounted() { 
+       this.arr_of_answers = this.det.answers.map((answ, index) => {
+          return {
+            'text' : `Answer ${index + 1}`,
+            'value' : index + 1
+          }
+        })
+   
+
+  },
+  destroyed () {
+  },
   data() {
     return {
+      correct_answer : undefined,
+      arr_of_answers : [],
       edited: false,
       descinput: {
         id: "desc",
@@ -196,7 +234,13 @@ export default {
 </script>
 
 <style scoped>
+#select_quest
+{
+  margin-bottom : 5%;
+}
+
 .editable_question {
+
   margin-top: 5%;
   margin-bottom: 5%;
 }

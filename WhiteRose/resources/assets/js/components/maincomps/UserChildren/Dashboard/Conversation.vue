@@ -290,8 +290,7 @@ export default {
       ClientConvoAPI.markAsCompleted(this.job_id, this);
     },
     deleteConvo() {
-      //TODO: implementacija
-      // DeleteConvoAPI.deleteConvo();
+      DeleteConvoAPI.deleteConvo(this.whole_convo.discusion.id);
     },
     bundleMessages() {
       let msgs_only = this.msgs_for_send.map(msg => msg.message);

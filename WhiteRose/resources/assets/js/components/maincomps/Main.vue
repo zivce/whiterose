@@ -108,8 +108,24 @@
               </b-dropdown-item>
 
 
-              <b-dropdown-item  :to="tokens_url">
+              <b-dropdown-item  
+               v-if="!isHacker"
+              :to="tokens_url">
                   <slot name="button-content"><icon name="check"></icon> Buy tokens</slot>
+              </b-dropdown-item>
+
+              
+              <b-dropdown-item  
+               v-if="isHacker"
+              :to="tokens_pentester">
+
+                  <slot name="button-content"><icon name="check"></icon> Withdraw
+                  <icon 
+                  style="vertical-align:middle;"   
+                  height="25"
+                  width="25" name="bandcamp">
+                  </icon>
+                   </slot>
               </b-dropdown-item>
 
 
@@ -217,6 +233,7 @@ export default {
 
     this.profile_url = `/${this.user_role}/${this.user_id}/dashboard/profile`;
     this.tokens_url = `/${this.user_role}/${this.user_id}/purchasetokens`;
+    this.tokens_pentester = `/${this.user_role}/${this.user_id}/withdrawtokens`
   },
   computed: {
     ...mapGetters({
@@ -230,6 +247,9 @@ export default {
     }
   },
   methods: {
+    withdraw() {
+      // this.$router.push("withdrawtokens");
+    },
     rel(){
       window.location.reload();
     },
@@ -396,7 +416,7 @@ export default {
   margin-bottom: 3%;
   height: 13vh;
   color: white;
-  background: #000919d1;
+  background: #babbbb;
 }
 
 .hacker_stars >>> polygon {
@@ -407,5 +427,14 @@ export default {
   /* background: #C33764;  /* fallback for old browsers */
   /* background: -webkit-linear-gradient(to right, #1D2671, #C33764);  Chrome 10-25, Safari 5.1-6 */
   /* background: linear-gradient(to right, #1D2671, #C33764); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #c0c4c7;
+}
+
+.dropdown-item:hover {
+  outline: none;
 }
 </style>

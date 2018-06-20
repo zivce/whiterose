@@ -145,8 +145,6 @@
       </section>
     </footer>
   </div>
-  </div>
-
  
 </template>
 

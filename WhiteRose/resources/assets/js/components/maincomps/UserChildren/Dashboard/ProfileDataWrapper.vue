@@ -82,7 +82,7 @@ export default {
   width: 4vw;
   height: 4vw;
   border-radius: 50%;
-  background-color: rgb(44, 51, 64);
+background-color: rgb(217, 217, 217);
   color: white;
 }
 
