@@ -118,7 +118,6 @@ export default {
 
       columns: ["username", "role", "ban"],
       isVisibleModal: false,
-      // all_users: usersHardcode,
       all_users: [[],[]],
       options: {
         columnsClasses: {
