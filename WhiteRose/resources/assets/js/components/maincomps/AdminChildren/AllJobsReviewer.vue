@@ -40,7 +40,7 @@
 
 <script>
 import Icon from "vue-awesome/components/Icon";
-import hardc from "./alljobs.hardcode";
+// import hardc from "./alljobs.hardcode";
 import eventBus from "../../../utils/eventBus";
 import AllJobsAPI from '../../../services/api/admin_api/AllJobs.api';
 // import AllJobsAPI from '../../../services/api/pentester_api/AllJobs.api';

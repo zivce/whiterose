@@ -116,9 +116,9 @@
 <script>
 import AppLine from "../DataComps/DoughnutChart";
 
-import hardc from "../hardcode_pentesters";
+// import hardc from "../hardcode_pentesters";
 
-import DomainsHardcode from "../domains.hardcode";
+// import DomainsHardcode from "../domains.hardcode";
 
 import MoreInfo from "../UserParts/ContactPentester.vue";
 import eventBus from "../../../../utils/eventBus";
@@ -188,8 +188,8 @@ export default {
 
       //TODO: zameni stvarnim podacima
 
-      pentesters: hardc,
-      sites: DomainsHardcode,
+      // pentesters: hardc,
+      // sites: DomainsHardcode,
 
       //...
 

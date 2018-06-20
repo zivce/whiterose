@@ -176,7 +176,7 @@
 <script>
 import StarRating from "vue-star-rating";
 import ProfileDataWrapper from "./ProfileDataWrapper.vue";
-import InfoHardcode from "./user.hardcode";
+// import InfoHardcode from "./user.hardcode";
 import Icon from "vue-awesome/components/Icon";
 
 import eventBus from "./../../../../utils/eventBus";

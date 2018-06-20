@@ -13,7 +13,7 @@ import * as jsdom from 'jsdom';
 /**
  * Imports block
  */
-import hardcodemyjobs from "@/maincomps/UserChildren/hardcodemyjobs";
+// import hardcodemyjobs from "@/maincomps/UserChildren/hardcodemyjobs";
 
 
 import BootstrapVue from "bootstrap-vue";

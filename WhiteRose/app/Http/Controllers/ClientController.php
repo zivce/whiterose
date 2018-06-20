@@ -104,8 +104,9 @@ class ClientController extends Controller
     public function postDesc(Request $request)
     {
         $client=Auth::guard('client')->user();
-        $client->description=$request->desc;
+        $client->description=$request->send;
         $client->save();
+        return $client->description;
     }
     public function uploadAvatar(Request $request)
     {
