@@ -314,10 +314,14 @@ class ClientController extends Controller
         $client=Client::where('email',$email)->first();
         if($client)
         {
-        // if($client->confirmed==0)
-        // {
-        //     return 'Please verify your account';
-        // }
+        if($user->confirmed===0)
+        {
+            if($user->created_at===$user->updated_at){
+                return 'Please verify your account';                
+            }else{
+                return 'Your account is suspended';
+            }
+        }
         
         if(Auth::guard('client')->attempt(['email'=>$email,'password'=>$password]))
         {
