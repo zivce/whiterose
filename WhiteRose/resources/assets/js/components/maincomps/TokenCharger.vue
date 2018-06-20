@@ -1,6 +1,14 @@
 <template>
   <div class="comp_container">
-    <h2 class="h2s">Token charger</h2>
+    <h2 
+    v-if ="!isWithdrawalMode"
+    class="h2s">Token charger
+    </h2>
+
+     <h2 
+    v-if ="isWithdrawalMode"
+    class="h2s">Withdraw tokens
+    </h2>
 
     <div id="explanation" style="
     text-align: left;
@@ -53,7 +61,22 @@
       </span>
     
     </div>
-    <span class="d-flex justify-content-center">
+
+    <span v-if="isWithdrawalMode" class="d-flex justify-content-center">
+      You will get 
+      <span style="color:#0f0;font-weight:bold;">
+        &nbsp; $
+      </span>
+      <strong style="
+        margin-left: 2%;
+        margin-right: 2%;"> 
+        {{prop.value * 5 }} 
+        </strong>.
+    </span>
+
+
+
+    <span v-if="!isWithdrawalMode" class="d-flex justify-content-center">
       Your credit card will be charged with  
       <span style="color:#0f0;font-weight:bold;">
         &nbsp; $
@@ -66,7 +89,7 @@
     </span>
 
     <div
-    v-if="visible" 
+    v-if="!isWithdrawalMode" 
     class="d-flex flex-column example example4 ">
         <div id="wrap">
 
@@ -89,9 +112,25 @@
             </b-button>
 
         </div>
-
-
     </div>
+
+    <div
+    v-if="isWithdrawalMode" 
+    class="d-flex flex-column example example4">
+      
+        <div id="wrap">
+          <b-button
+          class="col-7 pay_btn"
+          @click.once="withdraw">
+          
+          Withdraw 
+          
+          </b-button>
+        </div>
+    
+    </div>
+      
+
     </div>
 </template>
 
@@ -107,10 +146,17 @@ import TokenChargerAPI from "../../services/api/TokenCharger.api";
 export default {
   components: { Card, Icon },
   mounted() {
-    // let t = window.setTimeout(()=>{
-    //   this.visible = true
-    //   window.clearTimeout(t);
-    // },5000)
+    this.tokensInStore = this.$store.getters.returnTokens;
+
+    const route = this.$store.getters.returnRoute;
+    const contains_withdraw = route.indexOf("withdraw");
+    
+    console.log("withdraw", contains_withdraw);
+    
+    if(contains_withdraw){
+      this.isWithdrawalMode = true;
+    }
+
   },
   computed: {
     fixMax() {
@@ -127,7 +173,10 @@ export default {
     }
   },
   data() {
+
     return {
+      tokensInStore : undefined,
+      isWithdrawalMode : false,
       prop: {
         id: "amount",
         label: "number of tokens",
@@ -170,11 +219,26 @@ export default {
     };
   },
   methods: {
+    withdraw() {
+      this.$validator.validateAll().then(isFormOk => {
+        if(isFormOk)
+        {
+
+          this.$store.commit('withdrawTokens',{
+              tokens: this.prop.value,
+              vm: this
+          });
+
+          if( this.prop.value < this.tokensInStore )
+            TokenChargerAPI.withdrawTokens(this.prop.value);
+
+        }
+      })
+    },
     pay() {
       this.$validator.validateAll().then(isFormOk => {
         if (isFormOk && this.complete && this.completeform) {
           createToken().then(token => {
-            //HARDCODE :
             let tokens_already = this.$store.returnTokens;
             (tokens_already);
 
@@ -183,7 +247,6 @@ export default {
             this.$store.commit("setTokens", { tokens: tk });
 
             this.notifySuccess("Tokens added.", "Success");
-            //TODO: uncomment
             TokenChargerAPI.sendTokenAndAmount(token, this.prop.value);
             // .then((amount)=>{
 
