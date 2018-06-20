@@ -70,10 +70,12 @@
         <b-button  class="btn btn-danger btn-secondary" 
           @click="editQuestion()">
             Edit
+            
             <icon
             id="ico"
-            name ="times">
-            </icon>  
+            name ="edit">
+            </icon> 
+
         </b-button>
 
       </div>
