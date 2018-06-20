@@ -234,7 +234,7 @@ export default {
     this.job_id = this.$store.getters.returnParams;
     ClientConvoAPI.getConversation(this.job_id).then(resp => {
       this.whole_convo = resp;
-      console.log(this.whole_convo);
+      (this.whole_convo);
 
     });
   },
@@ -317,7 +317,7 @@ export default {
       this.msg_send_id++;
 
       this.msgs_for_send.push(new_msg);
-      // console.log(new_msg);
+      // (new_msg);
       ConvoSendMessagesAPI.sendMsg(new_msg);
     },
     renderMessages(msg, first) {
@@ -330,7 +330,7 @@ export default {
 
         const ind = message_text.indexOf("job");
         let first_message = message_text.slice(0, ind + 3);
-        console.log("poruka", first_message);
+        ("poruka", first_message);
         return [first_message];
       }
 

@@ -14,7 +14,7 @@ export default {
               axios
                 .get("returnalljobs")
                 .then(response => {
-                  // console.log(response.data[0]);
+                  // (response.data[0]);
                   response.data.forEach(job_info => {
                     jobs.push({
                       id: job_info.id,

@@ -52,7 +52,7 @@ export default {
         let vm = this;
         this.clickPassed = true;
         this.checkAllFields();
-        console.log(vm.inputs);
+        (vm.inputs);
         if (!this.all_fields_ok) {
           this.errorNotify();
           return;

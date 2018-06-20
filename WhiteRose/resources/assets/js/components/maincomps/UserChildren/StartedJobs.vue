@@ -70,8 +70,8 @@ export default {
     });
     eventBus.$on("myJobsClient", myJobs => {
       this.started_jobs = myJobs;
-      // console.log(myJobs);
-      console.log(this.started_jobs);
+      // (myJobs);
+      (this.started_jobs);
     });
   },
   methods: {

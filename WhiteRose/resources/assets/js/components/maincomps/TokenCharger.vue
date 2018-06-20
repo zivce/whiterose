@@ -176,7 +176,7 @@ export default {
           createToken().then(token => {
             //HARDCODE :
             let tokens_already = this.$store.returnTokens;
-            console.log(tokens_already);
+            (tokens_already);
 
             let tk = this.prop.value;
 

@@ -10,11 +10,11 @@ export default {
     getAllUsers()
     {
         return new Promise((resolve) => {
-          // console.log(response.data);
+          // (response.data);
           axios
               .get("getAllUsers")
               .then((res)=>{
-                console.log(res.data[0]);
+                (res.data[0]);
                 res.data[0].forEach( data => {
                   data.role='client'
                 });

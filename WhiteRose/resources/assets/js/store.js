@@ -80,7 +80,7 @@ const store = new Vuex.Store({
   },
   getters: {
     returnRating : state => {
-      console.log(state.user);
+      (state.user);
       return state.user.rating
     },
     returnAvatarPath : state => {

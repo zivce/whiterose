@@ -1,16 +1,23 @@
 <template>
-  <div id="user_comps" ref="user_main">
+  <div 
+  @click="clickedOutside($event)"
+  id="user_comps" ref="user_main">
       <div class="nav_btns">
-          
+        
         <b-button 
         ref = "info_btn"
+        id="btn_info"
         v-b-tooltip.hover.right="'Info'"
-        class="btn btn-client " @click="hideShowInfo">
+        class="btn btn-client" 
+        @click="hideShowInfo">
+        
           <icon 
+          id="btn_info_icon"
           name="info" 
           :width="icon_fix_width"
           >
           </icon>
+        
         </b-button>
         
         <b-button 
@@ -18,9 +25,11 @@
         v-b-tooltip.hover.right="'Messages'"
         class="btn btn-client"
         :to="messages_url">
+        
           <icon name="comment" 
           :width="icon_fix_width"
            ></icon>
+        
         </b-button>
         
         <b-button 
@@ -184,6 +193,21 @@ export default {
     }
   },
   methods: {
+    clickedOutside(e)
+    {
+      const btn_info = document.getElementById("btn_info");
+      const btn_info_icon = document.getElementById("btn_info_icon");
+      const inside_btn = e.target == btn_info || e.target == btn_info_icon;
+
+      if(!inside_btn)
+      {
+        if(this.isVisibleUserInfo)
+          this.isVisibleUserInfo = !this.isVisibleUserInfo;
+      }
+      
+
+    },
+
     //Updates route to be watched by watcher and
     // compute the text to show .
     helper() {
@@ -194,7 +218,6 @@ export default {
         this.route = root;
       }, 1);
     },
-
     hideShowInfo() {
       this.isVisibleUserInfo = !this.isVisibleUserInfo;
     }

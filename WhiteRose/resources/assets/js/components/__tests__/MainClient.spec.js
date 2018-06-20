@@ -78,7 +78,7 @@ describe("MainClient.vue", () => {
         login.trigger('click');
         
         const t = wrapper.find({ref : "log_form_client"});
-        console.log("login form "  + t);
+        ("login form "  + t);
 
         expect(t).toBeTruthy();
     })
