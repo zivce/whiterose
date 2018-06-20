@@ -192,7 +192,7 @@ class ClientController extends Controller
             $fileName=str_replace(':','_',$fileName);       
             Storage::putFileAs($dirName,$document,$fileName);
 
-            $job->file_path=storage_path('app\\'.$dirName.'\\'.$fileName);
+            $job->file_path=Storage::url('app/'.$dirName.'/'.$fileName);
         }
         $job->save();
 
@@ -232,23 +232,7 @@ class ClientController extends Controller
        return $jobs_bids;
 
 
-    //    $returnBids=array();
 
-    //    foreach($jobs as $job){
-    //         $bids=$job->bids()->get();
-    //         foreach($bids as $bid)
-    //         {
-    //         array_push($returnBids,[
-    //             'bid'=>$bid,
-    //             'pentester_username'=>Pentester::where('id',$bid->pentester_id)->first()->username,
-    //             'pentester_email'=>Pentester::where('id',$bid->pentester_id)->first()->email,
-    //             'pentester_rating'=>Pentester::where('id',$bid->pentester_id)->first()->rating,
-    //             'job_name'=>$job->title
-    //         ]);
-    //         }
-    //    }
-
-    //     return $returnBids;
    }
 
 
@@ -412,7 +396,7 @@ class ClientController extends Controller
            
            $pdfOut=json_encode($output);
            $pdfOut=str_replace('\n','<br>',$pdfOut);
-           $saveFileName='app/'.$dirName.'/'.$scanN.'_'.$date.'.pdf';
+           $saveFileName=$dirName.'/'.$scanN.'_'.$date.'.pdf';
             
            Storage::put($saveFileName,$pdfOut);
            $scan=new Scan;
