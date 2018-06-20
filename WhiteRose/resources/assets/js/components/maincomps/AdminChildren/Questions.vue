@@ -83,7 +83,7 @@ export default {
       columns: ["question","preview"],
       all_questions: [],
       options: {
-
+        
         filterByColumn: true,
         filterable: ["question"],
         sortable: ["question"],
@@ -99,6 +99,16 @@ export default {
 </script>
 
 <style scoped>
+* >>> .VueTables__limit-field
+{
+  display:flex;
+}
+
+* >>> .VueTables__dropdown-pagination
+{
+  display:flex;
+  flex-direction: row;
+}
 #eye_ico {
   color: var(--cyan);
   vertical-align: middle;

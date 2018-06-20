@@ -8,12 +8,12 @@
     </b-button>
 
      <transition name="flip" mode="out-in">
-      <div v-if="!edited">
+      <div v-if="!edited" id="edit_question_form">
 
         <h2 class="h2s">Question: {{det.id}}</h2>
 
         
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column editable_question">
                 <textarea  
                 type="text" 
                 v-model="det.question" 
@@ -21,7 +21,7 @@
                 />
         </div>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column editable_question">
         <span>Answer 1:</span>
             <input  
             type="text" 
@@ -30,7 +30,7 @@
             />
         </div>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column editable_question">
         <span>Answer 2:</span>
         <input  
         type="text" 
@@ -39,7 +39,7 @@
         />
         </div>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column editable_question">
         <span>Answer 3:</span>
         <input  
         type="text" 
@@ -48,7 +48,7 @@
         />
         </div>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column editable_question">
         <span>Answer 4:</span>
         <input  
         type="text" 
@@ -57,7 +57,7 @@
         />
         </div>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column editable_question">
         <span>Number of correct answer:</span>
         <input  
         type="text" 
@@ -82,7 +82,7 @@
       <transition name="flip" mode="out-in"> 
 
         <div v-if="edited">
-            <h3 class="h3s">Edit job?</h3>
+            <h3 class="h3s">Edit question?</h3>
             <div class="btns">
             
                 <b-button class="btn btn-danger btn-secondary" @click="forSureEditQuestion()">Yes</b-button>
@@ -125,7 +125,6 @@ export default {
   },
   methods: {
     forSureEditQuestion() {
-      //TODO: api call to remove job
       EditQuestionAPI.editQuestion(this.det);
 
       this.notifySuccess("Question edited", "Success");
@@ -134,6 +133,7 @@ export default {
       let t = window.setTimeout(() => {
         eventBus.$emit("isVisibleMoreInfo", false);
         window.clearTimeout(t);
+        window.location.reload();
       }, 1000);
     },
     closeModal() {
@@ -194,6 +194,16 @@ export default {
 </script>
 
 <style scoped>
+.editable_question {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+#edit_question_form > *
+{
+  padding:2%;
+
+}
 .send_info {
   margin-top: 4%;
 }

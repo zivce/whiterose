@@ -155,6 +155,9 @@ const store = new Vuex.Store({
     returnUser: state => {
       return state.user;
     },
+    returnDesc : state => {
+      return state.user.description
+    },
     returnEmail: state => {
       return state.email;
     },
