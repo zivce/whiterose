@@ -117,7 +117,6 @@
 import AppLine from "../DataComps/DoughnutChart";
 
 
-
 import MoreInfo from "../UserParts/ContactPentester.vue";
 import eventBus from "../../../../utils/eventBus";
 import Icon from "vue-awesome/components/Icon";
@@ -186,8 +185,8 @@ export default {
 
       //TODO: zameni stvarnim podacima
 
-      pentesters: hardc,
-      sites: DomainsHardcode,
+      // pentesters: hardc,
+      // sites: DomainsHardcode,
 
       //...
 

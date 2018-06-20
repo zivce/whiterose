@@ -73,7 +73,7 @@ const routes = [
 const router = new VueRouter({
     routes
 })
-import hardcode from "../maincomps/UserChildren/scans.hardcode";
+// import hardcode from "../maincomps/UserChildren/scans.hardcode";
 
 
 localVue.config.ignoredElements = ['router-view']

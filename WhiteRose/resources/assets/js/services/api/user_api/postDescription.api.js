@@ -16,11 +16,11 @@ export default {
         validator.validateAll().then((form_ok)=>{
                 if (form_ok) {
                     axios
-                      .post("/postdescription", {
+                      .post("/postDesc", {
                         send
                       })
                       .then(function(response) {
-                        vm.successToast("Description added.", "Success.");
+                        vm.successToast("Description added.", "Successs.");
                       })
                       .catch(function(error) {
                         vm.errorToast("An error happened.", "Error.");
