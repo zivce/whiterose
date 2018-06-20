@@ -29,10 +29,25 @@ export default {
       });  
     },
 
+
     banUser(id,role)
     {
           axios
           .post("/banUser", {
+            id,role
+          })
+          .then(function(response) {
+            // vm.successToast("Description added.", "Success.");
+          })
+          .catch(function(error) {
+            // vm.errorToast("An error happened.", "Error.");
+          });
+    },
+
+    unbanUser(id,role)
+    {
+          axios
+          .post("/unbanUser", {
             id,role
           })
           .then(function(response) {

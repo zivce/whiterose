@@ -73,11 +73,28 @@ class AdminController extends Controller
         if($request->role==="client"){
             $user = Client::where('id',$request->id)->first();
             $user->confirmed = 0;
+            $user->save();
             return "Client successfully banned!";
         }else{
             $user = Pentester::where('id',$request->id)->first();
             $user->confirmed = 0;
+            $user->save();            
             return "Pentester successfully banned!";            
+        }
+    }
+
+    public function unbanUser(Request $request)
+    {
+        if($request->role==="client"){
+            $user = Client::where('id',$request->id)->first();
+            $user->confirmed = 1;
+            $user->save();            
+            return "Client successfully unbanned!";
+        }else{
+            $user = Pentester::where('id',$request->id)->first();
+            $user->confirmed = 1;
+            $user->save();            
+            return "Pentester successfully unbanned!";            
         }
     }
 
