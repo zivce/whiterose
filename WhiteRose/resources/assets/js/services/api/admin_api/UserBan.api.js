@@ -24,7 +24,7 @@ export default {
                   resolve(res);
               })
               .catch(function(error) {
-              vm.errorToast("Error happened.", "Error!");
+              //vm.errorToast("Error happened.", "Error!");
               });
       });  
     },
@@ -38,6 +38,7 @@ export default {
           })
           .then(function(response) {
             // vm.successToast("Description added.", "Success.");
+            
           })
           .catch(function(error) {
             // vm.errorToast("An error happened.", "Error.");
@@ -46,16 +47,20 @@ export default {
 
     unbanUser(id,role)
     {
-          axios
+      return new Promise((resolve) => {
+        axios
           .post("/unbanUser", {
             id,role
           })
           .then(function(response) {
+            resolve()
             // vm.successToast("Description added.", "Success.");
           })
           .catch(function(error) {
             // vm.errorToast("An error happened.", "Error.");
           });
+      })
+          
     }
 
 }
