@@ -147,6 +147,7 @@ Route::get('getAllUsers','AdminController@getAllUsers')->name('getAllUsers');
 Route::get('getAllJobs','AdminController@getAllJobs')->name('getAllJobs');
 Route::get('getAllQuestions','AdminController@getAllQuestions')->name('getAllQuestions');
 Route::post('banUser','AdminController@banUser')->name('banUser');
+Route::post('unbanUser','AdminController@unbanUser')->name('unbanUser');
 
 Route::get('testScan','ClientController@testscan');
 
