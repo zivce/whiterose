@@ -69,6 +69,11 @@ export default {
             let email_not_verified =
               response.data === "Please verify your account";
             const banned_user = response.data === "Your account is suspended";
+            if(banned_user)
+            {
+              vm.errorToast("You are banned from site!","Error");
+              return;
+            }
 
             if (email_not_verified) {
               vm.$snotify.info("Verify your email.", "Verification", {
@@ -85,10 +90,6 @@ export default {
                 window.location.reload();
               }
             } 
-            else if(banned_user)
-            {
-              this.errorToast("You are banned from site!","Error");
-            }
             else {
               //does not exist
               vm.errorToast("User does not exist!", "Error!");
