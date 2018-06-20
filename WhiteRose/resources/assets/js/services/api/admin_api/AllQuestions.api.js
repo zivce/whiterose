@@ -9,7 +9,7 @@ export default {
     {
       return new Promise((resolve) => {
               axios
-                .get("getAllQuestions")
+                .get("getQuestions")
                 .then(response => {
                   (response.data);
                   resolve(
