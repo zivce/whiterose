@@ -318,12 +318,11 @@ class ClientController extends Controller
         {
             if($client->created_at===$client->updated_at){
                 return 'Please verify your account';                
+            }else{
+                return 'Your account is suspended';
             }
         }
-        else 
-        {
-            return 'Your account is suspended';
-        }
+ 
         
         if(Auth::guard('client')->attempt(['email'=>$email,'password'=>$password]))
         {
