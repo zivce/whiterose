@@ -1,64 +1,79 @@
 <template>
   <div class="comp_container">    
     <!-- <transition-group name="flip" mode="out-in"> -->
-      <v-client-table
-      v-if="!isVisibleModal || !isVisibleModal"
-      :data='all_users[0]'
-      :columns='columns'
-      :options='options'
-      >
-    
-    <a  slot="ban" 
-        slot-scope="props"
-        class="cursorable"
-        @click="showModal(props)"
-        >
-        <icon class="ban_ico" name="ban"></icon>
-      </a>
+      <section 
+      v-if="!isVisibleModal">
 
-      
-      </v-client-table >
-      
-      
-      <v-client-table
-      v-if="!isVisibleModal || !isVisibleModal"
-      :data='all_users[1]'
-      :columns='columns'
-      :options='options'     
-      >
-    
-    <a  slot="ban" 
-        slot-scope="props"
-        class="cursorable"
-        @click="showModal(props)"
+        <h2 class="h2s">Ban clients</h2>
+        <v-client-table
+        :data='all_users[0]'
+        :columns='columns'
+        :options='options'
         >
-        <icon 
+      
+        <a  slot="ban" 
+          slot-scope="props"
+          class="cursorable"
+          @click="showModal(props)"
+          >
+          <icon class="ban_ico" name="ban"></icon>
+        </a>
+
         
-        class="ban_ico" name="ban"></icon>
-      </a>
-
+        </v-client-table >
       
-      </v-client-table >
-      
-      <v-client-table
-      v-if="!isVisibleModal || !isVisibleModal"
-      :data='banned_users'
-      :columns='columns1'
-      :options='options'     
-      >
-    
-    <a  slot="unban" 
-        slot-scope="props"
-        class="cursorable"
-        @click="showModalUnban(props)"
-        >
-        <icon 
+      </section>
         
-        class="ban_ico" name="ban"></icon>
-      </a>
-
+      <section
+      v-if="!isVisibleModal">
+        <h2 class="h2s">Ban pentesters</h2>
+          
+        <v-client-table
+        :data='all_users[1]'
+        :columns='columns'
+        :options='options'     
+        >
       
-      </v-client-table >
+      <a  slot="ban" 
+          slot-scope="props"
+          class="cursorable"
+          @click="showModal(props)"
+          >
+          <icon 
+          
+          class="ban_ico" name="ban"></icon>
+        </a>
+  
+        </v-client-table >
+      
+      </section>
+
+      <section
+      v-if="!isVisibleModal"
+      >
+        <h2 class="h2s">Revert bans</h2>
+
+        <v-client-table
+        :data='banned_users_computed'
+        :columns='columns1'
+        :options='options'     
+        >
+      
+      <a  slot="unban" 
+          slot-scope="props"
+          class="cursorable"
+          @click="showModalUnban(props)"
+          >
+          <icon 
+          
+          class="ban_ico" name="ban"></icon>
+        </a>
+
+        
+        </v-client-table >
+    
+      </section>
+    
       <!-- ban -->
     
       <div
@@ -133,6 +148,11 @@ import "vue-awesome/icons/window-close";
 
 
 export default {
+  computed : {
+    banned_users_computed () {
+      return this.banned_users
+    }
+  },
   created() {
 
     BanUserAPI.getAllUsers().then(users => {
@@ -160,14 +180,36 @@ export default {
       this.isVisibleModalUnban = false;
     },
     banUser() {
-      //TODO : napravi ban
       BanUserAPI.banUser(this.for_ban_details.id,this.for_ban_details.role);
-
+     
       this.isVisibleModal = false;
       this.notifySuccess("User banned.", "Success!");
+        
+      let t = window.setTimeout(()=> {
+        
+        window.clearTimeout(t);
+
+        window.location.reload();
+
+      },1000)
+
     },
     unbanUser() {
-      BanUserAPI.unbanUser(this.for_ban_details.id,this.for_ban_details.role);
+      BanUserAPI
+      .unbanUser(this.for_ban_details.id,this.for_ban_details.role)
+      .then(() => {
+        
+        let t = window.setTimeout(()=> {
+          
+          window.clearTimeout(t);
+
+          window.location.reload();
+
+        },1000)
+
+      
+
+        })
 
       this.isVisibleModalUnban = false;
       this.notifySuccess("User unbanned.", "Success!");
@@ -187,15 +229,21 @@ export default {
     return {
       for_ban_details: null,
 
-      columns: ["username", "role", "ban"],
-      columns1: ["username", "role", "unban"],
+      //visibility variables
       isVisibleModal: false,
       isVisibleModalUnban: false,
-      // all_users: usersHardcode,
+
+      columns: ["username", "role", "ban"],
+      columns1: ["username", "role", "unban"],
+     
+      //0 - clienti 1 - pentesteri
       all_users: [[],[]],
+      
       banned_users:[],
+
       banned_clients:[],
       banned_pentesters:[],
+      
       options: {
         columnsClasses: {
           role: "cursorable"

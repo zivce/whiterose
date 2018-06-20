@@ -88,7 +88,10 @@ export default {
       let t = window.setTimeout(() => {
         eventBus.$emit("isVisibleMoreInfo", false);
         window.clearTimeout(t);
+        
+        window.location.reload();
       }, 1000);
+
     },
     closeModal() {
       this.removed = false;
