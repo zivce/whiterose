@@ -22,6 +22,7 @@ class AdminController extends Controller
         $question->answ4=$request->question['answ4'];
         $question->corransw=$request->question['corransw'];
         $question->save();
+        return $question;
         
     }
     public function login(Request $request)

@@ -40,7 +40,7 @@ class DiscusionController extends Controller
             $toArray=['message'=>$message,
                         'job_id'=>$disc->job_id,
                         'client_name'=>$disc->client()->first()->name,
-                        'pentester_name'=>$disc->pentester()->first()->name,
+                        'pentester_name'=>$disc->pentester()->first()->username,
                         'avatar'=>$avatar
                     ];
             array_push($firstMessages,$toArray);
