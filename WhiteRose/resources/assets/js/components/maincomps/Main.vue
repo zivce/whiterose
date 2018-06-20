@@ -396,7 +396,7 @@ export default {
   margin-bottom: 3%;
   height: 13vh;
   color: white;
-  background: #000919d1;
+  background: #babbbb;
 }
 
 .hacker_stars >>> polygon {
@@ -407,5 +407,14 @@ export default {
   /* background: #C33764;  /* fallback for old browsers */
   /* background: -webkit-linear-gradient(to right, #1D2671, #C33764);  Chrome 10-25, Safari 5.1-6 */
   /* background: linear-gradient(to right, #1D2671, #C33764); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #c0c4c7;
+}
+
+.dropdown-item:hover {
+  outline: none;
 }
 </style>

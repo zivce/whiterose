@@ -7,32 +7,17 @@
 
 export default {
 
-    deleteConvo(job_id)
+    deleteConvo(disc_id)
     {
       return new Promise((resolve) => {
-            let jobs = [];
-              axios
-                .get("returnalljobs")
-                .then(response => {
-                  // (response.data[0]);
-                  response.data.forEach(job_info => {
-                    jobs.push({
-                      id: job_info.id,
-                      title: job_info.title,
-                      maximum_price: job_info.maximum_price,
-                      domain:job_info.domain,
-                      description: job_info.description,
-                      user:"hardcode",
-                      //job_info
-                    });
-                  });
-                  resolve(
-                    jobs
-                  );
-                })
-                .catch(function(error) {
-                  vm.errorToast("Error happened.", "Error!");
-                });
-          });    
+        axios
+          .post("deleteDiscusion", {disc_id})
+          .then(response => {
+            resolve();
+          })
+          .catch(function(error) {
+            // vm.errorToast("Error happened.", "Error!");
+          });
+    });    
     }
 }

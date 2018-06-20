@@ -40,6 +40,7 @@ button:focus{
 .h3s{
     font-weight: $h3-other-weight;
     font-size: $h3-other-size;
+    color: $h2s-color;
   }
 .setup_margin_top{
   margin-top: 5%;
@@ -54,7 +55,7 @@ button:focus{
 
 .profile_container
 {
-  background: linear-gradient(to bottom, #2c3340 0%, #2c3340 15vh, #ffffff 15vh, #ffffff 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #6b6b6b 15vh, #ffffff 15vh, #ffffff 100%)
 
 }
 .comp_container {

@@ -69,6 +69,7 @@ export default {
             let email_not_verified =
               response.data === "Please verify your account";
             const banned_user = response.data === "Your account is suspended";
+            
             if(banned_user)
             {
               vm.errorToast("You are banned from site!","Error");

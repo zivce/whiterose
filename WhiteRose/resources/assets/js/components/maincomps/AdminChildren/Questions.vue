@@ -66,9 +66,9 @@ export default {
   mounted() {
     eventBus.$on("isVisibleMoreInfo", val => {
       this.isVisibleBid = val;
-      //TODO: ponovo da se refresh jobs jer je obrisan iz baze.
-      // AllJobsApi.getAllJobs().then(jobs => vm.all_jobs = jobs);
     });
+
+
   },
   methods: {
     showDetails(props) {
