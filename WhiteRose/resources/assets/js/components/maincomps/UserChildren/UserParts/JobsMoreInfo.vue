@@ -49,8 +49,8 @@ export default {
     deleteJob() {
       this.notifySuccess("Job deleted.", "Success!");
       eventBus.$emit("isVisibleMoreInfo", false);
-      //TODO: implementacija
-      // DeleteJobAPI.deleteJobWithId(id);
+      
+      DeleteJobAPI.deleteJobWithId(this.det.job_id);
     },
     disableMoreInfo() {
       eventBus.$emit("isVisibleMoreInfo", false);

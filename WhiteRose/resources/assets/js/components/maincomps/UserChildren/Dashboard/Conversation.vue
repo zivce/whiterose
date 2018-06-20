@@ -9,7 +9,7 @@
 
         </div>
 
-        <span 
+        <!-- <span 
         class="del_msg"
         v-b-tooltip.hover.right="'Delete messages'"
         style="cursor:pointer;"
@@ -18,7 +18,8 @@
             name="trash-alt">
           </icon>
         </span>
-        
+         -->
+         
         <!-- <div 
         class = "msg_cont "
         v-for="(disc) in whole_convo.discusion"
