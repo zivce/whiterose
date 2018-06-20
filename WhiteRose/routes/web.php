@@ -55,7 +55,7 @@ Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/client', 'HomeController@client')->name('client');
 Route::get('/hacker', 'HomeController@hacker')->name('hacker');
 
-
+Route::post('withdrawTokens','PentesterController@cashOut');
 //site verification
 Route::get('getVerifiedSites','ClientController@verifiedSites');
 Route::post('newsite','ClientController@addNewWebsite')->name('newsite');
@@ -107,7 +107,7 @@ Route::get('clientlogout','ClientController@logout')->name('logout');
 
 //Pentester loging register
 Route::post('hackerreg','PentesterController@register')->name('hackerreg');
-Route::get('/confirmed/{token}','PentesterController@verifyAccount')->name('confirmed');
+Route::get('/confirmedPen/{token}','PentesterController@verifyAccount')->name('confirmed');
 Route::post('/hackerlogin','PentesterController@login')->name('hackerlogin');
 Route::get('hackerlogout','PentesterController@logout')->name('logout');
 

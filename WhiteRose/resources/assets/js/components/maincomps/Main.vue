@@ -108,8 +108,24 @@
               </b-dropdown-item>
 
 
-              <b-dropdown-item  :to="tokens_url">
+              <b-dropdown-item  
+               v-if="!isHacker"
+              :to="tokens_url">
                   <slot name="button-content"><icon name="check"></icon> Buy tokens</slot>
+              </b-dropdown-item>
+
+              
+              <b-dropdown-item  
+               v-if="isHacker"
+              :to="tokens_pentester">
+
+                  <slot name="button-content"><icon name="check"></icon> Withdraw
+                  <icon 
+                  style="vertical-align:middle;"   
+                  height="25"
+                  width="25" name="bandcamp">
+                  </icon>
+                   </slot>
               </b-dropdown-item>
 
 
@@ -217,6 +233,7 @@ export default {
 
     this.profile_url = `/${this.user_role}/${this.user_id}/dashboard/profile`;
     this.tokens_url = `/${this.user_role}/${this.user_id}/purchasetokens`;
+    this.tokens_pentester = `/${this.user_role}/${this.user_id}/withdrawtokens`
   },
   computed: {
     ...mapGetters({
@@ -230,6 +247,9 @@ export default {
     }
   },
   methods: {
+    withdraw() {
+      // this.$router.push("withdrawtokens");
+    },
     rel(){
       window.location.reload();
     },

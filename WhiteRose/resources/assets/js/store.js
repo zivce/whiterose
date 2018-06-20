@@ -58,6 +58,17 @@ const store = new Vuex.Store({
     setTokens(state, payload) {
       state.tokens = Number(state.tokens) + Number(payload.tokens);
     },
+    withdrawTokens(state, payload) {
+      let decremented_tokens = Number(state.tokens) - Number(payload.tokens);
+
+      if (decremented_tokens < 0)
+        payload.vm.errorToast("Insufficient tokens", "Error!");
+      else 
+      {
+        payload.vm.notifyInfo("Your PayPal email is added for payment","Info.")
+        state.tokens = decremented_tokens;
+      }
+    },
     decrementTokens(state, payload) {
       let decremented_tokens = Number(state.tokens) - Number(payload.tokens);
 
