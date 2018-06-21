@@ -225,7 +225,7 @@ class ClientController extends Controller
        $clientID=Auth::guard('client')->user()->id;
        $client=Auth::guard('client')->user();
        
-       $jobs = $client->jobs();
+       $jobs = $client->jobs()->orderBy('created_at','DESC');
        $jobs_bids = $jobs->with('bids')->get();
 
        foreach($jobs_bids as $jb){

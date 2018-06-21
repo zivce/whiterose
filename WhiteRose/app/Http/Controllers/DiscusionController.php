@@ -25,7 +25,7 @@ class DiscusionController extends Controller
         }
 
      
-        $discusions=$user->discusions()->get();
+        $discusions=$user->discusions()->orderBy('created_at','DESC')->get();
        //return $discusions;
         foreach($discusions as $disc)
         {
