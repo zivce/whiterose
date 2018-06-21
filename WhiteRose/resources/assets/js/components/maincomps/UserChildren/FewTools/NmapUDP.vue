@@ -195,7 +195,7 @@ export default {
   },
   data() {
     return {
-      COST_OF_SUBMISSION: 5,
+      COST_OF_SUBMISSION: 2,
 
       //sites heres
       selected_site: null,

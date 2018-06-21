@@ -259,7 +259,7 @@ class ClientController extends Controller
         $client->password = Hash::make($request->password);
         $client->remember_token=str_random(100);
         $client->image_path = 'public\uploads\images\avatar_pentester.png';
-        
+        $client->description = 'Need help to secure my website.';
         
         $client->confirmation_code=str_random(30);
         $this->passwordResetEmail=$request->email;
