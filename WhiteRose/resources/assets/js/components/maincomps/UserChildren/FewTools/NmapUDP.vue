@@ -266,8 +266,8 @@ export default {
       let resultCmd = "nmap ";
 
       resultCmd += ` ${this.selected_site}`;
-      
-      resultCmd += " -sU";
+
+      resultCmd += " -sU ";
 
       if (this.isCommonChecked) resultCmd += "-F --top-ports 100";
 
