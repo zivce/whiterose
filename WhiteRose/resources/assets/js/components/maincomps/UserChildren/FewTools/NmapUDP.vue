@@ -136,7 +136,8 @@ f -->
             Start Scan!
         </b-button>
 
-        
+        <p v-if="isVisible">
+           This scan is saved and can be used when posting job. </p>
         <textarea v-if="isVisible " readonly name="" id="backLog" cols="100"    
         style="margin-top: 36px;margin-bottom: 0px;height: 118px;width: 100%;" 
         :rows="lines" 
