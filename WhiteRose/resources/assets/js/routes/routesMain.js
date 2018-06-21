@@ -13,7 +13,7 @@ let routes = [
         children: [
         {
             path:`client/:id`,
-            redirect : {name: 'postj'},
+            redirect : {name: 'client_profile'},
             meta: {
                 client : true
             },
@@ -73,7 +73,7 @@ let routes = [
                         component: require('../components/maincomps/PentesterChildren/Dashboard/Profile.vue')
                     },
                     {
-                        
+                        name: 'client_profile',
                         meta:{
                             fail: `client/:id/`
                         },
@@ -156,7 +156,7 @@ let routes = [
         },
         {
             path:'pentester/:id',
-            redirect : {name: 'cvpost'},
+            redirect : {name: 'pentester_profile'},
             meta: {
                 pentester : true
             },
@@ -195,7 +195,7 @@ let routes = [
                 },
                 
                 {
-                    
+                    name:'pentester_profile',
                     meta:{
                         fail: `pentester/:id/`
                     },
