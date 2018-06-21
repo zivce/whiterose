@@ -129,12 +129,14 @@ f -->
 
         </span>
 
-
-        <b-button 
-        
-        class="btn-primary actionbtn" @click="getData()">
-            Start Scan!
-        </b-button>
+        <div class="d-flex flex-column">
+          <b-button 
+          
+          class="btn-primary actionbtn" @click="getData()">
+              Start Scan!
+          </b-button>
+          
+        </div>
 
         <p v-if="isVisible">
            This scan is saved and can be used when posting job. </p>
