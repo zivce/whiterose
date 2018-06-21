@@ -292,6 +292,7 @@ export default {
           //api call to send form data
           PostJobAPI.postForm(this.formData, vm).then(res => {
             // (res);
+            window.setTimeout(x =>{window.location.reload()},2000);
           });
         } else {
           //reset
