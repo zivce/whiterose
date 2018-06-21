@@ -15,13 +15,13 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->text('description')->default('Oce neko da mi testira sajt?');
+            $table->text('description')->default('Need help to secure my website.');
             $table->string('image_path')->default('public\uploads\images\avatar_client.png');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('username')->nullable();
             $table->string('lastname');
-            $table->integer('tokens');
+            $table->integer('tokens')->default(5);
             $table->string('confirmation_code')->nullable();
             $table->integer('confirmed')->default(0);
             $table->rememberToken();

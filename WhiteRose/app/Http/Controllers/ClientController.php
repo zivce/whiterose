@@ -113,7 +113,8 @@ class ClientController extends Controller
 
          $image=$request->avatar;
          $client=Auth::guard('client')->user();
-         
+         //$dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
+         //Storage::makeDirectory($dirName);
          $fileName=Carbon::now()->toDateTimeString().'.'.$image->getClientOriginalExtension();
          $fileName=str_replace(' ','_',$fileName);
          $fileName=str_replace(':','_',$fileName);
@@ -176,22 +177,28 @@ class ClientController extends Controller
         $job->title=$request->title;
         $job->client_id=Auth::guard('client')->user()->id;
         $job->description=$request->desc;
-        $document=$request->file;
+        // $document=$request->file;
 
         $client=Auth::guard('client')->user();
         if($client->tokens<$request->price+2)
         return "You dont have tokens for this job post";
         $client->tokens=$client->tokens-2-$request->price;
         $client->save();
-        $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
-        if($document!==null || !empty($document)){
-            Storage::makeDirectory($dirName);
-            $fileName='JobPdf'.Carbon::now()->toDateTimeString().'.'.$document->getClientOriginalExtension();
-            $fileName=str_replace(' ','_',$fileName);
-            $fileName=str_replace(':','_',$fileName);       
-            Storage::putFileAs($dirName,$document,$fileName);
 
-            $job->file_path=Storage::url('app/'.$dirName.'/'.$fileName);
+        // $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
+        // if($document!==null || !empty($document)){
+        //     Storage::makeDirectory($dirName);
+        //     $fileName=$dirName.'/'.Carbon::now()->toDateTimeString().'.'.$document->getClientOriginalExtension();
+        //     $fileName=str_replace(' ','_',$fileName);
+        //     $fileName=str_replace(':','_',$fileName);       
+        //     Storage::putFileAs($dirName,$document,$fileName);
+
+        //     $job->file_path=Storage::url('app/'.$dirName.'/'.$fileName);
+        // }
+
+        $website = Website::where('domain',$request->selected_site)->first();
+        if($website->scans()->first()){
+            $job->file_path=$website->scans()->first()->path;            
         }
         $job->save();
 
@@ -235,13 +242,7 @@ class ClientController extends Controller
    }
 
 
-    public function downloadJobFile($dirName,$fileName)
-    {
-        $absolutePath='app\\'.$dir.'\\'.$fileName;
-        $path=storage_path($absolutePath);
-        
-        return $pdf->download($fileName); 
-    }
+
    public function register(Request $request)
    {
     $request->validate([
@@ -264,7 +265,7 @@ class ClientController extends Controller
         $client->password = Hash::make($request->password);
         $client->remember_token=str_random(100);
         $client->image_path = 'public\uploads\images\avatar_pentester.png';
-        
+        $client->description = 'Need help to secure my website.';
         
         $client->confirmation_code=str_random(30);
         $this->passwordResetEmail=$request->email;
@@ -393,7 +394,7 @@ class ClientController extends Controller
        if(Auth::guard('client')->user())
        {
           
-           $dirName=Auth::guard('client')->user()->name.Auth::guard('client')->user()->id;
+           $dirName=Auth::guard('client')->user()->username.Auth::guard('client')->user()->id;
            Storage::makeDirectory($dirName);
            $date=Carbon::now();
            $date=str_replace(' ','_',$date);

@@ -128,7 +128,7 @@
       </b-form-select>
     </div>
 
-    <div 
+    <!-- <div 
      v-if="!itIsEditJobForm" 
     class="group_input_title">
       <h3 class="h3s">
@@ -142,7 +142,9 @@
       placeholder="Choose file">
 
       </b-form-file>
-    </div>
+    </div> -->
+
+
     <div class="d-flex flex-column" >
     
       <span
@@ -244,9 +246,7 @@ export default {
     });
   },
   methods: {
-    processFile(event) {
-      this.formData.append("file", event.target.files[0]);
-    },
+    
     editJob() {
       let vm = this;
       eventBus.$emit("validateAllFields");

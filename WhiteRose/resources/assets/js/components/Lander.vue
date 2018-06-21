@@ -50,7 +50,8 @@
    <div class="clients_left">
     <h2>Clients</h2>
     <h4>Integrated tools</h4>
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). </p>
+    <p> WhiteRose is an online risk management center which assists you in vulnerability assessment of your websites and network infrastructure from a remote location.Scan your website for security issues crowdsourced by the best white-hat hackers in the world. Verify that all usernames and passwords are encrypted and transferred over secured connection like https.  Ransomware malware remains a major problem for businesses going into 2018.Verify previously found vulnerabilities to check if the remediations are working. Network connected devices in the hands of consumers will reach approximately 1.8 billion - hacking these will be common in years to come. Find the right person to help you to enhance your website security!
+ </p>
    </div>
    <div class="clients_right">
      <div class="clients_right_img_holder">
@@ -67,29 +68,30 @@
    <div class="pentesters_right">
       <h2>Pentesters</h2>
       <h4>Show your skills</h4>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). </p>
+      <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). </p> -->
+      <p> Find security issues, verify vulnerability mitigations and manage security assessments on pending jobs on our plaltform. Get the verified status of ethical hacker on world's best penetration testing platform. The main idea is to replicate a malicious hacker at work and instead of exploiting the vulnerabilities for malicious purposes, seek countermeasures to shore up the system's defenses. Earn the tokens and sell them for real money! Number 1 ethical hacking freelance platform! </p>
    </div>
    </div>
     <div id="videos_holder">
      <h2>Videos</h2>
       <div class="videos">
         <div class="video_item">
-          <iframe width="350" height="350" src="https://www.youtube.com/embed/rpWrtXyEAN0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="350" height="350" src="https://www.youtube.com/embed/AmrnNC1ffEk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
         <div class="video_item">
-          <iframe width="350" height="350" src="https://www.youtube.com/embed/rpWrtXyEAN0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>  
+          <iframe width="350" height="350" src="https://www.youtube.com/embed/nmtaPNgfi6s" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>  
         </div>
         <div class="video_item">
-          <iframe width="350" height="350" src="https://www.youtube.com/embed/rpWrtXyEAN0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="350" height="350" src="https://www.youtube.com/embed/Yqn1BJivxYg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
         <div class="video_item">
-          <iframe width="350" height="350" src="https://www.youtube.com/embed/rpWrtXyEAN0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="350" height="350" src="https://www.youtube.com/embed/Wq6xK3khtXI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
       </div>
     </div>
    <footer class="flex-rw">
       
-      <ul class="footer-list-top">
+      <!-- <ul class="footer-list-top">
         <li>
           <h4 class="footer-list-header">About Whiterose</h4></li>
         <li><a href='#' class="generic-anchor footer-list-anchor" itemprop="significantLink">GET TO KNOW US</a></li>
@@ -119,7 +121,7 @@
         <li id='find-a-store'><a href='#' class="generic-anchor footer-list-anchor" itemprop="significantLink">SERVER LOCATION</a></li>
         <li id='user-registration'><a href='#' class="generic-anchor footer-list-anchor" itemprop="significantLink">NEW USERS</a></li>
         <li id='order-tracking'><a href='#' itemprop="significantLink" class="generic-anchor footer-list-anchor">ORDER STATUS</a></li>
-      </ul>
+      </ul> -->
       <section class="footer-social-section flex-rw">
           <span class="footer-social-overlap footer-social-connect">
           CONNECT <span class="footer-social-small">with</span> US

@@ -132,6 +132,7 @@ const store = new Vuex.Store({
         return ''
 
     },
+    returnSkillsScore  : state => state.user.skills_score,
     returnSitesNumber : state => state.sites.length,
     returnSites: state => state.sites,
     returnUsername : state => state.user.username,

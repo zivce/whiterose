@@ -141,7 +141,7 @@ if (home_exists) {
           
           window.setTimeout(( ) => {
             this.fetched_user = true;
-          },0)
+          },2000)
         
           
           this.$router.push({
