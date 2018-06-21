@@ -192,7 +192,12 @@ export default {
               return;
             } else if (response.status === 200) {
             
-              vm.notifySuccess("User registered!", "Success!");
+              vm.notifySuccess("Verify your email!", "Success!");
+
+             
+              vm.$router.push({
+                path: "/"
+              });
 
               return;
             }

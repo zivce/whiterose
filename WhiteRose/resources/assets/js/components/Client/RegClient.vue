@@ -103,11 +103,12 @@ export default {
               vm.errorToast("User exists.", "Error!");
               return;
             } else if (response.status === 200) {
-              vm.notifySuccess("Proceed to login.", "Success");
+              vm.notifySuccess("Verify your email.", "Success");
 
               vm.$router.push({
                 path: "client"
               });
+              
               return;
             }
           })

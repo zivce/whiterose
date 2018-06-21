@@ -21,6 +21,13 @@ export default {
                       })
                       .then(function(response) {
                         vm.notifyInfo("Description added.", "Info.");
+
+                        
+                        let t = window.setTimeout(() => {
+                          window.location.reload();
+                          window.clearTimeout(t);
+                        },2000)
+                        
                       })
                       .catch(function(error) {
                         vm.errorToast("An error happened.", "Error.");
