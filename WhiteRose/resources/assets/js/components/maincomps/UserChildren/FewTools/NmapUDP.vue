@@ -263,9 +263,11 @@ export default {
     },
 
     buildCmd() {
-      let resultCmd = "nmap -sU ";
+      let resultCmd = "nmap ";
 
-      //ranges common list...
+      resultCmd += ` ${this.selected_site}`;
+      
+      resultCmd += " -sU";
 
       if (this.isCommonChecked) resultCmd += "-F --top-ports 100";
 
@@ -286,7 +288,6 @@ export default {
 
       if (this.dontPingHost) resultCmd += " -Pn";
 
-      resultCmd += ` ${this.url}`;
 
       return resultCmd;
     },
