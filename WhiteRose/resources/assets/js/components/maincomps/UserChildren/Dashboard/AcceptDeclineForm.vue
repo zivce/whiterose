@@ -115,6 +115,7 @@ export default {
         if (form_ok)
           ConvoAPI.markAsCompleted(send, this).then(() => {
             eventBus.$emit("acceptedJob", true);
+            window.location.reload();
           });
         else this.errorToast("Fill out the form", "Error");
       });
