@@ -53,7 +53,7 @@ export default {
         response.data.forEach(site => {
           site.scans.forEach(scan_info => {
             this.table_data.push({
-              date: moment(scan_info.created_at),
+              date: moment(scan_info.created_at).format("DD-MM hh:mm"),
               scan: scan_info.scanName,
               uri: scan_info.path,
               link: "download"+ scan_info.path.substring(8,200)
