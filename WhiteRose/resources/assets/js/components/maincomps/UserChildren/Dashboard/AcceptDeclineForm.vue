@@ -66,7 +66,7 @@
         </div>
 
         <b-button 
-            @click="markAsCompleted()"
+            @click.once="markAsCompleted()"
             class="btn btn-success"
             >
             Submit
