@@ -160,3 +160,5 @@ Route::get('getQuestions','PentesterController@getQuestions');
 Route::post('getScore','PentesterController@getScore');
 
 Route::post('editQuestion','AdminController@editQuestion');
+
+Route::get('downloadJobFile/{dirName}/{fileName}','ClientController@downloadJobFile');
